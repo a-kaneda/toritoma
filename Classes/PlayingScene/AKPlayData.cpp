@@ -113,8 +113,6 @@ m_reflectShotPool(kAKMaxEnemyShotCount), m_enemyPool(kAKMaxEnemyCount),
 m_enemyShotPool(kAKMaxEnemyShotCount), m_effectPool(kAKMaxEffectCount),
 m_blockPool(kAKMaxBlockCount), m_tileMap(NULL), m_player(NULL)
 {
-    AKLog(kAKLogPlayData_1, "start");
-    
     // シーンを確保する
     m_scene->retain();
     
@@ -128,8 +126,6 @@ m_blockPool(kAKMaxBlockCount), m_tileMap(NULL), m_player(NULL)
     
     // ゲームデータを初期化する
     clearPlayData();
-        
-    AKLog(kAKLogPlayData_1, "end");
 }
 
 /*!
@@ -155,8 +151,6 @@ AKPlayData::~AKPlayData()
  */
 void AKPlayData::createMember()
 {
-    AKLog(kAKLogPlayData_1, "start createMember()");
-
     // 各z座標用にバッチノードを作成する
     for (int i = 0; i < kAKCharaPosZCount; i++) {
 
@@ -166,21 +160,15 @@ void AKPlayData::createMember()
 
         // 配列に保存する
         m_batches.push_back(batch);
-
-        AKLog(kAKLogPlayData_1, "i=%d, batch=%p, m_batches.at(i)=%p", i, batch, m_batches.at(i));
-
         batch->retain();
         
         // シーンに配置する
         m_scene->getCharacterLayer()->addChild(batch, i);
     }
-    AKLog(kAKLogPlayData_1, "cahracterLayer=%p", m_scene->getCharacterLayer());
 
     // 自機を作成する
     m_player = new AKPlayer(m_batches.at(kAKCharaPosZPlayer),
                             m_batches.at(kAKCharaPosZOption));
-
-    AKLog(kAKLogPlayData_1, "end createMember()");
 }
 
 /*!
@@ -755,8 +743,6 @@ CCPoint AKPlayData::convertDevicePositionToTilePosition(CCPoint devicePosition)
  */
 void AKPlayData::createPlayerShot(CCPoint position)
 {
-    AKLog(kAKLogPlayData_1, "自機弾生成");
-    
     // プールから未使用のメモリを取得する
     AKPlayerShot *playerShot = m_playerShotPool.getNext();
     if (playerShot == NULL) {
@@ -777,8 +763,6 @@ void AKPlayData::createPlayerShot(CCPoint position)
  */
 void AKPlayData::createReflectShot(AKEnemyShot *enemyShot)
 {
-    AKLog(kAKLogPlayData_1, "反射弾生成");
-    
     // プールから未使用のメモリを取得する
     AKEnemyShot *reflectShot = m_reflectShotPool.getNext();
     if (reflectShot == NULL) {
@@ -801,8 +785,6 @@ void AKPlayData::createReflectShot(AKEnemyShot *enemyShot)
  */
 void AKPlayData::createEnemy(int type, CCPoint position, int progress)
 {
-    AKLog(kAKLogPlayData_1, "敵生成");
-
     // プールから未使用のメモリを取得する
     AKEnemy *enemy = m_enemyPool.getNext();
     if (enemy == NULL) {
@@ -852,13 +834,10 @@ CCNode* AKPlayData::getEnemyShotParent()
  */
 void AKPlayData::createEffect(int type, CCPoint position)
 {
-    AKLog(kAKLogPlayData_1, "画面効果生成");
-
     // プールから未使用のメモリを取得する
     AKEffect *effect = m_effectPool.getNext();
     if (effect == NULL) {
         // 空きがない場合は処理終了する
-        AKLog(kAKLogPlayData_0, "画面効果プールに空きなし");
         AKAssert(false, "画面効果プールに空きなし");
         return;
     }
@@ -877,8 +856,6 @@ void AKPlayData::createEffect(int type, CCPoint position)
  */
 void AKPlayData::createBlock(int type, CCPoint position)
 {
-    AKLog(kAKLogPlayData_2, "障害物生成");
-    
     // プールから未使用のメモリを取得する
     AKBlock *block = m_blockPool.getNext();
     if (block == NULL) {

@@ -49,7 +49,8 @@ AKMenuItem::AKMenuItem(const cocos2d::CCRect &rect,
                        enum AKMenuType type,
                        int eventNo,
                        unsigned int tag) :
-m_rect(rect), m_type(type), m_eventNo(eventNo), m_tag(tag), m_prevPoint(0.0f, 0.0f)
+m_rect(rect), m_type(type), m_eventNo(eventNo), m_tag(tag),
+m_prevPoint(0.0f, 0.0f), m_touch(NULL)
 {
 }
 
@@ -70,7 +71,7 @@ AKMenuItem::AKMenuItem(const cocos2d::CCPoint &position,
                        int eventNo,
                        unsigned int tag) :
 m_rect(AKMakeRectFromCenter(position, size)), m_type(type), m_eventNo(eventNo),
-m_tag(tag), m_prevPoint(0.0f, 0.0f)
+m_tag(tag), m_prevPoint(0.0f, 0.0f), m_touch(NULL)
 {
 }
 

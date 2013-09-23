@@ -100,8 +100,6 @@ void AKInterface::setEnableTag(unsigned int enableTag)
  */
 void AKInterface::onEnter()
 {
-    AKLog(kAKLogInterface_1, "onEnter start");
-    
     // 親クラスの処理を呼び出す
     CCLayer::onEnter();
 
@@ -109,8 +107,6 @@ void AKInterface::onEnter()
     CCDirector *director = CCDirector::sharedDirector();
     CCTouchDispatcher *touchDispatcher = director->getTouchDispatcher();
     touchDispatcher->addTargetedDelegate(this, 0, true);
-
-    AKLog(kAKLogInterface_1, "onEnter end");
 }
 
 /*!
@@ -125,7 +121,6 @@ bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
     // メニュー項目が登録されていない場合は処理を終了する
     if (m_menuItems.size() == 0) {
-        AKLog(kAKLogInterface_1, "メニュー項目なし");
         return true;
     }
     
@@ -134,8 +129,6 @@ bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
     
     // cocos2dの座標系に変換する
     CCPoint location = CCDirector::sharedDirector()->convertToGL(locationInView);
-    
-    AKLog(kAKLogInterface_1, "location = (%f, %f)", location.x, location.y);
     
     // 各項目の選択処理を行う
     std::vector<AKMenuItem*>::iterator it;
@@ -153,12 +146,15 @@ bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
             
             // メニュー種別に応じて処理を分岐する
             switch (item->getType()) {
+
                 case kAKMenuTypeButton:     // タッチボタン
+
                     // 選択されていれば親ノードにイベントを送信する
                     m_eventHandler->execEvent(item);
                     return true;
                     
                 case kAKMenuTypeMomentary:  // モーメンタリボタン
+
                     // まだ選択されていない場合はON状態にする
                     if (item->getTouch() == NULL) {
                         item->setTouch(pTouch);
@@ -168,9 +164,10 @@ bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
                     break;
                     
                 case kAKMenuTypeSlide:      // スライド入力
+
                     // まだスライド開始していない場合は開始する
                     if (item->getTouch() == NULL) {
-                        AKLog(kAKLogInterface_1, "スライド入力開始");
+
                         item->setTouch(pTouch);
                         item->setPrevPoint(location);
                         m_eventHandler->execEvent(item);
@@ -196,8 +193,6 @@ bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
  */
 void AKInterface::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
 {
-    AKLog(kAKLogInterface_1, "start");
-    
     // キャンセルするメニュー項目を検索する
     for (AKMenuItem *item : m_menuItems) {
         
@@ -217,8 +212,6 @@ void AKInterface::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
             break;
         }
     }
-    
-    AKLog(kAKLogInterface_1, "end");
 }
 
 /*!
@@ -230,15 +223,11 @@ void AKInterface::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
  */
 void AKInterface::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
 {
-    AKLog(kAKLogInterface_1, "start");
-
     // 終了するメニュー項目を検索する
     for (AKMenuItem *item : m_menuItems) {
         
         // メニュー項目のタッチイベントと終了されたタッチイベントが一致した場合
         if (item->getTouch() == pTouch) {
-            
-            AKLog(kAKLogInterface_1, "タッチ入力終了");
             
             // タッチ状態を設定する
             item->setTouchPhase(kAKMenuTouchEnded);
@@ -253,8 +242,6 @@ void AKInterface::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
             break;
         }
     }
-
-    AKLog(kAKLogInterface_1, "end");
 }
 
 /*!
@@ -266,8 +253,6 @@ void AKInterface::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
  */
 void AKInterface::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 {
-    AKLog(kAKLogInterface_1, "start");
-
     // 移動するメニュー項目を検索する
     for (AKMenuItem *item : m_menuItems) {
         
@@ -293,8 +278,6 @@ void AKInterface::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
         }
     }
     
-    AKLog(kAKLogInterface_1, "メニューに対応していないスライド");
-    
     // 画面上のタッチ位置を取得する
     CCPoint locationInView = pTouch->getLocationInView();
     
@@ -309,12 +292,8 @@ void AKInterface::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
             continue;
         }
         
-        AKLog(kAKLogInterface_1, "isSelectedPos=%d", item->isSelect(location));
-        
         // 有効な項目で選択されている場合は処理を行う
         if ((item->getTag() & m_enableTag || item->getTag() == 0) && item->isSelect(location)) {
-            
-            AKLog(kAKLogInterface_1, "メニュー項目切り替え");
             
             item->setTouchPhase(kAKMenuTouchMove);
             item->setTouch(pTouch);
@@ -323,8 +302,6 @@ void AKInterface::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
             return;
         }
     }
-    
-    AKLog(kAKLogInterface_1, "end");
 }
 
 /*!
@@ -337,7 +314,6 @@ void AKInterface::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
 void AKInterface::addMenuItem(AKMenuItem *menu)
 {
     AKAssert(menu, "引数にNULLが指定された");
-    AKLog(kAKLogInterface_1, "メニュー項目追加");
     
     // 追加する項目がスライド入力の場合は末尾に追加する
     if (menu->getType() == kAKMenuTypeSlide) {
@@ -420,10 +396,6 @@ AKLabel* AKInterface::addLabelMenu(const std::string menuString,
     
     // ラベルを画面に配置する
     addChild(label, z, tag);
-    
-    AKLog(kAKLogInterface_1, "rect=(%f, %f, %f, %f)",
-          label->getRect().origin.x, label->getRect().origin.y,
-          label->getRect().size.width, label->getRect().size.height);
     
     // メニュー項目をインターフェースに追加する
     AKMenuItem *menuItem = new AKMenuItem(label->getRect(), kAKMenuTypeButton, event, tag);

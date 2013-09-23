@@ -429,6 +429,8 @@ void AKPlayingScene::onDidEnterBackground()
  */
 void AKPlayingScene::movePlayer(const AKMenuItem *item)
 {
+    AKLog(1, "movePlayer() start");
+    
     // 画面上のタッチ位置を取得する
     CCPoint locationInView = item->getTouch()->getLocationInView();
     
