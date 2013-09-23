@@ -1,0 +1,30 @@
+# GitHubの自動生成
+.DS_Store
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+*.xcworkspace
+!default.xcworkspace
+xcuserdata
+profile
+*.moved-aside
+DerivedData
+.idea/
+# Xcodeプロジェクト関連
+*.xcodeproj/*
+!*.xcodeproj/project.pbxproj
+!*.xcodeproj/default.*
+*.xcworkspace/*
+!*.xcworkspace/contents.xcworkspacedata
+# cocos2d-xが自動生成した他のOSのフォルダ
+proj.blackberry/
+proj.linux/
+proj.mac/
+proj.marmalade/
+proj.win32/
