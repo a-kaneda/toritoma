@@ -150,6 +150,8 @@ public:
     virtual void move(AKPlayDataInterface *data);
     // 画像の取得
     cocos2d::CCSprite* getImage();
+    // 画像有無チェック
+    bool hasImage();
     
     /*!
      @brief 衝突判定(動作なし)

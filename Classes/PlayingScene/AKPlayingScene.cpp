@@ -504,7 +504,7 @@ void AKPlayingScene::touchResumeButton()
     // ボタンのブリンクアクションを作成する
     CCBlink *blink = CCBlink::create(0.2f, 2);
     CCCallFunc *callFunc = CCCallFunc::create(this, callfunc_selector(AKPlayingScene::resume));
-    CCSequence *action = CCSequence::create(blink, callFunc);
+    CCSequence *action = CCSequence::create(blink, callFunc, NULL);
     
     // ボタンを取得する
     CCNode *button = m_interfaceLayer->getResumeButton();
@@ -525,13 +525,15 @@ void AKPlayingScene::touchResumeButton()
  */
 void AKPlayingScene::touchQuitButton()
 {
+    AKLog(true, "touchQuitButton() start");
+
     // 他の処理が動作しないように待機状態にする
     setState(kAKGameStateWait);
     
     // ボタンのブリンクアクションを作成する
     CCBlink *blink = CCBlink::create(0.2f, 2);
-    CCCallFunc *callFunc = CCCallFunc::create(this, callfunc_selector(AKPlayingScene::resume));
-    CCSequence *action = CCSequence::create(blink, callFunc);
+    CCCallFunc *callFunc = CCCallFunc::create(this, callfunc_selector(AKPlayingScene::viewQuitMenu));
+    CCSequence *action = CCSequence::create(blink, callFunc, NULL);
     
     // ボタンを取得する
     CCNode *button = m_interfaceLayer->getQuitButton();
@@ -541,6 +543,8 @@ void AKPlayingScene::touchQuitButton()
     
     // TODO:メニュー選択時の効果音を鳴らす
 //    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
+
+    AKLog(true, "touchQuitButton() end");
 }
 
 /*!
@@ -642,6 +646,9 @@ void AKPlayingScene::update(float delta)
  */
 void AKPlayingScene::execEvent(const AKMenuItem *item)
 {
+    AKLog(true, "execEvent() start");
+    AKLog(true, "event no:%d", item->getEventNo());
+    
     // 選択された項目に応じて処理を行う
     switch (item->getEventNo()) {
         case kAKEventTouchShieldButton:     // シールドボタン
@@ -684,6 +691,8 @@ void AKPlayingScene::execEvent(const AKMenuItem *item)
             AKAssert(false, "不正なイベント番号:%d", item->getEventNo());
             break;
     }
+
+    AKLog(true, "execEvent() end");
 }
 
 #pragma mark AKPlayDataからのシーン操作用

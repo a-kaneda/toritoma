@@ -119,6 +119,8 @@ void AKInterface::onEnter()
  */
 bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
+    AKLog(true, "ccTouchBegan() start");
+
     // メニュー項目が登録されていない場合は処理を終了する
     if (m_menuItems.size() == 0) {
         return true;
@@ -137,6 +139,7 @@ bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
         AKMenuItem *item = *it;
         
         AKAssert(item, "メニューアイテムがNULL");
+        AKLog(true, "tag=%d, type=%d eventNo=%d", item->getTag(), item->getType(), item->getEventNo());
         
         // 有効な項目で選択されている場合は処理を行う
         if ((item->getTag() & m_enableTag || item->getTag() == 0) && item->isSelect(location)) {
@@ -149,11 +152,15 @@ bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 
                 case kAKMenuTypeButton:     // タッチボタン
 
+                    AKLog(true, "タッチボタン");
+
                     // 選択されていれば親ノードにイベントを送信する
                     m_eventHandler->execEvent(item);
                     return true;
                     
                 case kAKMenuTypeMomentary:  // モーメンタリボタン
+
+                    AKLog(true, "モーメンタリボタン");
 
                     // まだ選択されていない場合はON状態にする
                     if (item->getTouch() == NULL) {
@@ -164,6 +171,8 @@ bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
                     break;
                     
                 case kAKMenuTypeSlide:      // スライド入力
+
+                    AKLog(true, "スライド入力");
 
                     // まだスライド開始していない場合は開始する
                     if (item->getTouch() == NULL) {
@@ -176,11 +185,13 @@ bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
                     break;
                     
                 default:
+                    AKAssert(false, "メニュー項目の種別が不正:%d", item->getType());
                     break;
             }
         }
     }
     
+    AKLog(true, "ccTouchBegan() end");
     return true;
 }
 
@@ -338,12 +349,15 @@ void AKInterface::addMenuItem(AKMenuItem *menu)
  @return 作成したメニュー項目のスプライト
  */
 CCSprite* AKInterface::addSpriteMenu(const std::string &spriteName,
-                                              CCPoint position,
-                                              int z,
-                                              int event,
-                                              unsigned int tag,
-                                              enum AKMenuType type)
+                                     CCPoint position,
+                                     int z,
+                                     int event,
+                                     unsigned int tag,
+                                     enum AKMenuType type)
 {
+    AKLog(true, "addSpriteMenu() start:spriteName=%s, position=(%f, %f), z=%d, event=%d, tag=%u type=%d",
+        spriteName.c_str(), position.x, position.y, z, event, tag, type);
+
     // ボタンの画像を読み込む
     CCSprite *itemSprite = CCSprite::createWithSpriteFrameName(spriteName.c_str());
     AKAssert(itemSprite != NULL, "ボタンの画像読み込みに失敗");
@@ -365,6 +379,8 @@ CCSprite* AKInterface::addSpriteMenu(const std::string &spriteName,
     AKMenuItem *menuItem = new AKMenuItem(rect, type, event, tag);
     addMenuItem(menuItem);
     
+    AKLog(true, "addSpriteMenu() end");
+
     // 作成したメニュー項目のスプライトを返す
     return itemSprite;
 }

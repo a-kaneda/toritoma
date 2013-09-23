@@ -661,26 +661,36 @@ void AKPlayData::resume()
 {
     // すべてのキャラクターのアニメーションを再開する
     // 自機
-    m_player->getImage()->resumeSchedulerAndActions();
+    if (m_player->hasImage()) {
+        m_player->getImage()->resumeSchedulerAndActions();
+    }
     
     // 自機弾
     for (AKCharacter *character : *m_playerShotPool.getPool()) {
-        character->getImage()->resumeSchedulerAndActions();
+        if (character->hasImage()) {
+            character->getImage()->resumeSchedulerAndActions();
+        }
     }
     
     // 敵
     for (AKCharacter *character : *m_enemyPool.getPool()) {
-        character->getImage()->resumeSchedulerAndActions();
+        if (character->hasImage()) {
+            character->getImage()->resumeSchedulerAndActions();
+        }
     }
     
     // 敵弾
     for (AKCharacter *character : *m_enemyShotPool.getPool()) {
-        character->getImage()->resumeSchedulerAndActions();
+        if (character->hasImage()) {
+            character->getImage()->resumeSchedulerAndActions();
+        }
     }
     
     // 画面効果
     for (AKCharacter *character : *m_effectPool.getPool()) {
-        character->getImage()->resumeSchedulerAndActions();
+        if (character->hasImage()) {
+            character->getImage()->resumeSchedulerAndActions();
+        }
     }
 }
 
@@ -693,26 +703,36 @@ void AKPlayData::pause()
 {
     // すべてのキャラクターのアニメーションを停止する
     // 自機
-    m_player->getImage()->pauseSchedulerAndActions();
+    if (m_player->hasImage()) {
+        m_player->getImage()->pauseSchedulerAndActions();
+    }
     
     // 自機弾
     for (AKCharacter *character : *m_playerShotPool.getPool()) {
-        character->getImage()->pauseSchedulerAndActions();
+        if (character->hasImage()) {
+            character->getImage()->pauseSchedulerAndActions();
+        }
     }
     
     // 敵
     for (AKCharacter *character : *m_enemyPool.getPool()) {
-        character->getImage()->pauseSchedulerAndActions();
+        if (character->hasImage()) {
+            character->getImage()->pauseSchedulerAndActions();
+        }
     }
     
     // 敵弾
     for (AKCharacter *character : *m_enemyShotPool.getPool()) {
-        character->getImage()->pauseSchedulerAndActions();
+        if (character->hasImage()) {
+            character->getImage()->pauseSchedulerAndActions();
+        }
     }
     
     // 画面効果
     for (AKCharacter *character : *m_effectPool.getPool()) {
-        character->getImage()->pauseSchedulerAndActions();
+        if (character->hasImage()) {
+            character->getImage()->pauseSchedulerAndActions();
+        }
     }
 }
 

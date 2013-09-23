@@ -261,6 +261,18 @@ CCSprite* AKCharacter::getImage()
 }
 
 /*!
+ @brief 画像有無チェック
+
+ 画像を読み込んでいるかどうかをチェックする。
+ @retval true 画像を読み込んでいる
+ @retval false 画像を読み込んでいない
+ */
+bool AKCharacter::hasImage()
+{
+    return (m_image != NULL);
+}
+
+/*!
  @brief 画像名の設定
  
  画像名を設定し、スプライトの作成または切り替えを行う。

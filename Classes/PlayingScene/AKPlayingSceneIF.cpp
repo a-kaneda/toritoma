@@ -229,8 +229,8 @@ void AKPlayingSceneIF::createPlayingMenu()
     float y = AKScreenSize::positionFromBottomPoint(kAKShieldButtonPosFromBottomPoint);
     m_shieldButton = addSpriteMenu(kAKShiledButtonNoSelectImage,
                                    CCPoint(x, y),
-                                   kAKEventTouchShieldButton,
                                    0,
+                                   kAKEventTouchShieldButton,
                                    kAKMenuTagPlaying,
                                    kAKMenuTypeMomentary);
     m_shieldButton->retain();
@@ -240,8 +240,8 @@ void AKPlayingSceneIF::createPlayingMenu()
     y = AKScreenSize::positionFromTopPoint(kAKPauseButtonPosTopPoint);
     addSpriteMenu(kAKPauseButtonImage,
                   CCPoint(x, y),
-                  kAKEventTouchPauseButton,
                   0,
+                  kAKEventTouchPauseButton,
                   kAKMenuTagPlaying,
                   kAKMenuTypeButton);
     
@@ -281,8 +281,8 @@ void AKPlayingSceneIF::createPauseMenu()
     y = AKScreenSize::positionFromBottomRatio(kAKPauseMenuPosBottomRatio);
     m_resumeButton = addLabelMenu(kAKResumeString,
                                   CCPoint(x, y),
-                                  kAKEventTouchResumeButton,
                                   0,
+                                  kAKEventTouchResumeButton,
                                   kAKMenuTagPause,
                                   true);
     m_resumeButton->retain();
@@ -292,8 +292,8 @@ void AKPlayingSceneIF::createPauseMenu()
     y = AKScreenSize::positionFromBottomRatio(kAKPauseMenuPosBottomRatio);
     m_quitButton = addLabelMenu(kAKQuitButtonString,
                                 CCPoint(x, y),
-                                kAKEventTouchQuitButton,
                                 0,
+                                kAKEventTouchQuitButton,
                                 kAKMenuTagPause,
                                 true);
     m_quitButton->retain();
@@ -325,8 +325,8 @@ void AKPlayingSceneIF::createQuitMenu()
     y = AKScreenSize::positionFromBottomRatio(kAKQuitButtonPosBottomRatio);
     addLabelMenu(kAKQuitYesString,
                  CCPoint(x, y),
-                 kAKEventTouchQuitYesButton,
                  0,
+                 kAKEventTouchQuitYesButton,
                  kAKMenuTagQuit,
                  true);
     
@@ -335,8 +335,8 @@ void AKPlayingSceneIF::createQuitMenu()
     y = AKScreenSize::positionFromBottomRatio(kAKQuitButtonPosBottomRatio);
     m_quitNoButton = addLabelMenu(kAKQuitNoString,
                                   CCPoint(x, y),
-                                  kAKEventTouchQuitNoButton,
                                   0,
+                                  kAKEventTouchQuitNoButton,
                                   kAKMenuTagQuit,
                                   true);
     m_quitButton->retain();
@@ -368,8 +368,8 @@ void AKPlayingSceneIF::createGameOverMenu()
     y = AKScreenSize::positionFromBottomRatio(kAKGameOverQuitButtonPosBottomRatio);
     addLabelMenu(kAKGameOverQuitButtonCaption,
                  CCPoint(x, y),
-                 kAKEventTouchBackButton,
                  0,
+                 kAKEventTouchBackButton,
                  kAKMenuTagGameOver,
                  true);
     
@@ -378,8 +378,8 @@ void AKPlayingSceneIF::createGameOverMenu()
     y = AKScreenSize::positionFromBottomRatio(kAKTwitterButtonPosBottomRatio);
     addSpriteMenu(kAKTwitterButtonImageFile,
                   CCPoint(x, y),
-                  kAKEventTouchTwitterButton,
                   0,
+                  kAKEventTouchTwitterButton,
                   kAKMenuTagGameOver,
                   kAKMenuTypeButton);
 }
