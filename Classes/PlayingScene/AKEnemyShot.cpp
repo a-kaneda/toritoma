@@ -284,6 +284,7 @@ void AKEnemyShot::createEnemyShot(int type,
     // 画像名を作成する
     char imageName[16] = "";
     snprintf(imageName, sizeof(imageName), kAKImageNameFormat, imageDef->fileNo);
+    setImageName(imageName);
     
     // アニメーションフレームの個数を設定する
     m_animationPattern = imageDef->animationFrame;
