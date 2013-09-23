@@ -818,6 +818,7 @@ void AKPlayingScene::createInfoLayer()
     
     // 残機表示の座標を設定する
     x = AKScreenSize::xOfStage(kAKLifePosXOfStage) + m_life->getWidth() / 2;
+    y = AKScreenSize::yOfStage(kAKLifePosYOfStage);
     m_life->setPosition(CCPoint(x, y));
     
     // スコア表示の文字列を作成する
