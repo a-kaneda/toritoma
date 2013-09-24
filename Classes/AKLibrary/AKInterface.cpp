@@ -34,7 +34,6 @@
  */
 
 #include "AKInterface.h"
-#include "AKLogNoDef.h"
 
 using cocos2d::CCDirector;
 using cocos2d::CCTouchDispatcher;
@@ -86,6 +85,8 @@ AKInterface::~AKInterface()
  */
 void AKInterface::setEnableTag(unsigned int enableTag)
 {
+    AKLog(kAKLogInterface_1, "setEnableTag() start:enableTag=%u", enableTag);
+
     // 有効化タグに値を設定する
     m_enableTag = enableTag;
     
@@ -119,7 +120,7 @@ void AKInterface::onEnter()
  */
 bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 {
-    AKLog(true, "ccTouchBegan() start");
+    AKLog(kAKLogInterface_1, "ccTouchBegan() start");
 
     // メニュー項目が登録されていない場合は処理を終了する
     if (m_menuItems.size() == 0) {
@@ -139,7 +140,7 @@ bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
         AKMenuItem *item = *it;
         
         AKAssert(item, "メニューアイテムがNULL");
-        AKLog(true, "tag=%d, type=%d eventNo=%d", item->getTag(), item->getType(), item->getEventNo());
+        AKLog(kAKLogInterface_1, "tag=%d, type=%d eventNo=%d", item->getTag(), item->getType(), item->getEventNo());
         
         // 有効な項目で選択されている場合は処理を行う
         if ((item->getTag() & m_enableTag || item->getTag() == 0) && item->isSelect(location)) {
@@ -152,7 +153,7 @@ bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
 
                 case kAKMenuTypeButton:     // タッチボタン
 
-                    AKLog(true, "タッチボタン");
+                    AKLog(kAKLogInterface_1, "タッチボタン");
 
                     // 選択されていれば親ノードにイベントを送信する
                     m_eventHandler->execEvent(item);
@@ -160,7 +161,7 @@ bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
                     
                 case kAKMenuTypeMomentary:  // モーメンタリボタン
 
-                    AKLog(true, "モーメンタリボタン");
+                    AKLog(kAKLogInterface_1, "モーメンタリボタン");
 
                     // まだ選択されていない場合はON状態にする
                     if (item->getTouch() == NULL) {
@@ -172,7 +173,7 @@ bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
                     
                 case kAKMenuTypeSlide:      // スライド入力
 
-                    AKLog(true, "スライド入力");
+                    AKLog(kAKLogInterface_1, "スライド入力");
 
                     // まだスライド開始していない場合は開始する
                     if (item->getTouch() == NULL) {
@@ -191,7 +192,7 @@ bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
         }
     }
     
-    AKLog(true, "ccTouchBegan() end");
+    AKLog(kAKLogInterface_1, "ccTouchBegan() end");
     return true;
 }
 
@@ -355,7 +356,7 @@ CCSprite* AKInterface::addSpriteMenu(const std::string &spriteName,
                                      unsigned int tag,
                                      enum AKMenuType type)
 {
-    AKLog(true, "addSpriteMenu() start:spriteName=%s, position=(%f, %f), z=%d, event=%d, tag=%u type=%d",
+    AKLog(kAKLogInterface_1, "addSpriteMenu() start:spriteName=%s, position=(%f, %f), z=%d, event=%d, tag=%u type=%d",
         spriteName.c_str(), position.x, position.y, z, event, tag, type);
 
     // ボタンの画像を読み込む
@@ -379,7 +380,7 @@ CCSprite* AKInterface::addSpriteMenu(const std::string &spriteName,
     AKMenuItem *menuItem = new AKMenuItem(rect, type, event, tag);
     addMenuItem(menuItem);
     
-    AKLog(true, "addSpriteMenu() end");
+    AKLog(kAKLogInterface_1, "addSpriteMenu() end");
 
     // 作成したメニュー項目のスプライトを返す
     return itemSprite;
