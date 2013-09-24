@@ -44,6 +44,10 @@
  プレイ方法画面のシーンを実現する。
  */
 class AKHowToPlayScene : public cocos2d::CCScene, AKMenuEventHandler {
+public:
+    // コンビニエンスコンストラクタ
+    static AKHowToPlayScene* create();
+
 private:
     /// ページ番号
     int m_pageNo;

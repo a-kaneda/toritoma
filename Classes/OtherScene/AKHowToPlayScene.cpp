@@ -105,6 +105,25 @@ static const unsigned int kAKHowToNextTag = 0x02;
 static const unsigned int kAKHowToBackTag = 0x03;
 
 /*!
+ @brief コンビニエンスコンストラクタ
+
+ インスタンスを生成し、初期化処理を行い、autoreleaseを行う。
+ @return 生成したインスタンス
+ */
+AKHowToPlayScene* AKHowToPlayScene::create()
+{
+    AKHowToPlayScene *instance = new AKHowToPlayScene();
+    if (instance->init()) {
+        instance->autorelease();
+        return instance;
+    }
+    else {
+        CC_SAFE_DELETE(instance);
+        return NULL;
+    }
+}
+
+/*!
  @brief デストラクタ
  
  画像を解放する。
@@ -187,8 +206,8 @@ bool AKHowToPlayScene::init()
     y = AKScreenSize::center().y;
     interface->addSpriteMenu(kAKHowToPrevImage,
                              cocos2d::CCPointMake(x, y),
-                             kAKEventTouchPrevButton,
                              kAKHowToItemPosZ,
+                             kAKEventTouchPrevButton,
                              kAKHowToPrevTag,
                              kAKMenuTypeButton);
 
@@ -197,8 +216,8 @@ bool AKHowToPlayScene::init()
     y = AKScreenSize::center().y;
     interface->addSpriteMenu(kAKHowToNextImage,
                              cocos2d::CCPointMake(x, y),
-                             kAKEventTouchNextButton,
                              kAKHowToItemPosZ,
+                             kAKEventTouchNextButton,
                              kAKHowToNextTag,
                              kAKMenuTypeButton);
     
@@ -207,8 +226,8 @@ bool AKHowToPlayScene::init()
     y = AKScreenSize::positionFromTopPoint(kAKHowToBackPosTopPoint);
     interface->addSpriteMenu(kAKHowToBackImage,
                              cocos2d::CCPointMake(x, y),
-                             kAKEventTouchBackButton,
                              kAKHowToItemPosZ,
+                             kAKEventTouchBackButton,
                              kAKHowToBackTag,
                              kAKMenuTypeButton);
                              
