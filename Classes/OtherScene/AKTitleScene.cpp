@@ -202,8 +202,8 @@ AKTitleScene::AKTitleScene()
     // ゲームスタートのメニューを作成する
     m_interface->addLabelMenu(kAKGameStartCaption,
                               CCPoint(x, y),
-                              kAKEventTouchGameStartButton,
                               0,
+                              kAKEventTouchGameStartButton,
                               kAKTitleMenuGame,
                               true);
     
@@ -215,8 +215,8 @@ AKTitleScene::AKTitleScene()
     // 遊び方のメニューを作成する
     m_interface->addLabelMenu(kAKHowToPlayCaption,
                               CCPoint(x, y),
-                              kAKEventTouchHowToButton,
                               0,
+                              kAKEventTouchHowToButton,
                               kAKTitleMenuHowTo,
                               true);
     
@@ -228,8 +228,8 @@ AKTitleScene::AKTitleScene()
     // オプションのメニューを作成する
     m_interface->addLabelMenu(kAKOptionCaption,
                               CCPoint(x, y),
-                              kAKEventTouchOptionButton,
                               0,
+                              kAKEventTouchOptionButton,
                               kAKTitleMenuOption,
                               true);
     
@@ -241,8 +241,8 @@ AKTitleScene::AKTitleScene()
     // クレジットのメニューを作成する
     m_interface->addLabelMenu(kAKCreditCaption,
                               CCPoint(x, y),
-                              kAKEventTouchCreditBUtton,
                               0,
+                              kAKEventTouchCreditBUtton,
                               kAKTitleMenuCredit,
                               true);
     
