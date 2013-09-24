@@ -76,6 +76,8 @@
 		0C55931F17D339480007DF83 /* AKTileMapEventParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C55930C17D339480007DF83 /* AKTileMapEventParameter.cpp */; };
 		0C55932517D76B940007DF83 /* AKStringSplitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C55932317D76B930007DF83 /* AKStringSplitter.cpp */; };
 		0C55932617D8AA1D0007DF83 /* AKHowToPlayScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C5592DF17D339420007DF83 /* AKHowToPlayScene.cpp */; };
+		0CB1464617F17BED007474AE /* Localized_ja in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1464517F17BED007474AE /* Localized_ja */; };
+		0CB1464817F17C27007474AE /* Localized_en in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1464717F17C27007474AE /* Localized_en */; };
 		15A3D8FF1682F7D5002FB0C5 /* b2BroadPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15A3D88B1682F7D5002FB0C5 /* b2BroadPhase.cpp */; };
 		15A3D9001682F7D5002FB0C5 /* b2CollideCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15A3D88D1682F7D5002FB0C5 /* b2CollideCircle.cpp */; };
 		15A3D9011682F7D5002FB0C5 /* b2CollideEdge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15A3D88E1682F7D5002FB0C5 /* b2CollideEdge.cpp */; };
@@ -416,6 +418,8 @@
 		0C55932117D617EF0007DF83 /* AKMenuEventHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKMenuEventHandler.h; sourceTree = "<group>"; };
 		0C55932317D76B930007DF83 /* AKStringSplitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKStringSplitter.cpp; sourceTree = "<group>"; };
 		0C55932417D76B930007DF83 /* AKStringSplitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKStringSplitter.h; sourceTree = "<group>"; };
+		0CB1464517F17BED007474AE /* Localized_ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Localized_ja; sourceTree = "<group>"; };
+		0CB1464717F17C27007474AE /* Localized_en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Localized_en; sourceTree = "<group>"; };
 		15A3D87E1682F7B3002FB0C5 /* cocos2dx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2dx.xcodeproj; path = ../../../cocos2dx/proj.ios/cocos2dx.xcodeproj; sourceTree = "<group>"; };
 		15A3D8891682F7D5002FB0C5 /* Box2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2D.h; sourceTree = "<group>"; };
 		15A3D88B1682F7D5002FB0C5 /* b2BroadPhase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2BroadPhase.cpp; sourceTree = "<group>"; };
@@ -1813,6 +1817,8 @@
 				0C48B5D317E58CBF001A1DF4 /* Font-ipad.png */,
 				1AFAF8B916D35E4900DB1158 /* CloseNormal.png */,
 				1AFAF8BA16D35E4900DB1158 /* CloseSelected.png */,
+				0CB1464517F17BED007474AE /* Localized_ja */,
+				0CB1464717F17C27007474AE /* Localized_en */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -1861,6 +1867,8 @@
 				Japanese,
 				French,
 				German,
+				en,
+				ja,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -1908,6 +1916,8 @@
 				D4EF94A015BD2D9800D803EB /* Icon-144.png in Resources */,
 				0C48B60817E58DB4001A1DF4 /* Font-ipad.png in Resources */,
 				0C48B5FF17E58DB4001A1DF4 /* ChickenGauge_02.png in Resources */,
+				0CB1464617F17BED007474AE /* Localized_ja in Resources */,
+				0CB1464817F17C27007474AE /* Localized_en in Resources */,
 				0C48B60217E58DB4001A1DF4 /* Control-ipad.plist in Resources */,
 				0C48B62817E58EA4001A1DF4 /* Icon-72@2x.png in Resources */,
 				D446FD6E16102124000ADA7B /* Default@2x.png in Resources */,
