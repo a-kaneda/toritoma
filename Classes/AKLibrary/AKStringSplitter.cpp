@@ -36,6 +36,51 @@
 #include "AKStringSplitter.h"
 
 /*!
+ @brief 1文字のバイト数取得
+
+ 1文字のバイト数を取得する。
+ utf-8文字を前提とする。
+ 2進表記にして先頭の1の個数をカウントする。
+ ただし、0から始まるものは1byte文字のため1を返し、
+ 10から始まるものはマルチバイト文字の2byte目以降のため、
+ エラーとして-1を返す。
+ @param c utf-8の文字
+ @return 1文字のバイト数
+ */
+int AKStringSplitter::getByteOfCharacter(const char *c)
+{
+    // utf-8の最大バイト数
+    const int kAKMaxByte = 6;
+
+    // 文字の先頭1byteを取得する
+    unsigned char topByte = 0;
+    memcpy(&topByte, c, sizeof(unsigned char));
+
+    // 先頭の1のビット数を数える
+    int i = 0;
+    for (i = 0; i < kAKMaxByte; i++) {
+
+        // 0が見つかった時点でループを抜ける
+        if (((topByte >> (8 - i - 1)) & 0x01) == 0) {
+            break;
+        }
+    }
+
+    // 0から始まるものは1byte文字
+    if (i == 0) {
+        return 1;
+    }
+    // 10から始まるものはマルチバイト文字の2byte目以降
+    else if (i == 1) {
+        return -1;
+    }
+    // その他の場合は1の個数がバイト数
+    else {
+        return i;
+    }
+}
+
+/*!
  @brief 元の文字列を指定したコンストラクタ
  
  元の文字列を指定したコンストラクタ。
@@ -62,14 +107,11 @@ const char *AKStringSplitter::split()
         return NULL;
     }
     
-    // ロケールを設定する
-    setlocale(LC_CTYPE, "ja_JP.UTF-8");
-    
     // string型をchar型に変換する
     const char *orgChar = m_org.c_str();
     
     // 1文字の長さを取得する
-    int charLength = mblen(&orgChar[m_position], MB_CUR_MAX);
+    int charLength = AKStringSplitter::getByteOfCharacter(&orgChar[m_position]);
     
     // 出力文字列をクリアする
     memset(m_char, '\0', sizeof(m_char));

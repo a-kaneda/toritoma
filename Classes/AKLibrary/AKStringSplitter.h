@@ -37,7 +37,6 @@
 #define AKSTRINGSPLITTER_H
 
 #include <stdlib.h>
-#include <locale.h>
 #include <limits.h>
 #include <string>
 
@@ -47,6 +46,10 @@
  文字列を1文字ずつ分割する。マルチバイト文字に対応する。
  */
 class AKStringSplitter {
+public:
+    // 1文字のバイト数取得
+    static int getByteOfCharacter(const char *c);
+
 private:
     /// 元の文字列
     const std::string m_org;
@@ -54,9 +57,11 @@ private:
     char m_char[MB_LEN_MAX + 1];
     /// 切り取った文字の位置
     int m_position;
+
 private:
     // デフォルトコンストラクタは使用禁止にする
     AKStringSplitter();
+
 public:
     // 元の文字列を指定したコンストラクタ
     AKStringSplitter(const std::string org);
