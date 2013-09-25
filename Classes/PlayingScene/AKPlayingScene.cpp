@@ -150,8 +150,6 @@ m_data(NULL), m_state(kAKGameStatePreLoad), m_nextState(kAKGameStatePreLoad),
 m_sleepFrame(0), m_backgroundLayer(NULL), m_characterLayer(NULL),
 m_infoLayer(NULL), m_interfaceLayer(NULL), m_life(NULL), m_chickenGauge(NULL)
 {
-    AKLog(kAKLogPlayingScene_1, "start");
-    
     // テクスチャアトラスを読み込む
     CCSpriteFrameCache *spriteFrameCache = CCSpriteFrameCache::sharedSpriteFrameCache();
     spriteFrameCache->addSpriteFramesWithFile(kAKControlTextureAtlasDefFile,
@@ -180,8 +178,6 @@ m_infoLayer(NULL), m_interfaceLayer(NULL), m_life(NULL), m_chickenGauge(NULL)
 
     // ゲームデータを作成する
     m_data = new AKPlayData(this);
-    
-    AKLog(kAKLogPlayingScene_1, "end");
 }
 
 /*!
@@ -191,8 +187,6 @@ m_infoLayer(NULL), m_interfaceLayer(NULL), m_life(NULL), m_chickenGauge(NULL)
  */
 AKPlayingScene::~AKPlayingScene()
 {
-    AKLog(kAKLogPlayingScene_1, "start");
-
     // メンバを解放する
     if (m_backgroundLayer != NULL) {
         m_backgroundLayer->release();
@@ -219,8 +213,6 @@ AKPlayingScene::~AKPlayingScene()
     
     // 未使用のスプライトフレームを解放する
     CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
-
-    AKLog(kAKLogPlayingScene_1, "end");
 }
 
 #pragma mark アクセサ
@@ -429,8 +421,6 @@ void AKPlayingScene::onDidEnterBackground()
  */
 void AKPlayingScene::movePlayer(const AKMenuItem *item)
 {
-    AKLog(1, "movePlayer() start");
-    
     // 画面上のタッチ位置を取得する
     CCPoint locationInView = item->getTouch()->getLocationInView();
     
@@ -525,8 +515,6 @@ void AKPlayingScene::touchResumeButton()
  */
 void AKPlayingScene::touchQuitButton()
 {
-    AKLog(true, "touchQuitButton() start");
-
     // 他の処理が動作しないように待機状態にする
     setState(kAKGameStateWait);
     
@@ -543,8 +531,6 @@ void AKPlayingScene::touchQuitButton()
     
     // TODO:メニュー選択時の効果音を鳴らす
 //    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
-
-    AKLog(true, "touchQuitButton() end");
 }
 
 /*!
@@ -556,8 +542,6 @@ void AKPlayingScene::touchQuitButton()
  */
 void AKPlayingScene::touchQuitYesButton()
 {
-    AKLog(kAKLogPlayingScene_1, "start");
-    
     // ハイスコアをファイルに保存する
     m_data->writeHiScore();
     
@@ -646,9 +630,6 @@ void AKPlayingScene::update(float delta)
  */
 void AKPlayingScene::execEvent(const AKMenuItem *item)
 {
-    AKLog(true, "execEvent() start");
-    AKLog(true, "event no:%d", item->getEventNo());
-    
     // 選択された項目に応じて処理を行う
     switch (item->getEventNo()) {
         case kAKEventTouchShieldButton:     // シールドボタン
@@ -691,8 +672,6 @@ void AKPlayingScene::execEvent(const AKMenuItem *item)
             AKAssert(false, "不正なイベント番号:%d", item->getEventNo());
             break;
     }
-
-    AKLog(true, "execEvent() end");
 }
 
 #pragma mark AKPlayDataからのシーン操作用
@@ -744,8 +723,6 @@ void AKPlayingScene::setScoreLabel(int score)
  */
 void AKPlayingScene::gameOver()
 {
-    AKLog(kAKLogPlayingScene_1, "start");
-    
     // 状態を待機中へ遷移する
     setState(kAKGameStateSleep);
     
@@ -754,8 +731,6 @@ void AKPlayingScene::gameOver()
     
     // 待機フレーム数を設定する
     m_sleepFrame = kAKGameOverWaitFrame;
-
-    AKLog(kAKLogPlayingScene_1, "end");
 }
 
 #pragma mark プライベートメソッド_インスタンス初期化

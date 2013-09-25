@@ -140,7 +140,7 @@ void AKTileMap::update(AKPlayDataInterface *data)
     // 右端のタイルの2個右の
     int maxCol = right / m_tileMap->getTileSize().width + 2;
     
-    AKLog(kAKLogScript_2, "m_currentCol=%d maxCol=%d", m_currentCol, maxCol);
+    AKLog(kAKLogTileMap_2, "m_currentCol=%d maxCol=%d", m_currentCol, maxCol);
     
     // 現在処理済みの列から最終列まで処理する
     for (; m_currentCol <= maxCol; m_currentCol++) {
@@ -227,6 +227,12 @@ void AKTileMap::execEventByCol(int col, AKPlayDataInterface *data)
     float x = AKScreenSize::xOfDevice(m_tileMap->getPosition().x) +
                 m_tileMap->getTileSize().width * (col + 0.5);
     
+    AKLog(kAKLogTileMap_1, "position.x=%f, xOfDevice=%f, width=%f",
+          m_tileMap->getPosition().x,
+          AKScreenSize::xOfDevice(m_tileMap->getPosition().x),
+          m_tileMap->getTileSize().width);
+    AKLog(kAKLogTileMap_1, "col=%d, x=%f", col, x);
+    
     // イベントレイヤーの処理を行う
     execEventLayer(m_event, col, x, data, &AKTileMap::execEvent);
     
@@ -263,7 +269,7 @@ void AKTileMap::execEventLayer(CCTMXLayer *layer,
         // タイルのGIDを取得する
         int tileGid = layer->tileGIDAt(tilePos);
         
-        AKLog(kAKLogScript_2, "i=%d tileGid=%d", i, tileGid);
+        AKLog(kAKLogTileMap_2, "i=%d tileGid=%d", i, tileGid);
         
         // タイルが存在する場合
         if (tileGid > 0) {
@@ -271,7 +277,7 @@ void AKTileMap::execEventLayer(CCTMXLayer *layer,
             // プロパティを取得する
             CCDictionary *properties = m_tileMap->propertiesForGID(tileGid);
             
-            AKLog(kAKLogScript_2, "properties=%p", properties);
+            AKLog(kAKLogTileMap_2, "properties=%p", properties);
             
             // プロパティが取得できた場合
             if (properties) {

@@ -871,11 +871,14 @@ void AKPlayData::createEffect(int type, CCPoint position)
  
  障害物を生成する。
  @param type 障害物種別
- @param x 前回作成した背景/障害物からのx方向の距離
- @param y 前回作成した背景/障害物からのy方向の距離
+ @param x x座標
+ @param y y座標
  */
 void AKPlayData::createBlock(int type, CCPoint position)
 {
+    AKLog(kAKLogPlayData_1, "createBlock() start:type=%d position=(%f, %f)",
+          type, position.x, position.y);
+    
     // プールから未使用のメモリを取得する
     AKBlock *block = m_blockPool.getNext();
     if (block == NULL) {

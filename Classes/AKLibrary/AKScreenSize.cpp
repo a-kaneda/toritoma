@@ -262,7 +262,7 @@ int AKScreenSize::yOfStage(float stageY)
 float AKScreenSize::xOfDevice(float deviceX)
 {
     return deviceX -
-        (AKScreenSize::stageSize().width - AKScreenSize::stageSize().width) / 2 -
+        (AKScreenSize::screenSize().width - AKScreenSize::stageSize().width) / 2 -
         m_screenOffset.x;
 }
 
