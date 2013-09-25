@@ -422,6 +422,9 @@ void AKCharacter::move(AKPlayDataInterface *data)
         
         // 経過時間からパターンを決定する
         pattern = m_animationFrame / m_animationInterval + m_animationInitPattern;
+        
+        AKLog(kAKLogCharacter_2, "frame=%d interval=%d init=%d pattern=%d",
+              m_animationFrame, m_animationInterval, m_animationInitPattern, pattern);
     
         // パターンがパターン数を超えた場合はアニメーション時間をリセットし、パターンを最初のものに戻す。
         if (pattern - (m_animationInitPattern - 1) > m_animationPattern) {
@@ -455,7 +458,9 @@ void AKCharacter::move(AKPlayDataInterface *data)
                  sizeof(imageFileName),
                  kAKImageFileFormat,
                  m_imageName.c_str(),
-                 m_animationInitPattern);
+                 pattern);
+        
+        AKLog(kAKLogCharacter_2, "imageFileName=%s", imageFileName);
         
         // 表示スプライトを変更する
         CCSpriteFrameCache *spriteFrameCache =
