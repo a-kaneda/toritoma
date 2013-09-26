@@ -185,7 +185,7 @@ void AKPlayer::reset()
 void AKPlayer::graze(std::vector<AKEnemyShot*> &characters)
 {
     // 画面に配置されていない場合は処理しない
-    if (m_isStaged) {
+    if (!m_isStaged) {
         return;
     }
     
@@ -194,6 +194,8 @@ void AKPlayer::graze(std::vector<AKEnemyShot*> &characters)
     float myright = m_position.x + kAKPlayerGrazeSize / 2.0f;
     float mytop = m_position.y + kAKPlayerGrazeSize / 2.0f;
     float mybottom = m_position.y - kAKPlayerGrazeSize / 2.0f;
+    
+    AKLog(kAKLogPlayer_2, "player=(%f, %f, %f, %f)", myleft, myright, mytop, mybottom);
     
     // 判定対象のキャラクターごとに判定を行う
     for (AKEnemyShot *enemyShot : characters) {
@@ -209,7 +211,7 @@ void AKPlayer::graze(std::vector<AKEnemyShot*> &characters)
         float targettop = enemyShot->getPosition()->y + enemyShot->getSize()->height / 2.0f;
         float targetbottom = enemyShot->getPosition()->y - enemyShot->getSize()->height / 2.0f;
         
-        AKLog(kAKLogPlayer_1, "target=(%f, %f, %f, %f)", targetleft, targetright, targettop, targetbottom);
+        AKLog(kAKLogPlayer_3, "target=(%f, %f, %f, %f)", targetleft, targetright, targettop, targetbottom);
         
         // 以下のすべての条件を満たしている時、衝突していると判断する。
         //   ・相手の右端が自キャラの左端よりも右側にある
@@ -223,6 +225,9 @@ void AKPlayer::graze(std::vector<AKEnemyShot*> &characters)
             
             // 相手のかすりポイントを取得する
             if (enemyShot->getGrazePoint() > 0.0f) {
+                
+                AKLog(kAKLogPlayer_2, "かすりポイント:%f", enemyShot->getGrazePoint());
+                
                 m_chickenGauge += enemyShot->getGrazePoint();
                 
                 // 最大で100%とする

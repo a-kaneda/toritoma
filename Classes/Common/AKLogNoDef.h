@@ -77,6 +77,8 @@ extern bool kAKLogPlayData_2;
 extern bool kAKLogPlayData_3;
 extern bool kAKLogPlayer_0;
 extern bool kAKLogPlayer_1;
+extern bool kAKLogPlayer_2;
+extern bool kAKLogPlayer_3;
 extern bool kAKLogPlayerShot_0;
 extern bool kAKLogPlayerShot_1;
 extern bool kAKLogPlayingScene_0;
