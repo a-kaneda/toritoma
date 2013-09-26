@@ -45,4 +45,17 @@ extern const char *kAKControlTextureAtlasDefFile;
 // コントロールテクスチャアトラスファイル名
 extern const char *kAKControlTextureAtlasFile;
 
+// デバッグ用フラグ
+#ifdef DEBUG
+
+/// 自機当たり判定無効化
+#define DEBUG_MODE_PLAYER_INVINCIBLE 1
+
+#else
+
+/// 自機当たり判定無効化
+#define DEBUG_MODE_PLAYER_INVINCIBLE 0
+
+#endif
+
 #endif

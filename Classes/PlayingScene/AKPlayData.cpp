@@ -572,11 +572,16 @@ void AKPlayData::update()
         // 自機と敵弾のかすり判定処理を行う
         m_player->graze(*m_enemyShotPool.getPool());
         
+#if DEBUG_MODE_PLAYER_INVINCIBLE != 1
+        
         // 自機と敵の当たり判定処理を行う
         m_player->checkHit(*m_enemyPool.getPool(), this);
         
         // 自機と敵弾の当たり判定処理を行う
         m_player->checkHit(*m_enemyShotPool.getPool(), this);
+        
+#endif
+        
     }
     
     // シールドが有効な場合はチキンゲージを減少させる

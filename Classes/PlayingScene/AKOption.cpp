@@ -165,7 +165,7 @@ void AKOption::setShiled(bool shield)
  */
 void AKOption::setOptionCount(int count, const cocos2d::CCPoint &position)
 {
-    AKLog(kAKLogOption_1, "count=%d", count);
+    AKLog(kAKLogOption_2, "count=%d", count);
     
     // オプション個数が設定された場合はオプションを有効とする
     if (count > 0) {

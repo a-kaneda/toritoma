@@ -150,6 +150,8 @@ public:
     void readScript(int stage);
     // ゲーム再開
     void resume();
+    // シールドモード設定
+    void setShield(bool shield);
 
 private:
     // メンバオブジェクト生成処理
@@ -162,8 +164,6 @@ private:
     std::string makeTweet();
     // 残機設定
     void setLife(int life);
-    // シールドモード設定
-    void setShield(bool shield);
 };
 
 #endif

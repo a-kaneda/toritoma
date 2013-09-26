@@ -446,13 +446,13 @@ void AKPlayingScene::touchShieldButton(const AKMenuItem *item)
     switch (item->getTouchPhase()) {
         case kAKMenuTouchBegan:     // タッチ開始
             // シールドモードを有効にする
-            setShieldButtonSelected(true);
+            m_data->setShield(true);
             break;
             
         case kAKMenuTouchCancelled: // タッチ取り消し
         case kAKMenuTouchEnded:     // タッチ終了
             // シールドモードを無効にする
-            setShieldButtonSelected(false);
+            m_data->setShield(false);
             break;
             
         default:                    // その他は無処理

@@ -69,6 +69,7 @@ extern bool kAKLogLife_0;
 extern bool kAKLogLife_1;
 extern bool kAKLogOption_0;
 extern bool kAKLogOption_1;
+extern bool kAKLogOption_2;
 extern bool kAKLogOptionScene_0;
 extern bool kAKLogOptionScene_1;
 extern bool kAKLogPlayData_0;
