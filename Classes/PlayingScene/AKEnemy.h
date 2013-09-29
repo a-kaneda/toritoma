@@ -152,6 +152,8 @@ private:
     void actionOfRhinocerosBeetle(AKPlayDataInterface *data);
     // カマキリの動作処理
     void actionOfMantis(AKPlayDataInterface *data);
+    // ハチの巣の動作処理
+    void actionOfHoneycomb(AKPlayDataInterface *data);
     // 雑魚敵の破壊処理
     void destroyNormal(AKPlayDataInterface *data);
     // 逆さま判定

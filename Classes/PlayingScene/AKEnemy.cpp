@@ -117,7 +117,7 @@ const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備30
     {&AKEnemy::actionOfRhinocerosBeetle, &AKEnemy::destroyNormal, 31, 2, 3, 64, 40, 0, 0, 1000, 10000}, // カブトムシ
     {&AKEnemy::actionOfMantis, &AKEnemy::destroyNormal, 32, 0, 0, 64, 64, 0, 0, 1000, 10000},           // カマキリ
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // ハチの巣
+    {&AKEnemy::actionOfHoneycomb, &AKEnemy::destroyNormal, 33, 0, 0, 64, 64, 0, 0, 1000, 10000},        // ハチの巣
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // クモ
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // ムカデ（頭）
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // ムカデ（胴体）
@@ -1129,8 +1129,6 @@ void AKEnemy::actionOfHornet(AKPlayDataInterface *data)
     const float kAKShotSpeed[kAKShotCount] = {3.2f, 3.4f, 3.6f, 3.8f, 4.0f};
     // 登場時のx方向の移動スピード
     const float kAKMoveInSpeedX = -2.0f;
-    // 登場時のy方向の移動スピード
-    const float kAKMoveInSpeedY = 1.0f;
     // 退場時のx方向の移動スピード
     const float kAKMoveOutSpeedX = -2.6f;
     // 退場時のy方向の移動スピード
@@ -1157,16 +1155,8 @@ void AKEnemy::actionOfHornet(AKPlayDataInterface *data)
             // 左方向へ移動する
             m_speedX = kAKMoveInSpeedX;
             
-            // 画面下半分に配置されている場合
-            if (m_position.y < AKScreenSize::stageSize().height / 2) {
-                // 上方向へ移動する
-                m_speedY = kAKMoveInSpeedY;
-            }
-            // 画面上半分に配置されている場合
-            else {
-                // 下方向へ移動する
-                m_speedY = -kAKMoveInSpeedY;
-            }
+            // 自機に向かってy軸方向は移動する
+            m_speedY = (data->getPlayerPosition()->y - m_position.y) / kAKMoveInFrame;
             
             // 登場の状態へ遷移する
             m_state = kAKStateMoveIn;
@@ -1820,6 +1810,181 @@ void AKEnemy::actionOfMantis(AKPlayDataInterface *data)
     // 振り上げている鎌の数に応じてグラフィックを変更する
     setAnimationInitPattern(m_work[0] + 1);
     
+    // 状態遷移間隔が経過している場合は次の状態へ進める
+    if (m_frame > kAKStateInterval[m_state]) {
+        
+        // 次の状態へ進める
+        m_state++;
+        
+        // 状態が最大を超える場合は最初の状態へループする
+        if (m_state >= kAKStateCount) {
+            m_state = kAKStateInit + 1;
+        }
+        
+        // 経過フレーム数と作業領域を初期化する
+        m_work[0] = 0.0f;
+        m_work[1] = 0.0f;
+        m_frame = 0.0f;
+        
+        AKLog(kAKLogEnemy_3, "m_state=%d", m_state);
+    }
+}
+
+/*!
+ @brief ハチの巣の動作処理
+ 
+ 定周期でハチを登場させる。
+ 
+ 攻撃パターン1:5-way弾を自機に向けて発射する
+ 
+ 攻撃パターン2:全方位弾を角度を変えながら発射する
+ 
+ 攻撃パターン3:地面から上方向に画面全体に弾を発射する
+ @param data ゲームデータ
+ */
+void AKEnemy::actionOfHoneycomb(AKPlayDataInterface *data)
+{
+    // 状態
+    enum STATE {
+        kAKStateInit = 0,           // 初期状態
+        kAKState5WayShot,           // 5-way弾発射
+        kAKStateAllDirectionShot,   // 全方位弾発射
+        kAKStateAllRangeShot,       // 地面からの画面全体の弾発射
+        kAKStateCount               // 状態の種類の数
+    };
+    // 状態遷移間隔
+    const int kAKStateInterval[kAKStateCount] = {340, 900, 900, 900};
+    // ハチを呼び出す間隔
+    const int kAKCallHornetInterval = 60;
+    // ハチの登場位置の数
+    const int kAKCallHornetPositionCount = 3;
+    // ハチの登場位置x座標
+    const float kAKHornetXPosition = 384.0f;
+    // ハチの登場位置y座標
+    const float kAKHornetYPosition[kAKCallHornetPositionCount] = {200.0f, 144.0f, 88.0f};
+    // 5-way弾発射間隔
+    const int kAK5WayInterval = 20;
+    // 5-way弾スピード
+    const float kAK5WayShotSpeed = 2.0f;
+    // 全方位弾の発射間隔
+    const int kAKAllDirectionInterval = 40;
+    // 全方位弾の弾数
+    const float kAKAllDirectionCount = 24;
+    // 全方位弾の角度の間隔
+    const float kAKAllDirectionAngle = 2 * M_PI / kAKAllDirectionCount;
+    // 全方位弾のスピード
+    const float kAKAllDirectionSpeed = 2.0f;
+    // 画面全体弾発射間隔
+    const int kAKAllRangeInterval = 30;
+    // 画面全体弾の弾数
+    const int kAKAllRangeCount = 7;
+    // 画面全体弾のスピード
+    const float kAKAllRangeSpeed = 1.0f;
+    // 画面全体弾の発射位置y座標
+    const float kAKAllRangeYPosition = 36.0f;
+    // 1-way弾発射間隔
+    const int kAK1WayInterval = 20;
+    // 1-way弾スピード
+    const float kAK1WayShotSpeed = 3.0f;
+    
+    // 状態によって処理を分岐する
+    switch (m_state) {
+        case kAKStateInit:      // 初期状態
+            
+            // スクロールに合わせて移動する
+            m_scrollSpeed = 1.0f;
+            break;
+            
+        case kAKState5WayShot:  // 5-way弾発射
+            
+            // 弾発射間隔時間経過したら弾を発射する
+            if ((m_frame + 1) % kAK5WayInterval == 0) {
+                
+                // 自機へ向けて弾を発射する
+                AKEnemy::fireNWay(m_position,
+                                  5,
+                                  M_PI / 8.0f,
+                                  kAK5WayShotSpeed,
+                                  data);
+            }
+            
+            break;
+            
+        case kAKStateAllDirectionShot:  // 全方位弾発射
+            
+            // 全方位弾の発射間隔が経過している場合は弾を発射する
+            if ((m_frame + 1) % kAKAllDirectionInterval == 0) {
+                
+                // 1回毎に発射する角度を変える
+                float angle = M_PI;
+                if (((m_frame + 1) / kAKAllDirectionInterval) % 2 == 0) {
+                    angle += kAKAllDirectionAngle / 2;
+                }
+                
+                AKEnemy::fireNWay(angle,
+                                  m_position,
+                                  kAKAllDirectionCount,
+                                  kAKAllDirectionAngle,
+                                  kAKAllDirectionSpeed,
+                                  true,
+                                  data);
+            }
+
+            break;
+            
+        case kAKStateAllRangeShot:  // 地面からの画面全体の弾発射
+            
+            // 画面全体弾の発射間隔が経過している場合は弾を発射する
+            if ((m_frame + 1) % kAKAllRangeInterval == 0) {
+
+                // 左端の弾の座標を計算する
+                float x = AKScreenSize::stageSize().width / (kAKAllRangeCount + 1);
+                
+                // 各弾を発射する
+                for (int i = 0; i < kAKAllRangeCount; i++) {
+                    
+                    AKEnemy::fireNWay(M_PI / 2.0f,
+                                      CCPoint(x * (i + 1), kAKAllRangeYPosition),
+                                      1,
+                                      0.0f,
+                                      kAKAllRangeSpeed,
+                                      false,
+                                      data);
+                }
+            }
+            
+            // 1-way弾発射間隔時間経過したら弾を発射する
+            if ((m_frame + 1) % kAK1WayInterval == 0) {
+                
+                // 自機へ向けて弾を発射する
+                AKEnemy::fireNWay(m_position,
+                                  1,
+                                  0,
+                                  kAK1WayShotSpeed,
+                                  data);
+            }
+
+            
+            break;
+            
+        default:
+            AKAssert(false, "状態が異常:m_state=%d", m_state);
+            break;
+    }
+    
+    // 初期状態以外の場合は定周期にハチを呼ぶ
+    if (m_state != kAKStateInit && (m_frame + 1) % kAKCallHornetInterval == 0) {
+        
+        // ハチの位置を呼ぶたびに切り替える
+        int position = ((m_frame + 1) / kAKCallHornetInterval) % kAKCallHornetPositionCount;
+        
+        // ハチを呼ぶ
+        data->createEnemy(kAKEnemyHornet,
+                          CCPoint(kAKHornetXPosition, kAKHornetYPosition[position]),
+                          0);
+
+    }
+
     // 状態遷移間隔が経過している場合は次の状態へ進める
     if (m_frame > kAKStateInterval[m_state]) {
         
