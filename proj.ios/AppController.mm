@@ -27,6 +27,9 @@ static AppDelegate s_sharedApplication;
                                       sharegroup: nil
                                    multiSampling: NO
                                  numberOfSamples: 0];
+    
+    // マルチタッチを有効にする
+    [__glView setMultipleTouchEnabled:YES];
 
     // Use RootViewController manage EAGLView 
     viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
