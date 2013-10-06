@@ -51,9 +51,16 @@ float AKNWayAngle::calcDestAngle(const cocos2d::CCPoint &src, const cocos2d::CCP
     // y方向のベクトルの大きさを計算する
     float vy = dest.y - src.y;
     
+    // 0 / 0となる場合は0を返す
+    // ただし、呼び出し元でこのような状況にならないように処理を行うようにすること
+    if (AKIsEqualFloat(vx, 0.0f) && AKIsEqualFloat(vy, 0.0f)) {
+        AKAssert(false, "0 / 0となるため、0を返す");
+        return 0.0f;
+    }
+    
     // 角度を計算する
     float angle = atan(vy / vx);
-    
+        
     // 第2象限、第3象限の場合はπ進める
     if (vx < 0.0f) {
         angle += M_PI;

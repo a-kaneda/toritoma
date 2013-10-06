@@ -498,7 +498,7 @@ void AKPlayData::update()
     // 敵を更新する
     for (AKEnemy *enemy : *m_enemyPool.getPool()) {
         if (enemy->isStaged()) {
-            AKLog(kAKLogPlayData_2, "enemy move start.");
+            AKLog(kAKLogPlayData_3, "enemy move start.");
             enemy->move(this);
         }
     }
@@ -556,7 +556,7 @@ void AKPlayData::update()
         // 各オプションに対して当たり判定を行う
         while (option != NULL && option->isStaged()) {
             
-            AKLog(kAKLogPlayData_1, "反射判定");
+            AKLog(kAKLogPlayData_2, "反射判定");
             
             // 敵弾との当たり判定を行う
             option->checkHit(*m_enemyShotPool.getPool(), this);
@@ -788,6 +788,8 @@ void AKPlayData::createPlayerShot(CCPoint position)
  */
 void AKPlayData::createReflectShot(AKEnemyShot *enemyShot)
 {
+    AKLog(kAKLogPlayData_2, "反射弾生成");
+
     // プールから未使用のメモリを取得する
     AKEnemyShot *reflectShot = m_reflectShotPool.getNext();
     if (reflectShot == NULL) {
@@ -881,7 +883,7 @@ void AKPlayData::createEffect(int type, CCPoint position)
  */
 void AKPlayData::createBlock(int type, CCPoint position)
 {
-    AKLog(kAKLogPlayData_1, "createBlock() start:type=%d position=(%f, %f)",
+    AKLog(kAKLogPlayData_2, "createBlock() start:type=%d position=(%f, %f)",
           type, position.x, position.y);
     
     // プールから未使用のメモリを取得する

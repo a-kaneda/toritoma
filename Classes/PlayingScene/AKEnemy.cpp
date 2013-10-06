@@ -118,7 +118,7 @@ const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
     {&AKEnemy::actionOfRhinocerosBeetle, &AKEnemy::destroyNormal, 31, 2, 3, 64, 40, 0, 0, 1000, 10000}, // カブトムシ
     {&AKEnemy::actionOfMantis, &AKEnemy::destroyNormal, 32, 0, 0, 64, 64, 0, 0, 1000, 10000},           // カマキリ
     {&AKEnemy::actionOfHoneycomb, &AKEnemy::destroyNormal, 33, 0, 0, 64, 64, 0, 0, 1000, 10000},        // ハチの巣
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // クモ
+    {&AKEnemy::actionOfSpider, &AKEnemy::destroyNormal, 34, 2, 12, 64, 64, 0, 0, 1000, 10000},           // クモ
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // ムカデ（頭）
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // ムカデ（胴体）
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // ムカデ（尾）
@@ -226,7 +226,6 @@ void AKEnemy::fireNWay(float angle,
 void AKEnemy::fireGroupShot(CCPoint position,
                             const float distance[][2],
                             int count,
-                            float interval,
                             float speed,
                             AKPlayDataInterface *data)
 {
@@ -1717,7 +1716,6 @@ void AKEnemy::actionOfMantis(AKPlayDataInterface *data)
                 AKEnemy::fireGroupShot(m_position, 
                                        kAKArcShotPosition,
                                        kAKArcShotCount,
-                                       kAKArcShotInterval,
                                        kAKArcShotSpeed,
                                        data);
             }
@@ -2000,6 +1998,312 @@ void AKEnemy::actionOfHoneycomb(AKPlayDataInterface *data)
         m_work[0] = 0.0f;
         m_work[1] = 0.0f;
         m_frame = 0.0f;
+        
+        AKLog(kAKLogEnemy_3, "m_state=%d", m_state);
+    }
+}
+
+/*!
+ @brief クモの動作処理
+
+ 攻撃パターン1:右上、左下、左上、右下、右上と移動しながら弾を撃つ。
+ 高速な3-way弾と低速な13-way弾を発射する。
+ 
+ 攻撃パターン2:右上、左下、左上、右下、右上と移動しながら弾を撃つ。
+ 全方位弾と蜘蛛の巣状の弾を発射する。
+ 
+ 攻撃パターン3:自機に向けて2-way弾を隙間なく発射。その間に円形のグループ弾を発射する。
+ @param data ゲームデータ
+ */
+void AKEnemy::actionOfSpider(AKPlayDataInterface *data)
+{
+    // 状態
+    enum STATE {
+        kAKStateInit = 0,           // 初期状態
+        kAKStateNWayShot,           // n-way弾発射
+        kAKStateNetShot,            // 蜘蛛の巣弾発射
+        kAKStateSiege,              // 2-way弾による包囲弾発射
+        kAKStateCount               // 状態の種類の数
+    };
+    // 作業領域の用途
+    enum WORK {
+        kAKWorkCurrentPosition = 0, // 現在の移動位置
+        kAKWorkMoveTime,            // 移動位置に到達してからの時間
+        kAKWorkSiegeAngle           // 包囲弾の現在の角度
+    };
+    // 状態遷移間隔
+    const int kAKStateInterval[kAKStateCount] = {999, 900, 900, 900};
+    // 移動位置の数
+    const int kAKMovePositionCount = 4;
+    // 移動位置
+    const float kAKMovePosition[kAKMovePositionCount][2] = {
+        {304, 192}, {212, 96}, {212, 192}, {304, 96}
+    };
+    // 蜘蛛の巣弾発射時の位置
+    const float kAKMovePositionOfSiege[2] = {258, 144};
+    // 移動スピード
+    const float kAKMoveSpeed = 2.0f;
+    // 移動位置変更の間隔
+    const int kAKMoveInterval = 10;
+    // 3-way弾発射間隔
+    const int kAK3WayInterval = 40;
+    // 3-way弾スピード
+    const float kAK3WayShotSpeed = 2.4f;
+    // 5-way弾発射間隔
+    const int kAK5WayInterval = 40;
+    // 5-way弾スピード
+    const float kAK5WayShotSpeed = 1.4f;
+    // 蜘蛛の巣弾の弾数
+    const int kAKNetShotCount = 34;
+    // 蜘蛛の巣弾の各弾の配置位置
+    const float kAKNetShotPosition[kAKNetShotCount][2] = {
+        {0, 6}, {0, 20}, {0, 34}, {0, 48},
+        {0, -6}, {0, -20}, {0, -34}, {0, -48},
+        {12, 10}, {12, 42}, {12, -10}, {12, -42},
+        {-12, 10}, {-12, 42}, {-12, -10}, {-12, -42},
+        {22, 18}, {22, 34}, {22, -18}, {22, -34},
+        {-22, 18}, {-22, 34}, {-22, -18}, {-22, -34},
+        {32, 26}, {38, 14}, {32, -26}, {38, -14},
+        {-32, 26}, {-38, 14}, {-32, -26}, {-38, -14},
+        {42, 0}, {-42, 0}
+    };
+    // 蜘蛛の巣弾発射間隔
+    const int kAKNetShotInterval = 60;
+    // 蜘蛛の巣弾のスピード
+    const float kAKNetShotSpeed = 2.0f;
+    // 全方位弾の発射間隔
+    const int kAKAllDirectionInterval = 30;
+    // 全方位弾の弾数
+    const float kAKAllDirectionCount = 12;
+    // 全方位弾の角度の間隔
+    const float kAKAllDirectionAngle = 2 * M_PI / kAKAllDirectionCount;
+    // 全方位弾のスピード
+    const float kAKAllDirectionSpeed = 2.0f;
+    // 包囲弾の発射間隔
+    const int kAKSiegeShotInterval = 5;
+    // 包囲弾のスピード
+    const float kAKSiegeShotSpeed = 3.0f;
+    // 包囲弾の初期角度
+    const float kAKSiegeShotStartAngle = M_PI * 3.0f / 4.0f;
+    // 包囲弾の最終角度
+    const float kAKSiegeShotEndAngle = M_PI / 8.0f;
+    // 包囲弾の角度変更スピード
+    const float kAKSiegeShotAngleSpeed = 0.2f;
+    // 包囲弾の1-way弾発射間隔
+    const int kAK1WayInterval = 40;
+    // 包囲弾の1-way弾スピード
+    const float kAK1WayShotSpeed = 1.4f;
+    // 包囲弾内のグループ弾発射間隔
+    const int kAKGroupShotInterval = 20;
+    // 包囲弾内のグループ弾スピード
+    const float kAKGroupShotSpeed = 4.0f;
+    // 包囲弾内のグループ弾の弾数
+    const int kAKGroupShotCount = 4;
+    // 包囲弾内のグループ弾の位置
+    const float kAKGroupShotPosition[kAKGroupShotCount][2] = {
+        {0, 8}, {0, -8}, {8, 0}, {-8, 0}
+    };
+    
+    // 状態によって処理を分岐する
+    CCPoint nextPosition;
+    switch (m_state) {
+        case kAKStateInit:      // 初期状態
+            
+            // 最初は右上に移動する
+            nextPosition.setPoint(kAKMovePosition[0][0],
+                                  kAKMovePosition[0][1]);
+            
+            // 移動位置に到達した場合は次の状態に遷移する
+            if (AKIsEqualFloat(m_position.x, nextPosition.x) &&
+                AKIsEqualFloat(m_position.y, nextPosition.y)) {
+                
+                m_state++;
+
+                // 経過フレーム数と作業領域を初期化する
+                m_frame = 0.0f;
+                m_work[kAKWorkMoveTime] = 0;
+
+            }
+            
+            break;
+            
+        case kAKStateNWayShot:  // n-way弾発射
+
+            // 次の移動位置を決める
+            nextPosition.setPoint(kAKMovePosition[m_work[kAKWorkCurrentPosition]][0],
+                                  kAKMovePosition[m_work[kAKWorkCurrentPosition]][1]);
+            
+            // 弾発射間隔時間経過したら弾を発射する
+            if ((m_frame + 1) % kAK5WayInterval == 0) {
+                
+                // 自機へ向けて弾を発射する
+                AKEnemy::fireNWay(m_position,
+                                  5,
+                                  M_PI / 8.0f,
+                                  kAK5WayShotSpeed,
+                                  data);
+            }
+            
+            // 弾発射間隔時間経過したら弾を発射する
+            if ((m_frame + 1) % kAK3WayInterval == 0) {
+                
+                // 自機へ向けて弾を発射する
+                AKEnemy::fireNWay(m_position,
+                                  3,
+                                  M_PI / 16.0f,
+                                  kAK3WayShotSpeed,
+                                  data);
+            }
+
+            break;
+            
+        case kAKStateNetShot:   // 蜘蛛の巣弾発射
+            
+            // 次の移動位置を決める
+            nextPosition.setPoint(kAKMovePosition[m_work[kAKWorkCurrentPosition]][0],
+                                  kAKMovePosition[m_work[kAKWorkCurrentPosition]][1]);
+            
+            // 蜘蛛の巣弾の発射間隔が経過したら弾を発射する
+            if ((m_frame + 1) % kAKNetShotInterval == 0) {
+                
+                // 蜘蛛の巣弾を発射する
+                AKEnemy::fireGroupShot(m_position,
+                                       kAKNetShotPosition,
+                                       kAKNetShotCount,
+                                       kAKNetShotSpeed,
+                                       data);
+            }
+            
+            // 全方位弾の発射間隔が経過している場合は弾を発射する
+            if ((m_frame + 1) % kAKAllDirectionInterval == 0) {
+                
+                AKEnemy::fireNWay(M_PI,
+                                  m_position,
+                                  kAKAllDirectionCount,
+                                  kAKAllDirectionAngle,
+                                  kAKAllDirectionSpeed,
+                                  true,
+                                  data);
+            }
+
+            break;
+            
+        case kAKStateSiege:     // 2-way弾による包囲弾発射
+            
+            // 包囲弾発射時は中央で固定とする
+            nextPosition.setPoint(kAKMovePositionOfSiege[0],
+                                  kAKMovePositionOfSiege[1]);
+            
+            // 移動時間はリセットする
+            m_work[kAKWorkMoveTime] = 0;
+            
+            // 中央位置に到達したら弾を発射し始める
+            if (AKIsEqualFloat(m_position.x, nextPosition.x) &&
+                AKIsEqualFloat(m_position.y, nextPosition.y)) {
+                
+                // 包囲弾を発射する
+                if ((m_frame + 1) % kAKSiegeShotInterval == 0) {
+
+                    // 包囲弾の角度を求める
+                    float angle = kAKSiegeShotStartAngle - m_work[kAKWorkSiegeAngle] * kAKSiegeShotAngleSpeed;
+                    
+                    // 最終角度に到達していれば最終角度を設定する
+                    if (angle <= kAKSiegeShotEndAngle) {
+                        angle = kAKSiegeShotEndAngle;
+                    }
+                    
+                    AKEnemy::fireNWay(M_PI,
+                                      m_position,
+                                      2,
+                                      angle,
+                                      kAKSiegeShotSpeed,
+                                      true,
+                                      data);
+                    
+                    // 包囲弾の角度を狭める
+                    m_work[kAKWorkSiegeAngle]++;
+                }
+                
+                // 1グループ弾発射間隔時間経過したらグループ弾を発射する
+                if ((m_frame + 1) % kAKGroupShotInterval == 0) {
+                    
+                    // 自機へ向けて弾を発射する
+                    AKEnemy::fireGroupShot(m_position,
+                                           kAKGroupShotPosition,
+                                           kAKGroupShotCount,
+                                           kAKGroupShotSpeed,
+                                           data);
+                }
+                
+                // 1-way弾発射間隔時間経過したら弾を発射する
+                if ((m_frame + 1) % kAK1WayInterval == 0) {
+                    
+                    // 自機へ向けて弾を発射する
+                    AKEnemy::fireNWay(m_position,
+                                      1,
+                                      0,
+                                      kAK1WayShotSpeed,
+                                      data);
+                }
+            }
+
+            break;
+            
+        default:
+            AKAssert(false, "状態が異常:m_state=%d", m_state);
+            break;
+    }
+    
+    // 移動先と現在位置が異なる場合は速度の設定を行う
+    if (!AKIsEqualFloat(m_position.x, nextPosition.x) || !AKIsEqualFloat(m_position.y, nextPosition.y)) {
+    
+        // 移動先の角度を計算する
+        float moveAngle = AKNWayAngle::calcDestAngle(m_position, nextPosition);
+    
+        // 移動スピードを設定する
+        m_speedX = kAKMoveSpeed * cosf(moveAngle);
+        m_speedY = kAKMoveSpeed * sinf(moveAngle);
+    
+        // x方向の移動距離がスピードより小さい場合は通り過ぎないように移動先座標をセットする
+        if (fabs(m_position.x - nextPosition.x) < m_speedX) {
+            m_position.x = nextPosition.x;
+            m_speedX = 0.0f;
+        }
+        
+        // y方向の移動距離がスピードより小さい場合は通り過ぎないように移動先座標をセットする
+        if (fabs(m_position.y - nextPosition.y) < m_speedY) {
+            m_position.y = nextPosition.y;
+            m_speedY = 0.0f;
+        }
+        
+    }
+    // 移動しない場合はスピードを0にする
+    else {
+        m_speedX = 0.0f;
+        m_speedY = 0.0f;
+        
+        // 移動時間をカウントし、位置変更の間隔が経過した場合は移動位置を変更する
+        m_work[kAKWorkMoveTime]++;
+        if (m_work[kAKWorkMoveTime] >= kAKMoveInterval) {
+            m_work[kAKWorkMoveTime] = 0;
+            m_work[kAKWorkCurrentPosition] = (m_work[kAKWorkCurrentPosition] + 1) % kAKMovePositionCount;
+        }
+    }
+
+    // 状態遷移間隔が経過している場合は次の状態へ進める
+    if (m_frame > kAKStateInterval[m_state]) {
+        
+        // 次の状態へ進める
+        m_state++;
+        
+        // 状態が最大を超える場合は最初の状態へループする
+        if (m_state >= kAKStateCount) {
+            m_state = kAKStateInit + 1;
+        }
+        
+        // 経過フレーム数と作業領域を初期化する
+        m_frame = 0.0f;
+        m_work[kAKStateSiege] = 0;
         
         AKLog(kAKLogEnemy_3, "m_state=%d", m_state);
     }

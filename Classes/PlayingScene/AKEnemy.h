@@ -77,7 +77,6 @@ private:
     static void fireGroupShot(cocos2d::CCPoint position,
                               const float distance[][2],
                               int count,
-                              float interval,
                               float speed,
                               AKPlayDataInterface *data);
     // 破裂弾発射
@@ -154,6 +153,8 @@ private:
     void actionOfMantis(AKPlayDataInterface *data);
     // ハチの巣の動作処理
     void actionOfHoneycomb(AKPlayDataInterface *data);
+    // クモの動作処理
+    void actionOfSpider(AKPlayDataInterface *data);
     // 雑魚敵の破壊処理
     void destroyNormal(AKPlayDataInterface *data);
     // 逆さま判定
