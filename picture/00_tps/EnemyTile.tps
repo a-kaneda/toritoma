@@ -112,6 +112,8 @@
         </struct>
         <key>dataFileName</key>
         <filename>EnemyTile.plist</filename>
+        <key>multiPack</key>
+        <false/>
         <key>mainExtension</key>
         <string></string>
         <key>forceIdenticalLayout</key>
@@ -146,46 +148,46 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>../94_2倍/EnemyTile/EnemyTile_01.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_02.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_03.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_04.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_05.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_06.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_07.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_08.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_09.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_10.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_11.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_12.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_13.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_14.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_15.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_16.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_17.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_18.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_19.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_20.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_21.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_22.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_23.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_24.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_25.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_26.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_27.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_28.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_29.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_30.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_31.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_32.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_33.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_34.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_35.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_36.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_37.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_38.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_39.png</filename>
-            <filename>../94_2倍/EnemyTile/EnemyTile_40.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_01.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_02.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_03.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_04.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_05.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_06.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_07.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_08.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_09.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_10.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_11.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_12.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_13.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_14.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_15.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_16.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_17.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_18.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_19.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_20.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_21.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_22.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_23.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_24.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_25.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_26.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_27.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_28.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_29.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_30.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_31.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_32.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_33.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_34.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_35.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_36.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_37.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_38.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_39.png</filename>
+            <filename>../94_2times/EnemyTile/EnemyTile_40.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

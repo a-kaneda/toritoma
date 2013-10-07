@@ -22,7 +22,7 @@
         <key>dataFormat</key>
         <string>cocos2d</string>
         <key>textureFileName</key>
-        <filename>../../toritoma/Resources/Image/HowTo.png</filename>
+        <filename>Control-ipad.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -99,7 +99,7 @@
             <key>packageName</key>
             <string>Texture</string>
             <key>javaFileName</key>
-            <filename>Control.java</filename>
+            <filename>Control-ipad.java</filename>
             <key>wrap</key>
             <struct type="AndEngineWrap">
                 <key>s</key>
@@ -111,13 +111,20 @@
             <enum type="AndEngine::MagFilter">MagLinear</enum>
         </struct>
         <key>dataFileName</key>
-        <filename>../../toritoma/Resources/Image/HowTo.plist</filename>
+        <filename>Control-ipad.plist</filename>
+        <key>multiPack</key>
+        <false/>
         <key>mainExtension</key>
         <string></string>
         <key>forceIdenticalLayout</key>
         <false/>
         <key>outputFormat</key>
         <enum type="SettingsBase::OutputFormat">RGBA8888</enum>
+        <key>contentProtection</key>
+        <struct type="ContentProtection">
+            <key>key</key>
+            <string></string>
+        </struct>
         <key>autoAliasEnabled</key>
         <true/>
         <key>trimSpriteNames</key>
@@ -131,7 +138,7 @@
             <key>innerPadding</key>
             <uint>0</uint>
             <key>extrude</key>
-            <uint>0</uint>
+            <uint>1</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMode</key>
@@ -141,14 +148,29 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>../94_2倍/HowTo/HowTo_1.png</filename>
-            <filename>../94_2倍/HowTo/HowTo_2.png</filename>
-            <filename>../94_2倍/HowTo/HowTo_3.png</filename>
-            <filename>../94_2倍/HowTo/HowTo_4.png</filename>
+            <filename>../95_4times/Control/BackButton.png</filename>
+            <filename>../95_4times/Control/FrameBack.png</filename>
+            <filename>../95_4times/Control/FrameBottom.png</filename>
+            <filename>../95_4times/Control/FrameLeft.png</filename>
+            <filename>../95_4times/Control/FrameLeftBottom.png</filename>
+            <filename>../95_4times/Control/FrameLeftTop.png</filename>
+            <filename>../95_4times/Control/FrameRight.png</filename>
+            <filename>../95_4times/Control/FrameRightBottom.png</filename>
+            <filename>../95_4times/Control/FrameRightTop.png</filename>
+            <filename>../95_4times/Control/FrameTop.png</filename>
+            <filename>../95_4times/Control/Life.png</filename>
+            <filename>../95_4times/Control/NextButton.png</filename>
+            <filename>../95_4times/Control/PauseButton.png</filename>
+            <filename>../95_4times/Control/PrevButton.png</filename>
+            <filename>../95_4times/Control/ShieldButton_01.png</filename>
+            <filename>../95_4times/Control/ShieldButton_02.png</filename>
+            <filename>../95_4times/Control/TwitterButton.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
         <key>replaceList</key>
+        <array/>
+        <key>ignoredWarnings</key>
         <array/>
         <key>commonDivisorX</key>
         <uint>1</uint>

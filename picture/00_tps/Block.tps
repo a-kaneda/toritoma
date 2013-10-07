@@ -22,7 +22,7 @@
         <key>dataFormat</key>
         <string>cocos2d</string>
         <key>textureFileName</key>
-        <filename>../../toritoma/Resources/Image/Control-ipad.png</filename>
+        <filename>Block.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -40,7 +40,7 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>2</uint>
+        <uint>1</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
@@ -50,7 +50,7 @@
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>
-        <uint>2</uint>
+        <uint>1</uint>
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
@@ -70,7 +70,7 @@
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
-            <enum type="AlgorithmSettings::AlgorithmId">MaxRects</enum>
+            <enum type="AlgorithmSettings::AlgorithmId">Basic</enum>
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
@@ -87,7 +87,7 @@
             <key>basic</key>
             <struct type="AlgorithmBasicSettings">
                 <key>sortBy</key>
-                <enum type="AlgorithmBasicSettings::SortBy">Best</enum>
+                <enum type="AlgorithmBasicSettings::SortBy">Name</enum>
                 <key>order</key>
                 <enum type="AlgorithmBasicSettings::Order">Ascending</enum>
             </struct>
@@ -99,7 +99,7 @@
             <key>packageName</key>
             <string>Texture</string>
             <key>javaFileName</key>
-            <filename>Control-ipad.java</filename>
+            <filename>Character.java</filename>
             <key>wrap</key>
             <struct type="AndEngineWrap">
                 <key>s</key>
@@ -111,7 +111,9 @@
             <enum type="AndEngine::MagFilter">MagLinear</enum>
         </struct>
         <key>dataFileName</key>
-        <filename>../../toritoma/Resources/Image/Control-ipad.plist</filename>
+        <filename>Block.plist</filename>
+        <key>multiPack</key>
+        <false/>
         <key>mainExtension</key>
         <string></string>
         <key>forceIdenticalLayout</key>
@@ -146,23 +148,12 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>../95_4倍/Control/BackButton.png</filename>
-            <filename>../95_4倍/Control/Life.png</filename>
-            <filename>../95_4倍/Control/NextButton.png</filename>
-            <filename>../95_4倍/Control/PrevButton.png</filename>
-            <filename>../95_4倍/Control/ShieldButton_01.png</filename>
-            <filename>../95_4倍/Control/ShieldButton_02.png</filename>
-            <filename>../95_4倍/Control/TwitterButton.png</filename>
-            <filename>../95_4倍/Control/PauseButton.png</filename>
-            <filename>../95_4倍/Control/FrameBack.png</filename>
-            <filename>../95_4倍/Control/FrameBottom.png</filename>
-            <filename>../95_4倍/Control/FrameLeft.png</filename>
-            <filename>../95_4倍/Control/FrameLeftBottom.png</filename>
-            <filename>../95_4倍/Control/FrameLeftTop.png</filename>
-            <filename>../95_4倍/Control/FrameRight.png</filename>
-            <filename>../95_4倍/Control/FrameRightBottom.png</filename>
-            <filename>../95_4倍/Control/FrameRightTop.png</filename>
-            <filename>../95_4倍/Control/FrameTop.png</filename>
+            <filename>../94_2times/Block/Block_01_01.png</filename>
+            <filename>../94_2times/Block/Block_02_01.png</filename>
+            <filename>../94_2times/Block/Block_03_01.png</filename>
+            <filename>../94_2times/Block/Block_04_01.png</filename>
+            <filename>../94_2times/Block/Block_05_01.png</filename>
+            <filename>../94_2times/Block/Block_06_01.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
@@ -171,8 +162,8 @@
         <key>ignoredWarnings</key>
         <array/>
         <key>commonDivisorX</key>
-        <uint>1</uint>
+        <uint>32</uint>
         <key>commonDivisorY</key>
-        <uint>1</uint>
+        <uint>32</uint>
     </struct>
 </data>

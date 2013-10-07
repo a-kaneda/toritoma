@@ -22,7 +22,7 @@
         <key>dataFormat</key>
         <string>cocos2d</string>
         <key>textureFileName</key>
-        <filename>../../toritoma/Resources/Image/Control.png</filename>
+        <filename>Character-ipad.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -99,7 +99,7 @@
             <key>packageName</key>
             <string>Texture</string>
             <key>javaFileName</key>
-            <filename>Control.java</filename>
+            <filename>Character.java</filename>
             <key>wrap</key>
             <struct type="AndEngineWrap">
                 <key>s</key>
@@ -111,7 +111,9 @@
             <enum type="AndEngine::MagFilter">MagLinear</enum>
         </struct>
         <key>dataFileName</key>
-        <filename>../../toritoma/Resources/Image/Control.plist</filename>
+        <filename>Character-ipad.plist</filename>
+        <key>multiPack</key>
+        <false/>
         <key>mainExtension</key>
         <string></string>
         <key>forceIdenticalLayout</key>
@@ -136,7 +138,7 @@
             <key>innerPadding</key>
             <uint>0</uint>
             <key>extrude</key>
-            <uint>0</uint>
+            <uint>1</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMode</key>
@@ -146,23 +148,69 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>../94_2倍/Control/Life.png</filename>
-            <filename>../94_2倍/Control/ShieldButton_01.png</filename>
-            <filename>../94_2倍/Control/ShieldButton_02.png</filename>
-            <filename>../94_2倍/Control/BackButton.png</filename>
-            <filename>../94_2倍/Control/NextButton.png</filename>
-            <filename>../94_2倍/Control/PrevButton.png</filename>
-            <filename>../94_2倍/Control/TwitterButton.png</filename>
-            <filename>../94_2倍/Control/PauseButton.png</filename>
-            <filename>../94_2倍/Control/FrameBack.png</filename>
-            <filename>../94_2倍/Control/FrameBottom.png</filename>
-            <filename>../94_2倍/Control/FrameLeft.png</filename>
-            <filename>../94_2倍/Control/FrameLeftBottom.png</filename>
-            <filename>../94_2倍/Control/FrameLeftTop.png</filename>
-            <filename>../94_2倍/Control/FrameRight.png</filename>
-            <filename>../94_2倍/Control/FrameRightBottom.png</filename>
-            <filename>../94_2倍/Control/FrameRightTop.png</filename>
-            <filename>../94_2倍/Control/FrameTop.png</filename>
+            <filename>../95_4times/Character/Block_01_01.png</filename>
+            <filename>../95_4times/Character/Block_02_01.png</filename>
+            <filename>../95_4times/Character/Block_03_01.png</filename>
+            <filename>../95_4times/Character/Block_04_01.png</filename>
+            <filename>../95_4times/Character/Block_05_01.png</filename>
+            <filename>../95_4times/Character/Block_06_01.png</filename>
+            <filename>../95_4times/Character/Effect_01_01.png</filename>
+            <filename>../95_4times/Character/Effect_01_02.png</filename>
+            <filename>../95_4times/Character/Effect_01_03.png</filename>
+            <filename>../95_4times/Character/Effect_01_04.png</filename>
+            <filename>../95_4times/Character/Effect_01_05.png</filename>
+            <filename>../95_4times/Character/Effect_01_06.png</filename>
+            <filename>../95_4times/Character/Effect_01_07.png</filename>
+            <filename>../95_4times/Character/Effect_01_08.png</filename>
+            <filename>../95_4times/Character/Effect_02_01.png</filename>
+            <filename>../95_4times/Character/Enemy_01_01.png</filename>
+            <filename>../95_4times/Character/Enemy_01_02.png</filename>
+            <filename>../95_4times/Character/Enemy_02_01.png</filename>
+            <filename>../95_4times/Character/Enemy_02_02.png</filename>
+            <filename>../95_4times/Character/Enemy_03_01.png</filename>
+            <filename>../95_4times/Character/Enemy_03_02.png</filename>
+            <filename>../95_4times/Character/Enemy_04_01.png</filename>
+            <filename>../95_4times/Character/Enemy_04_02.png</filename>
+            <filename>../95_4times/Character/Enemy_11_01.png</filename>
+            <filename>../95_4times/Character/Enemy_12_01.png</filename>
+            <filename>../95_4times/Character/Enemy_12_11.png</filename>
+            <filename>../95_4times/Character/Enemy_12_12.png</filename>
+            <filename>../95_4times/Character/Enemy_13_01.png</filename>
+            <filename>../95_4times/Character/Enemy_13_02.png</filename>
+            <filename>../95_4times/Character/Enemy_14_01.png</filename>
+            <filename>../95_4times/Character/Enemy_14_02.png</filename>
+            <filename>../95_4times/Character/Enemy_21_01.png</filename>
+            <filename>../95_4times/Character/Enemy_21_02.png</filename>
+            <filename>../95_4times/Character/Enemy_22_01.png</filename>
+            <filename>../95_4times/Character/Enemy_22_02.png</filename>
+            <filename>../95_4times/Character/Enemy_23_01.png</filename>
+            <filename>../95_4times/Character/Enemy_23_02.png</filename>
+            <filename>../95_4times/Character/Enemy_23_03.png</filename>
+            <filename>../95_4times/Character/Enemy_23_04.png</filename>
+            <filename>../95_4times/Character/Enemy_31_01.png</filename>
+            <filename>../95_4times/Character/Enemy_31_02.png</filename>
+            <filename>../95_4times/Character/Enemy_32_01.png</filename>
+            <filename>../95_4times/Character/Enemy_32_02.png</filename>
+            <filename>../95_4times/Character/Enemy_32_03.png</filename>
+            <filename>../95_4times/Character/Enemy_33_01.png</filename>
+            <filename>../95_4times/Character/Enemy_34_01.png</filename>
+            <filename>../95_4times/Character/Enemy_34_02.png</filename>
+            <filename>../95_4times/Character/Enemy_35_01.png</filename>
+            <filename>../95_4times/Character/Enemy_36_01.png</filename>
+            <filename>../95_4times/Character/Enemy_36_02.png</filename>
+            <filename>../95_4times/Character/Enemy_37_01.png</filename>
+            <filename>../95_4times/Character/Enemy_37_02.png</filename>
+            <filename>../95_4times/Character/Enemy_38_01.png</filename>
+            <filename>../95_4times/Character/Enemy_38_02.png</filename>
+            <filename>../95_4times/Character/Enemy_39_01.png</filename>
+            <filename>../95_4times/Character/Enemy_39_02.png</filename>
+            <filename>../95_4times/Character/EnemyShot_01_01.png</filename>
+            <filename>../95_4times/Character/Option_01_01.png</filename>
+            <filename>../95_4times/Character/Option_01_02.png</filename>
+            <filename>../95_4times/Character/Option_02_01.png</filename>
+            <filename>../95_4times/Character/Player_01_01.png</filename>
+            <filename>../95_4times/Character/Player_01_02.png</filename>
+            <filename>../95_4times/Character/PlayerShot_01_01.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

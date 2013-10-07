@@ -22,7 +22,7 @@
         <key>dataFormat</key>
         <string>cocos2d</string>
         <key>textureFileName</key>
-        <filename>Back.png</filename>
+        <filename>HowTo-ipad.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -40,7 +40,7 @@
             </struct>
         </struct>
         <key>shapePadding</key>
-        <uint>1</uint>
+        <uint>2</uint>
         <key>jpgQuality</key>
         <uint>80</uint>
         <key>pngOptimizationLevel</key>
@@ -50,7 +50,7 @@
         <key>textureFormat</key>
         <enum type="SettingsBase::TextureFormat">png</enum>
         <key>borderPadding</key>
-        <uint>1</uint>
+        <uint>2</uint>
         <key>maxTextureSize</key>
         <QSize>
             <key>width</key>
@@ -70,7 +70,7 @@
         <key>algorithmSettings</key>
         <struct type="AlgorithmSettings">
             <key>algorithm</key>
-            <enum type="AlgorithmSettings::AlgorithmId">Basic</enum>
+            <enum type="AlgorithmSettings::AlgorithmId">MaxRects</enum>
             <key>freeSizeMode</key>
             <enum type="AlgorithmSettings::AlgorithmFreeSizeMode">Best</enum>
             <key>sizeConstraints</key>
@@ -87,7 +87,7 @@
             <key>basic</key>
             <struct type="AlgorithmBasicSettings">
                 <key>sortBy</key>
-                <enum type="AlgorithmBasicSettings::SortBy">Name</enum>
+                <enum type="AlgorithmBasicSettings::SortBy">Best</enum>
                 <key>order</key>
                 <enum type="AlgorithmBasicSettings::Order">Ascending</enum>
             </struct>
@@ -99,7 +99,7 @@
             <key>packageName</key>
             <string>Texture</string>
             <key>javaFileName</key>
-            <filename>Character.java</filename>
+            <filename>Control.java</filename>
             <key>wrap</key>
             <struct type="AndEngineWrap">
                 <key>s</key>
@@ -111,7 +111,9 @@
             <enum type="AndEngine::MagFilter">MagLinear</enum>
         </struct>
         <key>dataFileName</key>
-        <filename>Back.plist</filename>
+        <filename>HowTo-ipad.plist</filename>
+        <key>multiPack</key>
+        <false/>
         <key>mainExtension</key>
         <string></string>
         <key>forceIdenticalLayout</key>
@@ -136,7 +138,7 @@
             <key>innerPadding</key>
             <uint>0</uint>
             <key>extrude</key>
-            <uint>0</uint>
+            <uint>1</uint>
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMode</key>
@@ -146,29 +148,10 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>../94_2倍/Back/Back_01_01.png</filename>
-            <filename>../94_2倍/Back/Back_02_01.png</filename>
-            <filename>../94_2倍/Back/Back_03_01.png</filename>
-            <filename>../94_2倍/Back/Back_04_01.png</filename>
-            <filename>../94_2倍/Back/Back_04_02.png</filename>
-            <filename>../94_2倍/Back/Back_04_03.png</filename>
-            <filename>../94_2倍/Back/Back_04_04.png</filename>
-            <filename>../94_2倍/Back/Back_05_01.png</filename>
-            <filename>../94_2倍/Back/Back_06_01.png</filename>
-            <filename>../94_2倍/Back/Back_06_02.png</filename>
-            <filename>../94_2倍/Back/Back_06_03.png</filename>
-            <filename>../94_2倍/Back/Back_06_05.png</filename>
-            <filename>../94_2倍/Back/Back_06_06.png</filename>
-            <filename>../94_2倍/Back/Back_06_07.png</filename>
-            <filename>../94_2倍/Back/Back_06_08.png</filename>
-            <filename>../94_2倍/Back/Back_07_01.png</filename>
-            <filename>../94_2倍/Back/Back_08_01.png</filename>
-            <filename>../94_2倍/Back/Back_09_01.png</filename>
-            <filename>../94_2倍/Back/Back_09_02.png</filename>
-            <filename>../94_2倍/Back/Back_10_01.png</filename>
-            <filename>../94_2倍/Back/Back_11_01.png</filename>
-            <filename>../94_2倍/Back/Back_12_01.png</filename>
-            <filename>../94_2倍/Back/Back_06_04.png</filename>
+            <filename>../95_4times/HowTo/HowTo_1.png</filename>
+            <filename>../95_4times/HowTo/HowTo_2.png</filename>
+            <filename>../95_4times/HowTo/HowTo_3.png</filename>
+            <filename>../95_4times/HowTo/HowTo_4.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
@@ -177,8 +160,8 @@
         <key>ignoredWarnings</key>
         <array/>
         <key>commonDivisorX</key>
-        <uint>32</uint>
+        <uint>1</uint>
         <key>commonDivisorY</key>
-        <uint>32</uint>
+        <uint>1</uint>
     </struct>
 </data>

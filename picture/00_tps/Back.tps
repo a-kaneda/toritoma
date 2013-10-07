@@ -22,7 +22,7 @@
         <key>dataFormat</key>
         <string>cocos2d</string>
         <key>textureFileName</key>
-        <filename>Block.png</filename>
+        <filename>Back.png</filename>
         <key>flipPVR</key>
         <false/>
         <key>ditherType</key>
@@ -111,7 +111,9 @@
             <enum type="AndEngine::MagFilter">MagLinear</enum>
         </struct>
         <key>dataFileName</key>
-        <filename>Block.plist</filename>
+        <filename>Back.plist</filename>
+        <key>multiPack</key>
+        <false/>
         <key>mainExtension</key>
         <string></string>
         <key>forceIdenticalLayout</key>
@@ -146,12 +148,29 @@
         </struct>
         <key>fileList</key>
         <array>
-            <filename>../94_2倍/Block/Block_01_01.png</filename>
-            <filename>../94_2倍/Block/Block_02_01.png</filename>
-            <filename>../94_2倍/Block/Block_03_01.png</filename>
-            <filename>../94_2倍/Block/Block_04_01.png</filename>
-            <filename>../94_2倍/Block/Block_05_01.png</filename>
-            <filename>../94_2倍/Block/Block_06_01.png</filename>
+            <filename>../94_2times/Back/Back_01_01.png</filename>
+            <filename>../94_2times/Back/Back_02_01.png</filename>
+            <filename>../94_2times/Back/Back_03_01.png</filename>
+            <filename>../94_2times/Back/Back_04_01.png</filename>
+            <filename>../94_2times/Back/Back_04_02.png</filename>
+            <filename>../94_2times/Back/Back_04_03.png</filename>
+            <filename>../94_2times/Back/Back_04_04.png</filename>
+            <filename>../94_2times/Back/Back_05_01.png</filename>
+            <filename>../94_2times/Back/Back_06_01.png</filename>
+            <filename>../94_2times/Back/Back_06_02.png</filename>
+            <filename>../94_2times/Back/Back_06_03.png</filename>
+            <filename>../94_2times/Back/Back_06_04.png</filename>
+            <filename>../94_2times/Back/Back_06_05.png</filename>
+            <filename>../94_2times/Back/Back_06_06.png</filename>
+            <filename>../94_2times/Back/Back_06_07.png</filename>
+            <filename>../94_2times/Back/Back_06_08.png</filename>
+            <filename>../94_2times/Back/Back_07_01.png</filename>
+            <filename>../94_2times/Back/Back_08_01.png</filename>
+            <filename>../94_2times/Back/Back_09_01.png</filename>
+            <filename>../94_2times/Back/Back_09_02.png</filename>
+            <filename>../94_2times/Back/Back_10_01.png</filename>
+            <filename>../94_2times/Back/Back_11_01.png</filename>
+            <filename>../94_2times/Back/Back_12_01.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
