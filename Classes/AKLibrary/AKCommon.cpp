@@ -130,7 +130,7 @@ float AKRangeCheckLF(float val, float min, float max)
 /*!
  @brief rad角度からdeg角度への変換
 
- fadianからdegreeへ変換する。
+ radianからdegreeへ変換する。
  @param radAngle rad角度
  @return deg角度
  */
@@ -138,6 +138,19 @@ float AKCnvAngleRad2Deg(float radAngle)
 {
     // radianからdegreeへ変換する
     return radAngle / (2 * M_PI) * 360;
+}
+
+/*!
+ @brief deg角度からrad角度への変換
+ 
+ degreeからradianへ変換する。
+ @param degAngle deg角度
+ @return rad角度
+ */
+float AKCnvAngleDeg2Rad(float degAngle)
+{
+    // degreeからradianへ変換する
+    return degAngle / 360 * (2 * M_PI);
 }
 
 /*!
@@ -149,18 +162,38 @@ float AKCnvAngleRad2Deg(float radAngle)
  */
 float AKCnvAngleRad2Scr(float radAngle)
 {
-    float srcAngle = 0.0f;
-    
     // radianからdegreeへ変換する
-    srcAngle = AKCnvAngleRad2Deg(radAngle);
+    float screenAngle = AKCnvAngleRad2Deg(radAngle);
     
     // 上向きを0°とするため、90°ずらす。
-    srcAngle -= 90;
+    screenAngle -= 90;
     
     // 時計回りを正とするため符号を反転する。
-    srcAngle *= -1;
+    screenAngle *= -1;
     
-    return srcAngle;
+    return screenAngle;
+}
+
+/*!
+ @brief スクリーン角度からrad角度への変換
+ 
+ スクリーンの角度からradへ変換する。
+ 上向き0°、時計回りが正、degreeとなっているものを左向き0°、反時計回りが正、radianへと変換する。
+ @param screenAngle スクリーン角度
+ @return rad角度
+ */
+float AKCnvAngleScr2Rad(float screenAngle)
+{
+    // 時計回りを正となっているものを逆向きにするため、符号を反転する
+    screenAngle *= -1;
+
+    // 上向きを0°となっているため、90°ずらす
+    screenAngle += 90;
+    
+    // degreeからradianへ変換する
+    float radAngle = AKCnvAngleDeg2Rad(screenAngle);
+    
+    return radAngle;
 }
 
 /*!

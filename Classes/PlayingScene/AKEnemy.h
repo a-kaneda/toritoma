@@ -36,6 +36,7 @@
 #ifndef AKENEMY_H
 #define AKENEMY_H
 
+#include <queue>
 #include "AKCharacter.h"
 #include "AKNWayAngle.h"
 
@@ -113,10 +114,20 @@ private:
     int m_score;
     /// 倒した時に進む進行度
     int m_progress;
+    /// 親キャラクター
+    AKEnemy *m_parentEnemy;
+    /// 移動履歴を保存する個数
+    int m_historyCount;
+    /// 移動履歴
+    std::queue<cocos2d::CCPoint> m_moveHistory;
     
 public:
     // 生成処理
     void createEnemy(int type, const cocos2d::CCPoint &position, int progress, cocos2d::CCNode *parent);
+    // 親キャラクター設定
+    void setParentEnemy(AKEnemy *parent);
+    // 移動履歴取得
+    const std::queue<cocos2d::CCPoint>* getMoveHistory();
 
 protected:
     // キャラクター固有の動作
@@ -155,6 +166,10 @@ private:
     void actionOfHoneycomb(AKPlayDataInterface *data);
     // クモの動作処理
     void actionOfSpider(AKPlayDataInterface *data);
+    // ムカデ（頭）の動作処理
+    void actionOfCentipedeHead(AKPlayDataInterface *data);
+    // ムカデ（胴体）の動作処理
+    void actionOfCentipedeBody(AKPlayDataInterface *data);
     // 雑魚敵の破壊処理
     void destroyNormal(AKPlayDataInterface *data);
     // 逆さま判定

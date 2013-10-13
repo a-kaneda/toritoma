@@ -88,6 +88,8 @@ protected:
     int m_hitPoint;
     /// 攻撃力
     int m_power;
+    /// 防御力
+    int m_defence;
     /// ステージ上に存在しているかどうか
     bool m_isStaged;
     /// アニメーションパターン数
@@ -142,6 +144,8 @@ public:
     void setHitPoint(int hitPoint);
     // 攻撃力取得
     int getPower();
+    // 防御力取得
+    int getDefence();
     // 現在の位置を記憶する
     void savePosition();
     // 記憶した位置を復元する
@@ -152,6 +156,8 @@ public:
     cocos2d::CCSprite* getImage();
     // 画像有無チェック
     bool hasImage();
+    // アニメーションフレーム設定
+    void setAnimationFrame(int frame);
     
     /*!
      @brief 衝突判定(動作なし)

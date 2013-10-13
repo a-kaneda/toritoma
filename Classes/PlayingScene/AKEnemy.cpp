@@ -52,7 +52,9 @@ struct AKEnemyDef {
     int hitHeight;                  ///< 当たり判定の高さ
     int offsetX;                    ///< 当たり判定オフセットx軸
     int offsetY;                    ///< 当たり判定オフセットy軸
+    int historyCount;               ///< 移動履歴を保存する個数
     int hitPoint;                   ///< ヒットポイント
+    int defence;                    ///< 防御力
     int score;                      ///< スコア
 };
 
@@ -84,47 +86,47 @@ enum AKEnemyType {
 
 /// 敵の定義
 const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
-    //破壊,画像,フレーム数,フレーム間隔,幅,高さ,HP,スコア
-    {&AKEnemy::actionOfDragonfly, &AKEnemy::destroyNormal, 1, 2, 30, 32, 32, 0, 0, 3, 100},     // トンボ
-    {&AKEnemy::actionOfAnt, &AKEnemy::destroyNormal, 2, 2, 30, 32, 16, 0, 0, 3, 100},           // アリ
-    {&AKEnemy::actionOfButterfly, &AKEnemy::destroyNormal, 3, 2, 30, 32, 32, 0, 0, 3, 100},     // チョウ
-    {&AKEnemy::actionOfLadybug, &AKEnemy::destroyNormal, 4, 2, 6, 32, 32, 0, 0, 5, 100},        // テントウムシ
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備5
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備6
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備7
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備8
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備9
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備10
-    {&AKEnemy::actionOfBagworm, &AKEnemy::destroyNormal, 11, 1, 0, 32, 32, 0, 0, 10, 100},      // ミノムシ
-    {&AKEnemy::actionOfCicada, &AKEnemy::destroyNormal, 12, 1, 0, 32, 32, 0, 0, 5, 100},        // セミ
-    {&AKEnemy::actionOfGrasshopper, &AKEnemy::destroyNormal, 13, 1, 0, 32, 32, 0, 0, 3, 100},   // バッタ
-    {&AKEnemy::actionOfHornet, &AKEnemy::destroyNormal, 14, 2, 6, 32, 32, 0, 0, 5, 100},        // ハチ
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備15
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備16
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備17
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備18
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備19
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備20
-    {&AKEnemy::actionOfCockroach, &AKEnemy::destroyNormal, 21, 2, 6, 32, 32, 0, 0, 5, 100},     // ゴキブリ
-    {&AKEnemy::actionOfSnail, &AKEnemy::destroyNormal, 22, 2, 30, 32, 32, 0, 0, 5, 100},        // カタツムリ
-    {&AKEnemy::actionOfStagBeetle, &AKEnemy::destroyNormal, 23, 2, 6, 32, 32, 0, 0, 5, 100},    // クワガタ
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備24
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備25
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備26
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備27
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備28
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備29
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // 予備30
-    {&AKEnemy::actionOfRhinocerosBeetle, &AKEnemy::destroyNormal, 31, 2, 3, 64, 40, 0, 0, 1000, 10000}, // カブトムシ
-    {&AKEnemy::actionOfMantis, &AKEnemy::destroyNormal, 32, 0, 0, 64, 64, 0, 0, 1000, 10000},           // カマキリ
-    {&AKEnemy::actionOfHoneycomb, &AKEnemy::destroyNormal, 33, 0, 0, 64, 64, 0, 0, 1000, 10000},        // ハチの巣
-    {&AKEnemy::actionOfSpider, &AKEnemy::destroyNormal, 34, 2, 12, 64, 64, 0, 0, 1000, 10000},           // クモ
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // ムカデ（頭）
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // ムカデ（胴体）
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // ムカデ（尾）
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // ウジ
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0},         // ハエ
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0}          // 予備40
+    // 破壊,画像,フレーム数,フレーム間隔,幅,高さ,オフセットX,オフセットY,移動履歴,HP,防御力,スコア
+    {&AKEnemy::actionOfDragonfly, &AKEnemy::destroyNormal, 1, 2, 30, 32, 32, 0, 0, 0, 3, 0, 100},   // トンボ
+    {&AKEnemy::actionOfAnt, &AKEnemy::destroyNormal, 2, 2, 30, 32, 16, 0, 0, 0, 3, 0, 100},         // アリ
+    {&AKEnemy::actionOfButterfly, &AKEnemy::destroyNormal, 3, 2, 30, 32, 32, 0, 0, 0, 3, 0, 100},   // チョウ
+    {&AKEnemy::actionOfLadybug, &AKEnemy::destroyNormal, 4, 2, 6, 32, 32, 0, 0, 0, 5, 0, 100},      // テントウムシ
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備5
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備6
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備7
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備8
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備9
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備10
+    {&AKEnemy::actionOfBagworm, &AKEnemy::destroyNormal, 11, 1, 0, 32, 32, 0, 0, 0, 10, 0, 100},        // ミノムシ
+    {&AKEnemy::actionOfCicada, &AKEnemy::destroyNormal, 12, 1, 0, 32, 32, 0, 0, 0, 5, 0, 100},          // セミ
+    {&AKEnemy::actionOfGrasshopper, &AKEnemy::destroyNormal, 13, 1, 0, 32, 32, 0, 0, 0, 3, 0, 100},     // バッタ
+    {&AKEnemy::actionOfHornet, &AKEnemy::destroyNormal, 14, 2, 6, 32, 32, 0, 0, 0, 5, 0, 100},          // ハチ
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備15
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備16
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備17
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備18
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備19
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備20
+    {&AKEnemy::actionOfCockroach, &AKEnemy::destroyNormal, 21, 2, 6, 32, 32, 0, 0, 0, 5, 0, 100},   // ゴキブリ
+    {&AKEnemy::actionOfSnail, &AKEnemy::destroyNormal, 22, 2, 30, 32, 32, 0, 0, 0, 5, 0, 100},      // カタツムリ
+    {&AKEnemy::actionOfStagBeetle, &AKEnemy::destroyNormal, 23, 2, 6, 32, 32, 0, 0, 0, 5, 0, 100},  // クワガタ
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備24
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備25
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備26
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備27
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備28
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備29
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備30
+    {&AKEnemy::actionOfRhinocerosBeetle, &AKEnemy::destroyNormal, 31, 2, 3, 64, 40, 0, 0, 0, 1000, 0, 10000},   // カブトムシ
+    {&AKEnemy::actionOfMantis, &AKEnemy::destroyNormal, 32, 0, 0, 64, 64, 0, 0, 0, 1000, 0, 10000},             // カマキリ
+    {&AKEnemy::actionOfHoneycomb, &AKEnemy::destroyNormal, 33, 0, 0, 64, 64, 0, 0, 0, 1000, 0, 10000},          // ハチの巣
+    {&AKEnemy::actionOfSpider, &AKEnemy::destroyNormal, 34, 2, 12, 64, 64, 0, 0, 0, 1000, 0, 10000},            // クモ
+    {&AKEnemy::actionOfCentipedeHead, &AKEnemy::destroyNormal, 35, 0, 0, 32, 32, 0, 16, 11, 1000, 99, 10000},   // ムカデ（頭）
+    {&AKEnemy::actionOfCentipedeBody, &AKEnemy::destroyNormal, 36, 2, 12, 32, 16, 0, 0, 11, 1000, 99, 10000},   // ムカデ（胴体）
+    {&AKEnemy::actionOfCentipedeBody, &AKEnemy::destroyNormal, 37, 2, 12, 32, 16, 0, -24, 0, 1000, 0, 10000},   // ムカデ（尾）
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // ウジ
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // ハエ
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}   // 予備40
 };
 
 /*!
@@ -517,6 +519,10 @@ void AKEnemy::createEnemy(int type,
     for (int i = 0; i < kAKEnemyWorkCount; i++) {
         m_work[i] = 0;
     }
+    m_parentEnemy = NULL;
+    while (!m_moveHistory.empty()) {
+        m_moveHistory.pop();
+    }
     
     AKAssert(type > 0 && type <= kAKEnemyDefCount, "敵の種類の値が範囲外:%d", type);
     
@@ -541,10 +547,18 @@ void AKEnemy::createEnemy(int type,
     m_size.width = kAKEnemyDef[type - 1].hitWidth;
     m_size.height = kAKEnemyDef[type - 1].hitHeight;
     
-    // TODO:当たり判定のオフセットを設定する
+    // 当たり判定のオフセットを設定する
+    m_offset.x = kAKEnemyDef[type - 1].offsetX;
+    m_offset.y = kAKEnemyDef[type - 1].offsetY;
+    
+    // 移動履歴を保存する個数を設定する
+    m_historyCount = kAKEnemyDef[type - 1].historyCount;
     
     // ヒットポイントを設定する
     m_hitPoint = kAKEnemyDef[type - 1].hitPoint;
+    
+    // 防御力を設定する
+    m_defence = kAKEnemyDef[type - 1].defence;
     
     // スコアを設定する
     m_score = kAKEnemyDef[type - 1].score;
@@ -557,6 +571,28 @@ void AKEnemy::createEnemy(int type,
 }
 
 /*!
+ @brief 親キャラクター設定
+ 
+ 親キャラクターを設定する。
+ @param parent 親キャラクター
+ */
+void AKEnemy::setParentEnemy(AKEnemy *parent)
+{
+    m_parentEnemy = parent;
+}
+
+/*!
+ @brief 移動履歴取得
+ 
+ 移動履歴を取得する。
+ @return 移動履歴
+ */
+const std::queue<cocos2d::CCPoint>* AKEnemy::getMoveHistory()
+{
+    return &m_moveHistory;
+}
+
+/*!
  @brief キャラクター固有の動作
 
  生成時に指定されたセレクタを呼び出す。
@@ -566,6 +602,18 @@ void AKEnemy::action(AKPlayDataInterface *data)
 {
     // 動作開始からのフレーム数をカウントする
     m_frame++;
+    
+    // 移動履歴を保存する個数が設定されている場合は履歴を保存する
+    if (m_historyCount > 0) {
+        
+        // 個数を超えている分を破棄する
+        while (m_moveHistory.size() >= m_historyCount) {
+            m_moveHistory.pop();
+        }
+        
+        // 前回位置を保存する
+        m_moveHistory.push(m_prevPosition);
+    }
         
     // 敵種別ごとの処理を実行
     (this->*m_action)(data);
@@ -2307,6 +2355,231 @@ void AKEnemy::actionOfSpider(AKPlayDataInterface *data)
         
         AKLog(kAKLogEnemy_3, "m_state=%d", m_state);
     }
+}
+
+/*!
+ @brief ムカデ（頭）の動作処理
+
+ 初期状態:胴体、尻尾部分の作成する。
+ 
+ 登場:画面スクロールにあわせて移動する。
+ 
+ 移動:最初は左下に移動する。画面の端に到達すると進行方向の角度を変え、時計回りに回る。
+ 
+ @param data ゲームデータ
+ */
+void AKEnemy::actionOfCentipedeHead(AKPlayDataInterface *data)
+{
+    // 状態
+    enum STATE {
+        kAKStateInit = 0,   // 初期状態
+        kAKStateEntry,      // 登場
+        kAKState5WayShot,   // 5-way弾発射
+        kAKStateSiege,      // 2-way弾による包囲弾発射
+        kAKStateChase,      // 追跡
+        kAKStateCount       // 状態の種類の数
+    };
+    // 作業領域の用途
+    enum WORK {
+        kAKWorkMoveX = 0,   // 移動方向x方向(左:-1、右:1)
+        kAKWorkMoveY        // 移動方向y方向(下:-1、上:1)
+    };
+    // 状態遷移間隔
+    const int kAKStateInterval[kAKStateCount] = {999, 170, 900, 900, 900};
+    // 移動方向変更の境界線x方向最小値
+    const float kAKMoveChangePointXMin = 16.0f;
+    // 移動方向変更の境界線x方向最大値
+    const float kAKMoveChangePointXMax = 368.0f;
+    // 移動方向変更の境界線y方向最小値
+    const float kAKMoveChangePointYMin = 32.0f;
+    // 移動方向変更の境界線y方向最大値
+    const float kAKMoveChangePointYMax = 256.0f;
+    // 移動スピード
+    const float kAKMoveSpeed = 1.0f;
+    // 胴体の数
+    const int kAKBodyCount = 18;
+    
+    // 状態によって処理を分岐する
+    switch (m_state) {
+        case kAKStateInit:      // 初期状態
+            
+        {
+            // 胴体部分を作成する
+            AKEnemy *parent = this;
+            int animationFrame = 0;
+            for (int i = 0; i < kAKBodyCount; i++) {
+                
+                // 胴体を作成する
+                AKEnemy *body = data->createEnemy(kAKEnemyCentipedeBody, m_position, 0);
+                
+                // 胴体の前の部分を設定する
+                body->setParentEnemy(parent);
+                
+                // 足の動きが交互になるようにアニメーションフレームを設定する
+                body->setAnimationFrame(animationFrame);
+                if ((i + 1) % 4 < 2) {
+                    animationFrame = 0;
+                }
+                else {
+                    animationFrame = kAKEnemyDef[kAKEnemyCentipedeBody].animationInterval;
+                }
+                
+                // 今回作成した胴体を次の胴体の前の部分に使用する
+                parent = body;
+            }
+            
+            // 尻尾を作成する
+            AKEnemy *tail = data->createEnemy(kAKEnemyCentipedeTail, m_position, 0);
+            
+            // 足の動きが交互になるようにアニメーションフレームを設定する
+            tail->setAnimationFrame(animationFrame);
+
+            // 尻尾の前の部分を設定する
+            tail->setParentEnemy(parent);
+        }
+            
+            // 状態を次に進める
+            m_state = kAKStateEntry;
+            
+            // 初期移動方向は左下とする
+            m_work[kAKWorkMoveX] = -1;
+            m_work[kAKWorkMoveY] = -1;
+            
+            break;
+            
+        case kAKStateEntry:     // 登場
+            
+            // 左方向へ移動する
+            m_speedX = -1.0f;
+            m_speedY = 0.0f;
+            
+            // 画像を回転させる
+            getImage()->setRotation(AKCnvAngleRad2Scr(M_PI));
+            
+            break;
+            
+        case kAKState5WayShot:  // 5-way弾発射
+            
+            break;
+            
+        case kAKStateSiege:     // 2-way弾による包囲弾発射
+            
+            break;
+            
+        case kAKStateChase:     // 追跡
+            
+            break;
+            
+        default:
+            AKAssert(false, "状態が異常:m_state=%d", m_state);
+            break;
+    }
+    
+    // 5-way弾発射と包囲弾発射時の移動処理
+    if (m_state > kAKStateEntry) {
+        
+        AKLog(kAKLogEnemy_3, "position=(%f, %f) moveX=%d, moveY=%d",
+              m_position.x, m_position.y, m_work[kAKWorkMoveX], m_work[kAKWorkMoveY]);
+        
+        // 下方向へ移動中に下端に達したら向きを変える
+        if (m_work[kAKWorkMoveY] < 0 &&
+            m_position.y < kAKMoveChangePointYMin) {
+            
+            m_work[kAKWorkMoveY] *= -1;
+            
+            AKLog(kAKLogEnemy_3, "下端到達:moveY=%d", m_work[kAKWorkMoveY]);
+        }
+        // 上方向へ移動中に上端に達したら向きを変える
+        else if (m_work[kAKWorkMoveY] > 0 &&
+                 m_position.y > kAKMoveChangePointYMax) {
+            
+            m_work[kAKWorkMoveY] *= -1;
+            
+            AKLog(kAKLogEnemy_3, "上端到達:moveY=%d", m_work[kAKWorkMoveY]);
+        }
+
+        // 左方向へ移動中に左端に達したら向きを変える
+        if (m_work[kAKWorkMoveX] < 0 &&
+            m_position.x < kAKMoveChangePointXMin) {
+            
+            m_work[kAKWorkMoveX] *= -1;
+            
+            AKLog(kAKLogEnemy_3, "左端到達:moveX=%d", m_work[kAKWorkMoveX]);
+        }
+        // 右方向へ移動中に右端に達したら向きを変える
+        else if (m_work[kAKWorkMoveX] > 0 &&
+                 m_position.x > kAKMoveChangePointXMax) {
+            
+            m_work[kAKWorkMoveX] *= -1;
+            
+            AKLog(kAKLogEnemy_3, "右端到達:moveX=%d", m_work[kAKWorkMoveX]);
+        }
+        
+        // スピードを設定する
+        m_speedX = kAKMoveSpeed * m_work[kAKWorkMoveX];
+        m_speedY = kAKMoveSpeed * m_work[kAKWorkMoveY];
+        
+        // 移動方向の角度を計算する
+        float angle = atan2f(m_speedY, m_speedX);
+        
+        // 画像を回転させる
+        getImage()->setRotation(AKCnvAngleRad2Scr(angle));
+    }
+    
+    // 状態遷移間隔が経過している場合は次の状態へ進める
+    if (m_frame > kAKStateInterval[m_state]) {
+        
+        // 次の状態へ進める
+        m_state++;
+        
+        // 状態が最大を超える場合は最初の状態へループする
+        if (m_state >= kAKStateCount) {
+            m_state = kAKStateEntry + 1;
+        }
+        
+        // 経過フレーム数と作業領域を初期化する
+        m_frame = 0.0f;
+        
+        AKLog(kAKLogEnemy_3, "m_state=%d", m_state);
+    }
+}
+
+/*!
+ @brief ムカデ（胴体）の動作処理
+ 
+ 一つ前の体の後ろについていく。
+ 
+ @param data ゲームデータ
+ */
+void AKEnemy::actionOfCentipedeBody(AKPlayDataInterface *data)
+{
+    // 一つ前の体がメンバに設定されていない場合は処理しない
+    if (m_parentEnemy == NULL) {
+        AKAssert(false, "m_parentEnemy is null.");
+        return;
+    }
+    
+    // 一つ前の体の移動履歴を取得する
+    const std::queue<CCPoint> *history = m_parentEnemy->getMoveHistory();
+    
+    // 履歴がない場合は処理を終了する
+    if (history->size() <= 0) {
+        return;
+    }
+    
+    // 移動履歴の末尾を自分の座標に設定する
+    m_position = history->front();
+    
+    // 前回位置との差から体の向きを決める
+    float dx = m_position.x - m_prevPosition.x;
+    float dy = m_position.y - m_prevPosition.y;
+    float angle = atan2f(dy, dx);
+    
+    // 画像を回転させる
+    getImage()->setRotation(AKCnvAngleRad2Scr(angle));
+    
+    // 画像の表示を更新する
+    updateImagePosition();
 }
 
 /*!

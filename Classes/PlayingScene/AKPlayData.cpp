@@ -809,19 +809,22 @@ void AKPlayData::createReflectShot(AKEnemyShot *enemyShot)
  @param type 敵種別
  @param position 生成位置
  @param progress 倒した時に進む進行度
+ @return 生成した敵キャラ
  */
-void AKPlayData::createEnemy(int type, CCPoint position, int progress)
+AKEnemy* AKPlayData::createEnemy(int type, CCPoint position, int progress)
 {
     // プールから未使用のメモリを取得する
     AKEnemy *enemy = m_enemyPool.getNext();
     if (enemy == NULL) {
         // 空きがない場合は処理終了する
         AKAssert(false, "敵プールに空きなし");
-        return;
+        return NULL;
     }
     
     // 敵を生成する
     enemy->createEnemy(type, position, progress, m_batches.at(kAKCharaPosZEnemy));
+    
+    return enemy;
 }
 
 /*!

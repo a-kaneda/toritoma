@@ -56,7 +56,7 @@ static const unsigned int kAKMaxImageFileName = 64;
  */
 AKCharacter::AKCharacter() :
 m_image(NULL), m_size(0.0f, 0.0f), m_position(0.0f, 0.0f), m_prevPosition(0.0f, 0.0f),
-m_speedX(0.0f), m_speedY(0.0f), m_hitPoint(0), m_power(1), m_isStaged(false),
+m_speedX(0.0f), m_speedY(0.0f), m_hitPoint(0), m_power(1), m_defence(0), m_isStaged(false),
 m_animationPattern(1), m_animationInterval(kAKDefaultAnimationInterval), m_animationFrame(0),
 m_animationRepeat(0), m_animationInitPattern(1), m_imageName(""), m_scrollSpeed(0.0f),
 m_blockHitAction(kAKBlockHitNone), m_blockHitSide(0), m_offset(0.0f, 0.0f)
@@ -229,6 +229,17 @@ int AKCharacter::getPower()
 }
 
 /*!
+ @brief 防御力取得
+ 
+ 防御力を取得する。
+ @return 防御力
+ */
+int AKCharacter::getDefence()
+{
+    return m_defence;
+}
+
+/*!
  @brief 現在の位置を記憶する
 
  現在の位置を移動前の位置に保存する。
@@ -270,6 +281,17 @@ CCSprite* AKCharacter::getImage()
 bool AKCharacter::hasImage()
 {
     return (m_image != NULL);
+}
+
+/*!
+ @brief アニメーションフレーム設定
+ 
+ アニメーションフレームを設定する。
+ @param frame アニメーションフレーム
+ */
+void AKCharacter::setAnimationFrame(int frame)
+{
+    m_animationFrame = frame;
 }
 
 /*!
@@ -509,11 +531,15 @@ void AKCharacter::destroy(AKPlayDataInterface *data)
  */
 void AKCharacter::hit(AKCharacter *character, AKPlayDataInterface *data)
 {
-    // 自分と相手のHPを衝突した相手の攻撃力分減らす
-    m_hitPoint -= character->getPower();
+    // 自分と相手のHPを衝突した相手の攻撃力と自分の防御力の差の分減らす
+    if (character->getPower() - m_defence > 0) {
+        m_hitPoint -= (character->getPower() - m_defence);
+    }
 
-    int newHitPoint = character->getHitPoint() - m_power;
-    character->setHitPoint(newHitPoint);
+    if (m_power - character->getDefence() > 0) {
+        int newHitPoint = character->getHitPoint() - (m_power - character->getDefence());
+        character->setHitPoint(newHitPoint);
+    }
 }
 
 /*!
@@ -721,8 +747,16 @@ bool AKCharacter::isOutOfStage(AKPlayDataInterface *data)
  */
 void AKCharacter::updateImagePosition()
 {
-    float x = AKScreenSize::xOfStage(m_position.x + m_offset.x);
-    float y = AKScreenSize::yOfStage(m_position.y + m_offset.y);
+    // 画像の回転している角度を取得する
+    float angle = AKCnvAngleScr2Rad(m_image->getRotation());
+    
+    // 回転している方向に合わせて画像をずらす距離を計算する
+    float dx = m_offset.x * sinf(angle) + m_offset.y * cosf(angle);
+    float dy = - m_offset.x * cosf(angle) + m_offset.y * sinf(angle);
+    
+    // 移動後の座標を計算する
+    float x = AKScreenSize::xOfStage(m_position.x + dx);
+    float y = AKScreenSize::yOfStage(m_position.y + dy);
     
     m_image->setPosition(CCPoint(x, y));
 }

@@ -152,7 +152,9 @@ float AKRangeCheckF(float val, float min, float max);
 
 // 角度変換
 float AKCnvAngleRad2Deg(float radAngle);
+float AKCnvAngleDeg2Rad(float degAngle);
 float AKCnvAngleRad2Scr(float radAngle);
+float AKCnvAngleScr2Rad(float screenAngle);
 
 // 矩形内判定
 bool AKIsInside(const cocos2d::CCPoint &point, const cocos2d::CCRect &rect);

@@ -123,7 +123,7 @@ public:
     // 反射弾生成
     virtual void createReflectShot(AKEnemyShot *enemyShot);
     // 敵生成
-    virtual void createEnemy(int type, cocos2d::CCPoint position, int progress);
+    virtual AKEnemy* createEnemy(int type, cocos2d::CCPoint position, int progress);
     // 敵弾インスタンスの取得
     virtual AKEnemyShot* getEnemyShot();
     // 敵弾配置ノードの取得

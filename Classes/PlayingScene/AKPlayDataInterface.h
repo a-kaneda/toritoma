@@ -41,6 +41,7 @@
 
 class AKBlock;
 class AKEnemyShot;
+class AKEnemy;
 
 /*!
  @brief ゲームデータインターフェース
@@ -130,8 +131,9 @@ public:
      @param type 敵種別
      @param position 生成位置
      @param progress 倒した時に進む進行度
+     @return 生成した敵キャラ
      */
-    virtual void createEnemy(int type, cocos2d::CCPoint position, int progress) = 0;
+    virtual AKEnemy* createEnemy(int type, cocos2d::CCPoint position, int progress) = 0;
 
     /*!
      @brief 敵弾インスタンスの取得
