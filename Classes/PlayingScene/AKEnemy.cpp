@@ -123,7 +123,7 @@ const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
     {&AKEnemy::actionOfSpider, &AKEnemy::destroyNormal, 34, 2, 12, 64, 64, 0, 0, 0, 1000, 0, 10000},            // クモ
     {&AKEnemy::actionOfCentipedeHead, &AKEnemy::destroyNormal, 35, 0, 0, 32, 32, 0, 16, 11, 1000, 99, 10000},   // ムカデ（頭）
     {&AKEnemy::actionOfCentipedeBody, &AKEnemy::destroyNormal, 36, 2, 12, 32, 16, 0, 0, 11, 1000, 99, 10000},   // ムカデ（胴体）
-    {&AKEnemy::actionOfCentipedeBody, &AKEnemy::destroyNormal, 37, 2, 12, 32, 16, 0, -24, 0, 1000, 0, 10000},   // ムカデ（尾）
+    {&AKEnemy::actionOfCentipedeTail, &AKEnemy::destroyNormal, 37, 2, 12, 32, 16, 0, -24, 0, 1000, 0, 10000},   // ムカデ（尾）
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // ウジ
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // ハエ
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}   // 予備40
@@ -520,6 +520,7 @@ void AKEnemy::createEnemy(int type,
         m_work[i] = 0;
     }
     m_parentEnemy = NULL;
+    m_childEnemy = NULL;
     while (!m_moveHistory.empty()) {
         m_moveHistory.pop();
     }
@@ -579,6 +580,28 @@ void AKEnemy::createEnemy(int type,
 void AKEnemy::setParentEnemy(AKEnemy *parent)
 {
     m_parentEnemy = parent;
+}
+
+/*!
+ @brief 小キャラクター設定
+ 
+ 小キャラクターを設定する。
+ @param child 小キャラクター
+ */
+void AKEnemy::setChildEnemy(AKEnemy *child)
+{
+    m_childEnemy = child;
+}
+
+/*!
+ @brief 状態設定
+ 
+ 状態を設定する。
+ @param state 状態
+ */
+void AKEnemy::setState(int state)
+{
+    m_state = state;
 }
 
 /*!
@@ -2372,17 +2395,18 @@ void AKEnemy::actionOfCentipedeHead(AKPlayDataInterface *data)
 {
     // 状態
     enum STATE {
-        kAKStateInit = 0,   // 初期状態
-        kAKStateEntry,      // 登場
-        kAKState5WayShot,   // 5-way弾発射
-        kAKStateSiege,      // 2-way弾による包囲弾発射
-        kAKStateChase,      // 追跡
-        kAKStateCount       // 状態の種類の数
+        kAKStateInit = 0,       // 初期状態
+        kAKStateEntry,          // 登場
+        kAKState5WayShot,       // 5-way弾発射
+        kAKStateHighSpeedShot,  // 2-way弾による包囲弾発射
+        kAKStateBodyShot,       // 胴体部分からのショット
+        kAKStateCount           // 状態の種類の数
     };
     // 作業領域の用途
     enum WORK {
         kAKWorkMoveX = 0,   // 移動方向x方向(左:-1、右:1)
-        kAKWorkMoveY        // 移動方向y方向(下:-1、上:1)
+        kAKWorkMoveY,       // 移動方向y方向(下:-1、上:1)
+        kAKWork1WayTime     // 1-way弾発射の待機時間
     };
     // 状態遷移間隔
     const int kAKStateInterval[kAKStateCount] = {999, 170, 900, 900, 900};
@@ -2398,6 +2422,18 @@ void AKEnemy::actionOfCentipedeHead(AKPlayDataInterface *data)
     const float kAKMoveSpeed = 1.0f;
     // 胴体の数
     const int kAKBodyCount = 18;
+    // 5-way弾発射間隔
+    const int kAK5WayInterval = 40;
+    // 5-way弾スピード
+    const float kAK5WayShotSpeed = 2.0f;
+    // 1-way弾の待機時間
+    const int kAK1WayWaitTime = 10;
+    // 1-way弾の発射時間
+    const int kAK1WayShotTime = 80;
+    // 1-way弾発射間隔
+    const int kAK1WayInterval = 10;
+    // 1-way弾スピード
+    const float kAK1WayShotSpeed = 3.5f;
     
     // 状態によって処理を分岐する
     switch (m_state) {
@@ -2414,6 +2450,9 @@ void AKEnemy::actionOfCentipedeHead(AKPlayDataInterface *data)
                 
                 // 胴体の前の部分を設定する
                 body->setParentEnemy(parent);
+                
+                // 前の部分の体の次の部分に今回作成した体を設定する
+                parent->setChildEnemy(body);
                 
                 // 足の動きが交互になるようにアニメーションフレームを設定する
                 body->setAnimationFrame(animationFrame);
@@ -2436,6 +2475,9 @@ void AKEnemy::actionOfCentipedeHead(AKPlayDataInterface *data)
 
             // 尻尾の前の部分を設定する
             tail->setParentEnemy(parent);
+            
+            // 前の部分の体の次の部分に今回作成した体を設定する
+            parent->setChildEnemy(tail);
         }
             
             // 状態を次に進める
@@ -2460,13 +2502,45 @@ void AKEnemy::actionOfCentipedeHead(AKPlayDataInterface *data)
             
         case kAKState5WayShot:  // 5-way弾発射
             
+            // 弾発射間隔時間経過したら弾を発射する
+            if ((m_frame + 1) % kAK5WayInterval == 0) {
+                
+                // 自機へ向けて弾を発射する
+                AKEnemy::fireNWay(m_position,
+                                  5,
+                                  M_PI / 8.0f,
+                                  kAK5WayShotSpeed,
+                                  data);
+            }
+            
             break;
             
-        case kAKStateSiege:     // 2-way弾による包囲弾発射
+        case kAKStateHighSpeedShot:     // 1-way弾による高速弾発射
+            
+            // 1-way弾グループの待機時間が経過している場合は1-way弾を発射し始める
+            if (m_frame - m_work[kAKWork1WayTime] > kAK1WayWaitTime) {
+                
+                // 弾発射間隔時間経過したら弾を発射する
+                if ((m_frame + 1) % kAK1WayInterval == 0) {
+                    
+                    // 自機へ向けて弾を発射する
+                    AKEnemy::fireNWay(m_position,
+                                      1,
+                                      0.0f,
+                                      kAK1WayShotSpeed,
+                                      data);
+                }
+                
+                // 1-way弾の発射時間が経過している場合は作業領域に現在の経過フレーム数を入れて
+                // 1-way弾グループの発射間隔分待機する
+                if (m_frame - m_work[kAKWork1WayTime] > kAK1WayShotTime + kAK1WayWaitTime) {
+                    m_work[kAKWork1WayTime] = m_frame;
+                }
+            }
             
             break;
             
-        case kAKStateChase:     // 追跡
+        case kAKStateBodyShot:  // 胴体部分からのショット
             
             break;
             
@@ -2475,7 +2549,7 @@ void AKEnemy::actionOfCentipedeHead(AKPlayDataInterface *data)
             break;
     }
     
-    // 5-way弾発射と包囲弾発射時の移動処理
+    // 5-way弾発射と高速弾発射時の移動処理
     if (m_state > kAKStateEntry) {
         
         AKLog(kAKLogEnemy_3, "position=(%f, %f) moveX=%d, moveY=%d",
@@ -2539,6 +2613,12 @@ void AKEnemy::actionOfCentipedeHead(AKPlayDataInterface *data)
         
         // 経過フレーム数と作業領域を初期化する
         m_frame = 0.0f;
+        m_work[kAKWork1WayTime] = 0;
+        
+        // 子オブジェクトに現在の状態を通知する
+        if (m_childEnemy != NULL) {
+            m_childEnemy->setState(m_state);
+        }
         
         AKLog(kAKLogEnemy_3, "m_state=%d", m_state);
     }
@@ -2553,6 +2633,20 @@ void AKEnemy::actionOfCentipedeHead(AKPlayDataInterface *data)
  */
 void AKEnemy::actionOfCentipedeBody(AKPlayDataInterface *data)
 {
+    // 状態
+    enum STATE {
+        kAKStateInit = 0,       // 初期状態
+        kAKStateEntry,          // 登場
+        kAKState5WayShot,       // 5-way弾発射
+        kAKStateHighSpeedShot,  // 2-way弾による包囲弾発射
+        kAKStateBodyShot,       // 胴体部分からのショット
+        kAKStateCount           // 状態の種類の数
+    };
+    // 弾発射間隔
+    const int kAKShotInterval = 60;
+    // 弾のスピード
+    const float kAKShotSpeed = 2.0f;
+
     // 一つ前の体がメンバに設定されていない場合は処理しない
     if (m_parentEnemy == NULL) {
         AKAssert(false, "m_parentEnemy is null.");
@@ -2580,6 +2674,89 @@ void AKEnemy::actionOfCentipedeBody(AKPlayDataInterface *data)
     
     // 画像の表示を更新する
     updateImagePosition();
+    
+    // 胴体部分からの発射の状態の時は弾を発射する
+    if (m_state == kAKStateBodyShot) {
+        
+        // 弾発射間隔経過しているときは上下方向へ弾を発射する
+        if ((m_frame + 1) % kAKShotInterval == 0) {
+            
+            // 上下へ弾を発射する
+            AKEnemy::fireNWay(M_PI,
+                              m_position,
+                              2,
+                              M_PI,
+                              kAKShotSpeed,
+                              false,
+                              data);
+        }
+
+    }
+    
+    // 子オブジェクトに現在の状態を通知する
+    if (m_childEnemy != NULL) {
+        m_childEnemy->setState(m_state);
+    }
+}
+
+/*!
+ @brief ムカデ（尻尾）の動作処理
+ 
+ 一つ前の体の後ろについていく。
+ 3-way弾を自機に向けて発射する。
+ 
+ @param data ゲームデータ
+ */
+void AKEnemy::actionOfCentipedeTail(AKPlayDataInterface *data)
+{
+    // 3-way弾の発射間隔
+    const int kAK3WayShotInterval = 60;
+    // 3-way弾の弾数
+    const int kAK3WayShotCount = 3;
+    // 3-way弾の角度の間隔
+    const float kAK3WayShotAngle = M_PI / 8;
+    // 3-way弾のスピード
+    const float kAK3WayShotSpeed = 3.0f;
+    // 3-way弾発射までの間
+    const int kAK3WayShotWait = 170;
+    
+    // 一つ前の体がメンバに設定されていない場合は処理しない
+    if (m_parentEnemy == NULL) {
+        AKAssert(false, "m_parentEnemy is null.");
+        return;
+    }
+    
+    // 一つ前の体の移動履歴を取得する
+    const std::queue<CCPoint> *history = m_parentEnemy->getMoveHistory();
+    
+    // 履歴がない場合は処理を終了する
+    if (history->size() <= 0) {
+        return;
+    }
+    
+    // 移動履歴の末尾を自分の座標に設定する
+    m_position = history->front();
+    
+    // 前回位置との差から体の向きを決める
+    float dx = m_position.x - m_prevPosition.x;
+    float dy = m_position.y - m_prevPosition.y;
+    float angle = atan2f(dy, dx);
+    
+    // 画像を回転させる
+    getImage()->setRotation(AKCnvAngleRad2Scr(angle));
+    
+    // 画像の表示を更新する
+    updateImagePosition();
+
+    // 定周期に3-way弾を発射する
+    if (m_frame > kAK3WayShotWait && (m_frame + 1) % kAK3WayShotInterval == 0) {
+        
+        AKEnemy::fireNWay(m_position,
+                          kAK3WayShotCount,
+                          kAK3WayShotAngle,
+                          kAK3WayShotSpeed,
+                          data);
+    }
 }
 
 /*!

@@ -116,6 +116,8 @@ private:
     int m_progress;
     /// 親キャラクター
     AKEnemy *m_parentEnemy;
+    /// 子キャラクター
+    AKEnemy *m_childEnemy;
     /// 移動履歴を保存する個数
     int m_historyCount;
     /// 移動履歴
@@ -126,6 +128,10 @@ public:
     void createEnemy(int type, const cocos2d::CCPoint &position, int progress, cocos2d::CCNode *parent);
     // 親キャラクター設定
     void setParentEnemy(AKEnemy *parent);
+    // 小キャラクター設定
+    void setChildEnemy(AKEnemy *child);
+    // 状態設定
+    void setState(int state);
     // 移動履歴取得
     const std::queue<cocos2d::CCPoint>* getMoveHistory();
 
@@ -170,6 +176,8 @@ private:
     void actionOfCentipedeHead(AKPlayDataInterface *data);
     // ムカデ（胴体）の動作処理
     void actionOfCentipedeBody(AKPlayDataInterface *data);
+    // ムカデ（尻尾）の動作処理
+    void actionOfCentipedeTail(AKPlayDataInterface *data);
     // 雑魚敵の破壊処理
     void destroyNormal(AKPlayDataInterface *data);
     // 逆さま判定
