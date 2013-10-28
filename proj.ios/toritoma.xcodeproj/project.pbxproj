@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C463951181BC0C500517E79 /* AKAngle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C46394F181BC0C500517E79 /* AKAngle.cpp */; };
 		0C48B5F617E58DB4001A1DF4 /* Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C48B5E117E58DB4001A1DF4 /* Back.png */; };
 		0C48B5F717E58DB4001A1DF4 /* Block.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C48B5E217E58DB4001A1DF4 /* Block.png */; };
 		0C48B5F817E58DB4001A1DF4 /* Character-ipad.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0C48B5E317E58DB4001A1DF4 /* Character-ipad.plist */; };
@@ -304,6 +305,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C46394F181BC0C500517E79 /* AKAngle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AKAngle.cpp; path = ../Common/AKAngle.cpp; sourceTree = "<group>"; };
+		0C463950181BC0C500517E79 /* AKAngle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKAngle.h; path = ../Common/AKAngle.h; sourceTree = "<group>"; };
 		0C48B5D317E58CBF001A1DF4 /* Font-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Font-ipad.png"; sourceTree = "<group>"; };
 		0C48B5E117E58DB4001A1DF4 /* Back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Back.png; sourceTree = "<group>"; };
 		0C48B5E217E58DB4001A1DF4 /* Block.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Block.png; sourceTree = "<group>"; };
@@ -881,6 +884,8 @@
 		0C5592B417D339260007DF83 /* AKLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				0C46394F181BC0C500517E79 /* AKAngle.cpp */,
+				0C463950181BC0C500517E79 /* AKAngle.h */,
 				0C5592B517D339260007DF83 /* AKAppBankNetworkBanner.cpp */,
 				0C5592B617D339260007DF83 /* AKAppBankNetworkBanner.h */,
 				0C5592B717D339260007DF83 /* AKCommon.cpp */,
@@ -2108,6 +2113,7 @@
 				1A8F3B7C175E05DA00049216 /* Skeleton.cpp in Sources */,
 				1A8F3B7D175E05DA00049216 /* SkeletonData.cpp in Sources */,
 				1A8F3B7E175E05DA00049216 /* SkeletonJson.cpp in Sources */,
+				0C463951181BC0C500517E79 /* AKAngle.cpp in Sources */,
 				1A8F3B7F175E05DA00049216 /* Skin.cpp in Sources */,
 				1A8F3B80175E05DA00049216 /* Slot.cpp in Sources */,
 				1A8F3B81175E05DA00049216 /* SlotData.cpp in Sources */,

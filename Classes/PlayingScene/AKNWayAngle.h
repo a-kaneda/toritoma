@@ -44,9 +44,6 @@
  n-way弾を作成する際の角度を計算するクラス。
  */
 class AKNWayAngle {
-public:
-    // 2点間の角度計算
-    static float calcDestAngle(const cocos2d::CCPoint &src, const cocos2d::CCPoint &dest);
 private:
     /// 弾の角度
     std::vector<float> m_angles;

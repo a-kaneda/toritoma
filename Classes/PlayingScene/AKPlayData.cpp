@@ -56,7 +56,7 @@ static const int kAKMaxPlayerShotCount = 128;
 /// 敵キャラの同時出現最大数
 static const int kAKMaxEnemyCount = 32;
 /// 敵弾の同時出現最大数
-static const int kAKMaxEnemyShotCount = 256;
+static const int kAKMaxEnemyShotCount = 512;
 /// 画面効果の同時出現最大数
 static const int kAKMaxEffectCount = 64;
 /// 障害物の同時出現最大数

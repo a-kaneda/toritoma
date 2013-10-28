@@ -178,8 +178,18 @@ private:
     void actionOfCentipedeBody(AKPlayDataInterface *data);
     // ムカデ（尻尾）の動作処理
     void actionOfCentipedeTail(AKPlayDataInterface *data);
+    // ウジの動作処理
+    void actionOfMaggot(AKPlayDataInterface *data);
+    // ハエの動作処理
+    void actionOfFly(AKPlayDataInterface *data);
+    // ボス破壊時の動作処理
+    void actionOfDestroy(AKPlayDataInterface *data);
     // 雑魚敵の破壊処理
     void destroyNormal(AKPlayDataInterface *data);
+    // ボス敵の破壊処理
+    void destroyOfBoss(AKPlayDataInterface *data);
+    // ウジの破壊処理
+    void destroyOfMaggot(AKPlayDataInterface *data);
     // 逆さま判定
     void checkReverse(const std::vector<AKBlock*> &blocks);
 };

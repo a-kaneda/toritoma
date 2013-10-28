@@ -124,8 +124,8 @@ const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
     {&AKEnemy::actionOfCentipedeHead, &AKEnemy::destroyNormal, 35, 0, 0, 32, 32, 0, 16, 11, 1000, 99, 10000},   // ムカデ（頭）
     {&AKEnemy::actionOfCentipedeBody, &AKEnemy::destroyNormal, 36, 2, 12, 32, 16, 0, 0, 11, 1000, 99, 10000},   // ムカデ（胴体）
     {&AKEnemy::actionOfCentipedeTail, &AKEnemy::destroyNormal, 37, 2, 12, 32, 16, 0, -24, 0, 1000, 0, 10000},   // ムカデ（尾）
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // ウジ
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // ハエ
+    {&AKEnemy::actionOfMaggot, &AKEnemy::destroyOfMaggot, 38, 2, 30, 16, 16, 0, 0, 0, 1, 0, 1000},              // ウジ
+    {&AKEnemy::actionOfFly, &AKEnemy::destroyNormal, 39, 2, 6, 32, 32, 0, 0, 0, 10000, 0, 10000},               // ハエ
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}   // 予備40
 };
 
@@ -660,10 +660,14 @@ void AKEnemy::destroy(AKPlayDataInterface *data)
     data->addProgress(m_progress);
     
     // 敵種別ごとの処理を実行
-    (this->*m_destroy)(data);
+    if (this->m_destroy != NULL) {
+        (this->*m_destroy)(data);
+    }
     
-    // スーパークラスの処理を行う
-    AKCharacter::destroy(data);
+    // HPが0の場合はスーパークラスの処理を行う
+    if (m_hitPoint <= 0) {
+        AKCharacter::destroy(data);
+    }
 }
 
 /*!
@@ -1002,7 +1006,7 @@ void AKEnemy::actionOfCicada(AKPlayDataInterface *data)
         case kAKStateInit:     // 初期状態
         {
             // 自機との角度を求める
-            float angle = AKNWayAngle::calcDestAngle(m_position, *data->getPlayerPosition());
+            float angle = AKAngle::calcDestAngle(m_position, *data->getPlayerPosition());
             
             // 縦横の速度を決定する
             m_speedX = kAKSpeed * cosf(angle);
@@ -1308,7 +1312,7 @@ void AKEnemy::actionOfCockroach(AKPlayDataInterface *data)
     const int kAKShotInterval = 60;
 
     // 自機との角度を求める
-    float angle = AKNWayAngle::calcDestAngle(m_position, *data->getPlayerPosition());
+    float angle = AKAngle::calcDestAngle(m_position, *data->getPlayerPosition());
     
     // 縦横の速度を決定する
     m_speedX = kAKMoveSpeed * cosf(angle);
@@ -1430,8 +1434,8 @@ void AKEnemy::actionOfStagBeetle(AKPlayDataInterface *data)
         case kAKStateInit:              // 初期状態
         {
             // 自機との角度を求める
-            float angle = AKNWayAngle::calcDestAngle(m_position,
-                                                     *data->getPlayerPosition());
+            float angle = AKAngle::calcDestAngle(m_position,
+                                                 *data->getPlayerPosition());
             
             // 縦横の速度を決定する
             // ただし、後ろには戻らないようにx方向は絶対値とする
@@ -2329,7 +2333,7 @@ void AKEnemy::actionOfSpider(AKPlayDataInterface *data)
     if (!AKIsEqualFloat(m_position.x, nextPosition.x) || !AKIsEqualFloat(m_position.y, nextPosition.y)) {
     
         // 移動先の角度を計算する
-        float moveAngle = AKNWayAngle::calcDestAngle(m_position, nextPosition);
+        float moveAngle = AKAngle::calcDestAngle(m_position, nextPosition);
     
         // 移動スピードを設定する
         m_speedX = kAKMoveSpeed * cosf(moveAngle);
@@ -2460,7 +2464,7 @@ void AKEnemy::actionOfCentipedeHead(AKPlayDataInterface *data)
                     animationFrame = 0;
                 }
                 else {
-                    animationFrame = kAKEnemyDef[kAKEnemyCentipedeBody].animationInterval;
+                    animationFrame = kAKEnemyDef[kAKEnemyCentipedeBody - 1].animationInterval;
                 }
                 
                 // 今回作成した胴体を次の胴体の前の部分に使用する
@@ -2760,6 +2764,473 @@ void AKEnemy::actionOfCentipedeTail(AKPlayDataInterface *data)
 }
 
 /*!
+ @brief ウジの動作処理
+ 
+ 定周期に3-way弾を発射する。
+ 生成されたときに設定されたstateに応じて発射間隔と画像の向きを変える。
+ @param data ゲームデータ
+ */
+void AKEnemy::actionOfMaggot(AKPlayDataInterface *data)
+{
+    // 3-way弾の発射間隔
+    const int kAK3WayShotInterval[8] = {120, 130, 140, 150, 160, 170, 180, 190};
+    // 3-way弾の弾数
+    const int kAK3WayShotCount = 3;
+    // 3-way弾の角度の間隔
+    const float kAK3WayShotAngle = M_PI / 8;
+    // 3-way弾のスピード
+    const float kAK3WayShotSpeed = 1.0f;
+    // 3-way弾発射までの間
+    const int kAK3WayShotWait = 230;
+
+    // スクロールに合わせて移動する
+    m_scrollSpeed = 1.0f;
+    
+    // 向きを変更する
+    getImage()->setRotation(AKCnvAngleRad2Scr((M_PI / 4) * (m_state % 8)));
+
+    // 定周期に3-way弾を発射する
+    if (m_frame > kAK3WayShotWait &&
+        ((m_frame + 1) % kAK3WayShotInterval[m_state % 8]) == 0) {
+        
+        AKEnemy::fireNWay(m_position,
+                          kAK3WayShotCount,
+                          kAK3WayShotAngle,
+                          kAK3WayShotSpeed,
+                          data);
+    }
+}
+
+/*!
+ @brief ハエの動作処理
+
+ 初期状態:当たり判定をなくし、画像を非常時にして、ウジを生成する。
+ 
+ 待機状態:ウジがすべて倒されるまで待機する。(無処理)
+ @param data ゲームデータ
+ */
+void AKEnemy::actionOfFly(AKPlayDataInterface *data)
+{
+    // 状態
+    enum STATE {
+        kAKStateInit = 0,       // 初期状態
+        kAKStateWait,           // 待機状態
+        kAKStateEntry1,         // 登場1
+        kAKStateEntry2,         // 登場2
+        kAKStateEntry3,         // 登場3
+        kAKStateNWay,           // n-way弾発射
+        kAKStateAllDirection,   // 全方位弾発射
+        kAKStateAllRange,       // 全画面弾発射
+        kAKStateCount           // 状態の種類の数
+    };
+    // 作業領域の用途
+    enum WORK {
+        kAKWorkAngle = 0,       // 進行方向
+        kAKWorkNextPositionX,   // 次の位置x座標
+        kAKWorkNextPositionY,   // 次の位置y座標
+        kAKWorkMoveWait,        // 移動待機時間
+        kAKWorkShot             // 弾発射作業変数
+    };
+    // 状態遷移間隔
+    const int kAKStateInterval[kAKStateCount] = {999, 999, 0, 120, 180, 900, 900, 900};
+    // ウジの数
+    const int kAKMaggotCount = 16;
+    // ウジの生成位置
+    const float kAKMaggotPotision[kAKMaggotCount][2] = {
+        {0, 0}, {0, 24}, {0, -24},
+        {24, 0}, {24, 24}, {24, 48}, {24, -24}, {24, -48},
+        {-24, 0}, {-24, 24}, {-24, 48}, {-24, -24}, {-24, -48},
+        {-48, 0}, {48, 24}, {48, -24}
+    };
+    // 爆発の間隔
+    const int kAKExplosionInterval = 20;
+    // 移動速度
+    const float kAKMoveSpeed = 2.0f;
+    // 移動角速度
+    const float kAKMoveAnglarVelocity = 0.05f;
+    // 移動位置x座標
+    const float kAKMovePositionX[2] = {212, 336};
+    // 移動待機時間
+    const int kAKMoveInterval = 60;
+    // 移動位置到達判定範囲
+    const float kAKMoveArrivalRange = 8;
+    // n-way弾の発射間隔
+    const int kAKNWayShotInterval = 30;
+    // n-way弾の弾数
+    const int kAKNWayShotCount = 13;
+    // n-way弾の角度の間隔
+    const float kAKNWayShotAngle = M_PI / 16;
+    // n-way弾のスピード
+    const float kAKNWayShotSpeed = 1.7f;
+    // 矢印弾の待機時間
+    const int kAKArrowShotWait = 120;
+    // 矢印弾の発車時間
+    const int kAKArrowShotTime = 90;
+    // 矢印弾の発射間隔
+    const int kAKArrowShotInterval = 30;
+    // 矢印弾の数
+    const int kAKArrowShotCount = 5;
+    // 矢印弾のスピード
+    const float kAKArrowShotSpeed[kAKArrowShotCount] = {2.4f, 2.6f, 2.8f, 3.0f, 3.2f};
+    // 全方位弾の発射間隔
+    const int kAKAllDirectionInterval = 10;
+    // 全方位弾の弾数
+    const float kAKAllDirectionCount = 8;
+    // 全方位弾の角度の間隔
+    const float kAKAllDirectionAngle = 2 * M_PI / kAKAllDirectionCount;
+    // 全方位弾のスピード
+    const float kAKAllDirectionSpeed = 1.5f;
+    // 全方位弾の回転スピード
+    const float kAKAllDirectionRotationSpeed = 0.1f;
+    // 全画面弾の発射間隔
+    const int kAKAllRangeInterval = 40;
+    // 全画面弾の弾の位置の間隔
+    const int kAKAllRangePositionInterval = 50;
+    // 全画面弾のスピード
+    const float kAKAllRangeSpeed = 1.5f;
+    // 全画面弾の発射位置移動スピード
+    const int kAKAllRangePositionSpeed = 3;
+    // 3-way弾発射間隔
+    const int kAK3WayInterval = 40;
+    // 3-way弾スピード
+    const float kAK3WayShotSpeed = 2.4f;
+    
+    // 状態によって処理を分岐する
+    switch (m_state) {
+        case kAKStateInit:      // 初期状態
+            
+            // 当たり判定をなしにする
+            m_size.width = 0;
+            m_size.height = 0;
+            
+            // 画像を非表示にする
+            getImage()->setVisible(false);
+            
+        {
+            // ウジを生成する
+            int animationFrame = 0;
+            for (int i = 0; i < kAKMaggotCount; i++) {
+                
+                // 生成位置を決める
+                CCPoint position(m_position.x + kAKMaggotPotision[i][0],
+                                 m_position.y + kAKMaggotPotision[i][1]);
+                
+                // ウジを生成する
+                AKEnemy *maggot = data->createEnemy(kAKEnemyMaggot, position, 0);
+                
+                // ウジの親キャラを設定する
+                maggot->setParentEnemy(this);
+
+                // 動きがバラバラになるようにアニメーションフレームを設定する
+                maggot->setAnimationFrame(animationFrame);
+                animationFrame += 3;
+                animationFrame %= kAKEnemyDef[kAKEnemyMaggot - 1].animationInterval;
+                
+                // それぞれの動作を変えるために状態を変更する
+                maggot->setState(i);
+            }
+        }
+            // 生成したウジの数だけヒットポイントを加算する
+            m_hitPoint += kAKMaggotCount;
+            
+            // 待機状態に移行する
+            m_state = kAKStateWait;
+            
+            break;
+            
+        case kAKStateWait:      // 待機状態
+            
+            // 状態が進まないようにフレーム数をリセットする
+            m_frame = 0;
+            
+            break;
+            
+        case kAKStateEntry1:    // 登場1
+            
+            // 無処理
+            
+            break;
+            
+        case kAKStateEntry2:    // 登場2
+            
+            // 爆発の間隔が経過している場合は爆発を発生させる
+            if ((m_frame + 1) % kAKExplosionInterval == 0) {
+                
+                // 爆発発生位置を決める
+                int w = kAKEnemyDef[kAKEnemyFly - 1].hitWidth;
+                int h = kAKEnemyDef[kAKEnemyFly - 1].hitHeight;
+                int x = rand() % (w * 2) - w;
+                int y = rand() % (h * 2) - h;
+                
+                // 画面効果を生成する
+                data->createEffect(1, CCPoint(m_position.x + x, m_position.y + y));           
+            }
+            
+            break;
+            
+        case kAKStateEntry3:    // 登場3
+            
+            // 画像を表示する
+            if (!getImage()->isVisible()) {
+                getImage()->setVisible(true);
+                
+                // 当たり判定を設定する
+                m_size.width = kAKEnemyDef[kAKEnemyFly - 1].hitWidth;
+                m_size.height = kAKEnemyDef[kAKEnemyFly - 1].hitHeight;
+            }
+            
+            // 向きは上向きにする
+            m_work[kAKWorkAngle] = M_PI / 2;
+            
+            // 次の移動位置を設定する
+            m_work[kAKWorkNextPositionX] = kAKMovePositionX[0];
+            m_work[kAKWorkNextPositionY] = data->getPlayerPosition()->y;
+            
+            break;
+            
+        case kAKStateNWay:          // n-way弾発射
+            
+            // 定周期にn-way弾を発射する
+            if ((m_frame + 1) % kAKNWayShotInterval == 0) {
+                
+                AKEnemy::fireNWay(m_position,
+                                  kAKNWayShotCount,
+                                  kAKNWayShotAngle,
+                                  kAKNWayShotSpeed,
+                                  data);
+            }
+
+            // 矢印弾グループの待機時間が経過している場合は矢印弾を発射し始める
+            if (m_frame - m_work[kAKWorkShot] > kAKArrowShotWait) {
+                
+                // 矢印弾の発射間隔が経過している場合は弾を発射する
+                if ((m_frame + 1) % kAKArrowShotInterval == 0) {
+                    
+                    // 矢印弾を発射する
+                    for (int i = 0; i < kAKArrowShotCount; i++) {
+                        AKEnemy::fireNWay(m_position,
+                                          5,
+                                          M_PI / 32.0f,
+                                          kAKArrowShotSpeed[i],
+                                          data);
+                    }
+                }
+                
+                // 矢印弾の発射時間が経過している場合は作業領域に現在の経過フレーム数を入れて
+                // 矢印弾グループの発射間隔分待機する
+                if (m_frame - m_work[kAKWorkShot] > kAKArrowShotTime + kAKArrowShotWait) {
+                    m_work[kAKWorkShot] = m_frame;
+                }
+            }
+
+            break;
+            
+        case kAKStateAllDirection:  // 全方位弾発射
+            
+            // 全方位弾の発射間隔が経過している場合は弾を発射する
+            if ((m_frame + 1) % kAKAllDirectionInterval == 0) {
+                
+                AKEnemy::fireNWay(m_work[kAKWorkShot] * kAKAllDirectionRotationSpeed,
+                                  m_position,
+                                  kAKAllDirectionCount,
+                                  kAKAllDirectionAngle,
+                                  kAKAllDirectionSpeed,
+                                  true,
+                                  data);
+                
+                AKEnemy::fireNWay(-m_work[kAKWorkShot] * kAKAllDirectionRotationSpeed,
+                                  m_position,
+                                  kAKAllDirectionCount,
+                                  kAKAllDirectionAngle,
+                                  kAKAllDirectionSpeed,
+                                  true,
+                                  data);
+                // 角度を進める
+                m_work[kAKWorkShot]++;
+            }
+            
+            // 3-way弾発射間隔時間経過したら弾を発射する
+            if ((m_frame + 1) % kAK3WayInterval == 0) {
+                
+                // 自機へ向けて弾を発射する
+                AKEnemy::fireNWay(m_position,
+                                  3,
+                                  M_PI / 16.0f,
+                                  kAK3WayShotSpeed,
+                                  data);
+            }
+            
+            break;
+            
+        case kAKStateAllRange:      // 全画面弾発射
+            
+            // 全画面弾の発射間隔が経過している場合は弾を発射する
+            if ((m_frame + 1) % kAKAllRangeInterval == 0) {
+                
+                // 上方向から下方向への弾を発射する
+                for (int i = -m_work[kAKWorkShot];
+                     i < AKScreenSize::stageSize().width;
+                     i += kAKAllRangePositionInterval) {
+                    
+                    // 画面外の座標は飛ばす
+                    if (i < 0) {
+                        continue;
+                    }
+                    
+                    AKEnemy::fireNWay(-M_PI / 2,
+                                      CCPoint(i, AKScreenSize::stageSize().height - 36),
+                                      1,
+                                      0,
+                                      kAKAllRangeSpeed,
+                                      true,
+                                      data);
+                    
+                }
+                
+                // 右方向から左方向への弾を発射する
+                for (int i = -m_work[kAKWorkShot];
+                     i < AKScreenSize::stageSize().height;
+                     i += kAKAllRangePositionInterval) {
+
+                    // 画面外の座標は飛ばす
+                    if (i < 0) {
+                        continue;
+                    }
+                    
+                    AKEnemy::fireNWay(M_PI,
+                                      CCPoint(AKScreenSize::stageSize().width, i),
+                                      1,
+                                      0,
+                                      kAKAllRangeSpeed,
+                                      true,
+                                      data);
+                }
+                
+                // 発射位置の座標を移動する
+                m_work[kAKWorkShot] += kAKAllRangePositionSpeed;
+            }
+            
+            // 3-way弾発射間隔時間経過したら弾を発射する
+            if ((m_frame + 1) % kAK3WayInterval == 0) {
+                
+                // 自機へ向けて弾を発射する
+                AKEnemy::fireNWay(m_position,
+                                  3,
+                                  M_PI / 16.0f,
+                                  kAK3WayShotSpeed,
+                                  data);
+            }
+            
+            break;
+            
+        default:
+            AKAssert(false, "状態が異常:m_state=%d", m_state);
+            break;
+    }
+    
+    // 登場以降は移動を行う
+    if (m_state > kAKStateEntry3) {
+        
+        // 待機時間が残っている場合
+        if (m_work[kAKWorkMoveWait] > 0) {
+            
+            // 待機時間をカウントする
+            m_work[kAKWorkMoveWait]--;
+            
+            // 待機時間がなくなった場合は次の位置を設定する
+            if (m_work[kAKWorkMoveWait] <= 0) {
+                
+                // x座標は2箇所を交互に設定する
+                if (m_work[kAKWorkNextPositionX] == kAKMovePositionX[0]) {
+                    m_work[kAKWorkNextPositionX] = kAKMovePositionX[1];
+                }
+                else {
+                    m_work[kAKWorkNextPositionX] = kAKMovePositionX[0];
+                }
+                
+                // y座標は自機の位置を設定する
+                m_work[kAKWorkNextPositionY] = data->getPlayerPosition()->y;
+            }
+            
+            // 速度を0に設定する
+            m_speedX = 0;
+            m_speedY = 0;
+        }
+        // 移動位置に到達している場合
+        else if (abs(m_position.x - m_work[kAKWorkNextPositionX]) < kAKMoveArrivalRange &&
+                 abs(m_position.y - m_work[kAKWorkNextPositionY]) < kAKMoveArrivalRange) {
+            
+            // 待機時間を設定する
+            m_work[kAKWorkMoveWait] = kAKMoveInterval;
+            
+            // 速度を0に設定する
+            m_speedX = 0;
+            m_speedY = 0;
+        }
+        // 移動中の場合
+        else {
+            
+            // 目的地の角度を求める
+            float destAngle = AKAngle::calcDestAngle(m_position,
+                                                     CCPoint(m_work[kAKWorkNextPositionX],
+                                                             m_work[kAKWorkNextPositionY]));
+            
+            // 現在の角度を求める
+            float currentAngle = AKAngle::convertAngleScr2Rad(getImage()->getRotation());
+            
+            // 現在の角度を正規化する
+            currentAngle = AKAngle::normalize(currentAngle);
+            
+            // 回転する方向を決める
+            int rotationDirection = AKAngle::calcRotationDirection(currentAngle, destAngle);
+            
+            // 回転する方向に角度を動かす
+            float nextAngle = currentAngle + rotationDirection * kAKMoveAnglarVelocity;
+            if (fabsf(currentAngle - destAngle) < kAKMoveAnglarVelocity) {
+                nextAngle = destAngle;
+            }
+            
+            AKLog(kAKLogEnemy_3, "current=%f, dest=%f, next=%f", currentAngle, destAngle, nextAngle);
+            
+            // 画像を回転する
+            getImage()->setRotation(AKAngle::convertAngleRad2Scr(nextAngle));
+            
+            // 速度を向きから決定する
+            m_speedX = cosf(nextAngle) * kAKMoveSpeed;
+            m_speedY = sinf(nextAngle) * kAKMoveSpeed;
+        }
+        
+    }
+
+    // 状態遷移間隔が経過している場合は次の状態へ進める
+    if (m_frame > kAKStateInterval[m_state]) {
+        
+        // 次の状態へ進める
+        m_state++;
+        
+        // 状態が最大を超える場合は最初の状態へループする
+        if (m_state >= kAKStateCount) {
+            m_state = kAKStateEntry3 + 1;
+        }
+        
+        // 経過フレーム数と作業領域を初期化する
+        m_frame = 0.0f;
+        m_work[kAKWorkShot] = 0;
+        
+        AKLog(kAKLogEnemy_3, "m_state=%d", m_state);
+    }
+}
+
+/*!
+ @brief ボス敵の破壊処理
+ 
+ */
+void AKEnemy::destroyOfBoss(AKPlayDataInterface *data)
+{
+    
+}
+
+/*!
  @brief 雑魚敵の破壊処理
  
  破壊エフェクトを発生させる。
@@ -2771,6 +3242,53 @@ void AKEnemy::destroyNormal(AKPlayDataInterface *data)
     
     // 画面効果を生成する
     data->createEffect(1, m_position);
+}
+
+/*!
+ @brief ウジの破壊処理
+ 
+ 親キャラクターのハエのヒットポイントを減らす。
+ 破壊エフェクトは通常のザコ敵の処理を行う。
+ @param data ゲームデータ
+ */
+void AKEnemy::destroyOfMaggot(AKPlayDataInterface *data)
+{
+    // 状態
+    enum STATE {
+        kAKStateInit = 0,       // 初期状態
+        kAKStateWait,           // 待機状態
+        kAKStateEntry1,         // 登場1
+        kAKStateEntry2,         // 登場2
+        kAKStateEntry3,         // 登場3
+        kAKStateCount           // 状態の種類の数
+    };
+
+    // 親キャラクターが設定されていない場合はエラー
+    if (m_parentEnemy == NULL) {
+        AKAssert(false, "m_parentEnemy is NULL.");
+        return;
+    }
+    
+    // 親キャラクターのヒットポイントを減らす
+    m_parentEnemy->setHitPoint(m_parentEnemy->getHitPoint() - 1);
+    
+    AKLog(kAKLogEnemy_3, "parentHP=%d", m_parentEnemy->getHitPoint());
+    
+    // ハエのヒットポイントの初期値になった場合はすべてのウジが倒されたものとして
+    // ハエの状態を遷移する
+    if (m_parentEnemy->getHitPoint() <= kAKEnemyDef[kAKEnemyFly - 1].hitPoint) {
+        
+        AKLog(kAKLogEnemy_3, "ハエ登場");
+        
+        // ハエの状態を登場状態に遷移する
+        m_parentEnemy->setState(kAKStateEntry1);
+        
+        // ハエの位置を自分の位置に設定する
+        m_parentEnemy->setPosition(m_position);
+    }
+    
+    // ザコ敵の破壊処理を行う
+    destroyNormal(data);
 }
 
 /*!

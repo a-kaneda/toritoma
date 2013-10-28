@@ -27,35 +27,38 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 /*!
- @file AKLib.h
- @brief 共通ライブラリインクルード
+ @file AKAngle.h
+ @brief 角度計算クラス定義
  
- 共通ライブラリのヘッダーをインクルードする。
+ 角度の計算を行うクラスを定義する。
  */
 
-// 共通関数定義
+#ifndef AKANGLE_H
+#define AKANGLE_H
+
 #include "AKCommon.h"
 
-// 画面サイズ管理クラス
-#include "AKScreenSize.h"
+/*!
+ @brief 角度計算クラス
+ 
+ 角度の計算するクラス。
+ */
+class AKAngle {
+public:
+    // radianからdegreeへの角度変換
+    static float convertAngleRad2Deg(float radAngle);
+    // degreeからradianへの角度変換
+    static float convertAngleDeg2Rad(float degAngle);
+    // radianからスクリーン角度への変換
+    static float convertAngleRad2Scr(float radAngle);
+    // スクリーン角度からradianへの変換
+    static float convertAngleScr2Rad(float screenAngle);
+    // 2点間の角度計算
+    static float calcDestAngle(const cocos2d::CCPoint &src, const cocos2d::CCPoint &dest);
+    // 回転方向の計算
+    static int calcRotationDirection(float srcAngle, float destAngle);
+    // +πから-πの間に正規化する
+    static float normalize(float angle);
+};
 
-// フォントクラス
-#include "AKFont.h"
-
-// ラベルクラス
-#include "AKLabel.h"
-
-// メニュー項目クラス
-#include "AKMenuItem.h"
-
-// インターフェースクラス
-#include "AKInterface.h"
-
-// 角度計算クラス
-#include "AKAngle.h"
-
-// Twitter管理クラス
-//#import "AKTwitterHelper.h"
-
-// カスタマイズNavigation Controller
-//#import "AKNavigationController.h"
+#endif

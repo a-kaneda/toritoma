@@ -224,6 +224,11 @@ protected:
             return false;
         }
         
+        // 当たり判定のサイズが0のキャラクターは処理しない
+        if (m_size.width <= 0 || m_size.height <= 0) {
+            return false;
+        }
+        
         // 自キャラの上下左右の端を計算する
         float myleft = m_position.x - m_size.width / 2.0f;
         float myright = m_position.x + m_size.width / 2.0f;
@@ -241,6 +246,12 @@ protected:
             
             // 相手が画面に配置されていない場合は処理しない
             if (!target->isStaged()) {
+                continue;
+            }
+            
+            // 当たり判定のサイズが0のキャラクターは処理しない
+            if (target->getSize()->width <= 0 ||
+                target->getSize()->height <= 0) {
                 continue;
             }
             

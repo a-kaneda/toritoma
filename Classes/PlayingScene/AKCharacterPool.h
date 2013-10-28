@@ -116,7 +116,7 @@ public:
         for (int i = 0; i < m_size; i++) {
             
             // キャラクターを取得する
-            T *work = m_pool.at(i);
+            T *work = m_pool.at(m_next);
             
             // インデックスを進める
             m_next = (m_next + 1) % m_size;
