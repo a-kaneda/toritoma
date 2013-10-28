@@ -73,7 +73,7 @@ float AKAngle::convertAngleDeg2Rad(float degAngle)
 float AKAngle::convertAngleRad2Scr(float radAngle)
 {
     // radianからdegreeへ変換する
-    float screenAngle = AKCnvAngleRad2Deg(radAngle);
+    float screenAngle = AKAngle::convertAngleRad2Deg(radAngle);
     
     // 上向きを0°とするため、90°ずらす。
     screenAngle -= 90;
@@ -101,7 +101,7 @@ float AKAngle::convertAngleScr2Rad(float screenAngle)
     screenAngle += 90;
     
     // degreeからradianへ変換する
-    float radAngle = AKCnvAngleDeg2Rad(screenAngle);
+    float radAngle = AKAngle::convertAngleDeg2Rad(screenAngle);
     
     return radAngle;
 }

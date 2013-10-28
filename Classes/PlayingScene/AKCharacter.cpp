@@ -748,7 +748,7 @@ bool AKCharacter::isOutOfStage(AKPlayDataInterface *data)
 void AKCharacter::updateImagePosition()
 {
     // 画像の回転している角度を取得する
-    float angle = AKCnvAngleScr2Rad(m_image->getRotation());
+    float angle = AKAngle::convertAngleScr2Rad(m_image->getRotation());
     
     // 回転している方向に合わせて画像をずらす距離を計算する
     float dx = m_offset.x * sinf(angle) + m_offset.y * cosf(angle);

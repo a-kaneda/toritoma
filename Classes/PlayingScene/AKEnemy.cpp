@@ -1319,7 +1319,7 @@ void AKEnemy::actionOfCockroach(AKPlayDataInterface *data)
     m_speedY = kAKMoveSpeed * sinf(angle);
     
     // 画像を回転させる
-    getImage()->setRotation(AKCnvAngleRad2Scr(angle));
+    getImage()->setRotation(AKAngle::convertAngleRad2Scr(angle));
     
     // 一定時間経過しているときは自機を狙う1-way弾を発射する
     if ((m_frame + 1) % kAKShotInterval == 0) {
@@ -2500,7 +2500,7 @@ void AKEnemy::actionOfCentipedeHead(AKPlayDataInterface *data)
             m_speedY = 0.0f;
             
             // 画像を回転させる
-            getImage()->setRotation(AKCnvAngleRad2Scr(M_PI));
+            getImage()->setRotation(AKAngle::convertAngleRad2Scr(M_PI));
             
             break;
             
@@ -2601,7 +2601,7 @@ void AKEnemy::actionOfCentipedeHead(AKPlayDataInterface *data)
         float angle = atan2f(m_speedY, m_speedX);
         
         // 画像を回転させる
-        getImage()->setRotation(AKCnvAngleRad2Scr(angle));
+        getImage()->setRotation(AKAngle::convertAngleRad2Scr(angle));
     }
     
     // 状態遷移間隔が経過している場合は次の状態へ進める
@@ -2674,7 +2674,7 @@ void AKEnemy::actionOfCentipedeBody(AKPlayDataInterface *data)
     float angle = atan2f(dy, dx);
     
     // 画像を回転させる
-    getImage()->setRotation(AKCnvAngleRad2Scr(angle));
+    getImage()->setRotation(AKAngle::convertAngleRad2Scr(angle));
     
     // 画像の表示を更新する
     updateImagePosition();
@@ -2747,7 +2747,7 @@ void AKEnemy::actionOfCentipedeTail(AKPlayDataInterface *data)
     float angle = atan2f(dy, dx);
     
     // 画像を回転させる
-    getImage()->setRotation(AKCnvAngleRad2Scr(angle));
+    getImage()->setRotation(AKAngle::convertAngleRad2Scr(angle));
     
     // 画像の表示を更新する
     updateImagePosition();
@@ -2787,7 +2787,7 @@ void AKEnemy::actionOfMaggot(AKPlayDataInterface *data)
     m_scrollSpeed = 1.0f;
     
     // 向きを変更する
-    getImage()->setRotation(AKCnvAngleRad2Scr((M_PI / 4) * (m_state % 8)));
+    getImage()->setRotation(AKAngle::convertAngleRad2Scr((M_PI / 4) * (m_state % 8)));
 
     // 定周期に3-way弾を発射する
     if (m_frame > kAK3WayShotWait &&
