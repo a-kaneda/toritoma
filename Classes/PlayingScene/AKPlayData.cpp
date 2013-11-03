@@ -79,7 +79,10 @@ static const int kAKRebirthInterval = 60;
 /// エクステンドするスコア
 static const int kAKExtendScore = 50000;
 /// ステージの数
-static const int kAKStageCount = 5;
+static const int kAKStageCount = 6;
+/// クリアした後の待機時間
+static const int kAKClearWait = 180;
+
 /// ゲームクリア時のツイートのフォーマットのキー
 static const char *kAKGameClearTweetKey = "GameClearTweet";
 /// ゲームオーバー時のツイートのフォーマットのキー
@@ -423,20 +426,20 @@ void AKPlayData::writeHiScore()
  */
 void AKPlayData::update()
 {
-    // クリア後の待機中の場合はスクリプトを実行しない
+    // クリア後の待機中の場合はステージクリア処理を行う
     if (m_clearWait > 0) {
         
         // 自機が破壊されている場合は復活するまで処理しない
         // 自機が存在する場合のみ待機時間のカウントとステージクリア処理を行う
-        if (!m_player->isStaged()) {
+        if (m_player->isStaged()) {
             
             // 待機時フレーム数をカウントする
             m_clearWait--;
             
+            AKLog(kAKLogPlayData_2, "m_clearWait=%d", m_clearWait);
+            
             // 待機フレーム数が経過した場合は次のステージへと進める
             if (m_clearWait <= 0) {
-                
-                AKLog(kAKLogPlayData_1, "ステージクリア後の待機時間経過");
                 
                 // TODO:ステージクリアの実績をGame Centerへ送信する
                 //[[AKGameCenterHelper sharedHelper] reportStageClear:stage_];
@@ -444,16 +447,37 @@ void AKPlayData::update()
                 // ステージを進める
                 m_stage++;
                 
-                // 次のステージのスクリプトを読み込む
-                readScript(m_stage);
+                AKLog(kAKLogPlayData_1, "ステージクリア後の待機時間経過:m_stage=%d", m_stage);
                 
-                // 待機フレーム数をリセットする
-                m_clearWait = 0;
+                // すべてのステージをクリアしている場合はクリア処理を行う
+                if (m_stage > kAKStageCount) {
+                    // TODO:ゲームクリア処理を作成する
+                }
+                else {
+                    // 次のステージのスクリプトを読み込む
+                    readScript(m_stage);
+                    
+                    // 待機フレーム数をリセットする
+                    m_clearWait = 0;
+
+                    // プレイ中状態に戻す
+                    m_scene->nextStage();
+                }
             }
         }
     }
     
-    // TODO:クリア時の処理を作成する
+    // クリアしている場合はクリア時の処理を行う
+    if (m_clearWait <= 0 && m_tileMap->isClear()) {
+        
+        AKLog(kAKLogPlayData_1, "ステージクリア");
+        
+        // 待機時間を設定する
+        m_clearWait = kAKClearWait;
+
+        // ステージクリア状態に遷移する
+        m_scene->stageClear();
+    }
     
     // 復活待機フレーム数が設定されている場合はフレーム数をカウントする
     if (m_rebirthWait > 0) {
@@ -886,7 +910,7 @@ void AKPlayData::createEffect(int type, CCPoint position)
  */
 void AKPlayData::createBlock(int type, CCPoint position)
 {
-    AKLog(kAKLogPlayData_2, "createBlock() start:type=%d position=(%f, %f)",
+    AKLog(kAKLogPlayData_3, "createBlock() start:type=%d position=(%f, %f)",
           type, position.x, position.y);
     
     // プールから未使用のメモリを取得する

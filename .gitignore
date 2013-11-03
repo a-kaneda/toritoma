@@ -32,3 +32,7 @@ proj.win32/
 # 画像ファイル
 picture/9*
 Thumbs.db
+# viのスワップファイル
+*.swp
+# タグファイル
+tags

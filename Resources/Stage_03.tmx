@@ -318,7 +318,7 @@
  </layer>
  <layer name="Foreground" width="100" height="9">
   <data encoding="base64" compression="zlib">
-   eJztj0EKACAIBKU+Uf//aJeCiFW8BB5mYC/jljjNbJIyAQAAAIC/tJ1DF3N75sp5/dtFvSZ81O+OV/uyf0bvohuye5QbpFQW/KMTdg==
+   eJztk0EKACEMA0P9hP7/ox72ohKLtxWZgVzSaFvEJqmhawQA8BLx9wAwwXsAfITm/1BMXUvdebv86GW5MH6WLxvf9Tu9MzuX7XDax3kVXaUOGEITeg==
   </data>
  </layer>
  <layer name="Block" width="100" height="9">
@@ -333,7 +333,7 @@
  </layer>
  <layer name="Enemy" width="100" height="9">
   <data encoding="base64" compression="zlib">
-   eJztzjENAAAIA7D5N4FVHOwjPK2CJsCV+Q4AAECxsboAoA==
+   eJztzjENAAAIA7D5N4FVJOwiPK2CJsCF+Q4AAECxtDYAoA==
   </data>
  </layer>
 </map>

@@ -234,6 +234,10 @@ void AKPlayingScene::setState(enum AKGameState state)
         case kAKGameStatePlaying:   // プレイ中
             m_interfaceLayer->setEnableTag(kAKMenuTagPlaying);
             break;
+
+        case kAKGameStateStageClear:    // ステージクリア後
+            m_interfaceLayer->setEnableTag(kAKMenuTagStageClear);
+            break;
             
         case kAKGameStatePause:     // 一時停止中
             m_interfaceLayer->setEnableTag(kAKMenuTagPause);
@@ -442,6 +446,11 @@ void AKPlayingScene::movePlayer(const AKMenuItem *item)
  */
 void AKPlayingScene::touchShieldButton(const AKMenuItem *item)
 {
+    // プレイ中以外の場合は無処理
+    if (m_state != kAKGameStatePlaying) {
+        return;
+    }
+
     // タッチのフェーズによって処理を分ける
     switch (item->getTouchPhase()) {
         case kAKMenuTouchBegan:     // タッチ開始
@@ -468,6 +477,11 @@ void AKPlayingScene::touchShieldButton(const AKMenuItem *item)
  */
 void AKPlayingScene::touchPauseButton()
 {
+    // プレイ中以外の場合は無処理
+    if (m_state != kAKGameStatePlaying) {
+        return;
+    }
+
     // TODO:BGMを一時停止する
 //    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];    
 
@@ -607,7 +621,8 @@ void AKPlayingScene::update(float delta)
             updateStart();
             break;
             
-        case kAKGameStatePlaying:   // プレイ中
+        case kAKGameStatePlaying:       // プレイ中
+        case kAKGameStateStageClear:    // ステージクリア後
             updatePlaying();
             break;
             
@@ -731,6 +746,34 @@ void AKPlayingScene::gameOver()
     
     // 待機フレーム数を設定する
     m_sleepFrame = kAKGameOverWaitFrame;
+}
+
+/*!
+ @brief ステージクリア
+
+ ステージクリア状態に遷移する。
+ */
+void AKPlayingScene::stageClear()
+{
+    // シールドモードを無効にする
+    m_data->setShield(false);
+
+    // 状態をステージクリア状態に遷移する
+    setState(kAKGameStateStageClear);
+}
+
+/*!
+ @brief  次のステージへ進める
+
+ ステージクリア状態からプレイ中状態に遷移する。
+ */
+void AKPlayingScene::nextStage()
+{
+    // ステージクリア状態でない場合はエラー
+    AKAssert(m_state == kAKGameStateStageClear, "ステージクリア状態でないときに次のステージへの処理が行われた");
+
+    // 状態をプレイ中状態に遷移する
+    setState(kAKGameStatePlaying);
 }
 
 #pragma mark プライベートメソッド_インスタンス初期化

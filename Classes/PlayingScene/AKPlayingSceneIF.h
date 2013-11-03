@@ -38,14 +38,16 @@
 
 #include "AKToritoma.h"
 
-/// プレイ中メニュー項目のタグ
+// プレイ中メニュー項目のタグ
 extern const unsigned int kAKMenuTagPlaying;
-/// ポーズ中メニュー項目のタグ
+// ポーズ中メニュー項目のタグ
 extern const unsigned int kAKMenuTagPause;
-/// 終了メニュー項目のタグ
+// 終了メニュー項目のタグ
 extern const unsigned int kAKMenuTagQuit;
-/// ゲームオーバー時メニュー項目のタグ
+// ゲームオーバー時メニュー項目のタグ
 extern const unsigned int kAKMenuTagGameOver;
+// ステージクリア時メニュー項目のタグ
+extern const unsigned int kAKMenuTagStageClear;
 
 // メニュー項目のイベント番号
 enum {
@@ -109,6 +111,8 @@ private:
     void createQuitMenu();
     // ゲームオーバー時のメニュー項目作成
     void createGameOverMenu();
+    // ステージクリア時のメニュー項目作成
+    void createStageClear();
     // メニュー項目個別表示設定
     virtual void updateVisibleItem(CCNode *item);
 };

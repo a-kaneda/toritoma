@@ -53,7 +53,7 @@ static const char *kAKTileMapFileName = "Stage_%02d.tmx";
  @param parent 親ノード
  */
 AKTileMap::AKTileMap(int stage, CCNode *parent) :
-m_currentCol(0), m_progress(0)
+m_currentCol(0), m_progress(0), m_isClear(false)
 {
     // ステージ番号からタイルマップのファイル名を決定する
     char fileName[16] = "";
@@ -63,7 +63,6 @@ m_currentCol(0), m_progress(0)
     m_tileMap = CCTMXTiledMap::create(fileName);
     AKAssert(m_tileMap != NULL, "タイルマップ読み込みに失敗");
     m_tileMap->retain();
-    
     
     // 各レイヤーを取得する
     m_background = m_tileMap->layerNamed("Background");
@@ -211,6 +210,17 @@ int AKTileMap::getProgress()
 void AKTileMap::setProgress(int progress)
 {
     m_progress = progress;
+}
+
+/*!
+ @brief クリアしたかどうか取得
+ 
+ クリアしたかどうかを取得する。
+ @return クリアしたかどうか
+ */
+bool AKTileMap::isClear()
+{
+    return m_isClear;
 }
 
 /*!
@@ -393,7 +403,11 @@ void AKTileMap::execEvent(const AKTileMapEventParameter &param, AKPlayDataInterf
     }
     // ステージクリアの場合
     else if (strcmp(type->getCString(), "clear") == 0) {
-        // TODO:ステージクリアフラグを立てる
+        
+        AKLog(kAKLogTileMap_1, "stage clear.");
+        
+        // ステージクリアフラグを立てる
+        m_isClear = true;
     }
     // 不明な種別の場合
     else {

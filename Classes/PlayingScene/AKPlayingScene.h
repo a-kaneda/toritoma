@@ -129,6 +129,10 @@ public:
     bool isGameOver();
     // ゲームオーバー
     void gameOver();
+    // ステージクリア
+    void stageClear();
+    // 次のステージへ進める
+    void nextStage();
     // スコアラベル更新
     void setScoreLabel(int score);
     

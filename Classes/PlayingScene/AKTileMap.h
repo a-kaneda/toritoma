@@ -69,6 +69,8 @@ private:
     int m_currentCol;
     /// ステージ進行度
     int m_progress;
+    /// クリアしたかどうか
+    bool m_isClear;
     /// 進行待ちのイベント
     std::vector<cocos2d::CCDictionary*> m_waitEvents;
     
@@ -91,6 +93,8 @@ public:
     int getProgress();
     // ステージ進行度設定
     void setProgress(int progress);
+    // クリアしたかどうか取得
+    bool isClear();
 
 private:
     // 列単位のイベント実行

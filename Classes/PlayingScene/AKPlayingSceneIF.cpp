@@ -46,6 +46,8 @@ const unsigned int kAKMenuTagPause = 0x02;
 const unsigned int kAKMenuTagQuit = 0x04;
 /// ゲームオーバー時メニュー項目のタグ
 const unsigned int kAKMenuTagGameOver = 0x08;
+/// ステージクリア時メニュー項目のタグ
+const unsigned int kAKMenuTagStageClear = 0x10;
 
 //======================================================================
 // プレイ中のメニュー項目
@@ -118,6 +120,12 @@ static const float kAKGameOverQuitButtonPosBottomRatio = 0.4f;
 static const float kAKTwitterButtonPosHorizontalCenterPoint = 120.0f;
 /// Twitterボタンの配置位置、下からの位置
 static const float kAKTwitterButtonPosBottomRatio = 0.6f;
+
+//======================================================================
+// ステージクリア時のメニュー項目
+//======================================================================
+/// ステージクリア時のメッセージ
+static const char *kAKStageClearString = "STAGE CLEAR";
 
 /*!
  @brief コンビニエンスコンストラクタ
@@ -213,6 +221,9 @@ AKInterface(eventHandler)
     
     // ゲームオーバー時のメニュー項目を作成する
     createGameOverMenu();
+
+    // ステージクリア時のメニュー項目を作成する
+    createStageClear();
 }
 
 /*!
@@ -231,7 +242,7 @@ void AKPlayingSceneIF::createPlayingMenu()
                                    CCPoint(x, y),
                                    0,
                                    kAKEventTouchShieldButton,
-                                   kAKMenuTagPlaying,
+                                   kAKMenuTagPlaying | kAKMenuTagStageClear,
                                    kAKMenuTypeMomentary);
     m_shieldButton->retain();
     
@@ -242,7 +253,7 @@ void AKPlayingSceneIF::createPlayingMenu()
                   CCPoint(x, y),
                   0,
                   kAKEventTouchPauseButton,
-                  kAKMenuTagPlaying,
+                  kAKMenuTagPlaying | kAKMenuTagStageClear,
                   kAKMenuTypeButton);
     
     // スライド入力を画面全体に配置する
@@ -250,7 +261,7 @@ void AKPlayingSceneIF::createPlayingMenu()
                          0.0f,
                          AKScreenSize::screenSize().width,
                          AKScreenSize::screenSize().height);
-    addSlideMenu(rect,kAKEventSlide, kAKMenuTagPlaying);
+    addSlideMenu(rect,kAKEventSlide, kAKMenuTagPlaying | kAKMenuTagStageClear);
 
     AKLog(true, "end createPlayingMenu()");
 }
@@ -382,6 +393,28 @@ void AKPlayingSceneIF::createGameOverMenu()
                   kAKEventTouchTwitterButton,
                   kAKMenuTagGameOver,
                   kAKMenuTypeButton);
+}
+
+/*!
+ @brief ステージクリア時のメニュー項目作成
+ 
+ ステージクリア時のメニュー項目を作成する。
+ */
+void AKPlayingSceneIF::createStageClear()
+{
+    // ステージクリアラベルを生成する
+    AKLabel *label = AKLabel::createLabel(kAKStageClearString,
+                                          strlen(kAKStageClearString),
+                                          1,
+                                          kAKLabelFrameNone);
+    
+    // ステージクリアラベルの位置を設定する
+    float x = AKScreenSize::center().x;
+    float y = AKScreenSize::center().y;
+    label->setPosition(CCPoint(x, y));
+
+    // ステージクリアラベルをレイヤーに配置する
+    addChild(label, 0, kAKMenuTagStageClear);
 }
 
 /*!
