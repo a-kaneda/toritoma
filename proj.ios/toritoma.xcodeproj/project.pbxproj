@@ -81,6 +81,15 @@
 		0CAB9845181F03180063353F /* Stage_06.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 0CAB9840181F03180063353F /* Stage_06.tmx */; };
 		0CB1464617F17BED007474AE /* Localized_ja in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1464517F17BED007474AE /* Localized_ja */; };
 		0CB1464817F17C27007474AE /* Localized_en in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1464717F17C27007474AE /* Localized_en */; };
+		0CB1D1B81831844700E07DBD /* boss1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1D1AF1831844700E07DBD /* boss1.mp3 */; };
+		0CB1D1B91831844700E07DBD /* boss2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1D1B01831844700E07DBD /* boss2.mp3 */; };
+		0CB1D1BA1831844700E07DBD /* ending.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1D1B11831844700E07DBD /* ending.mp3 */; };
+		0CB1D1BB1831844700E07DBD /* stage1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1D1B21831844700E07DBD /* stage1.mp3 */; };
+		0CB1D1BC1831844700E07DBD /* stage2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1D1B31831844700E07DBD /* stage2.mp3 */; };
+		0CB1D1BD1831844700E07DBD /* stage3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1D1B41831844700E07DBD /* stage3.mp3 */; };
+		0CB1D1BE1831844700E07DBD /* stage4.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1D1B51831844700E07DBD /* stage4.mp3 */; };
+		0CB1D1BF1831844700E07DBD /* stage5.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1D1B61831844700E07DBD /* stage5.mp3 */; };
+		0CB1D1C01831844700E07DBD /* stage6.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1D1B71831844700E07DBD /* stage6.mp3 */; };
 		15A3D8FF1682F7D5002FB0C5 /* b2BroadPhase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15A3D88B1682F7D5002FB0C5 /* b2BroadPhase.cpp */; };
 		15A3D9001682F7D5002FB0C5 /* b2CollideCircle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15A3D88D1682F7D5002FB0C5 /* b2CollideCircle.cpp */; };
 		15A3D9011682F7D5002FB0C5 /* b2CollideEdge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 15A3D88E1682F7D5002FB0C5 /* b2CollideEdge.cpp */; };
@@ -427,6 +436,15 @@
 		0CAB9840181F03180063353F /* Stage_06.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Stage_06.tmx; sourceTree = "<group>"; };
 		0CB1464517F17BED007474AE /* Localized_ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Localized_ja; sourceTree = "<group>"; };
 		0CB1464717F17C27007474AE /* Localized_en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Localized_en; sourceTree = "<group>"; };
+		0CB1D1AF1831844700E07DBD /* boss1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = boss1.mp3; path = Sound/boss1.mp3; sourceTree = "<group>"; };
+		0CB1D1B01831844700E07DBD /* boss2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = boss2.mp3; path = Sound/boss2.mp3; sourceTree = "<group>"; };
+		0CB1D1B11831844700E07DBD /* ending.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = ending.mp3; path = Sound/ending.mp3; sourceTree = "<group>"; };
+		0CB1D1B21831844700E07DBD /* stage1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = stage1.mp3; path = Sound/stage1.mp3; sourceTree = "<group>"; };
+		0CB1D1B31831844700E07DBD /* stage2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = stage2.mp3; path = Sound/stage2.mp3; sourceTree = "<group>"; };
+		0CB1D1B41831844700E07DBD /* stage3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = stage3.mp3; path = Sound/stage3.mp3; sourceTree = "<group>"; };
+		0CB1D1B51831844700E07DBD /* stage4.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = stage4.mp3; path = Sound/stage4.mp3; sourceTree = "<group>"; };
+		0CB1D1B61831844700E07DBD /* stage5.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = stage5.mp3; path = Sound/stage5.mp3; sourceTree = "<group>"; };
+		0CB1D1B71831844700E07DBD /* stage6.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = stage6.mp3; path = Sound/stage6.mp3; sourceTree = "<group>"; };
 		15A3D87E1682F7B3002FB0C5 /* cocos2dx.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = cocos2dx.xcodeproj; path = ../../../cocos2dx/proj.ios/cocos2dx.xcodeproj; sourceTree = "<group>"; };
 		15A3D8891682F7D5002FB0C5 /* Box2D.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box2D.h; sourceTree = "<group>"; };
 		15A3D88B1682F7D5002FB0C5 /* b2BroadPhase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = b2BroadPhase.cpp; sourceTree = "<group>"; };
@@ -990,6 +1008,22 @@
 			);
 			name = PlayingScene;
 			path = ../Classes/PlayingScene;
+			sourceTree = "<group>";
+		};
+		0CB1D1AE1831841E00E07DBD /* Sound */ = {
+			isa = PBXGroup;
+			children = (
+				0CB1D1AF1831844700E07DBD /* boss1.mp3 */,
+				0CB1D1B01831844700E07DBD /* boss2.mp3 */,
+				0CB1D1B11831844700E07DBD /* ending.mp3 */,
+				0CB1D1B21831844700E07DBD /* stage1.mp3 */,
+				0CB1D1B31831844700E07DBD /* stage2.mp3 */,
+				0CB1D1B41831844700E07DBD /* stage3.mp3 */,
+				0CB1D1B51831844700E07DBD /* stage4.mp3 */,
+				0CB1D1B61831844700E07DBD /* stage5.mp3 */,
+				0CB1D1B71831844700E07DBD /* stage6.mp3 */,
+			);
+			name = Sound;
 			sourceTree = "<group>";
 		};
 		15A3D87F1682F7B3002FB0C5 /* Products */ = {
@@ -1775,6 +1809,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0CB1D1AE1831841E00E07DBD /* Sound */,
 				0C48B5E117E58DB4001A1DF4 /* Back.png */,
 				0C48B5E217E58DB4001A1DF4 /* Block.png */,
 				0C48B5E317E58DB4001A1DF4 /* Character-ipad.plist */,
@@ -1917,15 +1952,20 @@
 				0C48B5F917E58DB4001A1DF4 /* Character-ipad.png in Resources */,
 				D4EF949A15BD2D8B00D803EB /* Icon-57.png in Resources */,
 				0C48B60917E58DB4001A1DF4 /* Font.plist in Resources */,
+				0CB1D1BF1831844700E07DBD /* stage5.mp3 in Resources */,
 				0C48B5FE17E58DB4001A1DF4 /* ChickenGauge_02-ipad.png in Resources */,
+				0CB1D1BE1831844700E07DBD /* stage4.mp3 in Resources */,
 				0CAB9845181F03180063353F /* Stage_06.tmx in Resources */,
 				0C48B63217E58EAF001A1DF4 /* Icon-Small@2x.png in Resources */,
+				0CB1D1C01831844700E07DBD /* stage6.mp3 in Resources */,
 				0C48B61317E58DD5001A1DF4 /* HowTo.png in Resources */,
 				0C48B63417E58EAF001A1DF4 /* Icon@2x.png in Resources */,
 				D4EF949C15BD2D8E00D803EB /* Icon-114.png in Resources */,
 				D4EF949E15BD2D9600D803EB /* Icon-72.png in Resources */,
 				0C48B61017E58DD5001A1DF4 /* HowTo-ipad.plist in Resources */,
+				0CB1D1B81831844700E07DBD /* boss1.mp3 in Resources */,
 				0C48B60A17E58DB4001A1DF4 /* Font.png in Resources */,
+				0CB1D1B91831844700E07DBD /* boss2.mp3 in Resources */,
 				0C48B60417E58DB4001A1DF4 /* Control.plist in Resources */,
 				0C48B62F17E58EAF001A1DF4 /* Icon-Small-50.png in Resources */,
 				D4EF94A015BD2D9800D803EB /* Icon-144.png in Resources */,
@@ -1934,6 +1974,7 @@
 				0CB1464617F17BED007474AE /* Localized_ja in Resources */,
 				0CB1464817F17C27007474AE /* Localized_en in Resources */,
 				0C48B60217E58DB4001A1DF4 /* Control-ipad.plist in Resources */,
+				0CB1D1BC1831844700E07DBD /* stage2.mp3 in Resources */,
 				0C48B62817E58EA4001A1DF4 /* Icon-72@2x.png in Resources */,
 				D446FD6E16102124000ADA7B /* Default@2x.png in Resources */,
 				0C48B63C17E58F12001A1DF4 /* Default-568h@2x.png in Resources */,
@@ -1946,9 +1987,11 @@
 				0C48B5FC17E58DB4001A1DF4 /* ChickenGauge_01-ipad.png in Resources */,
 				0C48B61217E58DD5001A1DF4 /* HowTo.plist in Resources */,
 				0C48B63017E58EAF001A1DF4 /* Icon-Small-50@2x.png in Resources */,
+				0CB1D1BB1831844700E07DBD /* stage1.mp3 in Resources */,
 				0C48B63D17E58F12001A1DF4 /* Default-Landscape.png in Resources */,
 				0C48B63E17E58F12001A1DF4 /* Default-Landscape@2x.png in Resources */,
 				0C48B60517E58DB4001A1DF4 /* Control.png in Resources */,
+				0CB1D1BD1831844700E07DBD /* stage3.mp3 in Resources */,
 				0C48B64017E58F12001A1DF4 /* Default-Portrait@2x.png in Resources */,
 				0C48B5FD17E58DB4001A1DF4 /* ChickenGauge_01.png in Resources */,
 				0C48B60617E58DB4001A1DF4 /* EnemyTile.png in Resources */,
@@ -1957,6 +2000,7 @@
 				0C48B61417E58DD5001A1DF4 /* Stage_01.tmx in Resources */,
 				0C48B5F817E58DB4001A1DF4 /* Character-ipad.plist in Resources */,
 				1A9CE8881765A12C000E3062 /* json_internalarray.inl in Resources */,
+				0CB1D1BA1831844700E07DBD /* ending.mp3 in Resources */,
 				1A9CE8891765A12C000E3062 /* json_internalmap.inl in Resources */,
 				0C48B60717E58DB4001A1DF4 /* Event.png in Resources */,
 				0CAB9842181F03180063353F /* Stage_03.tmx in Resources */,

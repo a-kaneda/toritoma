@@ -36,3 +36,6 @@ Thumbs.db
 *.swp
 # タグファイル
 tags
+# 音声ファイル
+*.mp3
+*.caf
