@@ -47,6 +47,9 @@ using cocos2d::CCPoint;
 using cocos2d::CCSpriteFrameCache;
 using cocos2d::CCSpriteBatchNode;
 
+/// ステージの数
+const int kAKStageCount = 6;
+
 /// 自機初期位置x座標
 static const float kAKPlayerDefaultPosX = 50.0f;
 /// 自機初期位置y座標
@@ -73,15 +76,13 @@ const char *kAKTextureAtlasFile = "Character.png";
 /// ステージクリア後の待機時間
 static const float kAKStageClearWaitTime = 5.0f;
 /// 初期残機
-static const int kAKInitialLife = 2;
+static const int kAKInitialLife = 0;
 /// 自機復活待機フレーム数
 static const int kAKRebirthInterval = 60;
 /// エクステンドするスコア
 static const int kAKExtendScore = 50000;
-/// ステージの数
-static const int kAKStageCount = 6;
 /// クリアした後の待機時間
-static const int kAKClearWait = 180;
+static const int kAKClearWait = 540;
 
 /// ゲームクリア時のツイートのフォーマットのキー
 static const char *kAKGameClearTweetKey = "GameClearTweet";

@@ -49,6 +49,7 @@ using cocos2d::CCTransitionFade;
 using cocos2d::CCSpriteBatchNode;
 using cocos2d::CCRect;
 using cocos2d::CCSprite;
+using CocosDenshion::SimpleAudioEngine;
 
 /// レイヤーのz座標、タグの値にも使用する
 enum {
@@ -119,6 +120,14 @@ static const char *kAKFrameBarRightTop = "FrameRightTop.png";
 /// 枠棒右下の画像名
 static const char *kAKFrameBarRightBottom = "FrameRightBottom.png";
 
+//======================================================================
+// サウンドに関する定数
+//======================================================================
+/// BGMのファイル名
+const char *kAKBGMFileName = "stage%d.mp3";
+/// ステージクリアのジングル
+const char *kAKClearJingleFileName = "clear.mp3";
+
 #pragma mark オブジェクト生成/解放
 
 /*!
@@ -172,6 +181,9 @@ m_infoLayer(NULL), m_interfaceLayer(NULL), m_life(NULL), m_chickenGauge(NULL)
     
     // 状態をシーン読み込み前に設定する
     setState(kAKGameStatePreLoad);
+
+    // サウンドファイルを読み込む
+    preloadBackGroundMusic();
     
     // 更新処理開始
     scheduleUpdate();
@@ -282,18 +294,6 @@ void AKPlayingScene::setState(enum AKGameState state)
             break;
     }
     */
-    
-    /* TODO:バックグラウンド判定処理を作成する
-    // AppDelegateを取得する
-    NSAssert([[[UIApplication sharedApplication] delegate] isKindOfClass:[AppController class]], "");
-    AppController *app = (AppController *)[[UIApplication sharedApplication] delegate];
-    
-    // バックグラウンドで実行中にプレイ中に遷移した場合はバックグラウンド移行処理を行う
-    if (app.isBackGround && state == kAKGameStatePlaying) {
-        AKLog(kAKLogPlayingScene_0, "バックグラウンドで実行中にプレイ中に遷移した");
-        [self onDidEnterBackground];
-    }
-    */
 }
 
 /*!
@@ -396,19 +396,21 @@ void AKPlayingScene::onEnterTransitionDidFinish()
 }
 
 /*!
- @brief バックグラウンド移行処理
+ @brief フォアグラウンド移行処理
  
- バックグラウンドに移行したときの処理を行う。
- ゲームプレイ中にバックグラウンドに移行したときは一時停止する。
+ フォアグラウンドに戻ったときの処理を行う。
+ ゲームプレイ中にフォアグラウンドから戻ったときは一時停止する。
  */
-void AKPlayingScene::onDidEnterBackground()
+void AKPlayingScene::onWillEnterForeground()
 {
     // ゲームプレイ中の場合は一時停止状態にする
     if (m_state == kAKGameStatePlaying) {
+
+        AKLog(kAKLogPlayingScene_1, "フォアグラウンド移行処理");
         
-        // TODO:BGMを一時停止する
-//    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];
-        
+        // BGMを一時停止する
+        SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+
         // ゲーム状態を一時停止に変更する
         setState(kAKGameStatePause);
         
@@ -482,8 +484,8 @@ void AKPlayingScene::touchPauseButton()
         return;
     }
 
-    // TODO:BGMを一時停止する
-//    [[SimpleAudioEngine sharedEngine] pauseBackgroundMusic];    
+    // BGMを一時停止する
+    SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
 
     // TODO:一時停止効果音を鳴らす
 //    [[SimpleAudioEngine sharedEngine] playEffect:kAKPauseSE];
@@ -561,6 +563,9 @@ void AKPlayingScene::touchQuitYesButton()
     
     // タイトルシーンへの遷移を作成する
     CCTransitionFade *transition = CCTransitionFade::create(0.5f, AKTitleScene::create());
+
+    // BGMを停止する
+    SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
     
     // タイトルシーンへと遷移する
     CCDirector::sharedDirector()->replaceScene(transition);
@@ -738,6 +743,9 @@ void AKPlayingScene::setScoreLabel(int score)
  */
 void AKPlayingScene::gameOver()
 {
+    // BGMを停止する
+    SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+
     // 状態を待機中へ遷移する
     setState(kAKGameStateSleep);
     
@@ -757,6 +765,12 @@ void AKPlayingScene::stageClear()
 {
     // シールドモードを無効にする
     m_data->setShield(false);
+
+    // BGMを停止する
+    SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+
+    // ステージクリアのジングルを再生する
+    SimpleAudioEngine::sharedEngine()->playBackgroundMusic(kAKClearJingleFileName, false);
 
     // 状態をステージクリア状態に遷移する
     setState(kAKGameStateStageClear);
@@ -1166,8 +1180,8 @@ void AKPlayingScene::resume()
     // 一時停止中から以外の変更の場合はエラー
     AKAssert(m_state == kAKGameStateWait, "状態遷移異常");
     
-    // TODO:一時停止したBGMを再開する
-//    [[SimpleAudioEngine sharedEngine] resumeBackgroundMusic];
+    // 一時停止したBGMを再開する
+    SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
     
     // ゲーム状態をプレイ中に変更する
     setState(kAKGameStatePlaying);
@@ -1196,4 +1210,23 @@ void AKPlayingScene::viewPauseMenu()
 {
     // ゲーム状態を一時停止中に遷移する
     setState(kAKGameStatePause);
+}
+
+/*!
+ @brief サウンドファイル読み込み
+
+ サウンドファイルの読み込みを行う。
+ */
+void AKPlayingScene::preloadBackGroundMusic()
+{
+    // ステージのBGMを読み込む
+    for (int i = 0; i < kAKStageCount; i++) {
+
+        // ファイル名を作成する
+        char fileName[32] = "";
+        snprintf(fileName, sizeof(fileName), kAKBGMFileName, i);
+
+        // ファイルを読み込む
+        SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(fileName);
+    }
 }

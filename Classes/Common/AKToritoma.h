@@ -39,6 +39,7 @@
 #include "AKLib.h"
 #include "AKLogNoDef.h"
 //#include "AKGameCenterHelper.h"
+#include "SimpleAudioEngine.h"
 
 // コントロールテクスチャアトラス定義ファイル名
 extern const char *kAKControlTextureAtlasDefFile;
@@ -49,7 +50,7 @@ extern const char *kAKControlTextureAtlasFile;
 #ifdef DEBUG
 
 /// 自機当たり判定無効化
-#define DEBUG_MODE_PLAYER_INVINCIBLE 1
+#define DEBUG_MODE_PLAYER_INVINCIBLE 0
 
 #else
 

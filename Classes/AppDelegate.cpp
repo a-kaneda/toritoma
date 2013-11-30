@@ -1,5 +1,6 @@
 #include "AppDelegate.h"
 #include "AKTitleScene.h"
+#include "AKPlayingScene.h"
 #include "AKScreenSize.h"
 
 USING_NS_CC;
@@ -49,6 +50,14 @@ void AppDelegate::applicationDidEnterBackground() {
 void AppDelegate::applicationWillEnterForeground() {
     CCDirector::sharedDirector()->startAnimation();
 
+    // 実行中のシーンを取得する
+    CCScene *scene = CCDirector::sharedDirector()->getRunningScene();
+
+    // ゲームプレイシーンの場合は固有のバックグラウンド移行処理を実行する
+    AKPlayingScene *playingScene = dynamic_cast<AKPlayingScene*>(scene);
+    if (playingScene != NULL) {
+        playingScene->onWillEnterForeground();
+    }
     // if you use SimpleAudioEngine, it must resume here
     // SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
 }

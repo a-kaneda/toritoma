@@ -47,6 +47,9 @@
 #include "AKBlock.h"
 #include "AKPlayDataInterface.h"
 
+// ステージの数
+extern const int kAKStageCount;
+
 class AKPlayingScene;
 
 /*!

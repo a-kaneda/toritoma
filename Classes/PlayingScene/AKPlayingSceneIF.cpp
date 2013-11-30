@@ -380,7 +380,7 @@ void AKPlayingSceneIF::createGameOverMenu()
     addLabelMenu(kAKGameOverQuitButtonCaption,
                  CCPoint(x, y),
                  0,
-                 kAKEventTouchBackButton,
+                 kAKEventTouchQuitYesButton,
                  kAKMenuTagGameOver,
                  true);
     

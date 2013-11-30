@@ -55,6 +55,13 @@
     <property name="Value" value="0"/>
    </properties>
   </tile>
+  <tile id="10">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="bgm"/>
+    <property name="Value" value="2"/>
+   </properties>
+  </tile>
   <tile id="20">
    <properties>
     <property name="Progress" value="0"/>
@@ -328,7 +335,7 @@
  </layer>
  <layer name="Event" width="100" height="9" opacity="0.37">
   <data encoding="base64" compression="zlib">
-   eJztzkENADAIADF8gYf5dzMRkMCjFXC5jDlvsEVfbQ8AAACnfWgCAMc=
+   eJztzDEBACAMAzB8jZcb/25moteWCEidnB+8tnrB6wYvAABgngbGrwEM
   </data>
  </layer>
  <layer name="Enemy" width="100" height="9">

@@ -33,7 +33,8 @@
  ステージ構成定義のタイルマップファイルを読み込む。
  */
 
-#import "AKTileMap.h"
+#include "AKTileMap.h"
+#include "AKPlayingScene.h"
 
 using cocos2d::CCPoint;
 using cocos2d::CCTMXTiledMap;
@@ -41,6 +42,7 @@ using cocos2d::CCTMXLayer;
 using cocos2d::CCDictionary;
 using cocos2d::CCString;
 using cocos2d::CCNode;
+using CocosDenshion::SimpleAudioEngine;
 
 /// タイルマップのファイル名
 static const char *kAKTileMapFileName = "Stage_%02d.tmx";
@@ -398,14 +400,21 @@ void AKTileMap::execEvent(const AKTileMapEventParameter &param, AKPlayDataInterf
         // スピードは0.1単位で指定するものとする
         data->setScrollSpeedX(value / 10.0f);
     }
+    // BGM変更の場合
     else if (strcmp(type->getCString(), "bgm") == 0) {
-        // TODO:BGM変更処理を作成する
+
+        // ファイル名を作成する
+        char fileName[32] = "";
+        snprintf(fileName, sizeof(fileName), kAKBGMFileName, value);
+
+        // BGMを再生する
+        SimpleAudioEngine::sharedEngine()->playBackgroundMusic(fileName, true);
     }
     // ステージクリアの場合
     else if (strcmp(type->getCString(), "clear") == 0) {
         
         AKLog(kAKLogTileMap_1, "stage clear.");
-        
+
         // ステージクリアフラグを立てる
         m_isClear = true;
     }
