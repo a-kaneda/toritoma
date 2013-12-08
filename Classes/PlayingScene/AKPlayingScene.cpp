@@ -573,8 +573,8 @@ void AKPlayingScene::touchQuitNoButton()
     
     // ボタンのブリンクアクションを作成する
     CCBlink *blink = CCBlink::create(0.2f, 2);
-    CCCallFunc *callFunc = CCCallFunc::create(this, callfunc_selector(AKPlayingScene::resume));
-    CCSequence *action = CCSequence::create(blink, callFunc);
+    CCCallFunc *callFunc = CCCallFunc::create(this, callfunc_selector(AKPlayingScene::viewPauseMenu));
+    CCSequence *action = CCSequence::create(blink, callFunc, NULL);
     
     // ボタンを取得する
     CCNode *button = m_interfaceLayer->getQuitNoButton();
