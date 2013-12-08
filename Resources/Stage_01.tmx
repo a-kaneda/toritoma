@@ -64,7 +64,7 @@
   </tile>
   <tile id="20">
    <properties>
-    <property name="Progress" value="0"/>
+    <property name="Progress" value="1"/>
     <property name="Type" value="clear"/>
     <property name="Value" value="0"/>
    </properties>
@@ -254,7 +254,7 @@
   </tile>
   <tile id="30">
    <properties>
-    <property name="Progress" value="0"/>
+    <property name="Progress" value="1"/>
     <property name="Type" value="31"/>
    </properties>
   </tile>
@@ -335,12 +335,12 @@
  </layer>
  <layer name="Event" width="100" height="9" opacity="0.37">
   <data encoding="base64" compression="zlib">
-   eJyzZqAf8KejXUMRgMLHlY722dDRrqEIRsNnFIyCUTAKRsEoGAWjYBQMdwAAI6QBlw==
+   eJztzqEBACAMxED2KhbN/tugMB2gb+5cXGqRdFufyAXfTg8AAMCgBx9zAQw=
   </data>
  </layer>
  <layer name="Enemy" width="100" height="9">
   <data encoding="base64" compression="zlib">
-   eJztzjENAAAIA7D5N4FVHOwjPK2CJsCV+Q4AAECxsboAoA==
+   eJzt08sNwCAMA1D2X4LPHuzGiSOBOHwi5HelditRh0CEScZzNIP0WnIWcdMz5I90b9JZVuZm/0c58B0jFcis4E7+g+6j0+5kpXfUKW1olr2JO3kjOezVZC3vOdlFvjTK7xS4
   </data>
  </layer>
 </map>

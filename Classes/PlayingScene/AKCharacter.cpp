@@ -320,11 +320,17 @@ void AKCharacter::setImageName(const std::string &imageName)
         
         // スプライト作成前の場合はスプライトを作成する
         if (m_image == NULL) {
+
+            AKLog(kAKLogCharacter_1, "スプライトの作成");
+
             m_image = CCSprite::createWithSpriteFrameName(imageFileName);
             AKAssert(m_image, "スプライト作成に失敗:%s", imageFileName);
         }
         // すでにスプライトを作成している場合は画像の切り替えを行う
         else {
+
+            AKLog(kAKLogCharacter_1, "画像の切り替え");
+
             CCSpriteFrameCache *spriteFrameCache =
                 CCSpriteFrameCache::sharedSpriteFrameCache();
 
@@ -462,6 +468,8 @@ void AKCharacter::move(AKPlayDataInterface *data)
                 // 繰り返し回数が0になった場合は画面から取り除く
                 if (m_animationRepeat <= 0) {
                     
+                    AKLog(kAKLogCharacter_1, "繰り返し回数0により消滅");
+
                     // ステージ配置フラグを落とす
                     m_isStaged = false;
                     
@@ -513,6 +521,8 @@ void AKCharacter::action(AKPlayDataInterface *data)
  */
 void AKCharacter::destroy(AKPlayDataInterface *data)
 {
+    AKLog(kAKLogCharacter_1, "start destroy");
+
     // ステージ配置フラグを落とす
     m_isStaged = false;
     

@@ -500,12 +500,13 @@ AKCharacter* AKEnemy::getBlockAtFeet(float x,
  @param progress 倒した時に進む進行度
  @param parent 敵キャラを配置する親ノード
  */
-// 生成処理
 void AKEnemy::createEnemy(int type,
                           const CCPoint &position,
                           int progress,
                           CCNode *parent)
 {
+    AKLog(kAKLogEnemy_1, "start createEnemy():type=%d", type); 
+
     // パラメータの内容をメンバに設定する
     m_position = position;
     m_progress = progress;
@@ -3311,6 +3312,11 @@ void AKEnemy::checkReverse(const std::vector<AKBlock*> &blocks)
 
     // 各障害物との距離を調べる
     for (AKCharacter *block : blocks) {
+
+        // 配置されていないブロックは処理を飛ばす
+        if (!block->isStaged()) {
+            continue;
+        }
         
         // x軸方向に重なりがない場合は処理を飛ばす
         if (fabsf(m_position.x - block->getPosition()->x) >
