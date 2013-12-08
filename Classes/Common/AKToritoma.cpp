@@ -53,5 +53,21 @@ const char *kAKControlTextureAtlasDefFile = "Control.plist";
 /// コントロールテクスチャアトラスファイル名
 const char *kAKControlTextureAtlasFile = "Control.png";
 
+/// ステージBGMの種類数
+const int kAKStageBGMCount = 8;
+/// ステージBGMのファイル名
+const char *kAKStageBGMFileName = "stage%d.mp3";
+/// エンディングBGMのファイル名
+const char *kAKEndingBGMFileName = "ending.mp3";
+/// ステージクリアジングルのファイル名
+const char *kAKClearJingleFileName = "clear.mp3";
+/// ボタン選択効果音のファイル名
+const char *kAKSelectSEFileName = "select.mp3";
+/// ポーズ効果音のファイル名
+const char *kAKPauseSEFileName = "pause.mp3";
+/// 爆発(小)効果音のファイル名
+const char *kAKBombMinSEFileName = "bomb_min.mp3";
+/// 爆発(大)効果音のファイル名
+const char *kAKBombBigSEFileName = "bomb_big.mp3";
 
 

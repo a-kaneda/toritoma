@@ -43,9 +43,6 @@
 #include "AKLife.h"
 #include "AKTitleScene.h"
 
-/// BGMのファイル名
-extern const char *kAKBGMFileName;
-
 /// ゲームプレイの状態
 enum AKGameState {
     kAKGameStatePreLoad = 0,    ///< ゲームシーン読み込み前
@@ -187,8 +184,6 @@ private:
     void viewQuitMenu();
     // 一時停止メニュー表示
     void viewPauseMenu();
-    // サウンドファイル読み込み
-    void preloadBackGroundMusic();
 };
 
 #endif

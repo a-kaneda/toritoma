@@ -43,6 +43,7 @@ using cocos2d::CCTransitionFade;
 using cocos2d::CCDirector;
 using cocos2d::CCBlink;
 using cocos2d::CCNode;
+using CocosDenshion::SimpleAudioEngine;
 
 // メニュー項目のタグ
 enum {
@@ -337,8 +338,8 @@ void AKTitleScene::touchCreditButton()
  */
 void AKTitleScene::selectButton(int tag)
 {
-    // TODO:メニュー選択時の効果音を鳴らす
-//    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
+    // メニュー選択時の効果音を鳴らす
+    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
     
     // ボタンのブリンクアクションを作成する
     CCBlink *action = CCBlink::create(0.2f, 2);

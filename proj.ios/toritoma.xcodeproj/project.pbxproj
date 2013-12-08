@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C26077818543DA1001B809B /* bomb_big.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C26077418543DA1001B809B /* bomb_big.mp3 */; };
+		0C26077918543DA1001B809B /* bomb_min.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C26077518543DA1001B809B /* bomb_min.mp3 */; };
+		0C26077A18543DA1001B809B /* pause.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C26077618543DA1001B809B /* pause.mp3 */; };
+		0C26077B18543DA1001B809B /* select.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C26077718543DA1001B809B /* select.mp3 */; };
 		0C27D6F51849BCCD0085E9B4 /* clear.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C27D6F41849BCCD0085E9B4 /* clear.mp3 */; };
 		0C463951181BC0C500517E79 /* AKAngle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C46394F181BC0C500517E79 /* AKAngle.cpp */; };
 		0C48B5F617E58DB4001A1DF4 /* Back.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C48B5E117E58DB4001A1DF4 /* Back.png */; };
@@ -82,8 +86,8 @@
 		0CAB9845181F03180063353F /* Stage_06.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 0CAB9840181F03180063353F /* Stage_06.tmx */; };
 		0CB1464617F17BED007474AE /* Localized_ja in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1464517F17BED007474AE /* Localized_ja */; };
 		0CB1464817F17C27007474AE /* Localized_en in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1464717F17C27007474AE /* Localized_en */; };
-		0CB1D1B81831844700E07DBD /* boss1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1D1AF1831844700E07DBD /* boss1.mp3 */; };
-		0CB1D1B91831844700E07DBD /* boss2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1D1B01831844700E07DBD /* boss2.mp3 */; };
+		0CB1D1B81831844700E07DBD /* stage7.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1D1AF1831844700E07DBD /* stage7.mp3 */; };
+		0CB1D1B91831844700E07DBD /* stage8.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1D1B01831844700E07DBD /* stage8.mp3 */; };
 		0CB1D1BA1831844700E07DBD /* ending.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1D1B11831844700E07DBD /* ending.mp3 */; };
 		0CB1D1BB1831844700E07DBD /* stage1.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1D1B21831844700E07DBD /* stage1.mp3 */; };
 		0CB1D1BC1831844700E07DBD /* stage2.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB1D1B31831844700E07DBD /* stage2.mp3 */; };
@@ -316,6 +320,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C26077418543DA1001B809B /* bomb_big.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bomb_big.mp3; path = Sound/bomb_big.mp3; sourceTree = "<group>"; };
+		0C26077518543DA1001B809B /* bomb_min.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bomb_min.mp3; path = Sound/bomb_min.mp3; sourceTree = "<group>"; };
+		0C26077618543DA1001B809B /* pause.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = pause.mp3; path = Sound/pause.mp3; sourceTree = "<group>"; };
+		0C26077718543DA1001B809B /* select.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = select.mp3; path = Sound/select.mp3; sourceTree = "<group>"; };
 		0C27D6F41849BCCD0085E9B4 /* clear.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = clear.mp3; path = Sound/clear.mp3; sourceTree = "<group>"; };
 		0C46394F181BC0C500517E79 /* AKAngle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AKAngle.cpp; path = ../Common/AKAngle.cpp; sourceTree = "<group>"; };
 		0C463950181BC0C500517E79 /* AKAngle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKAngle.h; path = ../Common/AKAngle.h; sourceTree = "<group>"; };
@@ -382,8 +390,6 @@
 		0C5592D517D3392F0007DF83 /* AKLogNoDef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLogNoDef.h; sourceTree = "<group>"; };
 		0C5592D617D3392F0007DF83 /* AKToritoma.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKToritoma.cpp; sourceTree = "<group>"; };
 		0C5592D717D3392F0007DF83 /* AKToritoma.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKToritoma.h; sourceTree = "<group>"; };
-		0C5592D817D3392F0007DF83 /* AppDelegate_.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AppDelegate_.cpp; sourceTree = "<group>"; };
-		0C5592D917D3392F0007DF83 /* AppDelegate_.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate_.h; sourceTree = "<group>"; };
 		0C5592DF17D339420007DF83 /* AKHowToPlayScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKHowToPlayScene.cpp; sourceTree = "<group>"; };
 		0C5592E017D339420007DF83 /* AKHowToPlayScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHowToPlayScene.h; sourceTree = "<group>"; };
 		0C5592E117D339420007DF83 /* AKOptionScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKOptionScene.cpp; sourceTree = "<group>"; };
@@ -437,8 +443,8 @@
 		0CAB9840181F03180063353F /* Stage_06.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Stage_06.tmx; sourceTree = "<group>"; };
 		0CB1464517F17BED007474AE /* Localized_ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Localized_ja; sourceTree = "<group>"; };
 		0CB1464717F17C27007474AE /* Localized_en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Localized_en; sourceTree = "<group>"; };
-		0CB1D1AF1831844700E07DBD /* boss1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = boss1.mp3; path = Sound/boss1.mp3; sourceTree = "<group>"; };
-		0CB1D1B01831844700E07DBD /* boss2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = boss2.mp3; path = Sound/boss2.mp3; sourceTree = "<group>"; };
+		0CB1D1AF1831844700E07DBD /* stage7.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = stage7.mp3; path = Sound/stage7.mp3; sourceTree = "<group>"; };
+		0CB1D1B01831844700E07DBD /* stage8.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = stage8.mp3; path = Sound/stage8.mp3; sourceTree = "<group>"; };
 		0CB1D1B11831844700E07DBD /* ending.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = ending.mp3; path = Sound/ending.mp3; sourceTree = "<group>"; };
 		0CB1D1B21831844700E07DBD /* stage1.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = stage1.mp3; path = Sound/stage1.mp3; sourceTree = "<group>"; };
 		0CB1D1B31831844700E07DBD /* stage2.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = stage2.mp3; path = Sound/stage2.mp3; sourceTree = "<group>"; };
@@ -943,8 +949,6 @@
 				0C5592D517D3392F0007DF83 /* AKLogNoDef.h */,
 				0C5592D617D3392F0007DF83 /* AKToritoma.cpp */,
 				0C5592D717D3392F0007DF83 /* AKToritoma.h */,
-				0C5592D817D3392F0007DF83 /* AppDelegate_.cpp */,
-				0C5592D917D3392F0007DF83 /* AppDelegate_.h */,
 			);
 			name = Common;
 			path = ../Classes/Common;
@@ -1012,16 +1016,20 @@
 		0CB1D1AE1831841E00E07DBD /* Sound */ = {
 			isa = PBXGroup;
 			children = (
-				0CB1D1AF1831844700E07DBD /* boss1.mp3 */,
-				0CB1D1B01831844700E07DBD /* boss2.mp3 */,
+				0C26077418543DA1001B809B /* bomb_big.mp3 */,
+				0C26077518543DA1001B809B /* bomb_min.mp3 */,
 				0C27D6F41849BCCD0085E9B4 /* clear.mp3 */,
 				0CB1D1B11831844700E07DBD /* ending.mp3 */,
+				0C26077618543DA1001B809B /* pause.mp3 */,
+				0C26077718543DA1001B809B /* select.mp3 */,
 				0CB1D1B21831844700E07DBD /* stage1.mp3 */,
 				0CB1D1B31831844700E07DBD /* stage2.mp3 */,
 				0CB1D1B41831844700E07DBD /* stage3.mp3 */,
 				0CB1D1B51831844700E07DBD /* stage4.mp3 */,
 				0CB1D1B61831844700E07DBD /* stage5.mp3 */,
 				0CB1D1B71831844700E07DBD /* stage6.mp3 */,
+				0CB1D1AF1831844700E07DBD /* stage7.mp3 */,
+				0CB1D1B01831844700E07DBD /* stage8.mp3 */,
 			);
 			name = Sound;
 			sourceTree = "<group>";
@@ -1961,9 +1969,10 @@
 				D4EF949C15BD2D8E00D803EB /* Icon-114.png in Resources */,
 				D4EF949E15BD2D9600D803EB /* Icon-72.png in Resources */,
 				0C48B61017E58DD5001A1DF4 /* HowTo-ipad.plist in Resources */,
-				0CB1D1B81831844700E07DBD /* boss1.mp3 in Resources */,
+				0CB1D1B81831844700E07DBD /* stage7.mp3 in Resources */,
+				0C26077918543DA1001B809B /* bomb_min.mp3 in Resources */,
 				0C48B60A17E58DB4001A1DF4 /* Font.png in Resources */,
-				0CB1D1B91831844700E07DBD /* boss2.mp3 in Resources */,
+				0CB1D1B91831844700E07DBD /* stage8.mp3 in Resources */,
 				0C48B60417E58DB4001A1DF4 /* Control.plist in Resources */,
 				0C48B62F17E58EAF001A1DF4 /* Icon-Small-50.png in Resources */,
 				D4EF94A015BD2D9800D803EB /* Icon-144.png in Resources */,
@@ -1980,6 +1989,7 @@
 				0C48B5F617E58DB4001A1DF4 /* Back.png in Resources */,
 				0C48B63F17E58F12001A1DF4 /* Default-Portrait.png in Resources */,
 				0C48B63117E58EAF001A1DF4 /* Icon-Small.png in Resources */,
+				0C26077B18543DA1001B809B /* select.mp3 in Resources */,
 				0C48B60317E58DB4001A1DF4 /* Control-ipad.png in Resources */,
 				0C48B5F717E58DB4001A1DF4 /* Block.png in Resources */,
 				15A3D9961682F7F9002FB0C5 /* CMakeLists.txt in Resources */,
@@ -1999,6 +2009,7 @@
 				0C48B61417E58DD5001A1DF4 /* Stage_01.tmx in Resources */,
 				0C48B5F817E58DB4001A1DF4 /* Character-ipad.plist in Resources */,
 				1A9CE8881765A12C000E3062 /* json_internalarray.inl in Resources */,
+				0C26077A18543DA1001B809B /* pause.mp3 in Resources */,
 				0CB1D1BA1831844700E07DBD /* ending.mp3 in Resources */,
 				1A9CE8891765A12C000E3062 /* json_internalmap.inl in Resources */,
 				0C48B60717E58DB4001A1DF4 /* Event.png in Resources */,
@@ -2006,6 +2017,7 @@
 				0CAB9841181F03180063353F /* Stage_02.tmx in Resources */,
 				1A9CE88C1765A12C000E3062 /* json_valueiterator.inl in Resources */,
 				0C48B5FB17E58DB4001A1DF4 /* Character.png in Resources */,
+				0C26077818543DA1001B809B /* bomb_big.mp3 in Resources */,
 				0C48B60017E58DB4001A1DF4 /* CloseNormal.png in Resources */,
 				0C48B5FA17E58DB4001A1DF4 /* Character.plist in Resources */,
 				1A9CE88E1765A12C000E3062 /* sconscript in Resources */,

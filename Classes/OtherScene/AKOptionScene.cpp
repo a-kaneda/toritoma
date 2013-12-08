@@ -46,6 +46,7 @@ using cocos2d::CCCallFunc;
 using cocos2d::CCSequence;
 using cocos2d::CCTransitionFade;
 using cocos2d::CCDirector;
+using CocosDenshion::SimpleAudioEngine;
 
 // オプション画面シーンに配置するノードのタグ
 enum {
@@ -449,8 +450,8 @@ void AKOptionScene::setPageNo(int pageNo)
  */
 void AKOptionScene::selectLeaderboard()
 {
-    // TODO:メニュー選択時の効果音を鳴らす
-//    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
+    // メニュー選択時の効果音を鳴らす
+    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
     
     // ボタンのブリンクアクションを作成する。
     // ブリンクアクション終了後にLeaderboardを表示する。
@@ -472,8 +473,8 @@ void AKOptionScene::selectLeaderboard()
  */
 void AKOptionScene::selectAchievements()
 {
-    // TODO:メニュー選択時の効果音を鳴らす
-//    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
+    // メニュー選択時の効果音を鳴らす
+    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
     
     // ボタンのブリンクアクションを作成する
     // ブリンクアクション終了後にAchievementsを表示する。
@@ -500,8 +501,8 @@ void AKOptionScene::selectPrevPage()
         return;
     }
     
-    // TODO:メニュー選択時の効果音を鳴らす
-//    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
+    // メニュー選択時の効果音を鳴らす
+    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
     
     setPageNo(m_pageNo - 1);
 }

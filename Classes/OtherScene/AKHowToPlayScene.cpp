@@ -36,6 +36,8 @@
 #include "AKHowToPlayScene.h"
 #include "AKTitleScene.h"
 
+using CocosDenshion::SimpleAudioEngine;
+
 // シーンに配置するノードのz座標
 enum {
     kAKHowToBackPosZ = 0,   ///< 背景のz座標
@@ -443,8 +445,8 @@ void AKHowToPlayScene::goPrevPage()
 {
     AKLog(kAKLogHowToPlayScene_1, "goPrevPage開始");
     
-    // TODO:メニュー選択時の効果音を鳴らす
-//    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
+    // メニュー選択時の効果音を鳴らす
+    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
 
     setPageNo(m_pageNo - 1);
 }
@@ -458,8 +460,8 @@ void AKHowToPlayScene::goNextPage()
 {
     AKLog(kAKLogHowToPlayScene_1, "goNextPage開始");
     
-    // TODO:メニュー選択時の効果音を鳴らす
-//    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
+    // メニュー選択時の効果音を鳴らす
+    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
 
     setPageNo(m_pageNo + 1);
 }
@@ -473,8 +475,8 @@ void AKHowToPlayScene::backToTitle()
 {
     AKLog(kAKLogHowToPlayScene_1, "backToTitle開始");
 
-    // TODO:メニュー選択時の効果音を鳴らす
-//    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
+    // メニュー選択時の効果音を鳴らす
+    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
 
     // タイトルシーンへの遷移を作成する
     cocos2d::CCTransitionFade *transition =

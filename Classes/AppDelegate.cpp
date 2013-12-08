@@ -4,6 +4,7 @@
 #include "AKScreenSize.h"
 
 USING_NS_CC;
+using CocosDenshion::SimpleAudioEngine;
 
 AppDelegate::AppDelegate() {
 
@@ -28,6 +29,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // set FPS. the default value is 1.0/60 if you don't call this
     pDirector->setAnimationInterval(1.0 / 60);
+
+    // サウンドファイルを読み込む
+    preloadSound();
 
     // create a scene. it's an autorelease object
     CCScene *pScene = AKTitleScene::create();
@@ -60,4 +64,35 @@ void AppDelegate::applicationWillEnterForeground() {
     }
     // if you use SimpleAudioEngine, it must resume here
     // SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+}
+
+/*!
+ @brief サウンドファイルのプリロード
+
+ サウンドファイルの読み込みを行う。
+ */
+void AppDelegate::preloadSound()
+{
+    // ステージのBGMを読み込む
+    for (int i = 0; i < kAKStageBGMCount; i++) {
+
+        // ファイル名を作成する
+        char fileName[32] = "";
+        snprintf(fileName, sizeof(fileName), kAKStageBGMFileName, i);
+
+        // ファイルを読み込む
+        SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(fileName);
+    }
+    /// エンディングBGMのファイル名
+    SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(kAKEndingBGMFileName);
+    /// ステージクリアジングルのファイル名
+    SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(kAKClearJingleFileName);
+    /// ボタン選択効果音のファイル名
+    SimpleAudioEngine::sharedEngine()->preloadEffect(kAKSelectSEFileName);
+    /// ポーズ効果音のファイル名
+    SimpleAudioEngine::sharedEngine()->preloadEffect(kAKPauseSEFileName);
+    /// 爆発(小)効果音のファイル名
+    SimpleAudioEngine::sharedEngine()->preloadEffect(kAKBombMinSEFileName);
+    /// 爆発(大)効果音のファイル名
+    SimpleAudioEngine::sharedEngine()->preloadEffect(kAKBombBigSEFileName);
 }

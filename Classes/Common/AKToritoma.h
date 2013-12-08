@@ -46,6 +46,23 @@ extern const char *kAKControlTextureAtlasDefFile;
 // コントロールテクスチャアトラスファイル名
 extern const char *kAKControlTextureAtlasFile;
 
+/// ステージBGMの種類数
+extern const int kAKStageBGMCount;
+/// ステージBGMのファイル名
+extern const char *kAKStageBGMFileName;
+/// エンディングBGMのファイル名
+extern const char *kAKEndingBGMFileName;
+/// ステージクリアジングルのファイル名
+extern const char *kAKClearJingleFileName;
+/// ボタン選択効果音のファイル名
+extern const char *kAKSelectSEFileName;
+/// ポーズ効果音のファイル名
+extern const char *kAKPauseSEFileName;
+/// 爆発(小)効果音のファイル名
+extern const char *kAKBombMinSEFileName;
+/// 爆発(大)効果音のファイル名
+extern const char *kAKBombBigSEFileName;
+
 // デバッグ用フラグ
 #ifdef DEBUG
 

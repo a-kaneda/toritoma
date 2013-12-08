@@ -120,14 +120,6 @@ static const char *kAKFrameBarRightTop = "FrameRightTop.png";
 /// 枠棒右下の画像名
 static const char *kAKFrameBarRightBottom = "FrameRightBottom.png";
 
-//======================================================================
-// サウンドに関する定数
-//======================================================================
-/// BGMのファイル名
-const char *kAKBGMFileName = "stage%d.mp3";
-/// ステージクリアのジングル
-const char *kAKClearJingleFileName = "clear.mp3";
-
 #pragma mark オブジェクト生成/解放
 
 /*!
@@ -182,9 +174,6 @@ m_infoLayer(NULL), m_interfaceLayer(NULL), m_life(NULL), m_chickenGauge(NULL)
     // 状態をシーン読み込み前に設定する
     setState(kAKGameStatePreLoad);
 
-    // サウンドファイルを読み込む
-    preloadBackGroundMusic();
-    
     // 更新処理開始
     scheduleUpdate();
 
@@ -487,8 +476,8 @@ void AKPlayingScene::touchPauseButton()
     // BGMを一時停止する
     SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
 
-    // TODO:一時停止効果音を鳴らす
-//    [[SimpleAudioEngine sharedEngine] playEffect:kAKPauseSE];
+    // 一時停止効果音を鳴らす
+    SimpleAudioEngine::sharedEngine()->playEffect(kAKPauseSEFileName);
 
     // ゲーム状態を一時停止に変更する
     setState(kAKGameStatePause);
@@ -518,8 +507,8 @@ void AKPlayingScene::touchResumeButton()
     // ブリンクアクションを開始する
     button->runAction(action);
     
-    // TODO:一時停止効果音を鳴らす
-//    [[SimpleAudioEngine sharedEngine] playEffect:kAKPauseSE];
+    // 一時停止効果音を鳴らす
+    SimpleAudioEngine::sharedEngine()->playEffect(kAKPauseSEFileName);
 }
 
 /*!
@@ -545,8 +534,8 @@ void AKPlayingScene::touchQuitButton()
     // ブリンクアクションを開始する
     button->runAction(action);
     
-    // TODO:メニュー選択時の効果音を鳴らす
-//    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
+    // ボタン選択効果音を鳴らす
+    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
 }
 
 /*!
@@ -593,8 +582,8 @@ void AKPlayingScene::touchQuitNoButton()
     // ブリンクアクションを開始する
     button->runAction(action);
     
-    // TODO:メニュー選択時の効果音を鳴らす
-//    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
+    // ボタン選択効果音を鳴らす
+    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
 }
 
 /*!
@@ -605,8 +594,8 @@ void AKPlayingScene::touchQuitNoButton()
  */
 void AKPlayingScene::touchTweetButton()
 {
-    // TODO:メニュー選択時の効果音を鳴らす
-//    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
+    // ボタン選択効果音を鳴らす
+    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
     
     // TODO:ツイートビューを表示する
 //    [[AKTwitterHelper sharedHelper] viewTwitterWithInitialString:[data_ makeTweet]];
@@ -1210,23 +1199,4 @@ void AKPlayingScene::viewPauseMenu()
 {
     // ゲーム状態を一時停止中に遷移する
     setState(kAKGameStatePause);
-}
-
-/*!
- @brief サウンドファイル読み込み
-
- サウンドファイルの読み込みを行う。
- */
-void AKPlayingScene::preloadBackGroundMusic()
-{
-    // ステージのBGMを読み込む
-    for (int i = 0; i < kAKStageCount; i++) {
-
-        // ファイル名を作成する
-        char fileName[32] = "";
-        snprintf(fileName, sizeof(fileName), kAKBGMFileName, i);
-
-        // ファイルを読み込む
-        SimpleAudioEngine::sharedEngine()->preloadBackgroundMusic(fileName);
-    }
 }
