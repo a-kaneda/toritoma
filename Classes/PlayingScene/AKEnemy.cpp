@@ -741,7 +741,7 @@ void AKEnemy::actionOfAnt(AKPlayDataInterface *data)
         kAKStateRightMove,          // 右移動
         kAKStateFire                // 弾発射
     };
-    
+
     // 縦方向の速度は状態にかかわらず0とする
     m_speedY = 0.0f;
     
@@ -764,7 +764,7 @@ void AKEnemy::actionOfAnt(AKPlayDataInterface *data)
             
             // スピードをマイナスにして、左右反転はなしにする
             m_speedX = -kAKMoveSpeed;
-            getImage()->setFlipY(false);
+            getImage()->setFlipX(false);
             
             // 移動フレーム数が経過したら弾発射に遷移する
             if ((m_frame - m_work[0] + 1) % kAKMoveFrame == 0) {
@@ -781,7 +781,7 @@ void AKEnemy::actionOfAnt(AKPlayDataInterface *data)
             
             // スピードをプラスにして、左右反転はありにする
             m_speedX = kAKMoveSpeed;
-            getImage()->setFlipY(true);
+            getImage()->setFlipX(true);
             
             // 移動フレーム数が経過したら弾発射に遷移する
             if ((m_frame - m_work[0] + 1) % kAKMoveFrame == 0) {
@@ -798,10 +798,10 @@ void AKEnemy::actionOfAnt(AKPlayDataInterface *data)
             
             // 自分より右側に自機がいれば左右反転する
             if (m_position.x < data->getPlayerPosition()->x) {
-                getImage()->setFlipY(true);
+                getImage()->setFlipX(true);
             }
             else {
-                getImage()->setFlipY(false);
+                getImage()->setFlipX(false);
             }
 
             // 待機する
@@ -1104,7 +1104,7 @@ void AKEnemy::actionOfGrasshopper(AKPlayDataInterface *data)
         kAKStateLeftMove,           // 左移動
         kAKStateWait                // 待機
     };
-    
+
     // スクロールに合わせて移動する
     m_scrollSpeed = 1.0f;
     
@@ -1131,7 +1131,7 @@ void AKEnemy::actionOfGrasshopper(AKPlayDataInterface *data)
         if (m_frame - m_work[0] > kAKLeftMoveInterval) {
             
             // 弾発射の状態へ遷移する
-            m_state= kAKStateWait;
+            m_state = kAKStateWait;
             
             // 停止する
             m_speedX = 0;

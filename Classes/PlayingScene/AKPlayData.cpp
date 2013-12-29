@@ -76,7 +76,7 @@ const char *kAKTextureAtlasFile = "Character.png";
 /// ステージクリア後の待機時間
 static const float kAKStageClearWaitTime = 5.0f;
 /// 初期残機
-static const int kAKInitialLife = 0;
+static const int kAKInitialLife = 2;
 /// 自機復活待機フレーム数
 static const int kAKRebirthInterval = 60;
 /// エクステンドするスコア

@@ -371,11 +371,13 @@ void AKTileMap::createEnemy(const AKTileMapEventParameter &param, AKPlayDataInte
 void AKTileMap::execEvent(const AKTileMapEventParameter &param, AKPlayDataInterface *data)
 {
     // 実行する進行状況の値を取得する
-    const CCString *progressString = param.getProperties()->valueForKey("progress");
+    const CCString *progressString = param.getProperties()->valueForKey("Progress");
     int progress = progressString->intValue();
     
+    AKLog(kAKLogTileMap_1 && progress > 0, "progress=%d m_progress=%d", progress, m_progress);
+    
     // 実行する進行度に到達していない場合は待機イベントの配列に入れて処理を終了する
-    if (progress < m_progress) {
+    if (progress > m_progress) {
         
         // 座標が0以上の場合はマップからの呼び出しと判断する。
         // マップ読み込みからの実行時は待機イベント配列へ入れる。
@@ -413,6 +415,7 @@ void AKTileMap::execEvent(const AKTileMapEventParameter &param, AKPlayDataInterf
     // ステージクリアの場合
     else if (strcmp(type->getCString(), "clear") == 0) {
         
+        AKLog(kAKLogTileMap_1, "progress=%d m_progress=%d", progress, m_progress);
         AKLog(kAKLogTileMap_1, "stage clear.");
 
         // ステージクリアフラグを立てる
