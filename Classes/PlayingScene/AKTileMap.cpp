@@ -148,6 +148,24 @@ void AKTileMap::update(AKPlayDataInterface *data)
         
         execEventByCol(m_currentCol, data);
     }
+
+    // 待機イベントを処理する
+    for (CCDictionary *properties : m_waitEvents) {
+
+        // 実行する進行状況の値を取得する
+        const CCString *progressString = properties->valueForKey("Progress");
+        int progress = progressString->intValue();
+
+        // 進行度に到達している場合はイベントを実行する
+        if (progress <= m_progress) {
+
+            // パラメータを作成する
+            AKTileMapEventParameter param(CCPoint(0.0f, 0.0f), properties);
+
+            // イベントを実行する
+            execEvent(param, data);
+        }
+    }
 }
 
 /*!
