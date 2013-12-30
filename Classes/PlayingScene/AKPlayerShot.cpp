@@ -43,6 +43,8 @@ static const char *kAKPlayerShotImage = "PlayerShot_01";
 static const int kAKPlayerShotWidth = 6;
 /// 自機弾の高さ
 static const int kAKPlayerShotHeight = 6;
+/// 自機弾の画面外判定しきい値
+static const int kAKPlayerShotOutThreshold = 5;
 
 /*!
  @brief 自機弾生成
@@ -81,6 +83,10 @@ void AKPlayerShot::createPlayerShot(const cocos2d::CCPoint &position, cocos2d::C
     
     // 障害物衝突時は消滅する
     m_blockHitAction = kAKBlockHitDisappear;
+
+    // 敵が表示される前に倒してしまわないように
+    // 自機弾の画面外判定しきい値は小さめにする
+    m_outThreshold = kAKPlayerShotOutThreshold;
 
     // レイヤーに配置する
     parent->addChild(getImage());

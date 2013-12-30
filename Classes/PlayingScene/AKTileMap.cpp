@@ -348,6 +348,8 @@ void AKTileMap::createEnemy(const AKTileMapEventParameter &param, AKPlayDataInte
     const CCString *progressString = param.getProperties()->valueForKey("Progress");
     int progress = progressString->intValue();
     
+    AKLog(kAKLogTileMap_1, "type=%d position=(%f, %f) progress=%d", type, param.getPosition()->x, param.getPosition()->y, progress);
+
     // 敵を作成する
     data->createEnemy(type, *param.getPosition(), progress);
 }

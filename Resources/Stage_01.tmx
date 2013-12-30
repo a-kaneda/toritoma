@@ -347,7 +347,7 @@
  </layer>
  <layer name="Enemy" width="100" height="9">
   <data encoding="base64" compression="zlib">
-   eJztlcENACEIBOm/CfX6uN7uZXIxCyxoog/nKctCMKjI5SJSJ+MZraWL1CuL/VZRfAnUojzLy8vVYlZepHfEA7xGz0f2o/VmadlzTdMIfceaEYp594hqR+76DWgZorPz9NZs/7nV6YPZQaRpShztA+uzi8jcPd3se6Kh7Yd27vWH7i+7u6uIvOmePlNjpibry+5t54S/Y6QmY0w8A+PZJmpn8y7n8gEDSTIH
+   eJztlEsOwCAIRL3/Jfzco3drunBj+Ayg1oVvYyozQDA0pcslpXJYTSk207OS7NRSPimX5uViks/SOwra507ycCJa9J7TVIefogG99O/GxK31H4MWwTo7TT/OlstTlD6QOVGaqsSlPNR7/olnXyM74slvnRm3D/2k3k/a3R1Y/uma3lMj4p/x7lSO03blozhjSDxSe5U3UvNyJi9tMS2d
   </data>
  </layer>
 </map>

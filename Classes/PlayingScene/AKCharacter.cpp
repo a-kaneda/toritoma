@@ -48,6 +48,8 @@ static const int kAKDefaultAnimationInterval = 12;
 static const char *kAKImageFileFormat = "%s_%02d.png";
 /// 画像ファイル名の最大文字数
 static const unsigned int kAKMaxImageFileName = 64;
+/// デフォルト画面外判定しきい値
+static const int kAKDefaultOutThreshold = 96;
 
 /*!
  @brief コンストラクタ
@@ -59,7 +61,7 @@ m_image(NULL), m_size(0.0f, 0.0f), m_position(0.0f, 0.0f), m_prevPosition(0.0f, 
 m_speedX(0.0f), m_speedY(0.0f), m_hitPoint(0), m_power(1), m_defence(0), m_isStaged(false),
 m_animationPattern(1), m_animationInterval(kAKDefaultAnimationInterval), m_animationFrame(0),
 m_animationRepeat(0), m_animationInitPattern(1), m_imageName(""), m_scrollSpeed(0.0f),
-m_blockHitAction(kAKBlockHitNone), m_blockHitSide(0), m_offset(0.0f, 0.0f)
+m_blockHitAction(kAKBlockHitNone), m_blockHitSide(0), m_offset(0.0f, 0.0f), m_outThreshold(kAKDefaultOutThreshold)
 {
 }
 
@@ -729,19 +731,16 @@ void AKCharacter::disappearOfBlockHit(AKCharacter *character, AKPlayDataInterfac
  */
 bool AKCharacter::isOutOfStage(AKPlayDataInterface *data)
 {
-    // 表示範囲外でキャラクターを残す範囲
-    const float kAKBorder = 50.0f;
-    
-    if ((m_position.x < -kAKBorder &&
+    if ((m_position.x < -m_outThreshold &&
          (m_speedX - data->getScrollSpeedX() * m_scrollSpeed) < 0.0f) ||
-        (m_position.x > AKScreenSize::stageSize().width + kAKBorder &&
+        (m_position.x > AKScreenSize::stageSize().width + m_outThreshold &&
          (m_speedX - data->getScrollSpeedX() * m_scrollSpeed) > 0.0f) ||
-        (m_position.y < -kAKBorder &&
+        (m_position.y < -m_outThreshold &&
          (m_speedY - data->getScrollSpeedY() * m_scrollSpeed) < 0.0f) ||
-        (m_position.y > AKScreenSize::stageSize().height + kAKBorder &&
+        (m_position.y > AKScreenSize::stageSize().height + m_outThreshold &&
          (m_speedY - data->getScrollSpeedY() * m_scrollSpeed) > 0.0f)) {
         
-        AKLog(kAKLogCharacter_1, "画面外に出たため削除");
+        AKLog(kAKLogCharacter_1, "画面外に出たため削除:position=(%f,%f),speed=(%f,%f),image=%s", m_position.x, m_position.y, m_speedX, m_speedY, m_imageName.c_str());
         
         return true;
     }

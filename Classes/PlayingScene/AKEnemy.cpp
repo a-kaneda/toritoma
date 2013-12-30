@@ -117,7 +117,7 @@ const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備28
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備29
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備30
-    {&AKEnemy::actionOfRhinocerosBeetle, &AKEnemy::destroyNormal, 31, 2, 3, 64, 40, 0, 0, 0, 1000, 0, 10000},   // カブトムシ
+    {&AKEnemy::actionOfRhinocerosBeetle, &AKEnemy::destroyNormal, 31, 2, 3, 64, 40, 0, 0, 0, 500, 0, 10000},   // カブトムシ
     {&AKEnemy::actionOfMantis, &AKEnemy::destroyNormal, 32, 0, 0, 64, 64, 0, 0, 0, 1000, 0, 10000},             // カマキリ
     {&AKEnemy::actionOfHoneycomb, &AKEnemy::destroyNormal, 33, 0, 0, 64, 64, 0, 0, 0, 1000, 0, 10000},          // ハチの巣
     {&AKEnemy::actionOfSpider, &AKEnemy::destroyNormal, 34, 2, 12, 64, 64, 0, 0, 0, 1000, 0, 10000},            // クモ
@@ -515,6 +515,8 @@ void AKEnemy::createEnemy(int type,
     m_isStaged = true;
     
     // 各メンバ変数を初期化する
+    m_speedX = 0;
+    m_speedY = 0;
     m_frame = 0;
     m_state = 0;
     for (int i = 0; i < kAKEnemyWorkCount; i++) {

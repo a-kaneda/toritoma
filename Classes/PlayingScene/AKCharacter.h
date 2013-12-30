@@ -108,6 +108,8 @@ protected:
     unsigned int m_blockHitSide;
     /// 画像表示のオフセット
     cocos2d::CCPoint m_offset;
+    /// 画面外から削除されるしきい値
+    int m_outThreshold;
     
 public:
     // コンストラクタ
