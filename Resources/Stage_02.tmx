@@ -62,9 +62,16 @@
     <property name="Value" value="2"/>
    </properties>
   </tile>
-  <tile id="20">
+  <tile id="11">
    <properties>
     <property name="Progress" value="0"/>
+    <property name="Type" value="bgm"/>
+    <property name="Value" value="7"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="Progress" value="1"/>
     <property name="Type" value="clear"/>
     <property name="Value" value="0"/>
    </properties>
@@ -325,22 +332,22 @@
  </layer>
  <layer name="Foreground" width="100" height="9">
   <data encoding="base64" compression="zlib">
-   eJztkzEOwDAIAy3yieb/H+2aVAZlqcJwJ3kxToCBKWmiNgIAAPiLuD0AQBNC+z0MU9en7rwsv3pVLoxf5Ufiu36nf1bvqh1O+zjvQa30AgjqE3g=
+   eJztj0EKACAIBKU+Uf//aJeCiFW8BB5mYC/jljjNbJIyAQAAAIC/tJ1DF3N75sp5/dtFvSZ81O+OV/uyf0bvohuye5QbpFQW/KMTdg==
   </data>
  </layer>
  <layer name="Block" width="100" height="9">
   <data encoding="base64" compression="zlib">
-   eJztwwEJAAAIA7B3EvtXs8aRDbZJ1poAAPDZWPUA904ooQ==
+   eJzlVu0KwCAI9JnWx/s/2ggmRFRaKhk7ONgf3Z1nbQkAkhM+E1r1pfpb6JnRE0b+pToz0TsvavI2N0u0/jW917lQOYw0/SkLBOf8ho874OZQw+N94gUlB9zX8hzPyrkOAWT73KL3HbDORVP/SdS7jHPT7CfNJTJq2vN4K0azk3ji/LtycsEcqJqeB8tMgiGpeWn3XHkPt0ZbP8UXutw/JA==
   </data>
  </layer>
  <layer name="Event" width="100" height="9" opacity="0.37">
   <data encoding="base64" compression="zlib">
-   eJztzDEBACAMAzB8jZcb/25moteWCEidnB+8tnrB6wYvAABgngbGrwEM
+   eJztzqERACAQBDH6AguW/rvB/7w+TOLW7RwkndK39E6N0Fq/BwAAIOgBk2ABUg==
   </data>
  </layer>
  <layer name="Enemy" width="100" height="9">
   <data encoding="base64" compression="zlib">
-   eJztzgENAAAIA6D3L2FVY9w5SEAC8N+0AwAABy27twCg
+   eJztVNsNwCAIdP8lBAfpbP0yMRegULWaxvtphONpz5QO/gwK+nJnjTfxkfwjuSuBe8qGT7N5a9Rv6chl5UeQwCsCbwd4+qocBnuPVrRcaMc45GP/kZ4Y+F/fkbXPdh8kxFr6qcC46H1pu2nt7LQTnKt/tCZ3gzZXz7zazj11LL6Vd+X7FZlXg/T/MpyjMxKcn9555D/xUH+tblaDBsXO0McsUJB/zWjiYCpu20E13g==
   </data>
  </layer>
 </map>
