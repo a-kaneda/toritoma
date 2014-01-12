@@ -527,6 +527,7 @@ void AKEnemy::createEnemy(int type,
     while (!m_moveHistory.empty()) {
         m_moveHistory.pop();
     }
+    setAnimationInitPattern(1);
     
     AKAssert(type > 0 && type <= kAKEnemyDefCount, "敵の種類の値が範囲外:%d", type);
     

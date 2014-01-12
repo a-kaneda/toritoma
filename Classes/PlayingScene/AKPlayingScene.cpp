@@ -76,7 +76,7 @@ enum {
 /// 自機移動をスライド量の何倍にするか
 static const float kAKPlayerMoveVal = 1.8f;
 /// 開始ステージ番号
-static const int kAKStartStage = 1;
+static const int kAKStartStage = 3;
 /// ゲームオーバー時の待機フレーム数
 static const int kAKGameOverWaitFrame = 60;
 
