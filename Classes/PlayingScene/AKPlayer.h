@@ -86,6 +86,8 @@ public:
     int getChickenGauge();
     // チキンゲージ設定
     void setChickenGauge(int chickenGauge);
+    // チキンゲージ%単位での習得
+    int getChickenGaugePercent();
 
 protected:
     // キャラクター固有の動作

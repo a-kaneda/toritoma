@@ -57,6 +57,8 @@ static const int kAKPlayerAnimationCount = 2;
 static const float kAKPlayerShotInterval = 12;
 /// 最大のオプション数
 static const int kAKMaxOptionCount = 3;
+/// チキンゲージの最大値
+static const int kAKMaxChicenGauge = 1000;
 
 /*!
  @brief 親ノードを指定したコンストラクタ
@@ -231,8 +233,8 @@ void AKPlayer::graze(std::vector<AKEnemyShot*> &characters)
                 m_chickenGauge += enemyShot->getGrazePoint();
                 
                 // 最大で100%とする
-                if (m_chickenGauge > 100) {
-                    m_chickenGauge = 100;
+                if (m_chickenGauge > kAKMaxChicenGauge) {
+                    m_chickenGauge = kAKMaxChicenGauge;
                 }
             }
             
@@ -274,7 +276,7 @@ void AKPlayer::setPosition(const CCPoint &position, AKPlayDataInterface *data)
 void AKPlayer::updateOptionCount()
 {
     // チキンゲージからオプション個数を計算する
-    int count = m_chickenGauge / (100 / (kAKMaxOptionCount + 1));
+    int count = m_chickenGauge / (kAKMaxChicenGauge / (kAKMaxOptionCount + 1));
     
     // 最大個数で制限をかける
     if (count > kAKMaxOptionCount) {
@@ -343,6 +345,17 @@ int AKPlayer::getChickenGauge()
 void AKPlayer::setChickenGauge(int chickenGauge)
 {
     m_chickenGauge = chickenGauge;
+}
+
+/*!
+ @brief チキンゲージ%単位での習得
+
+ チキンゲージを0〜100%の単位で取得する。
+ @return チキンゲージ%単位
+ */
+int AKPlayer::getChickenGaugePercent()
+{
+    return m_chickenGauge * 100 / kAKMaxChicenGauge;
 }
 
 /*!

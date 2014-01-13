@@ -47,7 +47,7 @@ static const int kAKOptionShotInterval = 12;
 /// オプション間の距離
 static const int kAKOptionSpace = 20;
 /// オプションの当たり判定
-static const int kAKOptionSize = 16;
+static const int kAKOptionSize = 32;
 
 /*!
  @brief オブジェクト生成処理
@@ -268,8 +268,8 @@ void AKOption::action(AKPlayDataInterface *data)
     // 弾発射までの残りフレーム数が0になっている場合は弾を発射する
     if (m_shootFrame <= 0) {
         
-        // 自機弾を生成する
-        data->createPlayerShot(m_position);
+        // オプション弾を生成する
+        data->createOptionShot(m_position);
         
         // 弾発射までの残り時間をリセットする
         m_shootFrame = kAKOptionShotInterval;

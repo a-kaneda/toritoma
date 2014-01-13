@@ -63,8 +63,8 @@ static const struct AKEnemyShotImageDef kAKEnemyShotImageDef[kAKEnemyShotImageDe
 
 /// 敵弾の定義
 const struct AKEnemyShot::AKEnemyShotDef AKEnemyShot::kAKEnemyShotDef[AKEnemyShot::kAKEnemyShotTypeDefCount] = {
-    {&AKEnemyShot::actionNone, 1, 6, 6, 5},    // 標準弾
-    {&AKEnemyShot::actionChangeSpeed, 1, 6, 6, 5}     // 速度変更弾
+    {&AKEnemyShot::actionNone, 1, 6, 6, 20},            // 標準弾
+    {&AKEnemyShot::actionChangeSpeed, 1, 6, 6, 20}      // 速度変更弾
 };
 
 /*!

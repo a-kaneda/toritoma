@@ -117,6 +117,14 @@ public:
     virtual void createPlayerShot(cocos2d::CCPoint position) = 0;
 
     /*!
+     @brief オプション弾生成
+ 
+     オプション弾を生成する。
+     @param position 生成位置
+     */
+    virtual void createOptionShot(cocos2d::CCPoint position) = 0;
+
+    /*!
      @brief 反射弾生成
  
      反射弾を生成する。

@@ -47,6 +47,11 @@ class AKPlayerShot : public AKCharacter {
 public:
     // 自機弾生成
     void createPlayerShot(const cocos2d::CCPoint &position, cocos2d::CCNode *parent);
+    // オプション弾生成
+    void createOptionShot(const cocos2d::CCPoint &position, cocos2d::CCNode *parent);
+private:
+    // 共通項目設定
+    void setCommonParam(const cocos2d::CCPoint &position, cocos2d::CCNode *parent);
 };
 
 

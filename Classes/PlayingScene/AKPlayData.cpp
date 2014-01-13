@@ -611,7 +611,7 @@ void AKPlayData::update()
     
     // シールドが有効な場合はチキンゲージを減少させる
     if (m_shield) {
-        m_player->setChickenGauge(m_player->getChickenGauge() - 1);
+        m_player->setChickenGauge(m_player->getChickenGauge() - 5);
         
         // チキンゲージがなくなった場合は強制的にシールドを無効にする
         if (m_player->getChickenGauge() < 0.0f) {
@@ -621,7 +621,7 @@ void AKPlayData::update()
     }
     
     // チキンゲージの溜まっている比率を更新する
-    m_scene->getChickenGauge()->setPercent(m_player->getChickenGauge());
+    m_scene->getChickenGauge()->setPercent(m_player->getChickenGaugePercent());
     
     // チキンゲージからオプション個数を決定する
     m_player->updateOptionCount();
@@ -789,7 +789,6 @@ CCPoint AKPlayData::convertDevicePositionToTilePosition(CCPoint devicePosition)
  
  自機弾を生成する。
  @param position 生成位置
- @param y 生成位置y座標
  */
 void AKPlayData::createPlayerShot(CCPoint position)
 {
@@ -803,6 +802,26 @@ void AKPlayData::createPlayerShot(CCPoint position)
     
     // 自機弾を生成する
     playerShot->createPlayerShot(position, m_batches.at(kAKCharaPosZPlayerShot));
+}
+
+/*!
+ @brief オプション弾生成
+ 
+ オプション弾を生成する。
+ @param position 生成位置
+ */
+void AKPlayData::createOptionShot(CCPoint position)
+{
+    // プールから未使用のメモリを取得する
+    AKPlayerShot *playerShot = m_playerShotPool.getNext();
+    if (playerShot == NULL) {
+        // 空きがない場合は処理終了する
+        AKAssert(false, "自機弾プールに空きなし");
+        return;
+    }
+    
+    // 自機弾を生成する
+    playerShot->createOptionShot(position, m_batches.at(kAKCharaPosZPlayerShot));
 }
 
 /*!

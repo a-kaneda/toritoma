@@ -123,6 +123,8 @@ public:
     virtual cocos2d::CCPoint convertDevicePositionToTilePosition(cocos2d::CCPoint devicePosition);
     // 自機弾生成
     virtual void createPlayerShot(cocos2d::CCPoint position);
+    // オプション弾生成
+    virtual void createOptionShot(cocos2d::CCPoint position);
     // 反射弾生成
     virtual void createReflectShot(AKEnemyShot *enemyShot);
     // 敵生成

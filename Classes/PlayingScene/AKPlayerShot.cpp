@@ -45,6 +45,10 @@ static const int kAKPlayerShotWidth = 6;
 static const int kAKPlayerShotHeight = 6;
 /// 自機弾の画面外判定しきい値
 static const int kAKPlayerShotOutThreshold = 5;
+/// 自機弾の攻撃力
+static const int kAKPlayerShotPower = 2;
+/// オプション弾の攻撃力
+static const int kAKOptionShotPower = 1;
 
 /*!
  @brief 自機弾生成
@@ -54,6 +58,38 @@ static const int kAKPlayerShotOutThreshold = 5;
  @param parent 配置する親ノード
  */
 void AKPlayerShot::createPlayerShot(const cocos2d::CCPoint &position, cocos2d::CCNode *parent)
+{
+    // 攻撃力を設定する
+    m_power = kAKPlayerShotPower;
+
+    // その他のパラメータを設定する
+    setCommonParam(position, parent);
+}
+
+/*!
+ @brief オプション弾生成
+ 
+ オプションの弾を生成する。
+ @param position 生成位置
+ @param parent 配置する親ノード
+ */
+void AKPlayerShot::createOptionShot(const cocos2d::CCPoint &position, cocos2d::CCNode *parent)
+{
+    // 攻撃力を設定する
+    m_power = kAKOptionShotPower;
+
+    // その他のパラメータを設定する
+    setCommonParam(position, parent);
+}
+
+/*!
+ @brief 共通項目設定
+ 
+ 自機弾、オプション弾共通項目を設定する。
+ @param position 生成位置
+ @param parent 配置する親ノード
+ */
+void AKPlayerShot::setCommonParam(const cocos2d::CCPoint &position, cocos2d::CCNode *parent)
 {
     // パラメータの内容をメンバに設定する
     m_position = position;
