@@ -55,9 +55,23 @@
     <property name="Value" value="0"/>
    </properties>
   </tile>
-  <tile id="20">
+  <tile id="10">
    <properties>
     <property name="Progress" value="0"/>
+    <property name="Type" value="bgm"/>
+    <property name="Value" value="5"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="bgm"/>
+    <property name="Value" value="7"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="Progress" value="1"/>
     <property name="Type" value="clear"/>
     <property name="Value" value="0"/>
    </properties>
@@ -313,27 +327,27 @@
  </layer>
  <layer name="Background" width="100" height="9">
   <data encoding="base64" compression="zlib">
-   eJztkUsOwCAIRF30b3/3P21ZEhNBQOmGSSYx8oRRUwqFQpQm8Gyo9+ohZa0zqbrHm9S4BbwSPFfv1UPKWmdSdY834bgNrXfwQdQ5vmTxXktvDc9l4s5Zc1FsLVMtT6kMPhtZKT+yt+ccTS7NmQt8gx/w25kf2dtzjiaX9i4ZrVv+UsKP7O05R5NLe5fQf/oAC24FYQ==
+   eJztwwEJAAAMA6C1eP+mrzGGgglNTlVVh9PlAdjePuU=
   </data>
  </layer>
  <layer name="Foreground" width="100" height="9">
   <data encoding="base64" compression="zlib">
-   eJztk0EKACEMA0P9xPr/j3rYiy6xeNsKM5BLGm2l2CV1VEZwH/H3ALDAPmrBPmrBPgBeQut/aKauT915u/zsZbkwfpZvG9/1O70zO5e94bSP8x5USgNAUhN+
+   eJztzTEKADAIQ1HB+9/ZtQgacengf4slhNQMAAAAuMGL95vl3NPtNqd/qO3NhuqqnU1n0lc5/grHjABP
   </data>
  </layer>
  <layer name="Block" width="100" height="9">
   <data encoding="base64" compression="zlib">
-   eJztwwEJAAAIA7B3EvtXs8aRDbZJ1poAAPDZWPUA904ooQ==
+   eJztlGsKxCAMhD1Tq/b+N9v90cAgGeMjSnfpQChbTTb5JjSFENLiOP4o2ExerHYokxmsuTPktuQn435Zc6SXcqadHL2FHBgPmZ3layxZDjKrndd2nfXyi7rI+wxPYVLuX0sNL16Wb6/8xXztvR+/cd4RpzryVe98K6T1ILw8WaEH5bftSZ6g2N7EMN4zsrU4yzmysva4VrPmwZM90TggC/zd2jerqdWy7mreMO/YWUt46ZyM3r49a478/6qY5SjxAX8vUpE=
   </data>
  </layer>
  <layer name="Event" width="100" height="9" opacity="0.37">
   <data encoding="base64" compression="zlib">
-   eJztzkENADAIADF8gYf5dzMRkMCjFXC5jDlvsEVfbQ8AAACnfWgCAMc=
+   eJztzqERACAQBDH6AguW/rvB/7w+TOLW7RwkndK39E6N0Fq/BwAAIOgBk2ABUg==
   </data>
  </layer>
  <layer name="Enemy" width="100" height="9">
   <data encoding="base64" compression="zlib">
-   eJztzgENAAAIA6D3L2FVY9w5SEAC8N+0AwAABy27twCg
+   eJztVUkOgCAM5P+fIPUmZz/gzwwJTerYqqCoqHNpugDToaJzP96M4W4CldFafz7ZkGxXuE9p37X1kv14I/4UMD+CuOR6VC+/skfMBfCRA8a2+HB95+azFn1KMRI1uRgL1uTAgy85klJj9aDVsA54BtfvPYtjvVvOjrVmMGqfirU5wz54rhhSY3wP9tyXnFGLU1DypOTwG2/pDs5An2zURGpcUwdtdlr7T5+Frb5zdPmqhj+uwwRGRzWh
   </data>
  </layer>
 </map>

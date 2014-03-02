@@ -794,7 +794,9 @@ void AKPlayData::createPlayerShot(CCPoint position)
 {
     // プールから未使用のメモリを取得する
     AKPlayerShot *playerShot = m_playerShotPool.getNext();
-    if (playerShot == NULL) {
+    AKPlayerShot *playerUpwardShot = m_playerShotPool.getNext();
+    AKPlayerShot *playerDownwardShot = m_playerShotPool.getNext();
+    if (playerShot == NULL || playerUpwardShot == NULL || playerDownwardShot == NULL) {
         // 空きがない場合は処理終了する
         AKAssert(false, "自機弾プールに空きなし");
         return;
@@ -802,6 +804,8 @@ void AKPlayData::createPlayerShot(CCPoint position)
     
     // 自機弾を生成する
     playerShot->createPlayerShot(position, m_batches.at(kAKCharaPosZPlayerShot));
+    playerUpwardShot->createPlayerShotUpward(position, m_batches.at(kAKCharaPosZPlayerShot));
+    playerDownwardShot->createPlayerShotDownward(position, m_batches.at(kAKCharaPosZPlayerShot));
 }
 
 /*!
@@ -814,6 +818,8 @@ void AKPlayData::createOptionShot(CCPoint position)
 {
     // プールから未使用のメモリを取得する
     AKPlayerShot *playerShot = m_playerShotPool.getNext();
+    AKPlayerShot *playerUpwardShot = m_playerShotPool.getNext();
+    AKPlayerShot *playerDownwardShot = m_playerShotPool.getNext();
     if (playerShot == NULL) {
         // 空きがない場合は処理終了する
         AKAssert(false, "自機弾プールに空きなし");
@@ -822,6 +828,8 @@ void AKPlayData::createOptionShot(CCPoint position)
     
     // 自機弾を生成する
     playerShot->createOptionShot(position, m_batches.at(kAKCharaPosZPlayerShot));
+    playerUpwardShot->createOptionShotUpward(position, m_batches.at(kAKCharaPosZPlayerShot));
+    playerDownwardShot->createOptionShotDownward(position, m_batches.at(kAKCharaPosZPlayerShot));
 }
 
 /*!

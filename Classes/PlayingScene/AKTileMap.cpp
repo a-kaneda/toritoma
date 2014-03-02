@@ -428,6 +428,8 @@ void AKTileMap::execEvent(const AKTileMapEventParameter &param, AKPlayDataInterf
         // ファイル名を作成する
         char fileName[32] = "";
         snprintf(fileName, sizeof(fileName), kAKStageBGMFileName, value);
+        
+        AKLog(kAKLogTileMap_1, "BGM:%.32sを再生", fileName);
 
         // BGMを再生する
         SimpleAudioEngine::sharedEngine()->playBackgroundMusic(fileName, true);

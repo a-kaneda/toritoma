@@ -87,29 +87,29 @@ enum AKEnemyType {
 /// 敵の定義
 const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
     // 破壊,画像,フレーム数,フレーム間隔,幅,高さ,オフセットX,オフセットY,移動履歴,HP,防御力,スコア
-    {&AKEnemy::actionOfDragonfly, &AKEnemy::destroyNormal, 1, 2, 30, 32, 32, 0, 0, 0, 3, 0, 100},   // トンボ
-    {&AKEnemy::actionOfAnt, &AKEnemy::destroyNormal, 2, 2, 30, 32, 16, 0, 0, 0, 3, 0, 100},         // アリ
-    {&AKEnemy::actionOfButterfly, &AKEnemy::destroyNormal, 3, 2, 30, 32, 32, 0, 0, 0, 3, 0, 100},   // チョウ
-    {&AKEnemy::actionOfLadybug, &AKEnemy::destroyNormal, 4, 2, 6, 32, 32, 0, 0, 0, 5, 0, 100},      // テントウムシ
+    {&AKEnemy::actionOfDragonfly, &AKEnemy::destroyNormal, 1, 2, 30, 32, 32, 0, 0, 0, 10, 0, 100},   // トンボ
+    {&AKEnemy::actionOfAnt, &AKEnemy::destroyNormal, 2, 2, 30, 32, 16, 0, 0, 0, 10, 0, 100},         // アリ
+    {&AKEnemy::actionOfButterfly, &AKEnemy::destroyNormal, 3, 2, 30, 32, 32, 0, 0, 0, 10, 0, 100},   // チョウ
+    {&AKEnemy::actionOfLadybug, &AKEnemy::destroyNormal, 4, 2, 6, 32, 32, 0, 0, 0, 15, 0, 100},      // テントウムシ
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備5
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備6
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備7
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備8
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備9
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備10
-    {&AKEnemy::actionOfBagworm, &AKEnemy::destroyNormal, 11, 1, 0, 32, 32, 0, 0, 0, 10, 0, 100},        // ミノムシ
-    {&AKEnemy::actionOfCicada, &AKEnemy::destroyNormal, 12, 1, 0, 32, 32, 0, 0, 0, 5, 0, 100},          // セミ
-    {&AKEnemy::actionOfGrasshopper, &AKEnemy::destroyNormal, 13, 1, 0, 32, 32, 0, 0, 0, 3, 0, 100},     // バッタ
-    {&AKEnemy::actionOfHornet, &AKEnemy::destroyNormal, 14, 2, 6, 32, 32, 0, 0, 0, 5, 0, 100},          // ハチ
+    {&AKEnemy::actionOfBagworm, &AKEnemy::destroyNormal, 11, 1, 0, 32, 32, 0, 0, 0, 30, 0, 100},        // ミノムシ
+    {&AKEnemy::actionOfCicada, &AKEnemy::destroyNormal, 12, 1, 0, 32, 32, 0, 0, 0, 15, 0, 100},          // セミ
+    {&AKEnemy::actionOfGrasshopper, &AKEnemy::destroyNormal, 13, 1, 0, 32, 32, 0, 0, 0, 10, 0, 100},     // バッタ
+    {&AKEnemy::actionOfHornet, &AKEnemy::destroyNormal, 14, 2, 6, 32, 32, 0, 0, 0, 15, 0, 100},          // ハチ
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備15
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備16
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備17
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備18
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備19
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備20
-    {&AKEnemy::actionOfCockroach, &AKEnemy::destroyNormal, 21, 2, 6, 32, 32, 0, 0, 0, 5, 0, 100},   // ゴキブリ
-    {&AKEnemy::actionOfSnail, &AKEnemy::destroyNormal, 22, 2, 30, 32, 32, 0, 0, 0, 5, 0, 100},      // カタツムリ
-    {&AKEnemy::actionOfStagBeetle, &AKEnemy::destroyNormal, 23, 2, 6, 32, 32, 0, 0, 0, 5, 0, 100},  // クワガタ
+    {&AKEnemy::actionOfCockroach, &AKEnemy::destroyNormal, 21, 2, 6, 32, 32, 0, 0, 0, 15, 0, 100},   // ゴキブリ
+    {&AKEnemy::actionOfSnail, &AKEnemy::destroyNormal, 22, 2, 30, 32, 32, 0, 0, 0, 15, 0, 100},      // カタツムリ
+    {&AKEnemy::actionOfStagBeetle, &AKEnemy::destroyNormal, 23, 2, 6, 32, 32, 0, 0, 0, 15, 0, 100},  // クワガタ
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備24
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備25
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備26
@@ -519,6 +519,7 @@ void AKEnemy::createEnemy(int type,
     m_speedY = 0;
     m_frame = 0;
     m_state = 0;
+    m_scrollSpeed = 0;
     for (int i = 0; i < kAKEnemyWorkCount; i++) {
         m_work[i] = 0;
     }
@@ -570,6 +571,9 @@ void AKEnemy::createEnemy(int type,
     
     // 画像の回転をリセットする
     getImage()->setRotation(0.0f);
+
+    // 画面外判定のサイズを設定する
+    m_outThreshold = m_size.width;
     
     // レイヤーに配置する
     parent->addChild(getImage());
