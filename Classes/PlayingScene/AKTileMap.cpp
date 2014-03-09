@@ -43,6 +43,7 @@ using cocos2d::CCDictionary;
 using cocos2d::CCString;
 using cocos2d::CCNode;
 using CocosDenshion::SimpleAudioEngine;
+using std::vector;
 
 /// タイルマップのファイル名
 static const char *kAKTileMapFileName = "Stage_%02d.tmx";
@@ -150,21 +151,31 @@ void AKTileMap::update(AKPlayDataInterface *data)
     }
 
     // 待機イベントを処理する
-    for (CCDictionary *properties : m_waitEvents) {
-
+    vector<CCDictionary*>::iterator it = m_waitEvents.begin();
+    while (it != m_waitEvents.end()) {
+        
         // 実行する進行状況の値を取得する
-        const CCString *progressString = properties->valueForKey("Progress");
+        const CCString *progressString = (*it)->valueForKey("Progress");
         int progress = progressString->intValue();
-
+        
         // 進行度に到達している場合はイベントを実行する
         if (progress <= m_progress) {
 
             // パラメータを作成する
-            AKTileMapEventParameter param(CCPoint(0.0f, 0.0f), properties);
+            AKTileMapEventParameter param(CCPoint(0.0f, 0.0f), *it);
 
             // イベントを実行する
             execEvent(param, data);
+            
+            // 実行したイベントを待機イベントキューから取り除く
+            m_waitEvents.erase(it);
+            
+            // 削除によってイテレータがずれるのでイテレータインクリメントは飛ばす
+            continue;
         }
+        
+        // イテレータを次に進める
+        it++;
     }
 }
 
