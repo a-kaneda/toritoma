@@ -36,7 +36,7 @@
 #include "AKHiScoreFile.h"
 
 /// ファイルバージョン番号
-static const int kAKDataFileVersion = 0x0100;
+///static const int kAKDataFileVersion = 0x0100;
 /// ファイルバージョン番号キー名
 //static const char *kAKVersionKey = "version";
 /// ハイスコアキー名

@@ -46,8 +46,6 @@ using cocos2d::CCSpriteFrameCache;
 static const int kAKDefaultAnimationInterval = 12;
 /// 画像ファイル名のフォーマット
 static const char *kAKImageFileFormat = "%s_%02d.png";
-/// 画像ファイル名の最大文字数
-static const unsigned int kAKMaxImageFileName = 64;
 /// デフォルト画面外判定しきい値
 static const int kAKDefaultOutThreshold = 96;
 

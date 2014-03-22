@@ -49,8 +49,6 @@ static const int kAKPlayerGrazeSize = 32;
 static const int kAKInvincibleTime = 120;
 /// 自機の画像ファイル名
 static const char *kAKPlayerImageFile = "Player_%02d";
-/// 画像サイズ
-static const float kAKPlayerImageSize = 32;
 /// アニメーションフレーム数
 static const int kAKPlayerAnimationCount = 2;
 /// 弾発射の間隔

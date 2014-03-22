@@ -68,13 +68,14 @@ static const int kAKMaxBlockCount = 128;
 const char *kAKTextureAtlasDefFile = "Character.plist";
 /// キャラクターテクスチャアトラスファイル名
 const char *kAKTextureAtlasFile = "Character.png";
-// TODO:ハイスコア
+// TODO:ハイスコア処理作成
 /// ハイスコアファイル名
 //static const char *kAKDataFileName = "hiscore.dat";
 /// ハイスコアファイルのエンコードキー名
 //static const char *kAKDataFileKey = "hiScoreData";
+// TODO:ステージクリア処理作成
 /// ステージクリア後の待機時間
-static const float kAKStageClearWaitTime = 5.0f;
+//static const float kAKStageClearWaitTime = 5.0f;
 /// 初期残機
 static const int kAKInitialLife = 2;
 /// 自機復活待機フレーム数

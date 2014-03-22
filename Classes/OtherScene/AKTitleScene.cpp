@@ -79,12 +79,13 @@ static const char *kAKOptionCaption     = "OPTION     ";
 /// クレジット画面メニューのキャプション
 static const char *kAKCreditCaption     = "CREDIT     ";
 
+// TODO:タイトル作成後、不要なら削除する
 /// タイトルの位置、横方向の中心からの位置
-static const float kAKTitlePosFromHorizontalCenterPoint = -100.0f;
+//static const float kAKTitlePosFromHorizontalCenterPoint = -100.0f;
 /// タイトルの位置、上からの比率
-static const float kAKTitlePosFromTopRatio = 0.45f;
+//static const float kAKTitlePosFromTopRatio = 0.45f;
 /// メニュー項目の数
-static const int kAKMenuItemCount = 3;
+//static const int kAKMenuItemCount = 3;
 /// メニュー項目の位置、右からの位置
 static const float kAKMenuPosRightPoint = 120.0f;
 /// ゲーム開始メニューのキャプションの表示位置、上からの比率
