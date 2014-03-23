@@ -157,6 +157,11 @@ void AKEnemy::fireNWay(CCPoint position,
         // 敵弾インスタンスを取得する
         AKEnemyShot *enemyShot = data->getEnemyShot();
         
+        // 取得できない場合は処理しない
+        if (enemyShot == NULL) {
+            break;
+        }
+        
         // 通常弾を生成する
         enemyShot->createNormalShot(position,
                                     angle,
@@ -195,6 +200,11 @@ void AKEnemy::fireNWay(float angle,
 
         // 敵弾インスタンスを取得する
         AKEnemyShot *enemyShot = data->getEnemyShot();
+        
+        // 取得できない場合は処理しない
+        if (enemyShot == NULL) {
+            break;
+        }
         
         // スクロールの影響を受けるかどうかで弾の種別を変える
         if (isScroll) {
@@ -243,6 +253,11 @@ void AKEnemy::fireGroupShot(CCPoint position,
         // 敵弾インスタンスを取得する
         AKEnemyShot *enemyShot = data->getEnemyShot();
         
+        // 取得できない場合は処理しない
+        if (enemyShot == NULL) {
+            break;
+        }
+        
         // 通常弾を生成する
         CCPoint shotPosition(position.x + distance[i][0],
                              position.y + distance[i][1]);
@@ -290,6 +305,11 @@ void AKEnemy::fireBurstShot(CCPoint position,
         
         // 敵弾インスタンスを取得する
         AKEnemyShot *enemyShot = data->getEnemyShot();
+        
+        // 取得できない場合は処理しない
+        if (enemyShot == NULL) {
+            break;
+        }
         
         // 破裂弾を生成する
         CCPoint shotPosition(position.x + cosf(angle) * kAKDistance,

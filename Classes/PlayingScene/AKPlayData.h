@@ -169,6 +169,8 @@ private:
     std::string makeTweet();
     // 残機設定
     void setLife(int life);
+    // 敵弾削除
+    void clearEnemyShot();
 };
 
 #endif

@@ -888,6 +888,11 @@ AKEnemy* AKPlayData::createEnemy(int type, CCPoint position, int progress)
  */
 AKEnemyShot* AKPlayData::getEnemyShot()
 {
+    // 自機が死んでいる間は敵弾生成を抑止する
+    if (m_rebirthWait > 0) {
+        return NULL;
+    }
+    
     // プールから未使用のメモリを取得する
     AKEnemyShot *enemyShot = m_enemyShotPool.getNext();
     
@@ -969,6 +974,9 @@ void AKPlayData::miss()
         
         // 残機をひとつ減らす
         setLife(m_life - 1);
+        
+        // 敵弾を削除する
+        clearEnemyShot();
                 
         // 自機復活待機時間を設定する
         m_rebirthWait = kAKRebirthInterval;
@@ -1025,3 +1033,19 @@ void AKPlayData::addProgress(int progress)
 {
     m_tileMap->setProgress(m_tileMap->getProgress() + progress);
 }
+
+/*!
+ @brief 敵弾削除
+ 
+ すべての敵弾を削除する。
+ */
+void AKPlayData::clearEnemyShot()
+{
+    // 画面に配置されている敵弾のヒットポイントを0にする
+    for (AKEnemyShot *enemyShot : *m_enemyShotPool.getPool()) {
+        if (enemyShot->isStaged()) {
+            enemyShot->setHitPoint(0);
+        }
+    }
+}
+
