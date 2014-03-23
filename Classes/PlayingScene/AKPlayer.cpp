@@ -295,6 +295,14 @@ void AKPlayer::updateOptionCount()
  */
 void AKPlayer::setShield(bool shield)
 {
+    // シールドが有効の間は無敵にする
+    if (shield) {
+        m_defence = 10;
+    }
+    else {
+        m_defence = 0;
+    }
+    
     // オプションがある場合はオプションのシールド有無を設定する
     if (m_option != NULL) {
         m_option->setShiled(shield);
