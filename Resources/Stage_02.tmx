@@ -267,7 +267,7 @@
   </tile>
   <tile id="31">
    <properties>
-    <property name="Progress" value="0"/>
+    <property name="Progress" value="1"/>
     <property name="Type" value="32"/>
    </properties>
   </tile>

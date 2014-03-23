@@ -279,7 +279,7 @@
   </tile>
   <tile id="33">
    <properties>
-    <property name="Progress" value="0"/>
+    <property name="Progress" value="1"/>
     <property name="Type" value="34"/>
    </properties>
   </tile>

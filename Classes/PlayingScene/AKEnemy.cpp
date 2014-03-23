@@ -109,7 +109,7 @@ const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備20
     {&AKEnemy::actionOfCockroach, &AKEnemy::destroyNormal, 21, 2, 6, 32, 32, 0, 0, 0, 15, 0, 100},   // ゴキブリ
     {&AKEnemy::actionOfSnail, &AKEnemy::destroyNormal, 22, 2, 30, 32, 32, 0, 0, 0, 15, 0, 100},      // カタツムリ
-    {&AKEnemy::actionOfStagBeetle, &AKEnemy::destroyNormal, 23, 2, 6, 32, 32, 0, 0, 0, 15, 0, 100},  // クワガタ
+    {&AKEnemy::actionOfStagBeetle, &AKEnemy::destroyNormal, 23, 2, 6, 32, 32, 0, 0, 0, 20, 0, 100},  // クワガタ
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備24
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備25
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備26
@@ -2840,7 +2840,7 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
         kAKWorkShot             // 弾発射作業変数
     };
     // 状態遷移間隔
-    const int kAKStateInterval[kAKStateCount] = {999, 999, 0, 120, 180, 900, 900, 900};
+    const int kAKStateInterval[kAKStateCount] = {999, 999, 0, 300, 300, 900, 900, 900};
     // ウジの数
     const int kAKMaggotCount = 16;
     // ウジの生成位置
@@ -2924,7 +2924,7 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
                                  m_position.y + kAKMaggotPotision[i][1]);
                 
                 // ウジを生成する
-                AKEnemy *maggot = data->createEnemy(kAKEnemyMaggot, position, 0);
+                AKEnemy *maggot = data->createEnemy(kAKEnemyMaggot, position, 1);
                 
                 // ウジの親キャラを設定する
                 maggot->setParentEnemy(this);
