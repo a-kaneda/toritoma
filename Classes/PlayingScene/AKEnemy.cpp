@@ -124,8 +124,8 @@ const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
     {&AKEnemy::actionOfCentipedeHead, &AKEnemy::destroyNormal, 35, 0, 0, 32, 32, 0, 16, 11, 1000, 99, 10000},   // ムカデ（頭）
     {&AKEnemy::actionOfCentipedeBody, &AKEnemy::destroyNormal, 36, 2, 12, 32, 16, 0, 0, 11, 1000, 99, 10000},   // ムカデ（胴体）
     {&AKEnemy::actionOfCentipedeTail, &AKEnemy::destroyNormal, 37, 2, 12, 32, 16, 0, -24, 0, 1000, 0, 10000},   // ムカデ（尾）
-    {&AKEnemy::actionOfMaggot, &AKEnemy::destroyOfMaggot, 38, 2, 30, 16, 16, 0, 0, 0, 1, 0, 1000},              // ウジ
-    {&AKEnemy::actionOfFly, &AKEnemy::destroyNormal, 39, 2, 6, 32, 32, 0, 0, 0, 10000, 0, 10000},               // ハエ
+    {&AKEnemy::actionOfMaggot, &AKEnemy::destroyOfMaggot, 38, 2, 30, 16, 16, 0, 0, 0, 300, 0, 1000},            // ウジ
+    {&AKEnemy::actionOfFly, &AKEnemy::destroyNormal, 39, 2, 6, 32, 32, 0, 0, 0, 1500, 0, 10000},                // ハエ
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}   // 予備40
 };
 
@@ -525,6 +525,7 @@ void AKEnemy::createEnemy(int type,
     }
     m_parentEnemy = NULL;
     m_childEnemy = NULL;
+    m_blockHitAction = kAKBlockHitNone;
     while (!m_moveHistory.empty()) {
         m_moveHistory.pop();
     }
@@ -1318,6 +1319,9 @@ void AKEnemy::actionOfCockroach(AKPlayDataInterface *data)
     const float kAKShotSpeed = 3.0f;
     // 弾発射間隔
     const int kAKShotInterval = 60;
+
+    // 障害物との当たり判定を有効にする
+    m_blockHitAction = kAKBlockHitMove;
 
     // 自機との角度を求める
     float angle = AKAngle::calcDestAngle(m_position, *data->getPlayerPosition());
