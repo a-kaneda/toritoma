@@ -3,6 +3,7 @@
 #import "cocos2d.h"
 #import "AppDelegate.h"
 #import "RootViewController.h"
+#import "CDAudioManager.h"
 
 @implementation AppController
 
@@ -51,6 +52,9 @@ static AppDelegate s_sharedApplication;
     [window makeKeyAndVisible];
     
     [[UIApplication sharedApplication] setStatusBarHidden:true];
+    
+    // 他のアプリのBGMを止めて自分のBGMを鳴らすようにする
+    [CDAudioManager configure:kAMM_FxPlusMusic];
     
     cocos2d::CCApplication::sharedApplication()->run();
 
