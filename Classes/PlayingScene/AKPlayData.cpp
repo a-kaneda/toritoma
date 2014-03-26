@@ -889,7 +889,7 @@ AKEnemy* AKPlayData::createEnemy(int type, CCPoint position, int progress)
 AKEnemyShot* AKPlayData::getEnemyShot()
 {
     // 自機が死んでいる間は敵弾生成を抑止する
-    if (m_rebirthWait > 0) {
+    if (m_rebirthWait > 0 || m_player->isInvincible()) {
         return NULL;
     }
     
