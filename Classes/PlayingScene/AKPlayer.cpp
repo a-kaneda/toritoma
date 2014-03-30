@@ -57,6 +57,8 @@ static const float kAKPlayerShotInterval = 12;
 static const int kAKMaxOptionCount = 3;
 /// チキンゲージの最大値
 static const int kAKMaxChicenGauge = 1000;
+/// 初期チキンゲージ
+static const int kAKInitChickenGauge = 1000;
 
 /*!
  @brief 親ノードを指定したコンストラクタ
@@ -89,7 +91,7 @@ AKPlayer::AKPlayer(CCNode *parent, CCNode *optionParent)
     m_shootFrame = kAKPlayerShotInterval;
     
     // チキンゲージをリセットする
-    m_chickenGauge = 0;
+    m_chickenGauge = kAKInitChickenGauge;
     
     // 障害物と衝突した時の処理に自機を設定する。
     // 自機の場合は移動時は無処理(画面入力時にチェックするため)。
@@ -136,7 +138,7 @@ void AKPlayer::rebirth()
     m_invincivleFrame = kAKInvincibleTime;
     
     // チキンゲージを初期化する
-    m_chickenGauge = 0;
+    m_chickenGauge = kAKInitChickenGauge;
     
     // 無敵中はブリンクする
     CCBlink *blink = CCBlink::create(kAKInvincibleTime / 60, 

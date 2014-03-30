@@ -1338,7 +1338,7 @@ void AKEnemy::actionOfCockroach(AKPlayDataInterface *data)
     // 弾のスピード
     const float kAKShotSpeed = 3.0f;
     // 弾発射間隔
-    const int kAKShotInterval = 60;
+    const int kAKShotInterval = 20;
 
     // 障害物との当たり判定を有効にする
     m_blockHitAction = kAKBlockHitMove;
