@@ -490,7 +490,7 @@ void AKPlayData::update()
         if (m_rebirthWait <= 0) {
             
             // 自機を復活させる
-            m_player->rebirth();
+            m_player->rebirth(m_stage);
         }
     }
     

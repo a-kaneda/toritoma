@@ -67,7 +67,7 @@ public:
     // デストラクタ
     ~AKPlayer();
     // 復活
-    void rebirth();
+    void rebirth(int stageNo);
     // 初期化
     void reset();
     // かすり判定
