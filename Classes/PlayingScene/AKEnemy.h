@@ -95,6 +95,7 @@ private:
                                                AKPlayDataInterface *data);
     // 足元の障害物を取得する
     static AKCharacter* getBlockAtFeet(float x,
+                                       float center,
                                        float from,
                                        bool isReverse,
                                        const std::vector<AKBlock*> &blocks);

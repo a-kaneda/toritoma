@@ -359,6 +359,7 @@ CCPoint AKEnemy::checkBlockPosition(const CCPoint &current,
     
     // 左側の足元の障害物を取得する
     AKCharacter *leftBlock = AKEnemy::getBlockAtFeet(left,
+                                                     current.x,
                                                      top,
                                                      isReverse,
                                                      *data->getBlocks());
@@ -368,6 +369,7 @@ CCPoint AKEnemy::checkBlockPosition(const CCPoint &current,
 
     // 左側の足元の障害物を取得する
     AKCharacter *rightBlock = AKEnemy::getBlockAtFeet(right,
+                                                      current.x,
                                                       top,
                                                       isReverse,
                                                       *data->getBlocks());
@@ -398,12 +400,19 @@ CCPoint AKEnemy::checkBlockPosition(const CCPoint &current,
     else if ((!isReverse && (fabsf((leftBlock->getPosition()->y + leftBlock->getSize()->height / 2.0f) - (rightBlock->getPosition()->y + rightBlock->getSize()->height / 2.0f)) > kAKHalfBlockSize)) ||
              (isReverse && (fabsf((leftBlock->getPosition()->y - leftBlock->getSize()->height / 2.0f) - (rightBlock->getPosition()->y - rightBlock->getSize()->height / 2.0f)) > kAKHalfBlockSize))) {
         
+        AKLog(kAKLogEnemy_2, "左右の障害物の高さの差が1/2ブロック以上");
+        AKLog(kAKLogEnemy_2, "rx=%f lx=%f cx=%f", rightBlock->getPosition()->x, leftBlock->getPosition()->x, current.x);
+        
         // 近い方のブロックに移動する
         if  (rightBlock->getPosition()->x - current.x < current.x - leftBlock->getPosition()->x) {
+            AKLog(kAKLogEnemy_2, "右側のブロックに合わせる");
+            
             newX = rightBlock->getPosition()->x - rightBlock->getSize()->width / 2.0f + size.width / 2.0f;
             blockAtFeet = rightBlock;
         }
         else {
+            AKLog(kAKLogEnemy_2, "左側のブロックに合わせる");
+            
             newX = leftBlock->getPosition()->x + leftBlock->getSize()->width / 2.0f - size.width / 2.0f;
             blockAtFeet = leftBlock;
         }
@@ -446,7 +455,7 @@ CCPoint AKEnemy::checkBlockPosition(const CCPoint &current,
         newY = blockAtFeet->getPosition()->y - blockAtFeet->getSize()->height / 2.0f - size.height / 2.0f;
     }
     
-    AKLog(kAKLogEnemy_2, "(%.0f, %.0f)->(%.0f, %.0f)", current.x, current.y, newX, newY);
+    AKLog(kAKLogEnemy_3, "(%.0f, %.0f)->(%.0f, %.0f)", current.x, current.y, newX, newY);
     
     // 移動先の座標を返す
     return CCPoint(newX, newY);
@@ -459,12 +468,14 @@ CCPoint AKEnemy::checkBlockPosition(const CCPoint &current,
  指定したx座標で一番上にある障害物を取得する。ただし、頭よりも上にある障害物は除外する。
  逆さまになっている場合は上下を逆にして検索を行う。
  @param x x座標
+ @param center 中心の位置
  @param top 頭の位置
  @param isReverse 逆さまになっているかどうか
  @param blocks 障害物
  @return 足元の障害物
  */
 AKCharacter* AKEnemy::getBlockAtFeet(float x,
+                                     float center,
                                      float from,
                                      bool isReverse,
                                      const std::vector<AKBlock*> &blocks)
@@ -478,31 +489,58 @@ AKCharacter* AKEnemy::getBlockAtFeet(float x,
             continue;
         }
         
-        // 障害物の幅の範囲内に指定座標が入っている場合
-        if (roundf(block->getPosition()->x - block->getSize()->width / 2) <= roundf(x) &&
-            roundf(block->getPosition()->x + block->getSize()->width / 2) >= roundf(x)) {
+        // 障害物の幅の範囲内に指定座標が入っていない場合は除外する
+        if (roundf(block->getPosition()->x - block->getSize()->width / 2) > roundf(x) ||
+            roundf(block->getPosition()->x + block->getSize()->width / 2) < roundf(x)) {
             
-            // 逆さまでない場合
-            if (!isReverse) {
-                
-                // 障害物の下端が自分の上端よりも下にあるものの内、
-                // 一番上にあるものを採用する
-                if (roundf(block->getPosition()->y - block->getSize()->height / 2) <= roundf(from) &&
-                    (blockAtFeet == NULL || block->getPosition()->y + block->getSize()->height / 2 > blockAtFeet->getPosition()->y + blockAtFeet->getSize()->height / 2)) {
-                    
-                    blockAtFeet = block;
-                }
+            continue;
+        }
+        
+        // 逆さまでない場合は上端より上にあるものは除外する
+        if (!isReverse) {
+            if (roundf(block->getPosition()->y - block->getSize()->height / 2) > roundf(from)) {
+                continue;
             }
-            // 逆さまの場合
-            else {
+        }
+        // 逆さまの場合は下端より下にあるものは除外する
+        else {
+            if (roundf(block->getPosition()->y + block->getSize()->height / 2) < roundf(from)) {
+                continue;
+            }
+        }
+        
+        // 最初に見つかったブロックの場合は無条件に採用する
+        if (blockAtFeet == NULL) {
+            blockAtFeet = block;
+            continue;
+        }
+        
+        // 逆さまでない場合は一番上のものを採用する
+        if (!isReverse) {
+            if (block->getPosition()->y + block->getSize()->height / 2 >
+                blockAtFeet->getPosition()->y + blockAtFeet->getSize()->height / 2) {
                 
-                // 障害物の上端が自分の下端より上にあるものの内、
-                // 一番下にあるものを採用する
-                if (roundf(block->getPosition()->y + block->getSize()->height / 2) > roundf(from) &&
-                    (blockAtFeet == NULL || block->getPosition()->y - block->getSize()->height / 2 < blockAtFeet->getPosition()->y - blockAtFeet->getSize()->height / 2)) {
-                    
-                    blockAtFeet = block;
-                }
+                blockAtFeet = block;
+                continue;
+            }
+        }
+        // 逆さまの場合は一番下のものを採用する
+        else {
+            if (block->getPosition()->y + block->getSize()->height / 2 <
+                blockAtFeet->getPosition()->y + blockAtFeet->getSize()->height / 2) {
+                
+                blockAtFeet = block;
+                continue;
+            }
+        }
+        
+        // 同じ高さの場合は近い方を採用する
+        if (AKIsEqualFloat(block->getPosition()->y + block->getSize()->height / 2,
+            blockAtFeet->getPosition()->y + blockAtFeet->getSize()->height / 2)) {
+            
+            if (fabs(center - block->getPosition()->x) < fabs(center - blockAtFeet->getPosition()->x)) {
+                blockAtFeet = block;
+                continue;
             }
         }
     }
