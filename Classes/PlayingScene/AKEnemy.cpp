@@ -121,9 +121,9 @@ const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
     {&AKEnemy::actionOfMantis, &AKEnemy::destroyNormal, 32, 0, 0, 64, 64, 0, 0, 0, 1000, 0, 10000},             // カマキリ
     {&AKEnemy::actionOfHoneycomb, &AKEnemy::destroyNormal, 33, 0, 0, 64, 64, 0, 0, 0, 1000, 0, 10000},          // ハチの巣
     {&AKEnemy::actionOfSpider, &AKEnemy::destroyNormal, 34, 2, 12, 64, 64, 0, 0, 0, 1000, 0, 10000},            // クモ
-    {&AKEnemy::actionOfCentipedeHead, &AKEnemy::destroyNormal, 35, 0, 0, 32, 32, 0, 16, 11, 1000, 99, 10000},   // ムカデ（頭）
-    {&AKEnemy::actionOfCentipedeBody, &AKEnemy::destroyNormal, 36, 2, 12, 32, 16, 0, 0, 11, 1000, 99, 10000},   // ムカデ（胴体）
-    {&AKEnemy::actionOfCentipedeTail, &AKEnemy::destroyNormal, 37, 2, 12, 32, 16, 0, -24, 0, 1000, 0, 10000},   // ムカデ（尾）
+    {&AKEnemy::actionOfCentipedeHead, &AKEnemy::destroyNormal, 35, 0, 0, 32, 32, 0, 16, 11, 1000, 99, 0},   // ムカデ（頭）
+    {&AKEnemy::actionOfCentipedeBody, &AKEnemy::destroyNone, 36, 2, 12, 32, 16, 0, 0, 11, 1000, 99, 0},   // ムカデ（胴体）
+    {&AKEnemy::actionOfCentipedeTail, &AKEnemy::destroyOfCentipede, 37, 2, 12, 32, 16, 0, -24, 0, 10, 0, 1000},   // ムカデ（尾）
     {&AKEnemy::actionOfMaggot, &AKEnemy::destroyOfMaggot, 38, 2, 30, 16, 16, 0, 0, 0, 300, 0, 1000},            // ウジ
     {&AKEnemy::actionOfFly, &AKEnemy::destroyNormal, 39, 2, 6, 32, 32, 0, 0, 0, 1500, 0, 10000},                // ハエ
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}   // 予備40
@@ -3292,12 +3292,14 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
 }
 
 /*!
- @brief ボス敵の破壊処理
+ @brief 破壊処理なし
  
+ 破壊エフェクトを発生させない
+ @param data ゲームデータ
  */
-void AKEnemy::destroyOfBoss(AKPlayDataInterface *data)
+void AKEnemy::destroyNone(AKPlayDataInterface *data)
 {
-    
+    // 無処理
 }
 
 /*!
@@ -3312,6 +3314,54 @@ void AKEnemy::destroyNormal(AKPlayDataInterface *data)
     
     // 画面効果を生成する
     data->createEffect(1, m_position);
+}
+
+/*!
+ @brief ボス敵の破壊処理
+ 
+ */
+void AKEnemy::destroyOfBoss(AKPlayDataInterface *data)
+{
+    
+}
+
+/*!
+ @brief ムカデの破壊処理
+ 
+ 尻尾が破壊された時に胴体を一つ短くして尻尾を復活させる。
+ 胴体がない場合はムカデ撃破とする。
+ @param data ゲームデータ
+ */
+void AKEnemy::destroyOfCentipede(AKPlayDataInterface *data)
+{
+    // 2個前の体が存在する場合（1個前が胴体の場合）
+    if (m_parentEnemy->m_parentEnemy != NULL) {
+        
+        // 画面効果を生成する
+        data->createEffect(1, m_position);
+        
+        // 1個前の胴体の位置に尻尾を作成する
+        AKEnemy *tail = data->createEnemy(kAKEnemyCentipedeTail, *m_parentEnemy->getPosition(), 0);
+            
+        // アニメーションフレームは1個前の胴体のものを引き継ぐ
+        tail->setAnimationFrame(m_parentEnemy->getAnimationFrame());
+
+        // 尻尾の前の部分を設定する
+        tail->setParentEnemy(m_parentEnemy->m_parentEnemy);
+            
+        // 前の部分の体の次の部分に今回作成した体を設定する
+        m_parentEnemy->m_parentEnemy->setChildEnemy(tail);
+        
+        // 1個前の体を削除する
+        m_parentEnemy->setHitPoint(0);
+    }
+    // 1個前が頭の場合
+    else {
+        
+        // 頭を破壊する
+        m_parentEnemy->setHitPoint(0);
+        
+    }
 }
 
 /*!

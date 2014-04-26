@@ -159,6 +159,8 @@ public:
     // 画像有無チェック
     bool hasImage();
     // アニメーションフレーム設定
+    int getAnimationFrame();
+    // アニメーションフレーム設定
     void setAnimationFrame(int frame);
     
     /*!

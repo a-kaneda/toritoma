@@ -284,6 +284,17 @@ bool AKCharacter::hasImage()
 }
 
 /*!
+ @brief アニメーションフレーム取得
+ 
+ アニメーションフレームを取得する。
+ @return アニメーションフレーム
+ */
+int AKCharacter::getAnimationFrame()
+{
+    return m_animationFrame;
+}
+
+/*!
  @brief アニメーションフレーム設定
  
  アニメーションフレームを設定する。

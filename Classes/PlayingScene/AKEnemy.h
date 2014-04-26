@@ -185,10 +185,14 @@ private:
     void actionOfFly(AKPlayDataInterface *data);
     // ボス破壊時の動作処理
     void actionOfDestroy(AKPlayDataInterface *data);
+    // 破壊処理なし
+    void destroyNone(AKPlayDataInterface *data);
     // 雑魚敵の破壊処理
     void destroyNormal(AKPlayDataInterface *data);
     // ボス敵の破壊処理
     void destroyOfBoss(AKPlayDataInterface *data);
+    // ムカデの破壊処理
+    void destroyOfCentipede(AKPlayDataInterface *data);
     // ウジの破壊処理
     void destroyOfMaggot(AKPlayDataInterface *data);
     // 逆さま判定
