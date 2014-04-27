@@ -189,7 +189,127 @@ public:
     {
         return checkHit(characters, data, &AKCharacter::hit);
     }
-    
+     /*!
+     @brief 障害物回避のための距離を調べる
+     
+     障害物を回避するのに必要な移動距離を調べる。
+     @param characters 障害物
+     @param x x方向への移動有無、-1:左側へ移動、1:右側へ移動、0:x方向は移動なし
+     @param y y方向への移動有無、-1:上側へ移動、1:下側へ移動、0:y方向は移動なし
+     @return 回避に必要な移動距離
+     */
+    template<typename T>
+    float dodgeBlock(const std::vector<T*> &characters, int x, int y)
+    {
+        // ループの最大回数。無限ループ発生防止のために使用する。
+        const int MAX_LOOP = 10;
+        
+        // 画面に配置されていない場合は処理しない
+        if (!m_isStaged) {
+            return 0;
+        }
+        
+        // 当たり判定のサイズが0のキャラクターは処理しない
+        if (m_size.width <= 0 || m_size.height <= 0) {
+            return 0;
+        }
+        
+        AKAssert(x == 1 || x == -1 || x == 0, "xの値が不正:x=%d", x);
+        AKAssert(y == 1 || y == -1 || y == 0, "yの値が不正:y=%d", y);
+        AKAssert(x == 0 || y == 0, "xとyの両方が指定されている:x=%d y=%d", x, y);
+        
+        // 自キャラの上下左右の端を計算する
+        float myleft = m_position.x - m_size.width / 2.0f;
+        float myright = m_position.x + m_size.width / 2.0f;
+        float mytop = m_position.y + m_size.height / 2.0f;
+        float mybottom = m_position.y - m_size.height / 2.0f;
+        
+        // 適当な回数分ループする
+        for (int i = 0; i < MAX_LOOP; i++) {
+            
+            bool isHit = false;
+            
+            // 判定対象のキャラクターごとに判定を行う
+            for (T *target : characters) {
+            
+                // 相手が画面に配置されていない場合は処理しない
+                if (!target->isStaged()) {
+                    continue;
+                }
+            
+                // 当たり判定のサイズが0のキャラクターは処理しない
+                if (target->getSize()->width <= 0 ||
+                    target->getSize()->height <= 0) {
+                    continue;
+                }
+                
+                // 相手の上下左右の端を計算する
+                float targetleft = target->getPosition()->x - target->getSize()->width / 2.0f;
+                float targetright = target->getPosition()->x + target->getSize()->width / 2.0f;
+                float targettop = target->getPosition()->y + target->getSize()->height / 2.0f;
+                float targetbottom = target->getPosition()->y - target->getSize()->height / 2.0f;
+                
+                // 以下のすべての条件を満たしている時、衝突していると判断する。
+                //   ・相手の右端が自キャラの左端よりも右側にある
+                //   ・相手の左端が自キャラの右端よりも左側にある
+                //   ・相手の上端が自キャラの下端よりも上側にある
+                //   ・相手の下端が自キャラの上端よりも下側にある
+                if ((targetright > myleft) &&
+                    (targetleft < myright) &&
+                    (targettop > mybottom) &&
+                    (targetbottom < mytop)) {
+                    
+                    // 指定方向へ移動する
+                    switch (x) {
+                        case -1:
+                            myleft = targetleft - m_size.width;
+                            myright = targetleft;
+                            break;
+                            
+                        case 1:
+                            myleft = targetright;
+                            myright = targetright + m_size.width;
+                            break;
+                            
+                        default:
+                            break;
+                    }
+                    switch (y) {
+                        case -1:
+                            mytop = targettop + m_size.height;
+                            mybottom = targettop;
+                            break;
+                            
+                        case 1:
+                            mytop = targetbottom;
+                            mybottom = targetbottom - m_size.height;
+                            break;
+                            
+                        default:
+                            break;
+                    }
+                    
+                    // 衝突したことを記憶する
+                    isHit = true;
+                    
+                    break;
+                }
+            }
+        
+            // 衝突しなかった場合はループを終了する
+            if (!isHit) {
+                break;
+            }
+        }
+        
+        // 移動距離を返す
+        if (x != 0) {
+            return myleft + m_size.width / 2 - m_position.x;
+        }
+        else {
+            return mytop - m_size.height / 2 - m_position.y;
+        }
+    }   
     
 protected:
     // 画像名の設定
@@ -278,6 +398,12 @@ protected:
                 // 衝突処理を行う
                 if (func != NULL) {
                     (this->*func)(target, data);
+                    
+                    // 衝突処理で位置が移動している可能性があるので位置情報を更新する
+                    myleft = m_position.x - m_size.width / 2.0f;
+                    myright = m_position.x + m_size.width / 2.0f;
+                    mytop = m_position.y + m_size.height / 2.0f;
+                    mybottom = m_position.y - m_size.height / 2.0f;
                 }
                 
                 // 衝突したかどうかを記憶する
@@ -288,6 +414,7 @@ protected:
         // 衝突したかどうかを返す
         return isHit;
     }
+
 };
 
 #endif

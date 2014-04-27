@@ -143,14 +143,6 @@ void AKBlock::hit(AKCharacter *character, AKPlayDataInterface *data)
  */
 void AKBlock::pushCharacter(AKCharacter *character, AKPlayDataInterface *data)
 {
-    // 障害物左端への移動
-    float leftX = m_position.x - (m_size.width + character->getSize()->width) / 2;
-    // 障害物右端への移動
-    float rightX = m_position.x + (m_size.width + character->getSize()->width) / 2;
-    // 障害物下端への移動
-    float bottomY = m_position.y - (m_size.height + character->getSize()->height) / 2;
-    // 障害物上端への移動
-    float topY = m_position.y + (m_size.height + character->getSize()->height) / 2;
     // 移動先座標配列
     float movePosX[4];
     float movePosY[4];
@@ -165,38 +157,42 @@ void AKBlock::pushCharacter(AKCharacter *character, AKPlayDataInterface *data)
     //   3.スクロールと垂直方向の遠い方
     //   4.スクロールと反対方向
     
+    // 各方向への移動距離を求める
+    float moveLeft = character->dodgeBlock(*data->getBlocks(), -1, 0);
+    float moveRight = character->dodgeBlock(*data->getBlocks(), 1, 0);
+    float moveTop = character->dodgeBlock(*data->getBlocks(), 0, -1);
+    float moveBottom = character->dodgeBlock(*data->getBlocks(), 0, 1);
+    
     // x方向への移動の場合
     if (scrollX * scrollX > scrollY * scrollY) {
         
         // 左方向への移動の場合
         if (scrollX > 0) {
-            movePosX[0] = leftX;
+            movePosX[0] = character->getPosition()->x + moveLeft;
             movePosY[0] = character->getPosition()->y;
-            movePosX[3] = rightX;
+            movePosX[3] = character->getPosition()->x + moveRight;
             movePosY[3] = character->getPosition()->y;
         }
         // 右方向への移動の場合
         else {
-            movePosX[0] = rightX;
+            movePosX[0] = character->getPosition()->x + moveRight;
             movePosY[0] = character->getPosition()->y;
-            movePosX[3] = leftX;
+            movePosX[3] = character->getPosition()->x + moveLeft;
             movePosY[3] = character->getPosition()->y;
         }
         
-        // 相手が障害物より下にある場合
-        if (m_position.y > character->getPosition()->y) {
+        // y方向の移動は近い方を優先する
+        if (fabsf(moveTop) < fabsf(moveBottom)) {
             movePosX[1] = character->getPosition()->x;
-            movePosY[1] = bottomY;
+            movePosY[1] = character->getPosition()->y + moveTop;
             movePosX[2] = character->getPosition()->x;
-            movePosY[2] = topY;
+            movePosY[2] = character->getPosition()->y + moveBottom;
         }
-        // 相手が障害物より上にある場合
-        else
-        {
+        else {
             movePosX[1] = character->getPosition()->x;
-            movePosY[1] = topY;
+            movePosY[1] = character->getPosition()->y + moveBottom;
             movePosX[2] = character->getPosition()->x;
-            movePosY[2] = bottomY;
+            movePosY[2] = character->getPosition()->y + moveTop;
         }
     }
     // y方向への移動の場合
@@ -205,31 +201,29 @@ void AKBlock::pushCharacter(AKCharacter *character, AKPlayDataInterface *data)
         // 上方向への移動の場合
         if (scrollY > 0) {
             movePosX[0] = character->getPosition()->x;
-            movePosY[0] = bottomY;
+            movePosY[0] = character->getPosition()->y + moveTop;
             movePosX[3] = character->getPosition()->x;
-            movePosY[3] = topY;
+            movePosY[3] = character->getPosition()->y + moveBottom;
         }
         // 下方向への移動の場合
         else {
             movePosX[0] = character->getPosition()->x;
-            movePosY[0] = topY;
+            movePosY[0] = character->getPosition()->y + moveBottom;
             movePosX[3] = character->getPosition()->x;
-            movePosY[3] = bottomY;
+            movePosY[3] = character->getPosition()->y + moveTop;
         }
         
-        // 相手が障害物より左にある場合
-        if (m_position.x > character->getPosition()->x) {
-            movePosX[1] = leftX;
+        // x方向の移動は近い方を優先する
+        if (fabsf(moveLeft) < fabs(moveRight)) {
+            movePosX[1] = character->getPosition()->x + moveLeft;
             movePosY[1] = character->getPosition()->y;
-            movePosX[2] = rightX;
+            movePosX[2] = character->getPosition()->x + moveRight;
             movePosY[2] = character->getPosition()->y;
         }
-        // 相手が障害物より上にある場合
-        else
-        {
-            movePosX[1] = rightX;
+        else {
+            movePosX[1] = character->getPosition()->x + moveRight;
             movePosY[1] = character->getPosition()->y;
-            movePosX[2] = leftX;
+            movePosX[2] = character->getPosition()->x + moveLeft;
             movePosY[2] = character->getPosition()->y;
         }
     }
@@ -242,6 +236,7 @@ void AKBlock::pushCharacter(AKCharacter *character, AKPlayDataInterface *data)
         
         // 位置を変更する
         character->setPosition(CCPoint(movePosX[i], movePosY[i]));
+//        AKLog(character->getBlockHitAction() == kAKBlockHitPlayer, "i=%d x=%.0f y=%.0f", i, movePosX[i], movePosY[i]);
         
         // 自機の場合は画面外への押し出しは禁止する
         if (character->getBlockHitAction() == kAKBlockHitPlayer) {

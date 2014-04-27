@@ -680,7 +680,7 @@ void AKCharacter::moveOfBlockHit(AKCharacter *character, AKPlayDataInterface *da
         // そうでない場合は下端を障害物の上端に合わせる
         else {
             
-            AKLog(kAKLogCharacter_4, "下側が接触");
+            AKLog(kAKLogCharacter_4, "下側が接触:cy=%.0f mh=%.0f ch=%.0f", character->getPosition()->y, m_size.height, character->getSize()->height);
             newPoint.y = character->getPosition()->y + (m_size.height + character->getSize()->height) / 2;
             
             // 縦方向移動のフラグを立てる
@@ -698,12 +698,28 @@ void AKCharacter::moveOfBlockHit(AKCharacter *character, AKPlayDataInterface *da
     
     // 横方向へ移動した場合
     if (isXMoved) {
-        // 横方向の座標と接触フラグを採用する
+        
+        // 仮にx方向へと移動する
+        float oldX = m_position.x;
         m_position.x = newPoint.x;
-        m_blockHitSide |= (newHitSide & (kAKHitSideLeft | kAKHitSideRight));
+        
+        // 移動後に衝突がある場合は縦方向を採用する
+        if (checkHitNoFunc(*data->getBlocks(), data)) {
+            AKLog(kAKLogCharacter_4, "縦方向の移動採用");
+            // 縦方向の座標と接触フラグを採用する
+            m_position.x = oldX;
+            m_position.y = newPoint.y;
+            m_blockHitSide |= (newHitSide & (kAKHitSideTop | kAKHitSideBottom));
+        }
+        else {
+            AKLog(kAKLogCharacter_4, "横方向の移動採用");
+            // 横方向の座標と接触フラグを採用する
+            m_blockHitSide |= (newHitSide & (kAKHitSideLeft | kAKHitSideRight));
+        }
     }
     // 縦方向へ移動した場合
     else if (isYMoved) {
+        AKLog(kAKLogCharacter_4, "縦方向の移動採用");
         // 縦方向の座標と接触フラグを採用する
         m_position.y = newPoint.y;
         m_blockHitSide |= (newHitSide & (kAKHitSideTop | kAKHitSideBottom));

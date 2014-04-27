@@ -433,8 +433,8 @@ void AKPlayData::update()
         
         // 自機が破壊されている場合は復活するまで処理しない
         // 自機が存在する場合のみ待機時間のカウントとステージクリア処理を行う
-        if (m_player->isStaged()) {
-            
+        if (m_rebirthWait <= 0) {
+        
             // 待機時フレーム数をカウントする
             m_clearWait--;
             

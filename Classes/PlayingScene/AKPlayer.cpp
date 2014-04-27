@@ -126,17 +126,10 @@ AKPlayer::~AKPlayer()
  */
 void AKPlayer::rebirth(int stageNo)
 {    
-    // HPの設定
-    m_hitPoint = 1;
-    
-    // ステージ配置フラグを立てる
-    m_isStaged = true;
-    
     // 表示させる
     getImage()->setVisible(true);
     
-    // 無敵状態にする
-    m_isInvincible = true;
+    // 無敵状態時間を設定する
     m_invincivleFrame = kAKInvincibleTime;
     
     // チキンゲージを初期化する
@@ -255,11 +248,12 @@ void AKPlayer::graze(std::vector<AKEnemyShot*> &characters)
  */
 void AKPlayer::setPosition(const CCPoint &position, AKPlayDataInterface *data)
 {
+//    AKLog(1, "before:%.0f", m_position.y);
+    
     // オプションに自分の移動前の座標を通知する
     if (m_option != NULL && m_option->isStaged()) {
         m_option->setPosition(m_position);
     }
-    
     // 移動前の座標を記憶する
     savePosition();
     
@@ -268,6 +262,8 @@ void AKPlayer::setPosition(const CCPoint &position, AKPlayDataInterface *data)
     
     // 障害物との衝突判定を行う
     checkHit(*data->getBlocks(), data, &AKPlayer::moveOfBlockHit);
+    
+//    AKLog(1, "after:%.0f", m_position.y);
 }
 
 /*!
@@ -370,7 +366,7 @@ int AKPlayer::getChickenGaugePercent()
 void AKPlayer::action(AKPlayDataInterface *data)
 {
     // 無敵状態の時は無敵フレーム数をカウントする
-    if (m_isInvincible) {
+    if (m_invincivleFrame > 0) {
         m_invincivleFrame--;
         
         // 無敵フレーム数が切れている場合は通常状態に戻す
@@ -413,14 +409,17 @@ void AKPlayer::destroy(AKPlayDataInterface *data)
 
     // TODO:破壊時の効果音を鳴らす
 
+    // HPの設定
+    m_hitPoint = 1;
+    
     // 画面効果を生成する
     data->createEffect(2, m_position);
     
-    // 配置フラグを落とす
-    m_isStaged = false;
-    
     // 非表示とする
     getImage()->setVisible(false);
+    
+    // 無敵状態とする
+    m_isInvincible = true;
     
     // 自機破壊時の処理を行う
     data->miss();
