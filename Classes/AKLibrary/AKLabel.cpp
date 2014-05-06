@@ -36,11 +36,11 @@
 #include "AKLabel.h"
 #include "AKStringSplitter.h"
 
-using cocos2d::CCSpriteBatchNode;
-using cocos2d::CCRect;
-using cocos2d::CCPoint;
-using cocos2d::CCSpriteFrame;
-using cocos2d::CCSprite;
+using cocos2d::SpriteBatchNode;
+using cocos2d::Rect;
+using cocos2d::Vector2;
+using cocos2d::SpriteFrame;
+using cocos2d::Sprite;
 
 /// 左上の枠のキー
 static const char kAKTopLeft[] = "TopLeft";
@@ -141,12 +141,12 @@ int AKLabel::getHeight(int line, bool hasFrame)
  @param hasFrame 枠付きかどうか
  @return ラベルの矩形範囲
  */
-CCRect AKLabel::getRect(CCPoint position, int length, int line, bool hasFrame)
+Rect AKLabel::getRect(Vector2 position, int length, int line, bool hasFrame)
 {
-    return CCRectMake(position.x - AKLabel::getWidth(length, hasFrame) / 2,
-                               position.y - AKLabel::getHeight(line, hasFrame) / 2,
-                               AKLabel::getWidth(length, hasFrame),
-                               AKLabel::getHeight(line, hasFrame));
+    return Rect(position.x - AKLabel::getWidth(length, hasFrame) / 2,
+                position.y - AKLabel::getHeight(line, hasFrame) / 2,
+                AKLabel::getWidth(length, hasFrame),
+                AKLabel::getHeight(line, hasFrame));
 }
 
 /*!
@@ -169,14 +169,14 @@ m_length(length), m_line(line), m_frame(frame), m_isReverse(false)
     AKAssert(line > 0, "行数が0以下:line=%d", line);
     
     // 文字表示用バッチノードを作成する
-    CCSpriteBatchNode *batchNode = AKFont::getInstance().createBatchNode(m_length * m_line);
+    SpriteBatchNode *batchNode = AKFont::getInstance().createBatchNode(m_length * m_line);
     this->addChild(batchNode, kAKLabelBatchPosZ, kAKLabelBatchPosZ);
     
     // 枠付きの場合は枠の作成を行う
     if (m_frame != kAKLabelFrameNone) {
         
         // 枠示用バッチノードを作成する
-        CCSpriteBatchNode *frameBatchNode = AKFont::getInstance().createBatchNode((m_length + 2) * (m_line * 1.5 + 2));
+        SpriteBatchNode *frameBatchNode = AKFont::getInstance().createBatchNode((m_length + 2) * (m_line * 1.5 + 2));
         AKAssert(frameBatchNode != NULL, "枠表示用バッチノードの作成に失敗");
         
         this->addChild(frameBatchNode, kAKFrameBatchPosZ, kAKFrameBatchPosZ);
@@ -191,16 +191,16 @@ m_length(length), m_line(line), m_frame(frame), m_isReverse(false)
         for (int x = 0; x < m_length; x++) {
                 
             // フォントクラスからスプライトフレームを生成する
-            CCSpriteFrame *charSpriteFrame = AKFont::getInstance().createSpriteFrame(" ", m_isReverse);
+            SpriteFrame *charSpriteFrame = AKFont::getInstance().createSpriteFrame(" ", m_isReverse);
             
             // スプライトを生成する
-            CCSprite *charSprite = CCSprite::createWithSpriteFrame(charSpriteFrame);
+            Sprite *charSprite = Sprite::createWithSpriteFrame(charSpriteFrame);
             
             // 表示位置を設定する。
             // テキスト領域の中央とバッチノードの中央を一致させるため、
             // 左に1行の長さの半分、上方向に行数の半分移動する。
             // 行間に0.5文字分の隙間を入れるため、高さは1.5倍する。
-            CCPoint position((x - (m_length - 1) / 2.0f) * AKFont::getFontSize(),
+            Vector2 position((x - (m_length - 1) / 2.0f) * AKFont::getFontSize(),
                              (-y + (m_line - 1) / 2.0f) * AKFont::getFontSize() * kAKLabelLineHeight);
             charSprite->setPosition(position);
             
@@ -280,9 +280,9 @@ void AKLabel::setIsReverse(bool isReverse)
  表示文字列を取得する
  @return 表示文字列
  */
-const char* AKLabel::getString(void)
+const std::string& AKLabel::getString() const
 {
-    return m_labelString.c_str();
+    return m_labelString;
 }
 
 /*!
@@ -291,10 +291,10 @@ const char* AKLabel::getString(void)
  表示文字列を変更する。
  @param label 表示文字列
  */
-void AKLabel::setString(const char *label)
+void AKLabel::setString(const std::string &label)
 {
     // 文字列が表示可能文字数を超えている場合はエラー
-    AKAssert(strlen(label) <= m_length * m_line, "文字列長が表示可能数を超えている:label=%s, m_length=%d, m_line=%d", label, m_length, m_line);
+    AKAssert(label.length() <= m_length * m_line, "文字列長が表示可能数を超えている:label=%s, m_length=%d, m_line=%d", label.c_str(), m_length, m_line);
     
     // パラメータをメンバに設定する
     if (m_labelString != label) {
@@ -335,12 +335,12 @@ int AKLabel::getHeight()
  ラベルの矩形領域を取得する。
  @return ラベルの矩形領域
  */
-CCRect AKLabel::getRect()
+Rect AKLabel::getRect()
 {
-    return CCRectMake(getPosition().x - getWidth() / 2,
-                               getPosition().y - getHeight() / 2,
-                               getWidth(),
-                               getHeight());
+    return Rect(getPosition().x - getWidth() / 2,
+                getPosition().y - getHeight() / 2,
+                getWidth(),
+                getHeight());
 }
 
 /*!
@@ -349,9 +349,9 @@ CCRect AKLabel::getRect()
  枠表示用バッチノードを取得する
  @return 枠表示用バッチノード
  */
-CCSpriteBatchNode* AKLabel::getFrameBatch()
+SpriteBatchNode* AKLabel::getFrameBatch()
 {
-    CCSpriteBatchNode *frameBatch = static_cast<CCSpriteBatchNode*>(getChildByTag(kAKFrameBatchPosZ));
+    SpriteBatchNode *frameBatch = static_cast<SpriteBatchNode*>(getChildByTag(kAKFrameBatchPosZ));
     
     AKAssert(frameBatch, "枠表示用バッチノードが作成されていない");
     
@@ -364,9 +364,9 @@ CCSpriteBatchNode* AKLabel::getFrameBatch()
  文字表示用バッチノードを取得する
  @return 文字表示用バッチノード
  */
-CCSpriteBatchNode* AKLabel::getLabelBatch()
+SpriteBatchNode* AKLabel::getLabelBatch()
 {
-    CCSpriteBatchNode *labelBatch = static_cast<CCSpriteBatchNode*>(getChildByTag(kAKLabelBatchPosZ));
+    SpriteBatchNode *labelBatch = static_cast<SpriteBatchNode*>(getChildByTag(kAKLabelBatchPosZ));
     
     AKAssert(labelBatch, "文字表示用バッチノードが作成されていない");
 
@@ -391,7 +391,7 @@ void AKLabel::updateLabel()
         for (int x = 0; x < m_length; x++) {
             
             // バッチノードからスプライトを取り出す
-            CCSprite *charSprite = dynamic_cast<CCSprite*>(getLabelBatch()->getChildByTag(x + y * m_length));
+            Sprite *charSprite = dynamic_cast<Sprite*>(getLabelBatch()->getChildByTag(x + y * m_length));
             if (charSprite == NULL) {
                 AKAssert(false, "スプライトの取り出しに失敗:x=%d, y=%d, m_length=%d", x, y, m_length);
                 continue;
@@ -426,7 +426,7 @@ void AKLabel::updateLabel()
             AKLog(kAKLogLabel_1, "x=%d y=%d c=%s", x, y, c);
             
             // フォントクラスからスプライトフレームを生成する
-            CCSpriteFrame *charSpriteFrame = AKFont::getInstance().createSpriteFrame(c, m_isReverse);
+            SpriteFrame *charSpriteFrame = AKFont::getInstance().createSpriteFrame(c, m_isReverse);
             AKAssert(charSpriteFrame, "スプライトフレームの作成に失敗:%s", c);
             
             // スプライトを差し替える
@@ -555,22 +555,22 @@ void AKLabel::createFrame()
             AKLog(kAKLogLabel_1, "tag=%d", tag);
             
             // フォントクラスからスプライトフレームを生成する
-            CCSpriteFrame *charSpriteFrame = AKFont::getInstance().createSpriteFrame(key, m_isReverse);
+            SpriteFrame *charSpriteFrame = AKFont::getInstance().createSpriteFrame(key, m_isReverse);
             
             // バッチノードからスプライトを取り出す
-            CCSprite *charSprite = static_cast<CCSprite*>(getFrameBatch()->getChildByTag(tag));
+            Sprite *charSprite = static_cast<Sprite*>(getFrameBatch()->getChildByTag(tag));
             
             // 取得できない場合はスプライトを生成する
             if (charSprite == NULL) {
                 
                 //　スプライトを生成する
-                charSprite = CCSprite::createWithSpriteFrame(charSpriteFrame);
+                charSprite = Sprite::createWithSpriteFrame(charSpriteFrame);
                 
                 // 表示位置を設定する。
                 // テキスト領域の中央とバッチノードの中央を一致させるため、
                 // 左に1行の長さの半分、上方向に行数の半分移動する。
-                charSprite->setPosition(CCPointMake((x - (m_length - 1) / 2.0f) * AKFont::getFontSize(),
-                                                             (-y + (m_line - 1) * kAKLabelLineHeight / 2.0f) * AKFont::getFontSize()));
+                charSprite->setPosition(Vector2((x - (m_length - 1) / 2.0f) * AKFont::getFontSize(),
+                                                (-y + (m_line - 1) * kAKLabelLineHeight / 2.0f) * AKFont::getFontSize()));
                 
                 // バッチノードに登録する
                 getFrameBatch()->addChild(charSprite, 0, tag);

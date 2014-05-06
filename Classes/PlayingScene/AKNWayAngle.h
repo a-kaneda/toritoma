@@ -52,7 +52,7 @@ private:
     AKNWayAngle();
 public:
     // 2点間指定によるn-way角度計算
-    AKNWayAngle(const cocos2d::CCPoint &src, const cocos2d::CCPoint &dest, int count, float interval);
+    AKNWayAngle(const cocos2d::Vector2 &src, const cocos2d::Vector2 &dest, int count, float interval);
     // 中心角度指定によるn-way角度計算
     AKNWayAngle(float center, int count, float interval);
     // 弾の角度取得

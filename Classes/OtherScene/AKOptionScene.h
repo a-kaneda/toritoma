@@ -44,7 +44,7 @@
  
  オプション画面のシーン。
  */
-class AKOptionScene : public cocos2d::CCScene, AKMenuEventHandler {
+class AKOptionScene : public cocos2d::Scene, AKMenuEventHandler {
 public:
     // コンビニエンスコンストラクタ
     static AKOptionScene* create();

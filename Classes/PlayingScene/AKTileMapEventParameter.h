@@ -46,9 +46,9 @@
 class AKTileMapEventParameter {
 private:
     /// タイルの座標
-    cocos2d::CCPoint m_position;
+    cocos2d::Vector2 m_position;
     /// タイルのプロパティ
-    cocos2d::CCDictionary *m_properties;
+    cocos2d::ValueMap m_properties;
     
 private:
     // デフォルトコンストラクタは使用禁止にする
@@ -56,13 +56,11 @@ private:
     
 public:
     // パラメータを指定したコンストラクタ
-    AKTileMapEventParameter(const cocos2d::CCPoint &position, cocos2d::CCDictionary *properties);
-    // デストラクタ
-    ~AKTileMapEventParameter();
+    AKTileMapEventParameter(const cocos2d::Vector2 &position, const cocos2d::ValueMap &properties);
     // 座標取得
-    const cocos2d::CCPoint* getPosition() const;
+    const cocos2d::Vector2* getPosition() const;
     // プロパティ取得
-    cocos2d::CCDictionary* getProperties() const;
+    const cocos2d::ValueMap* getProperties() const;
 };
 
 #endif

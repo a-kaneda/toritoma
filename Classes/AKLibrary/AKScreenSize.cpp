@@ -36,36 +36,36 @@
 #include "AKScreenSize.h"
 #include "AKLogNoDef.h"
 
-using cocos2d::CCSize;
+using cocos2d::Size;
 using cocos2d::CCDirector;
-using cocos2d::CCPoint;
-using cocos2d::CCRect;
+using cocos2d::Vector2;
+using cocos2d::Rect;
 using cocos2d::CCDirector;
-using cocos2d::CCEGLView;
+using cocos2d::GLView;
 
 /// 解像度調整のベースサイズ
-const CCSize AKScreenSize::kAKBaseSize(568, 320);
+const Size AKScreenSize::kAKBaseSize(568, 320);
 /// ゲーム画面のステージサイズ
-const CCSize AKScreenSize::kAKStageSize(384, 288);
+const Size AKScreenSize::kAKStageSize(384, 288);
 /// スクリーンサイズ
-CCSize AKScreenSize::m_screenSize;
+Size AKScreenSize::m_screenSize;
 /// 画面に表示されている一番左下の座標
-CCPoint AKScreenSize::m_screenOffset;
+Vector2 AKScreenSize::m_screenOffset;
 
 /*!
  @brief 解像度初期化処理
 
  解像度の調整とデバイスの解像度取得を行う。
  */
-void AKScreenSize::init()
+void AKScreenSize::init(GLView *view)
 {
     // 解像度を調整する
-    CCEGLView::sharedOpenGLView()->setDesignResolutionSize(kAKBaseSize.width,
-                                                           kAKBaseSize.height,
-                                                           kResolutionNoBorder); 
+    view->setDesignResolutionSize(kAKBaseSize.width,
+                                  kAKBaseSize.height,
+                                  ResolutionPolicy::NO_BORDER);
 
     // デバイスの解像度を取得する
-    m_screenSize = CCDirector::sharedDirector()->getVisibleSize();
+    m_screenSize = CCDirector::getInstance()->getVisibleSize();
 
     // 左下の座標を計算する
     m_screenOffset.x = (kAKBaseSize.width - m_screenSize.width) / 2;
@@ -78,7 +78,7 @@ void AKScreenSize::init()
  デバイスの画面サイズを取得する。
  @return 画面サイズ
  */
-CCSize AKScreenSize::screenSize()
+Size AKScreenSize::screenSize()
 {
     return m_screenSize;
 }
@@ -89,7 +89,7 @@ CCSize AKScreenSize::screenSize()
  ゲームステージのサイズを取得する。
  @return ステージサイズ
  */
-CCSize AKScreenSize::stageSize()
+Size AKScreenSize::stageSize()
 {
     return kAKStageSize;
 }
@@ -100,9 +100,9 @@ CCSize AKScreenSize::stageSize()
  画面の中央の座標を取得する。
  @return 中央座標
  */
-CCPoint AKScreenSize::center()
+Vector2 AKScreenSize::center()
 {
-    CCPoint center(kAKBaseSize.width / 2,
+    Vector2 center(kAKBaseSize.width / 2,
                    kAKBaseSize.height / 2);
 
     return center;
@@ -291,10 +291,10 @@ float AKScreenSize::yOfDevice(float deviceY)
  @param h 高さ
  @return 補正した矩形
  */
-CCRect AKScreenSize::deviceRect(float x, float y, float w, float h)
+Rect AKScreenSize::deviceRect(float x, float y, float w, float h)
 {
     // 矩形を作成する
-    CCRect rect(x, y, w, h);
+    Rect rect(x, y, w, h);
     
     // 作成した矩形を返す
     return rect;
@@ -309,7 +309,7 @@ CCRect AKScreenSize::deviceRect(float x, float y, float w, float h)
  @param size サイズ
  @return 補正した矩形
  */
-CCRect AKScreenSize::deviceRect(const CCPoint &point, const CCSize &size)
+Rect AKScreenSize::deviceRect(const Vector2 &point, const Size &size)
 {
     return AKScreenSize::deviceRect(point.x, point.y, size.width, size.height);
 }
@@ -322,7 +322,7 @@ CCRect AKScreenSize::deviceRect(const CCPoint &point, const CCSize &size)
  @param rect 矩形
  @return 補正した矩形
  */
-CCRect AKScreenSize::deviceRect(const CCRect &rect)
+Rect AKScreenSize::deviceRect(const Rect &rect)
 {
     return AKScreenSize::deviceRect(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
 }
@@ -335,9 +335,9 @@ CCRect AKScreenSize::deviceRect(const CCRect &rect)
  @param size サイズ
  @return 矩形
  */
-CCRect AKScreenSize::makeRectFromCenter(const CCPoint &center, int size)
+Rect AKScreenSize::makeRectFromCenter(const Vector2 &center, int size)
 {
-    CCRect rect(center.x - size / 2,
+    Rect rect(center.x - size / 2,
                 center.y - size / 2,
                 size,
                 size);

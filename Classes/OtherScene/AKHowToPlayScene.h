@@ -43,7 +43,7 @@
  
  プレイ方法画面のシーンを実現する。
  */
-class AKHowToPlayScene : public cocos2d::CCScene, AKMenuEventHandler {
+class AKHowToPlayScene : public cocos2d::Scene, AKMenuEventHandler {
 public:
     // コンビニエンスコンストラクタ
     static AKHowToPlayScene* create();
@@ -52,7 +52,7 @@ private:
     /// ページ番号
     int m_pageNo;
     /// 説明画像
-    cocos2d::CCSprite *m_image;
+    cocos2d::Sprite *m_image;
 
 public:
     // デストラクタ
@@ -66,9 +66,9 @@ private:
     // インターフェース取得
     AKInterface* getInterface();
     // 前ページボタン取得
-    cocos2d::CCNode* getPrevButton();
+    cocos2d::Node* getPrevButton();
     // 次ページボタン取得
-    cocos2d::CCNode* getNextButton();
+    cocos2d::Node* getNextButton();
     // ページ番号ラベル取得
     AKLabel* getPageLabel();
     // メッセージラベルの取得

@@ -37,15 +37,14 @@
 #include "AKTitleScene.h"
 //#include "AKInAppPurchaseHelper.h"
 
-using cocos2d::CCSpriteFrameCache;
-using cocos2d::CCLayerColor;
-using cocos2d::CCPoint;
-using cocos2d::SEL_CallFunc;
-using cocos2d::CCBlink;
-using cocos2d::CCCallFunc;
-using cocos2d::CCSequence;
-using cocos2d::CCTransitionFade;
-using cocos2d::CCDirector;
+using cocos2d::SpriteFrameCache;
+using cocos2d::LayerColor;
+using cocos2d::Vector2;
+using cocos2d::Blink;
+using cocos2d::CallFunc;
+using cocos2d::Sequence;
+using cocos2d::TransitionFade;
+using cocos2d::Director;
 using CocosDenshion::SimpleAudioEngine;
 
 // オプション画面シーンに配置するノードのタグ
@@ -209,11 +208,11 @@ void AKOptionScene::execEvent(const AKMenuItem *item)
 AKOptionScene::AKOptionScene()
 {
     // テクスチャアトラスを読み込む
-    CCSpriteFrameCache *spriteFrameCache = CCSpriteFrameCache::sharedSpriteFrameCache();
+    SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();
     spriteFrameCache->addSpriteFramesWithFile(kAKControlTextureAtlasDefFile, kAKControlTextureAtlasFile);
 
     // 背景色レイヤーを作成する
-    CCLayerColor *backColor = AKCreateBackColorLayer();
+    LayerColor *backColor = AKCreateBackColorLayer();
     
     // シーンへ配置する
     addChild(backColor, kAKOptionSceneBackColor, kAKOptionSceneBackColor);
@@ -259,7 +258,7 @@ AKOptionScene::AKOptionScene()
 void AKOptionScene::initCommonItem(AKInterface *interface)
 {
     // 前ページボタンをインターフェースに配置する
-    CCPoint prevPoint(AKScreenSize::positionFromLeftPoint(kAKPrevPosLeftPoint),
+    Vector2 prevPoint(AKScreenSize::positionFromLeftPoint(kAKPrevPosLeftPoint),
                       AKScreenSize::center().y);
     interface->addSpriteMenu(kAKPrevImage,
                              prevPoint,
@@ -269,7 +268,7 @@ void AKOptionScene::initCommonItem(AKInterface *interface)
                              kAKMenuTypeButton);
     
     // 次ページボタンをインターフェースに配置する
-    CCPoint nextPoint(AKScreenSize::positionFromRightPoint(kAKNextPosRightPoint),
+    Vector2 nextPoint(AKScreenSize::positionFromRightPoint(kAKNextPosRightPoint),
                       AKScreenSize::center().y);
     interface->addSpriteMenu(kAKNextImage,
                              nextPoint,
@@ -279,7 +278,7 @@ void AKOptionScene::initCommonItem(AKInterface *interface)
                              kAKMenuTypeButton);
     
     // 戻るボタンをインターフェースに配置する
-    CCPoint backPoint(AKScreenSize::positionFromRightPoint(kAKBackPosRightPoint),
+    Vector2 backPoint(AKScreenSize::positionFromRightPoint(kAKBackPosRightPoint),
                       AKScreenSize::positionFromTopPoint(kAKBackPosTopPoint));
     interface->addSpriteMenu(kAKBackImage,
                              backPoint,
@@ -307,7 +306,7 @@ void AKOptionScene::initGameCenterPage(AKInterface *interface)
     // Game Centerのラベルの位置を設定する
     float x = AKScreenSize::center().x;
     float y = AKScreenSize::positionFromTopRatio(kAKGameCenterCaptionPosTopRatio);
-    gameCenterLabel->setPosition(CCPoint(x, y));
+    gameCenterLabel->setPosition(Vector2(x, y));
     
     // Game Centerのラベルを配置する
     addChild(gameCenterLabel, 0, kAKMenuGameCenter);
@@ -316,7 +315,7 @@ void AKOptionScene::initGameCenterPage(AKInterface *interface)
     x = AKScreenSize::center().x;
     y = AKScreenSize::positionFromTopRatio(kAKLeaderboardPosTopRatio);
     m_leaderboardButton = interface->addLabelMenu(kAKLeaderboardCaption,
-                                                  CCPoint(x, y),
+                                                  Vector2(x, y),
                                                   0,
                                                   kAKSelectAchievements,
                                                   kAKMenuGameCenter,
@@ -326,7 +325,7 @@ void AKOptionScene::initGameCenterPage(AKInterface *interface)
     x = AKScreenSize::center().x;
     y = AKScreenSize::positionFromTopRatio(kAKAchievemetnsPosTopRatio);
     m_achievementsButton = interface->addLabelMenu(kAKAchievementsCaption,
-                                                  CCPoint(x, y),
+                                                  Vector2(x, y),
                                                   0,
                                                   kAKSelectAchievements,
                                                   kAKMenuGameCenter,
@@ -351,7 +350,7 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     // Storeのラベルの位置を設定する
     float x = AKScreenSize::center().x;
     float y = AKScreenSize::positionFromTopRatio(kAKStoreCaptionPosTopRatio);
-    storeLabel->setPosition(CCPoint(x, y));
+    storeLabel->setPosition(Vector2(x, y));
     
     // Storeのラベルを配置する
     addChild(storeLabel, 0, kAKMenuStore);
@@ -360,7 +359,7 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     x = AKScreenSize::positionFromLeftRatio(kAKBuyButtonPosLeftRatio);
     y = AKScreenSize::positionFromTopRatio(kAKButtonPosTopRatio);
     m_buyButton = interface->addLabelMenu(kAKBuyButtonCaption,
-                                          CCPoint(x, y),
+                                          Vector2(x, y),
                                           0,
                                           kAKSelectBuy,
                                           kAKMenuStoreBeforePurchase,
@@ -370,7 +369,7 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     x = AKScreenSize::positionFromLeftRatio(kAKRestoreButtonPosLeftRatio);
     y = AKScreenSize::positionFromTopRatio(kAKButtonPosTopRatio);
     m_restoreButton = interface->addLabelMenu(kAKRestoreButtonCaption,
-                                              CCPoint(x, y),
+                                              Vector2(x, y),
                                               0,
                                               kAKSelectRestore,
                                               kAKMenuStoreBeforePurchase,
@@ -385,28 +384,27 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     // 配置位置を設定する
     x = AKScreenSize::center().x;
     y = AKScreenSize::positionFromBottomPoint(kAKMsgPosBottomPoint);
-    message->setPosition(CCPoint(x, y));
+    message->setPosition(Vector2(x, y));
     
     // 表示文字列を設定する
-    message->setString(CCLocalizedString(kAKStoreMessageKey, "Storeページの説明文"));
+    message->setString(aklib::LocalizedResource::getInstance().getString(kAKStoreMessageKey));
     
     // レイヤーに配置する
     interface->addChild(message, 0, kAKMenuStore);
     
     // 購入済みの文字列を取得する
-    const char *purchasedMessage = CCLocalizedString(kAKStorePurchasedKey,
-                                                     "購入済みのキャプション");
+    std::string purchasedMessage = aklib::LocalizedResource::getInstance().getString(kAKStorePurchasedKey);
     
     // 購入済みのラベルを作成する
     AKLabel *purchasedLabel = AKLabel::createLabel(purchasedMessage,
-                                                   strlen(purchasedMessage),
+                                                   purchasedMessage.length(),
                                                    1,
                                                    kAKLabelFrameNone);
     
     // 購入済みのラベルの位置を設定する
     x = AKScreenSize::center().x;
     y = AKScreenSize::positionFromTopRatio(kAKPurchasedCaptionPosTopRatio);
-    purchasedLabel->setPosition(CCPoint(x, y));
+    purchasedLabel->setPosition(Vector2(x, y));
     
     // レイヤーに配置する
     interface->addChild(purchasedLabel, 0, kAKMenuStoreAfterPurcase);
@@ -451,15 +449,14 @@ void AKOptionScene::setPageNo(int pageNo)
 void AKOptionScene::selectLeaderboard()
 {
     // メニュー選択時の効果音を鳴らす
-    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
+    SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
     
     // ボタンのブリンクアクションを作成する。
     // ブリンクアクション終了後にLeaderboardを表示する。
     // ブリンクアクションの途中でViewを表示させると、消えた状態でアニメーションが止まることがあるため。
-    CCBlink *blink = CCBlink::create(0.2f, 2);
-    CCCallFunc *callFunc = CCCallFunc::create(this,
-                                              callfunc_selector(AKOptionScene::showLeaderboard));
-    CCSequence *action = CCSequence::create(blink, callFunc, NULL);
+    Blink *blink = Blink::create(0.2f, 2);
+    CallFunc *callFunc = CallFunc::create(std::bind(std::mem_fun(&AKOptionScene::showLeaderboard), this));
+    Sequence *action = Sequence::create(blink, callFunc, NULL);
     
     // ブリンクアクションを開始する
     m_leaderboardButton->runAction(action);
@@ -474,15 +471,14 @@ void AKOptionScene::selectLeaderboard()
 void AKOptionScene::selectAchievements()
 {
     // メニュー選択時の効果音を鳴らす
-    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
+    SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
     
     // ボタンのブリンクアクションを作成する
     // ブリンクアクション終了後にAchievementsを表示する。
     // ブリンクアクションの途中でViewを表示させると、消えた状態でアニメーションが止まることがあるため。
-    CCBlink *blink = CCBlink::create(0.2f, 2);
-    CCCallFunc *callFunc = CCCallFunc::create(this,
-                                              callfunc_selector(AKOptionScene::showAchievements));
-    CCSequence *action = CCSequence::create(blink, callFunc, NULL);
+    Blink *blink = Blink::create(0.2f, 2);
+    CallFunc *callFunc = CallFunc::create(std::bind(std::mem_fun(&AKOptionScene::showAchievements), this));
+    Sequence *action = Sequence::create(blink, callFunc, NULL);
         
     // ブリンクアクションを開始する
     m_achievementsButton->runAction(action);
@@ -502,7 +498,7 @@ void AKOptionScene::selectPrevPage()
     }
     
     // メニュー選択時の効果音を鳴らす
-    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
+    SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
     
     setPageNo(m_pageNo - 1);
 }
@@ -543,10 +539,10 @@ void AKOptionScene::selectBack()
 //    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
     
     // タイトルシーンへの遷移を作成する
-    CCTransitionFade *transition = CCTransitionFade::create(0.5f, AKTitleScene::create());
+    TransitionFade *transition = TransitionFade::create(0.5f, AKTitleScene::create());
     
     // タイトルシーンへ遷移する
-    CCDirector::sharedDirector()->replaceScene(transition);
+    Director::getInstance()->replaceScene(transition);
 }
 
 /*!
@@ -597,7 +593,7 @@ void AKOptionScene::selectBuy()
 //    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
     
     // ボタンのブリンクアクションを作成する
-    CCBlink *action = CCBlink::create(0.2f, 2);
+    Blink *action = Blink::create(0.2f, 2);
     
     // ブリンクアクションを開始する
     m_buyButton->runAction(action);
@@ -627,7 +623,7 @@ void AKOptionScene::selectRestore()
 //    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
     
     // ボタンのブリンクアクションを作成する
-    CCBlink *action = CCBlink::create(0.2f, 2);
+    Blink *action = Blink::create(0.2f, 2);
     
     // ブリンクアクションを開始する
     m_restoreButton->runAction(action);

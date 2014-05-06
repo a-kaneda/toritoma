@@ -42,10 +42,10 @@
 #include "AKHiScoreFile.h"
 #include "string.h"
 
-using cocos2d::CCNode;
-using cocos2d::CCPoint;
-using cocos2d::CCSpriteFrameCache;
-using cocos2d::CCSpriteBatchNode;
+using cocos2d::Node;
+using cocos2d::Vector2;
+using cocos2d::SpriteFrameCache;
+using cocos2d::SpriteBatchNode;
 
 /// ステージの数
 const int kAKStageCount = 6;
@@ -86,9 +86,9 @@ static const int kAKExtendScore = 50000;
 static const int kAKClearWait = 540;
 
 /// ゲームクリア時のツイートのフォーマットのキー
-static const char *kAKGameClearTweetKey = "GameClearTweet";
+//static const char *kAKGameClearTweetKey = "GameClearTweet";
 /// ゲームオーバー時のツイートのフォーマットのキー
-static const char *kAKGameOverTweetKey = "GameOverTweet";
+//static const char *kAKGameOverTweetKey = "GameOverTweet";
 
 /// キャラクター配置のz座標
 enum AKCharacterPositionZ {
@@ -122,7 +122,7 @@ m_blockPool(kAKMaxBlockCount), m_tileMap(NULL), m_player(NULL)
     m_scene->retain();
     
     // テクスチャアトラスを読み込む
-    CCSpriteFrameCache *spriteFrameCache = CCSpriteFrameCache::sharedSpriteFrameCache();
+    SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();
     spriteFrameCache->addSpriteFramesWithFile(kAKTextureAtlasDefFile,
                                               kAKTextureAtlasFile);
     
@@ -144,7 +144,7 @@ AKPlayData::~AKPlayData()
     m_scene->release();
     delete m_player;
     delete m_tileMap;
-    for (CCNode *node : m_batches) {
+    for (Node *node : m_batches) {
         node->removeFromParentAndCleanup(true);
     }
 }
@@ -160,7 +160,7 @@ void AKPlayData::createMember()
     for (int i = 0; i < kAKCharaPosZCount; i++) {
 
         // バッチノードをファイルから作成する
-        CCSpriteBatchNode *batch = CCSpriteBatchNode::create(kAKTextureAtlasFile);
+        SpriteBatchNode *batch = SpriteBatchNode::create(kAKTextureAtlasFile);
         AKAssert(batch, "バッチノード作成に失敗:%s", kAKTextureAtlasFile);
 
         // 配列に保存する
@@ -228,7 +228,7 @@ void AKPlayData::setScrollSpeedY(float speed)
 void AKPlayData::clearPlayData()
 {
     // 自機の初期位置を設定する
-    m_player->setPosition(CCPoint(kAKPlayerDefaultPosX, kAKPlayerDefaultPosY), this);
+    m_player->setPosition(Vector2(kAKPlayerDefaultPosX, kAKPlayerDefaultPosY), this);
     
     // シールドは無効状態で初期化する
     m_shield = false;
@@ -258,7 +258,7 @@ void AKPlayData::clearPlayData()
  自機の位置情報を取得する。
  @return 自機の位置情報
  */
-const CCPoint* AKPlayData::getPlayerPosition()
+const Vector2* AKPlayData::getPlayerPosition()
 {
     return m_player->getPosition();
 }
@@ -644,7 +644,7 @@ void AKPlayData::movePlayer(float dx, float dy)
     float y = AKRangeCheckF(m_player->getPosition()->y + dy,
                             0.0f,
                             AKScreenSize::stageSize().height);
-    m_player->setPosition(CCPoint(x, y), this);
+    m_player->setPosition(Vector2(x, y), this);
 }
 
 /*!
@@ -661,16 +661,18 @@ std::string AKPlayData::makeTweet()
     // 全ステージクリアの場合と途中でゲームオーバーになった時でツイート内容を変更する。
     if (m_stage > kAKStageCount) {
         char format[141] = "";
-        strncpy(format,
-                CCLocalizedString(kAKGameClearTweetKey, "ゲームクリア時のツイート"),
-                sizeof(format));
+        // TODO:ローカライズ処理を作成する
+//        strncpy(format,
+//                CCLocalizedString(kAKGameClearTweetKey, "ゲームクリア時のツイート"),
+//                sizeof(format));
         snprintf(tweet, sizeof(tweet), format, m_score);
     }
     else {
         char format[141] = "";
-        strncpy(format,
-                CCLocalizedString(kAKGameOverTweetKey, "ゲームオーバー時のツイート"),
-                sizeof(format));
+        // TODO:ローカライズ処理を作成する
+//        strncpy(format,
+//                CCLocalizedString(kAKGameOverTweetKey, "ゲームオーバー時のツイート"),
+//                sizeof(format));
         snprintf(tweet, sizeof(tweet), format, m_score);
     }
     
@@ -693,34 +695,34 @@ void AKPlayData::resume()
     // すべてのキャラクターのアニメーションを再開する
     // 自機
     if (m_player->hasImage()) {
-        m_player->getImage()->resumeSchedulerAndActions();
+        m_player->getImage()->resume();
     }
     
     // 自機弾
     for (AKCharacter *character : *m_playerShotPool.getPool()) {
         if (character->hasImage()) {
-            character->getImage()->resumeSchedulerAndActions();
+            character->getImage()->resume();
         }
     }
     
     // 敵
     for (AKCharacter *character : *m_enemyPool.getPool()) {
         if (character->hasImage()) {
-            character->getImage()->resumeSchedulerAndActions();
+            character->getImage()->resume();
         }
     }
     
     // 敵弾
     for (AKCharacter *character : *m_enemyShotPool.getPool()) {
         if (character->hasImage()) {
-            character->getImage()->resumeSchedulerAndActions();
+            character->getImage()->resume();
         }
     }
     
     // 画面効果
     for (AKCharacter *character : *m_effectPool.getPool()) {
         if (character->hasImage()) {
-            character->getImage()->resumeSchedulerAndActions();
+            character->getImage()->resume();
         }
     }
 }
@@ -735,34 +737,34 @@ void AKPlayData::pause()
     // すべてのキャラクターのアニメーションを停止する
     // 自機
     if (m_player->hasImage()) {
-        m_player->getImage()->pauseSchedulerAndActions();
+        m_player->getImage()->pause();
     }
     
     // 自機弾
     for (AKCharacter *character : *m_playerShotPool.getPool()) {
         if (character->hasImage()) {
-            character->getImage()->pauseSchedulerAndActions();
+            character->getImage()->pause();
         }
     }
     
     // 敵
     for (AKCharacter *character : *m_enemyPool.getPool()) {
         if (character->hasImage()) {
-            character->getImage()->pauseSchedulerAndActions();
+            character->getImage()->pause();
         }
     }
     
     // 敵弾
     for (AKCharacter *character : *m_enemyShotPool.getPool()) {
         if (character->hasImage()) {
-            character->getImage()->pauseSchedulerAndActions();
+            character->getImage()->pause();
         }
     }
     
     // 画面効果
     for (AKCharacter *character : *m_effectPool.getPool()) {
         if (character->hasImage()) {
-            character->getImage()->pauseSchedulerAndActions();
+            character->getImage()->pause();
         }
     }
 }
@@ -776,10 +778,10 @@ void AKPlayData::pause()
  @param devicePosition デバイススクリーン座標
  @return タイルの座標
  */
-CCPoint AKPlayData::convertDevicePositionToTilePosition(CCPoint devicePosition)
+Vector2 AKPlayData::convertDevicePositionToTilePosition(Vector2 devicePosition)
 {
     // デバイススクリーン座標からマップ座標を取得する
-    CCPoint mapPosition = m_tileMap->getMapPositionFromDevicePosition(devicePosition);
+    Vector2 mapPosition = m_tileMap->getMapPositionFromDevicePosition(devicePosition);
     
     // マップ座標からタイルの座標を取得する
     return m_tileMap->getTilePositionFromMapPosition(mapPosition);
@@ -791,7 +793,7 @@ CCPoint AKPlayData::convertDevicePositionToTilePosition(CCPoint devicePosition)
  自機弾を生成する。
  @param position 生成位置
  */
-void AKPlayData::createPlayerShot(CCPoint position)
+void AKPlayData::createPlayerShot(Vector2 position)
 {
     // プールから未使用のメモリを取得する
     AKPlayerShot *playerShot = m_playerShotPool.getNext();
@@ -815,7 +817,7 @@ void AKPlayData::createPlayerShot(CCPoint position)
  オプション弾を生成する。
  @param position 生成位置
  */
-void AKPlayData::createOptionShot(CCPoint position)
+void AKPlayData::createOptionShot(Vector2 position)
 {
     // プールから未使用のメモリを取得する
     AKPlayerShot *playerShot = m_playerShotPool.getNext();
@@ -864,7 +866,7 @@ void AKPlayData::createReflectShot(AKEnemyShot *enemyShot)
  @param progress 倒した時に進む進行度
  @return 生成した敵キャラ
  */
-AKEnemy* AKPlayData::createEnemy(int type, CCPoint position, int progress)
+AKEnemy* AKPlayData::createEnemy(int type, Vector2 position, int progress)
 {
     // プールから未使用のメモリを取得する
     AKEnemy *enemy = m_enemyPool.getNext();
@@ -907,7 +909,7 @@ AKEnemyShot* AKPlayData::getEnemyShot()
  敵弾を配置するノードを取得する。
  @return 敵弾配置ノード
  */
-CCNode* AKPlayData::getEnemyShotParent()
+Node* AKPlayData::getEnemyShotParent()
 {
     return m_batches.at(kAKCharaPosZEnemyShot);
 }
@@ -920,7 +922,7 @@ CCNode* AKPlayData::getEnemyShotParent()
  @param x x座標
  @param y y座標
  */
-void AKPlayData::createEffect(int type, CCPoint position)
+void AKPlayData::createEffect(int type, Vector2 position)
 {
     // プールから未使用のメモリを取得する
     AKEffect *effect = m_effectPool.getNext();
@@ -942,7 +944,7 @@ void AKPlayData::createEffect(int type, CCPoint position)
  @param x x座標
  @param y y座標
  */
-void AKPlayData::createBlock(int type, CCPoint position)
+void AKPlayData::createBlock(int type, Vector2 position)
 {
     AKLog(kAKLogPlayData_3, "createBlock() start:type=%d position=(%f, %f)",
           type, position.x, position.y);

@@ -35,6 +35,12 @@
 
 #include "AKChickenGauge.h"
 
+using cocos2d::Vector2;
+using cocos2d::Director;
+using cocos2d::TextureCache;
+using cocos2d::Sprite;
+using cocos2d::Rect;
+
 /// 空ゲージの画像名
 static const char *kAKEmptyImageName = "ChickenGauge_01.png";
 /// 満ゲージの画像名
@@ -72,21 +78,21 @@ AKChickenGauge::AKChickenGauge() :
 m_percent(0.0f)
 {
     // 空画像を読み込む
-    m_emptyImage = cocos2d::CCSprite::create(kAKEmptyImageName);
+    m_emptyImage = Sprite::create(kAKEmptyImageName);
     
     // 自ノードに配置する
     addChild(m_emptyImage, 0);
     
     // 満画像を読み込む
-    m_fullImage = cocos2d::CCSprite::create(kAKFullImageName);
+    m_fullImage = Sprite::create(kAKFullImageName);
     
     // 自ノードに配置する
     addChild(m_fullImage, 1);
     
     // ゲージがたまるのを満ゲージの幅変更によって表現する。
     // 幅が変わってもx座標を変えなくても良いように左端にアンカーを設定する。
-    m_fullImage->setAnchorPoint(cocos2d::CCPointMake(0.0f, 0.5f));
-    m_fullImage->setPosition(cocos2d::CCPointMake(AKScreenSize::deviceLength(-kAKImageWidth / 2.0f), 0.0f));
+    m_fullImage->setAnchorPoint(Vector2(0.0f, 0.5f));
+    m_fullImage->setPosition(Vector2(AKScreenSize::deviceLength(-kAKImageWidth / 2.0f), 0.0f));
 }
 
 /*!
@@ -101,8 +107,9 @@ AKChickenGauge::~AKChickenGauge()
     m_fullImage->removeFromParentAndCleanup(true);
     
     // テクスチャを解放する
-    cocos2d::CCTextureCache::sharedTextureCache()->removeTextureForKey(kAKEmptyImageName);
-    cocos2d::CCTextureCache::sharedTextureCache()->removeTextureForKey(kAKFullImageName);
+    TextureCache *cache = Director::getInstance()->getTextureCache();
+    cache->removeTextureForKey(kAKEmptyImageName);
+    cache->removeTextureForKey(kAKFullImageName);
 }
 
 /*!
@@ -118,6 +125,6 @@ void AKChickenGauge::setPercent(float percent)
     m_percent = percent;
     
     // 満ゲージの幅を更新する
-    cocos2d::CCRect rect = AKScreenSize::deviceRect(0.0f, 0.0f, kAKImageWidth * percent / 100.0f, kAKImageHeight);
+    Rect rect = AKScreenSize::deviceRect(0.0f, 0.0f, kAKImageWidth * percent / 100.0f, kAKImageHeight);
     m_fullImage->setTextureRect(rect);
 }

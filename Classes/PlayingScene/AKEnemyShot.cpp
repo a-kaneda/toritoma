@@ -35,6 +35,9 @@
 
 #include "AKEnemyShot.h"
 
+using cocos2d::Vector2;
+using cocos2d::Node;
+
 // 敵弾の種類
 enum AKEnemyShotType {
     kAKEnemyShotTypeNormal = 0,     ///< 標準弾
@@ -98,10 +101,10 @@ void AKEnemyShot::setGrazePoint(float grazePoint)
  @param speed スピード
  @param parent 配置する親ノード
  */
-void AKEnemyShot::createNormalShot(const cocos2d::CCPoint &position,
+void AKEnemyShot::createNormalShot(const Vector2 &position,
                                    float angle,
                                    float speed,
-                                   cocos2d::CCNode *parent)
+                                   Node *parent)
 {
     // 種別に通常弾を指定して生成を行う
     createEnemyShot(kAKEnemyShotTypeNormal,
@@ -120,10 +123,10 @@ void AKEnemyShot::createNormalShot(const cocos2d::CCPoint &position,
  @param speed スピード
  @param parent 配置する親ノード
  */
-void AKEnemyShot::createScrollShot(const cocos2d::CCPoint &position,
+void AKEnemyShot::createScrollShot(const Vector2 &position,
                                    float angle,
                                    float speed,
-                                   cocos2d::CCNode *parent)
+                                   Node *parent)
 {
     // 種別に通常弾を指定して生成を行う
     createEnemyShot(kAKEnemyShotTypeNormal,
@@ -148,13 +151,13 @@ void AKEnemyShot::createScrollShot(const cocos2d::CCPoint &position,
  @param changeSpeed 変更後のスピード
  @param parent 配置する親ノード
  */
-void AKEnemyShot::createChangeSpeedShot(const cocos2d::CCPoint &position,
+void AKEnemyShot::createChangeSpeedShot(const Vector2 &position,
                                         float angle,
                                         float speed,
                                         int changeInterval,
                                         float changeAngle,
                                         float changeSpeed,
-                                        cocos2d::CCNode *parent)
+                                        Node *parent)
 {
     // 種別に速度変更弾を指定して生成を行う
     createEnemyShot(kAKEnemyShotTypeChangeSpeed,
@@ -179,7 +182,7 @@ void AKEnemyShot::createChangeSpeedShot(const cocos2d::CCPoint &position,
  @param base 反射する弾
  @param parent 配置する親ノード
  */
-void AKEnemyShot::createReflectShot(AKEnemyShot *base, cocos2d::CCNode *parent)
+void AKEnemyShot::createReflectShot(AKEnemyShot *base, Node *parent)
 {
     AKLog(kAKLogEnemyShot_1, "反射弾生成");
     
@@ -254,10 +257,10 @@ void AKEnemyShot::action(AKPlayDataInterface *data)
  @param parent 配置する親ノード
  */
 void AKEnemyShot::createEnemyShot(int type,
-                                  const cocos2d::CCPoint &position,
+                                  const Vector2 &position,
                                   float angle,
                                   float speed,
-                                  cocos2d::CCNode *parent)
+                                  Node *parent)
 {
     // パラメータの内容をメンバに設定する
     m_position = position;

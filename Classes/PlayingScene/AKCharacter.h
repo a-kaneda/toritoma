@@ -67,7 +67,7 @@ public:
     
 private:
     /// 画像
-    cocos2d::CCSprite *m_image;
+    cocos2d::Sprite *m_image;
     /// 画像名
     std::string m_imageName;
     /// アニメーション初期パターン
@@ -75,11 +75,11 @@ private:
     
 protected:
     /// 当たり判定サイズ幅
-    cocos2d::CCSize m_size;
+    cocos2d::Size m_size;
     /// 位置
-    cocos2d::CCPoint m_position;
+    cocos2d::Vector2 m_position;
     /// 移動の位置
-    cocos2d::CCPoint m_prevPosition;
+    cocos2d::Vector2 m_prevPosition;
     /// 速度x方向
     float m_speedX;
     /// 速度y方向
@@ -107,7 +107,7 @@ protected:
     /// 障害物と接している面
     unsigned int m_blockHitSide;
     /// 画像表示のオフセット
-    cocos2d::CCPoint m_offset;
+    cocos2d::Vector2 m_offset;
     /// 画面外から削除されるしきい値
     int m_outThreshold;
     
@@ -119,13 +119,13 @@ public:
     
 public:
     // 位置取得
-    const cocos2d::CCPoint* getPosition();
+    const cocos2d::Vector2* getPosition();
     // 位置設定
-    void setPosition(const cocos2d::CCPoint &position);
+    void setPosition(const cocos2d::Vector2 &position);
     // 前回位置取得
-    const cocos2d::CCPoint* getPrevPosition();
+    const cocos2d::Vector2* getPrevPosition();
     // サイズ取得
-    const cocos2d::CCSize* getSize();
+    const cocos2d::Size* getSize();
     // x方向の速度取得
     float getSpeedX();
     // y方向の速度取得
@@ -155,7 +155,7 @@ public:
     // 移動処理
     virtual void move(AKPlayDataInterface *data);
     // 画像の取得
-    cocos2d::CCSprite* getImage();
+    cocos2d::Sprite* getImage();
     // 画像有無チェック
     bool hasImage();
     // アニメーションフレーム設定

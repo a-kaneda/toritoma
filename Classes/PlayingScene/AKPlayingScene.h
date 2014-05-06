@@ -63,7 +63,7 @@ enum AKGameState {
  
  プレイ中画面のシーンを管理する。
  */
-class AKPlayingScene : public cocos2d::CCScene, AKMenuEventHandler {
+class AKPlayingScene : public cocos2d::Scene, AKMenuEventHandler {
 public:
     // コンビニエンスコンストラクタ
     static AKPlayingScene* create();
@@ -78,11 +78,11 @@ private:
     /// スリープフレーム数
     int m_sleepFrame;
     /// 背景レイヤー
-    cocos2d::CCLayer *m_backgroundLayer;
+    cocos2d::Layer *m_backgroundLayer;
     /// キャラクターレイヤー
-    cocos2d::CCLayer *m_characterLayer;
+    cocos2d::Layer *m_characterLayer;
     /// 情報レイヤー
-    cocos2d::CCLayer *m_infoLayer;
+    cocos2d::Layer *m_infoLayer;
     /// インターフェースレイヤー
     AKPlayingSceneIF *m_interfaceLayer;
     /// スコア表示
@@ -104,11 +104,11 @@ public:
     // ゲームプレイの状態設定
     void setState(enum AKGameState state);
     // 背景レイヤー取得
-    cocos2d::CCLayer* getBackgroundLayer();
+    cocos2d::Layer* getBackgroundLayer();
     // キャラクターレイヤー取得
-    cocos2d::CCLayer* getCharacterLayer();
+    cocos2d::Layer* getCharacterLayer();
     // 情報レイヤー取得
-    cocos2d::CCLayer* getInfoLayer();
+    cocos2d::Layer* getInfoLayer();
     // インターフェースレイヤー取得
     AKPlayingSceneIF* getInterfaceLayer();
     // 残機表示取得
@@ -166,10 +166,10 @@ private:
     // 枠の棒作成
     void createFrameBar();
     // 枠ブロック配置
-    void createFrameBlock(cocos2d::CCNode *node,
+    void createFrameBlock(cocos2d::Node *node,
                           const char *name,
                           int size,
-                          const cocos2d::CCRect &rect);
+                          const cocos2d::Rect &rect);
     // ツイートボタン選択処理
     void touchTweetButton();
     // ゲーム開始時の更新処理

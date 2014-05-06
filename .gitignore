@@ -23,12 +23,12 @@ DerivedData
 !*.xcodeproj/default.*
 *.xcworkspace/*
 !*.xcworkspace/contents.xcworkspacedata
+# cocos2d-x
+cocos2d/
 # cocos2d-xが自動生成した他のOSのフォルダ
-proj.blackberry/
 proj.linux/
-proj.mac/
-proj.marmalade/
 proj.win32/
+proj.wp8-xaml/
 # 画像ファイル
 picture/9*
 Thumbs.db

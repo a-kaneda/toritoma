@@ -36,6 +36,9 @@
 #include "AKOption.h"
 #include "AKEnemyShot.h"
 
+using cocos2d::Node;
+using cocos2d::Vector2;
+
 /// オプションの画像ファイル名
 static const char *kAKOptionImageFile = "Option_%02d";
 /// シールドなし時のアニメーションフレーム数
@@ -58,7 +61,7 @@ static const int kAKOptionSize = 32;
  @param parent 画像を配置する親ノード
  @return 生成したオブジェクト。失敗時はnilを返す。
  */
-AKOption::AKOption(int count, cocos2d::CCNode *parent)
+AKOption::AKOption(int count, Node *parent)
 {
     // アニメーションフレームの個数を設定する
     m_animationPattern = kAKOptionAnimationCountOfShieldOff;
@@ -163,7 +166,7 @@ void AKOption::setShiled(bool shield)
  @param count オプション個数
  @param position 初期配置位置
  */
-void AKOption::setOptionCount(int count, const cocos2d::CCPoint &position)
+void AKOption::setOptionCount(int count, const Vector2 &position)
 {
     AKLog(kAKLogOption_2, "count=%d", count);
     
@@ -207,7 +210,7 @@ void AKOption::setOptionCount(int count, const cocos2d::CCPoint &position)
  移動座標を設定する。オプションが付属している場合はオプションの移動も行う。
  @param position 移動先座標
  */
-void AKOption::setPosition(const cocos2d::CCPoint &position)
+void AKOption::setPosition(const Vector2 &position)
 {
     // オプションに自分の移動前の座標を通知する
     if (m_next != NULL && m_next->isStaged()) {
@@ -219,7 +222,7 @@ void AKOption::setPosition(const cocos2d::CCPoint &position)
     if (m_movePositions.size() >= kAKOptionSpace) {
         
         // 先頭の要素を取得し、座標を移動する
-        std::vector<cocos2d::CCPoint>::iterator start = m_movePositions.begin();
+        std::vector<Vector2>::iterator start = m_movePositions.begin();
         m_position = *start;
         
         // 取得した要素を配列から取り除く

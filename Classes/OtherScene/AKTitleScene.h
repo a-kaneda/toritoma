@@ -44,7 +44,7 @@
  
  タイトルシーンを管理する。
  */
-class AKTitleScene : public cocos2d::CCScene, AKMenuEventHandler {
+class AKTitleScene : public cocos2d::Scene, AKMenuEventHandler {
 public:
     // コンビニエンスコンストラクタ
     static AKTitleScene* create();

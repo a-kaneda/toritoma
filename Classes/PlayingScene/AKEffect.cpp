@@ -35,8 +35,8 @@
 
 #include "AKEffect.h"
 
-using cocos2d::CCPoint;
-using cocos2d::CCNode;
+using cocos2d::Vector2;
+using cocos2d::Node;
 
 /// 画像名のフォーマット
 static const char *kAKImageNameFormat = "Effect_%02d";
@@ -56,7 +56,7 @@ static const struct AKEffectDef kAKEffectDef[kAKEffectDefCount] = {
  @param position 生成位置
  @param parent 画面効果を配置する親ノード
  */
-void AKEffect::createEffect(int type, const CCPoint &position, CCNode *parent)
+void AKEffect::createEffect(int type, const Vector2 &position, Node *parent)
 {
     // パラメータの内容をメンバに設定する
     m_position = position;

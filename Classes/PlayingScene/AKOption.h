@@ -46,7 +46,7 @@
 class AKOption : public AKCharacter {
 private:
     /// 移動座標
-    std::vector<cocos2d::CCPoint> m_movePositions;
+    std::vector<cocos2d::Vector2> m_movePositions;
     /// 弾発射までの残りフレーム数
     int m_shootFrame;
     /// 次のオプション
@@ -60,15 +60,15 @@ private:
     
 public:
     // オプション個数と親ノードを指定したコンストラクタ
-    AKOption(int count, cocos2d::CCNode *parent);
+    AKOption(int count, cocos2d::Node *parent);
     // デストラクタ
     ~AKOption();
     // シールド有無設定
     void setShiled(bool shield);
     // オプション数設定
-    void setOptionCount(int count, const cocos2d::CCPoint &position);
+    void setOptionCount(int count, const cocos2d::Vector2 &position);
     // 移動座標設定
-    void setPosition(const cocos2d::CCPoint &position);
+    void setPosition(const cocos2d::Vector2 &position);
     // オプション移動
     void optionMove(AKPlayDataInterface *data);
     // 次のオプション取得

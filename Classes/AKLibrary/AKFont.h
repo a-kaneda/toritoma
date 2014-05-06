@@ -54,22 +54,22 @@ public:
     static int getFontSize();
 private:
     /// 文字のテクスチャ内の位置情報
-    cocos2d::CCDictionary *m_fontMap;
+    cocos2d::__Dictionary *m_fontMap;
     /// フォントテクスチャ
-    cocos2d::CCTexture2D *m_fontTexture;
+    cocos2d::Texture2D *m_fontTexture;
 public:
     // コンストラクタ
     AKFont();
     // デストラクタ
     ~AKFont();
     // 文字表示用バッチノード作成
-    cocos2d::CCSpriteBatchNode* createBatchNode(int capacity);
+    cocos2d::SpriteBatchNode* createBatchNode(int capacity);
     // キーからテクスチャ内の位置を取得する
-    cocos2d::CCRect getRect(const std::string &key) const;
+    cocos2d::Rect getRect(const std::string &key) const;
     // キーからスプライトフレームを作成する
-    cocos2d::CCSpriteFrame* createSpriteFrame(const std::string &key, bool isReverse) const;
+    cocos2d::SpriteFrame* createSpriteFrame(const std::string &key, bool isReverse) const;
     // キーからスプライトを作成する
-    cocos2d::CCSprite* createSprite(const std::string &key, bool isReverse) const;
+    cocos2d::Sprite* createSprite(const std::string &key, bool isReverse) const;
 };
 
 #endif

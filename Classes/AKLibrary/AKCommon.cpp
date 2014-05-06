@@ -38,12 +38,12 @@
 #include "AKCommon.h"
 #include "AKScreenSize.h"
 
-using cocos2d::CCPoint;
-using cocos2d::CCRect;
-using cocos2d::CCLayerColor;
-using cocos2d::ccColor4B;
+using cocos2d::Vector2;
+using cocos2d::Rect;
+using cocos2d::LayerColor;
 using cocos2d::CCSize;
 using cocos2d::CCDirector;
+using cocos2d::Color4B;
 
 #ifdef DEBUG
 
@@ -70,7 +70,7 @@ bool kAKLogTwitterHelper_1 = false;
 #endif
 
 /// 色
-const ccColor4B kAKColor[kAKColorCount] = {
+const Color4B kAKColor[kAKColorCount] = {
     {156, 179, 137, 255},
     {110, 132, 100, 255},
     { 64,  85,  63, 255},
@@ -136,7 +136,7 @@ float AKRangeCheckLF(float val, float min, float max)
  @retval true 矩形内にある
  @retval false 外側にあれば
  */
-bool AKIsInside(const CCPoint &point, const CCRect &rect)
+bool AKIsInside(const Vector2 &point, const Rect &rect)
 {    
     if ((point.x >= rect.origin.x && point.x <= rect.origin.x + rect.size.width) &&
         (point.y >= rect.origin.y && point.y <= rect.origin.y + rect.size.height)) {
@@ -175,9 +175,9 @@ bool AKIsEqualFloat(float a, float b)
  @param size サイズ
  @return 矩形
  */
-CCRect AKMakeRectFromCenter(const CCPoint &center, int size)
+Rect AKMakeRectFromCenter(const Vector2 &center, int size)
 {
-    CCRect rect(center.x - size / 2,
+    Rect rect(center.x - size / 2,
                 center.y - size / 2,
                 size,
                 size);
@@ -192,12 +192,12 @@ CCRect AKMakeRectFromCenter(const CCPoint &center, int size)
  @param rect レイヤーの矩形位置
  @return 単一色レイヤー
  */
-CCLayerColor *AKCreateColorLayer(int colorfalse, const CCRect &rect)
+LayerColor *AKCreateColorLayer(int colorfalse, const Rect &rect)
 {
     assert(colorfalse >= 0 && colorfalse < kAKColorCount);
     
     // レイヤーを作成する
-    CCLayerColor *layer = CCLayerColor::create(kAKColor[colorfalse]);
+    LayerColor *layer = LayerColor::create(kAKColor[colorfalse]);
     
     // サイズを設定する
     layer->setContentSize(rect.size);
@@ -215,10 +215,10 @@ CCLayerColor *AKCreateColorLayer(int colorfalse, const CCRect &rect)
  背景色で塗りつぶされ、画面サイズを埋めるサイズ・位置のレイヤーを作成する。
  @return 背景レイヤー
  */
-CCLayerColor *AKCreateBackColorLayer(void)
+LayerColor *AKCreateBackColorLayer(void)
 {
     // 画面全体の矩形を作成する
-    const CCRect rect(AKScreenSize::positionFromLeftRatio(0.0f),
+    const Rect rect(AKScreenSize::positionFromLeftRatio(0.0f),
                       AKScreenSize::positionFromBottomRatio(0.0f),
                       AKScreenSize::screenSize().width,
                       AKScreenSize::screenSize().height);

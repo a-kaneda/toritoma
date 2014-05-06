@@ -54,6 +54,8 @@
 // 角度計算クラス
 #include "AKAngle.h"
 
+#include "LocalizedResource.h"
+
 // Twitter管理クラス
 //#import "AKTwitterHelper.h"
 

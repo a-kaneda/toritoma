@@ -37,9 +37,9 @@
 #include "AKEnemyShot.h"
 #include "AKBlock.h"
 
-using cocos2d::CCPoint;
-using cocos2d::CCNode;
-using cocos2d::CCBlink;
+using cocos2d::Vector2;
+using cocos2d::Node;
+using cocos2d::Blink;
 
 /// 自機のサイズ
 static const int kAKPlayerSize = 8;
@@ -68,7 +68,7 @@ static const int kAKRebirthChickenGauge = 200;
  @param optionParent オプションの画像を配置するノード
  @return 生成したオブジェクト。失敗時はnilを返す。
  */
-AKPlayer::AKPlayer(CCNode *parent, CCNode *optionParent)
+AKPlayer::AKPlayer(Node *parent, Node *optionParent)
 {
     AKLog(kAKLogPlayer_1, "AKPlayer() start:parent=%p, optionParent=%p", parent, optionParent);
     
@@ -136,7 +136,7 @@ void AKPlayer::rebirth(int stageNo)
     m_chickenGauge = kAKRebirthChickenGauge * (stageNo - 1);
     
     // 無敵中はブリンクする
-    CCBlink *blink = CCBlink::create(kAKInvincibleTime / 60, 
+    Blink *blink = Blink::create(kAKInvincibleTime / 60, 
                                      (kAKInvincibleTime / 60) * 8);
     getImage()->runAction(blink);
 }
@@ -151,7 +151,7 @@ void AKPlayer::reset()
     AKLog(kAKLogPlayer_1, "reset() start");
     
     // 初期位置は原点とする
-    CCPoint initPosition(0.0f, 0.0f);
+    Vector2 initPosition(0.0f, 0.0f);
     getImage()->setPosition(initPosition);
     
     // HPを設定する
@@ -246,7 +246,7 @@ void AKPlayer::graze(std::vector<AKEnemyShot*> &characters)
  @param position 移動先座標
  @param data ゲームデータ
  */
-void AKPlayer::setPosition(const CCPoint &position, AKPlayDataInterface *data)
+void AKPlayer::setPosition(const Vector2 &position, AKPlayDataInterface *data)
 {
 //    AKLog(1, "before:%.0f", m_position.y);
     

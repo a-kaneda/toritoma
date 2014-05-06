@@ -43,14 +43,14 @@
  
  残機の表示を行うクラス。
  */
-class AKLife : public cocos2d::CCNode {
+class AKLife : public cocos2d::Node {
 public:
     // コンビニエンスコンストラクタ
     static AKLife* create();
 
 private:
     /// マーク
-    cocos2d::CCSprite *m_mark;
+    cocos2d::Sprite *m_mark;
     /// 残機数ラベル
     AKLabel *m_numberLabel;
     /// 残機数

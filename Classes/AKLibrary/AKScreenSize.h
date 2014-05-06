@@ -46,22 +46,22 @@
 class AKScreenSize {
 private:
     // 解像度調整のベースサイズ
-    static const cocos2d::CCSize kAKBaseSize;
+    static const cocos2d::Size kAKBaseSize;
     // ゲーム画面のステージサイズ
-    static const cocos2d::CCSize kAKStageSize;
+    static const cocos2d::Size kAKStageSize;
     // スクリーンサイズ
-    static cocos2d::CCSize m_screenSize;
+    static cocos2d::Size m_screenSize;
     // 画面に表示されている一番左下の座標
-    static cocos2d::CCPoint m_screenOffset;
+    static cocos2d::Vector2 m_screenOffset;
 public:
     // 解像度初期化処理
-    static void init();
+    static void init(cocos2d::GLView *view);
     // 画面サイズ取得
-    static cocos2d::CCSize screenSize();
+    static cocos2d::Size screenSize();
     // ステージサイズ取得
-    static cocos2d::CCSize stageSize();
+    static cocos2d::Size stageSize();
     // 中央座標取得
-    static cocos2d::CCPoint center();
+    static cocos2d::Vector2 center();
     // 左からの比率で座標取得
     static int positionFromLeftRatio(float ratio);
     // 右からの比率で座標取得
@@ -91,13 +91,13 @@ public:
     // デバイススクリーン座標y座標からステージ座標の取得
     static float yOfDevice(float deviceY);
     // 矩形のデバイス補正、x座標、y座標、幅、高さ指定
-    static cocos2d::CCRect deviceRect(float x, float y, float w, float h);
+    static cocos2d::Rect deviceRect(float x, float y, float w, float h);
     // 句形のデバイス補正、座標、サイズ指定
-    static cocos2d::CCRect deviceRect(const cocos2d::CCPoint &point, const cocos2d::CCSize &size);
+    static cocos2d::Rect deviceRect(const cocos2d::Vector2 &point, const cocos2d::Size &size);
     // 句形のデバイス補正、矩形指定
-    static cocos2d::CCRect deviceRect(const cocos2d::CCRect &rect);
+    static cocos2d::Rect deviceRect(const cocos2d::Rect &rect);
     // 中心座標とサイズから矩形を作成する
-    static cocos2d::CCRect makeRectFromCenter(const cocos2d::CCPoint &center, int size);
+    static cocos2d::Rect makeRectFromCenter(const cocos2d::Vector2 &center, int size);
     // 長さのデバイス補正
     static float deviceLength(float len);
 };

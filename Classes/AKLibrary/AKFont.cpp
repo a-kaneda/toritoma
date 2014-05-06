@@ -37,14 +37,14 @@
 #include "AKScreenSize.h"
 #include "AKLogNoDef.h"
 
-using cocos2d::CCTextureCache;
-using cocos2d::CCDictionary;
-using cocos2d::CCSpriteBatchNode;
-using cocos2d::CCInteger;
-using cocos2d::CCRect;
-using cocos2d::CCSpriteFrame;
-using cocos2d::CCString;
-using cocos2d::CCSprite;
+using cocos2d::__Dictionary;
+using cocos2d::SpriteBatchNode;
+using cocos2d::Integer;
+using cocos2d::Rect;
+using cocos2d::SpriteFrame;
+using cocos2d::__String;
+using cocos2d::Sprite;
+using cocos2d::Director;
 
 /// フォントサイズ
 const int kAKFontSize = 16;
@@ -91,12 +91,12 @@ int AKFont::getFontSize()
 AKFont::AKFont()
 {
     // フォント画像を読み込む
-    this->m_fontTexture = CCTextureCache::sharedTextureCache()->addImage(kAKFontImageName);
+    this->m_fontTexture = Director::getInstance()->getTextureCache()->addImage(kAKFontImageName);
     AKAssert(this->m_fontTexture, "フォント画像の読み込みに失敗。:%s", kAKFontImageName);
     this->m_fontTexture->retain();
     
     // 文字の位置情報のplistファイルを読み込む
-    this->m_fontMap = CCDictionary::createWithContentsOfFile(kAKFontMapName);
+    this->m_fontMap = __Dictionary::createWithContentsOfFile(kAKFontMapName);
     assert(this->m_fontMap);
     this->m_fontMap->retain();
 }
@@ -120,9 +120,9 @@ AKFont::~AKFont()
  @param capacity 最大文字数
  @return 文字表示用バッチノード
  */
-CCSpriteBatchNode* AKFont::createBatchNode(int capacity)
+SpriteBatchNode* AKFont::createBatchNode(int capacity)
 {
-    return CCSpriteBatchNode::createWithTexture(m_fontTexture, capacity);
+    return SpriteBatchNode::createWithTexture(m_fontTexture, capacity);
 }
 
 /*!
@@ -132,12 +132,12 @@ CCSpriteBatchNode* AKFont::createBatchNode(int capacity)
  @param key キー
  @return テクスチャ内の位置
  */
-CCRect AKFont::getRect(const std::string &key) const
+Rect AKFont::getRect(const std::string &key) const
 {
     AKLog(kAKLogFont_1, "key=%s", key.c_str());
     
     // 文字の位置情報を文字全体の情報から検索する
-    CCDictionary *charInfo = static_cast<CCDictionary*>(this->m_fontMap->objectForKey(key));
+    __Dictionary *charInfo = static_cast<__Dictionary*>(this->m_fontMap->objectForKey(key));
     
     // フォントサイズを取得する
     int fontSize = AKFont::getFontSize();
@@ -147,13 +147,13 @@ CCRect AKFont::getRect(const std::string &key) const
         
         AKAssert(false, "フォントが見つからない:%s", key.c_str());
         
-        CCRect rect(0, 0, fontSize, fontSize);
+        Rect rect(0, 0, fontSize, fontSize);
         return rect;
     }
     
     // 位置情報を取得する
-    CCString *xString = dynamic_cast<CCString*>(charInfo->objectForKey("x"));
-    CCString *yString = dynamic_cast<CCString*>(charInfo->objectForKey("y"));
+    __String *xString = dynamic_cast<__String*>(charInfo->objectForKey("x"));
+    __String *yString = dynamic_cast<__String*>(charInfo->objectForKey("y"));
     
     AKAssert(xString, "x取得に失敗");
     AKAssert(yString, "y取得に失敗");
@@ -163,10 +163,10 @@ CCRect AKFont::getRect(const std::string &key) const
     int yValue = yString != NULL ? yString->intValue() : 0;
     
     // 位置情報から矩形座標を作成する
-    CCRect rect(xValue * (fontSize + 2) + 1,
-                yValue * (fontSize + 2) + 1,
-                fontSize,
-                fontSize);
+    Rect rect(xValue * (fontSize + 2) + 1,
+              yValue * (fontSize + 2) + 1,
+              fontSize,
+              fontSize);
     AKLog(kAKLogFont_1, "rect=(%f, %f, %f, %f)",
           rect.origin.x, rect.origin.y, rect.size.width, rect.size.height);
     
@@ -181,21 +181,21 @@ CCRect AKFont::getRect(const std::string &key) const
  @param isReverse 色反転するかどうか
  @return キーのスプライトフレーム
  */
-CCSpriteFrame* AKFont::createSpriteFrame(const std::string &key, bool isReverse) const
+SpriteFrame* AKFont::createSpriteFrame(const std::string &key, bool isReverse) const
 {
     // 文字の座標を取得する
-    CCRect charRect = this->getRect(key);
+    Rect charRect = this->getRect(key);
     
     // 色反転する場合は色反転の座標をプラスする
     if (isReverse) {
-        CCRect reverseRect = this->getRect(kAKReversePosKey);
+        Rect reverseRect = this->getRect(kAKReversePosKey);
         
         charRect.origin.x += reverseRect.origin.x;
         charRect.origin.y += reverseRect.origin.y;
     }
 
     // フォントのテクスチャからキーに対応する部分を切り出して返す
-    return CCSpriteFrame::createWithTexture(this->m_fontTexture, charRect);
+    return SpriteFrame::createWithTexture(this->m_fontTexture, charRect);
 }
 
 /*!
@@ -206,19 +206,19 @@ CCSpriteFrame* AKFont::createSpriteFrame(const std::string &key, bool isReverse)
  @param isReverse 色反転するかどうか
  @return キーのスプライト
  */
-CCSprite* AKFont::createSprite(const std::string &key, bool isReverse) const
+Sprite* AKFont::createSprite(const std::string &key, bool isReverse) const
 {
     // 文字の座標を取得する
-    CCRect charRect = this->getRect(key);
+    Rect charRect = this->getRect(key);
     
     // 色反転する場合は色反転の座標をプラスする
     if (isReverse) {
-        CCRect reverseRect = this->getRect(kAKReversePosKey);
+        Rect reverseRect = this->getRect(kAKReversePosKey);
         
         charRect.origin.x += reverseRect.origin.x;
         charRect.origin.y += reverseRect.origin.y;
     }
     
     // フォントのテクスチャからキーに対応する部分を切り出して返す
-    return CCSprite::createWithTexture(this->m_fontTexture, charRect);
+    return Sprite::createWithTexture(this->m_fontTexture, charRect);
 }

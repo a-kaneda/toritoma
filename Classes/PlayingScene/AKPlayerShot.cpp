@@ -35,6 +35,9 @@
 
 #include "AKPlayerShot.h"
 
+using cocos2d::Vector2;
+using cocos2d::Node;
+
 /// 自機弾のスピード
 static const float kAKPlayerShotSpeed = 5.0f;
 /// 自機弾の画像名
@@ -57,7 +60,7 @@ static const int kAKOptionShotPower = 1;
  @param position 生成位置
  @param parent 配置する親ノード
  */
-void AKPlayerShot::createPlayerShot(const cocos2d::CCPoint &position, cocos2d::CCNode *parent)
+void AKPlayerShot::createPlayerShot(const Vector2 &position, Node *parent)
 {
     // 攻撃力を設定する
     m_power = kAKPlayerShotPower;
@@ -77,7 +80,7 @@ void AKPlayerShot::createPlayerShot(const cocos2d::CCPoint &position, cocos2d::C
  @param position 生成位置
  @param parent 配置する親ノード
  */
-void AKPlayerShot::createPlayerShotUpward(const cocos2d::CCPoint &position, cocos2d::CCNode *parent)
+void AKPlayerShot::createPlayerShotUpward(const Vector2 &position, Node *parent)
 {
     // 攻撃力を設定する
     m_power = kAKPlayerShotPower;
@@ -97,7 +100,7 @@ void AKPlayerShot::createPlayerShotUpward(const cocos2d::CCPoint &position, coco
  @param position 生成位置
  @param parent 配置する親ノード
  */
-void AKPlayerShot::createPlayerShotDownward(const cocos2d::CCPoint &position, cocos2d::CCNode *parent)
+void AKPlayerShot::createPlayerShotDownward(const Vector2 &position, Node *parent)
 {
     // 攻撃力を設定する
     m_power = kAKPlayerShotPower;
@@ -117,7 +120,7 @@ void AKPlayerShot::createPlayerShotDownward(const cocos2d::CCPoint &position, co
  @param position 生成位置
  @param parent 配置する親ノード
  */
-void AKPlayerShot::createOptionShot(const cocos2d::CCPoint &position, cocos2d::CCNode *parent)
+void AKPlayerShot::createOptionShot(const Vector2 &position, Node *parent)
 {
     // 攻撃力を設定する
     m_power = kAKOptionShotPower;
@@ -137,7 +140,7 @@ void AKPlayerShot::createOptionShot(const cocos2d::CCPoint &position, cocos2d::C
  @param position 生成位置
  @param parent 配置する親ノード
  */
-void AKPlayerShot::createOptionShotUpward(const cocos2d::CCPoint &position, cocos2d::CCNode *parent)
+void AKPlayerShot::createOptionShotUpward(const Vector2 &position, Node *parent)
 {
     // 攻撃力を設定する
     m_power = kAKOptionShotPower;
@@ -157,7 +160,7 @@ void AKPlayerShot::createOptionShotUpward(const cocos2d::CCPoint &position, coco
  @param position 生成位置
  @param parent 配置する親ノード
  */
-void AKPlayerShot::createOptionShotDownward(const cocos2d::CCPoint &position, cocos2d::CCNode *parent)
+void AKPlayerShot::createOptionShotDownward(const Vector2 &position, Node *parent)
 {
     // 攻撃力を設定する
     m_power = kAKOptionShotPower;
@@ -177,7 +180,7 @@ void AKPlayerShot::createOptionShotDownward(const cocos2d::CCPoint &position, co
  @param position 生成位置
  @param parent 配置する親ノード
  */
-void AKPlayerShot::setCommonParam(const cocos2d::CCPoint &position, cocos2d::CCNode *parent)
+void AKPlayerShot::setCommonParam(const Vector2 &position, Node *parent)
 {
     // パラメータの内容をメンバに設定する
     m_position = position;

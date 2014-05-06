@@ -36,6 +36,13 @@
 #include "AKHowToPlayScene.h"
 #include "AKTitleScene.h"
 
+using cocos2d::Vector2;
+using cocos2d::Node;
+using cocos2d::Sprite;
+using cocos2d::SpriteFrameCache;
+using cocos2d::LayerColor;
+using cocos2d::TransitionFade;
+using cocos2d::Director;
 using CocosDenshion::SimpleAudioEngine;
 
 // シーンに配置するノードのz座標
@@ -141,7 +148,7 @@ AKHowToPlayScene::~AKHowToPlayScene()
     }
     
     // 未使用のスプライトフレームを解放する
-    cocos2d::CCSpriteFrameCache *spriteFrameCache = cocos2d::CCSpriteFrameCache::sharedSpriteFrameCache();
+    SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();
     spriteFrameCache->removeUnusedSpriteFrames();
     
     AKLog(kAKLogHowToPlayScene_1, "end");
@@ -157,17 +164,17 @@ AKHowToPlayScene::~AKHowToPlayScene()
 bool AKHowToPlayScene::init()
 {
     // スーパークラスの初期化処理を行う。
-    if (!CCScene::init()) {
+    if (!Scene::init()) {
         return false;
     }
     
     // テクスチャアトラスを読み込む
-    cocos2d::CCSpriteFrameCache *spriteFrameCache = cocos2d::CCSpriteFrameCache::sharedSpriteFrameCache();
+    SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();
     spriteFrameCache->addSpriteFramesWithFile(kAKControlTextureAtlasDefFile, kAKControlTextureAtlasFile);
     spriteFrameCache->addSpriteFramesWithFile(kAKHowToTextureAtlasDefFile, kAKHowToTextureAtlasFile);
 
     // 背景色レイヤーを作成する
-    cocos2d::CCLayerColor *backColor = AKCreateBackColorLayer();
+    LayerColor *backColor = AKCreateBackColorLayer();
     
     // シーンに配置する
     addChild(backColor, kAKHowToBackPosZ);
@@ -176,8 +183,8 @@ bool AKHowToPlayScene::init()
     AKLabel *message = AKLabel::createLabel("", kAKHowToMsgLength, kAKHowToMsgLineCount, kAKLabelFrameMessage);
     
     // 配置位置を設定する
-    message->setPosition(cocos2d::CCPoint(AKScreenSize::center().x,
-                                          AKScreenSize::positionFromBottomPoint(kAKHowToMsgPosBottomPoint)));
+    message->setPosition(Vector2(AKScreenSize::center().x,
+                                 AKScreenSize::positionFromBottomPoint(kAKHowToMsgPosBottomPoint)));
     
     // シーンに配置する
     addChild(message, kAKHowToItemPosZ, kAKHowToMessageTag);
@@ -192,7 +199,7 @@ bool AKHowToPlayScene::init()
     // ページ番号の位置を設定する
     float x = AKScreenSize::center().x;
     float y = AKScreenSize::positionFromTopPoint(kAKHowToPagePosTopPoint);
-    pageLabel->setPosition(cocos2d::CCPointMake(x, y));
+    pageLabel->setPosition(Vector2(x, y));
     
     // ページ番号のラベルをシーンに配置する
     addChild(pageLabel, kAKHowToItemPosZ, kAKHowToPageTag);
@@ -207,7 +214,7 @@ bool AKHowToPlayScene::init()
     x = AKScreenSize::positionFromLeftPoint(kAKHowToPrevPosLeftPoint);
     y = AKScreenSize::center().y;
     interface->addSpriteMenu(kAKHowToPrevImage,
-                             cocos2d::CCPointMake(x, y),
+                             Vector2(x, y),
                              kAKHowToItemPosZ,
                              kAKEventTouchPrevButton,
                              kAKHowToPrevTag,
@@ -217,7 +224,7 @@ bool AKHowToPlayScene::init()
     x = AKScreenSize::positionFromRightPoint(kAKHowToNextPosRightPoint);
     y = AKScreenSize::center().y;
     interface->addSpriteMenu(kAKHowToNextImage,
-                             cocos2d::CCPointMake(x, y),
+                             Vector2(x, y),
                              kAKHowToItemPosZ,
                              kAKEventTouchNextButton,
                              kAKHowToNextTag,
@@ -227,7 +234,7 @@ bool AKHowToPlayScene::init()
     x = AKScreenSize::positionFromRightPoint(kAKHowToBackPosRightPoint);
     y = AKScreenSize::positionFromTopPoint(kAKHowToBackPosTopPoint);
     interface->addSpriteMenu(kAKHowToBackImage,
-                             cocos2d::CCPointMake(x, y),
+                             Vector2(x, y),
                              kAKHowToItemPosZ,
                              kAKEventTouchBackButton,
                              kAKHowToBackTag,
@@ -288,9 +295,9 @@ AKInterface* AKHowToPlayScene::getInterface()
  前ページボタンを取得する
  @return 前ページボタン
  */
-cocos2d::CCNode* AKHowToPlayScene::getPrevButton()
+Node* AKHowToPlayScene::getPrevButton()
 {
-    cocos2d::CCNode *prevButton = getInterface()->getChildByTag(kAKHowToPrevTag);
+    Node *prevButton = getInterface()->getChildByTag(kAKHowToPrevTag);
 
     AKAssert(prevButton != NULL, "前ページボタンが作成されていない");
 
@@ -303,9 +310,9 @@ cocos2d::CCNode* AKHowToPlayScene::getPrevButton()
  次ページボタンを取得する
  @return 次ページボタン
  */
-cocos2d::CCNode* AKHowToPlayScene::getNextButton()
+Node* AKHowToPlayScene::getNextButton()
 {
-    cocos2d::CCNode *nextButton = getInterface()->getChildByTag(kAKHowToNextTag);
+    Node *nextButton = getInterface()->getChildByTag(kAKHowToNextTag);
 
     AKAssert(nextButton != NULL, "次ページボタンが作成されていない");
 
@@ -366,7 +373,7 @@ void AKHowToPlayScene::setPageNo(int pageNo)
     snprintf(key, sizeof(key), "HowToPlay_%d", m_pageNo);
     
     // 表示文字列を変更する
-    getMessageLabel()->setString(CCLocalizedString(key, "プレイ方法の説明"));
+    getMessageLabel()->setString(aklib::LocalizedResource::getInstance().getString(key));
     
     // 表示ファイル名を作成する
     char fileName[16] = "";
@@ -380,12 +387,12 @@ void AKHowToPlayScene::setPageNo(int pageNo)
     }
     
     // ファイルからスプライトを作成する
-    m_image = cocos2d::CCSprite::createWithSpriteFrameName(fileName);
+    m_image = Sprite::createWithSpriteFrameName(fileName);
     
     // 表示位置を設定する
     float x = AKScreenSize::center().x;
     float y = AKScreenSize::positionFromBottomPoint(kAKHowToImagePosBottomPoint);
-    m_image->setPosition(cocos2d::CCPointMake(x, y));
+    m_image->setPosition(Vector2(x, y));
     
     // シーンに追加する
     addChild(m_image, kAKHowToItemPosZ, kAKHowToImageTag);
@@ -446,7 +453,7 @@ void AKHowToPlayScene::goPrevPage()
     AKLog(kAKLogHowToPlayScene_1, "goPrevPage開始");
     
     // メニュー選択時の効果音を鳴らす
-    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
+    SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
 
     setPageNo(m_pageNo - 1);
 }
@@ -461,7 +468,7 @@ void AKHowToPlayScene::goNextPage()
     AKLog(kAKLogHowToPlayScene_1, "goNextPage開始");
     
     // メニュー選択時の効果音を鳴らす
-    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
+    SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
 
     setPageNo(m_pageNo + 1);
 }
@@ -476,14 +483,13 @@ void AKHowToPlayScene::backToTitle()
     AKLog(kAKLogHowToPlayScene_1, "backToTitle開始");
 
     // メニュー選択時の効果音を鳴らす
-    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
+    SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
 
     // タイトルシーンへの遷移を作成する
-    cocos2d::CCTransitionFade *transition =
-        cocos2d::CCTransitionFade::create(0.5f,
-                                          AKTitleScene::create());
+    TransitionFade *transition = TransitionFade::create(0.5f,
+                                                        AKTitleScene::create());
     
     // タイトルシーンへ遷移する
-    cocos2d::CCDirector *director = cocos2d::CCDirector::sharedDirector();
+    Director *director = Director::getInstance();
     director->replaceScene(transition);
 }

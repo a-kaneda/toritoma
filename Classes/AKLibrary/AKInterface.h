@@ -47,7 +47,7 @@
  
  画面のタッチ入力を管理する。
  */
-class AKInterface : public cocos2d::CCLayer {
+class AKInterface : public cocos2d::Layer {
 public:
     // コンビニエンスコンストラクタ
     static AKInterface* create(AKMenuEventHandler * const eventHandler);
@@ -69,24 +69,22 @@ public:
     ~AKInterface();
     // 有効化タグ設定
     void setEnableTag(unsigned int enableTag);
-    // レイヤー表示時処理
-    virtual void onEnter();
     // タッチ開始処理
-    virtual bool ccTouchBegan(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+    virtual bool onTouchBegan(cocos2d::Touch *pTouch, cocos2d::Event *pEvent);
     // タッチ中断処理
-    virtual void ccTouchCancelled(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+    virtual void onTouchCancelled(cocos2d::Touch *pTouch, cocos2d::Event *pEvent);
     // タッチ終了処理
-    virtual void ccTouchEnded(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+    virtual void onTouchEnded(cocos2d::Touch *pTouch, cocos2d::Event *pEvent);
     // タッチ移動処理
-    virtual void ccTouchMoved(cocos2d::CCTouch *pTouch, cocos2d::CCEvent *pEvent);
+    virtual void onTouchMoved(cocos2d::Touch *pTouch, cocos2d::Event *pEvent);
     // メニュー項目追加
     void addMenuItem(AKMenuItem *menu);
     // スプライトフレームからメニュー項目作成
-    cocos2d::CCSprite* addSpriteMenu(const std::string &spriteName, cocos2d::CCPoint position, int z, int event, unsigned int tag, enum AKMenuType type);
+    cocos2d::Sprite* addSpriteMenu(const std::string &spriteName, cocos2d::Vector2 position, int z, int event, unsigned int tag, enum AKMenuType type);
     // 文字列からメニュー項目作成
-    AKLabel* addLabelMenu(const std::string menuString, cocos2d::CCPoint position, int z, int event, unsigned int tag, bool withFrame);
+    AKLabel* addLabelMenu(const std::string menuString, cocos2d::Vector2 position, int z, int event, unsigned int tag, bool withFrame);
     // スライド入力作成
-    void addSlideMenu(cocos2d::CCRect rect, int event, unsigned int tag);
+    void addSlideMenu(cocos2d::Rect rect, int event, unsigned int tag);
     
 protected:
     // イベントハンドラを指定したコンストラクタ
@@ -96,7 +94,7 @@ private:
     // メニュー項目表示非表示設定
     void updateVisible();
     // メニュー項目個別表示設定
-    virtual void updateVisible(cocos2d::CCNode *item);
+    virtual void updateVisible(cocos2d::Node *item);
 };
 
 #endif

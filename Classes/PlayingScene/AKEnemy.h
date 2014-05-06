@@ -61,27 +61,27 @@ private:
 
 private:
     // 自機を狙うn-way弾発射
-    static void fireNWay(cocos2d::CCPoint position,
+    static void fireNWay(cocos2d::Vector2 position,
                          int count,
                          float interval,
                          float speed,
                          AKPlayDataInterface *data);
     // 角度指定によるn-way弾発射
     static void fireNWay(float angle,
-                         cocos2d::CCPoint position,
+                         cocos2d::Vector2 position,
                          int count,
                          float interval,
                          float speed,
                          bool isScroll,
                          AKPlayDataInterface *data);
     // 自機を狙うグループ弾発射
-    static void fireGroupShot(cocos2d::CCPoint position,
+    static void fireGroupShot(cocos2d::Vector2 position,
                               const float distance[][2],
                               int count,
                               float speed,
                               AKPlayDataInterface *data);
     // 破裂弾発射
-    static void fireBurstShot(cocos2d::CCPoint position,
+    static void fireBurstShot(cocos2d::Vector2 position,
                               int count,
                               float interval,
                               float speed,
@@ -89,8 +89,8 @@ private:
                               float burstSpeed,
                               AKPlayDataInterface *data);
     // 障害物との衝突判定
-    static cocos2d::CCPoint checkBlockPosition(const cocos2d::CCPoint &current,
-                                               const cocos2d::CCSize &size,
+    static cocos2d::Vector2 checkBlockPosition(const cocos2d::Vector2 &current,
+                                               const cocos2d::Size &size,
                                                bool isReverse,
                                                AKPlayDataInterface *data);
     // 足元の障害物を取得する
@@ -122,11 +122,11 @@ private:
     /// 移動履歴を保存する個数
     int m_historyCount;
     /// 移動履歴
-    std::queue<cocos2d::CCPoint> m_moveHistory;
+    std::queue<cocos2d::Vector2> m_moveHistory;
     
 public:
     // 生成処理
-    void createEnemy(int type, const cocos2d::CCPoint &position, int progress, cocos2d::CCNode *parent);
+    void createEnemy(int type, const cocos2d::Vector2 &position, int progress, cocos2d::Node *parent);
     // 親キャラクター設定
     void setParentEnemy(AKEnemy *parent);
     // 小キャラクター設定
@@ -134,7 +134,7 @@ public:
     // 状態設定
     void setState(int state);
     // 移動履歴取得
-    const std::queue<cocos2d::CCPoint>* getMoveHistory();
+    const std::queue<cocos2d::Vector2>* getMoveHistory();
 
 protected:
     // キャラクター固有の動作

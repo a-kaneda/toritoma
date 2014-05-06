@@ -90,7 +90,7 @@ private:
     /// 障害物プール
     AKCharacterPool<AKBlock> m_blockPool;
     /// キャラクター配置バッチノード
-    std::vector<cocos2d::CCSpriteBatchNode*> m_batches;
+    std::vector<cocos2d::SpriteBatchNode*> m_batches;
     /// シールドモード
     bool m_shield;
     /// x軸方向のスクロールスピード
@@ -116,27 +116,27 @@ public:
     // y軸方向のスクロールスピード設定
     virtual void setScrollSpeedY(float speed);
     // 自機の位置情報取得
-    virtual const cocos2d::CCPoint* getPlayerPosition();
+    virtual const cocos2d::Vector2* getPlayerPosition();
     // 障害物キャラクター取得
     virtual const std::vector<AKBlock*>* getBlocks();
     // デバイス座標からタイル座標の取得
-    virtual cocos2d::CCPoint convertDevicePositionToTilePosition(cocos2d::CCPoint devicePosition);
+    virtual cocos2d::Vector2 convertDevicePositionToTilePosition(cocos2d::Vector2 devicePosition);
     // 自機弾生成
-    virtual void createPlayerShot(cocos2d::CCPoint position);
+    virtual void createPlayerShot(cocos2d::Vector2 position);
     // オプション弾生成
-    virtual void createOptionShot(cocos2d::CCPoint position);
+    virtual void createOptionShot(cocos2d::Vector2 position);
     // 反射弾生成
     virtual void createReflectShot(AKEnemyShot *enemyShot);
     // 敵生成
-    virtual AKEnemy* createEnemy(int type, cocos2d::CCPoint position, int progress);
+    virtual AKEnemy* createEnemy(int type, cocos2d::Vector2 position, int progress);
     // 敵弾インスタンスの取得
     virtual AKEnemyShot* getEnemyShot();
     // 敵弾配置ノードの取得
-    virtual cocos2d::CCNode* getEnemyShotParent();
+    virtual cocos2d::Node* getEnemyShotParent();
     // 画面効果生成
-    virtual void createEffect(int type, cocos2d::CCPoint position);
+    virtual void createEffect(int type, cocos2d::Vector2 position);
     // 障害物生成
-    virtual void createBlock(int type, cocos2d::CCPoint position);
+    virtual void createBlock(int type, cocos2d::Vector2 position);
     // 失敗時処理
     virtual void miss();
     // スコア加算

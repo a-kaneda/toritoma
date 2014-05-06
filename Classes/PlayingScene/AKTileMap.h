@@ -54,17 +54,17 @@ public:
     
 private:
     /// タイルマップ
-    cocos2d::CCTMXTiledMap *m_tileMap;
+    cocos2d::TMXTiledMap *m_tileMap;
     /// 背景レイヤー
-    cocos2d::CCTMXLayer *m_background;
+    cocos2d::TMXLayer *m_background;
     /// 前景レイヤー
-    cocos2d::CCTMXLayer *m_foreground;
+    cocos2d::TMXLayer *m_foreground;
     /// 障害物レイヤー
-    cocos2d::CCTMXLayer *m_block;
+    cocos2d::TMXLayer *m_block;
     /// イベントレイヤー
-    cocos2d::CCTMXLayer *m_event;
+    cocos2d::TMXLayer *m_event;
     /// 敵レイヤー
-    cocos2d::CCTMXLayer *m_enemy;
+    cocos2d::TMXLayer *m_enemy;
     /// 実行した列番号
     int m_currentCol;
     /// ステージ進行度
@@ -72,7 +72,7 @@ private:
     /// クリアしたかどうか
     bool m_isClear;
     /// 進行待ちのイベント
-    std::vector<cocos2d::CCDictionary*> m_waitEvents;
+    std::vector<cocos2d::ValueMap> m_waitEvents;
     
 private:
     // デフォルトコンストラクタは使用禁止にする
@@ -80,15 +80,15 @@ private:
     
 public:
     // ステージと親ノードを指定したコンストラクタ
-    AKTileMap(int stage, cocos2d::CCNode *parent);
+    AKTileMap(int stage, cocos2d::Node *parent);
     // デストラクタ
     ~AKTileMap();
     // 更新処理
     void update(AKPlayDataInterface *data);
     // デバイス座標からマップ座標の取得
-    cocos2d::CCPoint getMapPositionFromDevicePosition(const cocos2d::CCPoint &devicePosition);
+    cocos2d::Vector2 getMapPositionFromDevicePosition(const cocos2d::Vector2 &devicePosition);
     // タイルの座標取得
-    cocos2d::CCPoint getTilePositionFromMapPosition(const cocos2d::CCPoint &mapPosition);
+    cocos2d::Vector2 getTilePositionFromMapPosition(const cocos2d::Vector2 &mapPosition);
     // ステージ進行度取得
     int getProgress();
     // ステージ進行度設定
@@ -100,7 +100,7 @@ private:
     // 列単位のイベント実行
     void execEventByCol(int col, AKPlayDataInterface *data);
     // レイヤーごとのイベント実行
-    void execEventLayer(cocos2d::CCTMXLayer *layer,
+    void execEventLayer(cocos2d::TMXLayer *layer,
                         int col,
                         float x,
                         AKPlayDataInterface *data,

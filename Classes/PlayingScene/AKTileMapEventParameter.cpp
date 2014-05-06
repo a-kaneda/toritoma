@@ -35,6 +35,9 @@
 
 #include "AKTileMapEventParameter.h"
 
+using cocos2d::Vector2;
+using cocos2d::ValueMap;
+
 /*!
  @brief パラメータを指定したコンストラクタ
  
@@ -43,20 +46,9 @@
  @param position 座標
  @param properties プロパティ
  */
-AKTileMapEventParameter::AKTileMapEventParameter(const cocos2d::CCPoint &position, cocos2d::CCDictionary *properties) :
+AKTileMapEventParameter::AKTileMapEventParameter(const Vector2 &position, const ValueMap &properties) :
 m_position(position), m_properties(properties)
 {
-    m_properties->retain();
-}
-
-/*!
- @brief デストラクタ
- 
- プロパティをreleaseする。
- */
-AKTileMapEventParameter::~AKTileMapEventParameter()
-{
-    m_properties->release();
 }
 
 /*!
@@ -65,7 +57,7 @@ AKTileMapEventParameter::~AKTileMapEventParameter()
  座標を取得する。
  @return 座標
  */
-const cocos2d::CCPoint* AKTileMapEventParameter::getPosition() const
+const Vector2* AKTileMapEventParameter::getPosition() const
 {
     return &m_position;
 }
@@ -76,7 +68,7 @@ const cocos2d::CCPoint* AKTileMapEventParameter::getPosition() const
  プロパティを取得する。
  @return プロパティ
  */
-cocos2d::CCDictionary* AKTileMapEventParameter::getProperties() const
+const ValueMap* AKTileMapEventParameter::getProperties() const
 {
-    return m_properties;
+    return &m_properties;
 }

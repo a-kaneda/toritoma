@@ -54,7 +54,7 @@ public:
     // スクリーン角度からradianへの変換
     static float convertAngleScr2Rad(float screenAngle);
     // 2点間の角度計算
-    static float calcDestAngle(const cocos2d::CCPoint &src, const cocos2d::CCPoint &dest);
+    static float calcDestAngle(const cocos2d::Vector2 &src, const cocos2d::Vector2 &dest);
     // 回転方向の計算
     static int calcRotationDirection(float srcAngle, float destAngle);
     // +πから-πの間に正規化する

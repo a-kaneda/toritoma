@@ -74,7 +74,7 @@ public:
     
 private:
     /// シールドボタン
-    cocos2d::CCSprite *m_shieldButton;
+    cocos2d::Sprite *m_shieldButton;
     /// ポーズ解除ボタン
     AKLabel *m_resumeButton;
     /// 終了ボタン
@@ -114,7 +114,7 @@ private:
     // ステージクリア時のメニュー項目作成
     void createStageClear();
     // メニュー項目個別表示設定
-    virtual void updateVisibleItem(CCNode *item);
+    virtual void updateVisibleItem(cocos2d::Node *item);
 };
 
 #endif

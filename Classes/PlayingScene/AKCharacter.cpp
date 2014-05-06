@@ -36,11 +36,11 @@
 #include "AKCharacter.h"
 #include "AKBlock.h"
 
-using cocos2d::CCSprite;
-using cocos2d::CCPoint;
-using cocos2d::CCSize;
-using cocos2d::CCSpriteFrame;
-using cocos2d::CCSpriteFrameCache;
+using cocos2d::Sprite;
+using cocos2d::Vector2;
+using cocos2d::Size;
+using cocos2d::SpriteFrame;
+using cocos2d::SpriteFrameCache;
 
 /// デフォルトアニメーション間隔
 static const int kAKDefaultAnimationInterval = 12;
@@ -80,7 +80,7 @@ AKCharacter::~AKCharacter()
  位置を取得する。
  @return 位置
  */
-const CCPoint* AKCharacter::getPosition()
+const Vector2* AKCharacter::getPosition()
 {
     return &m_position;
 }
@@ -91,7 +91,7 @@ const CCPoint* AKCharacter::getPosition()
  位置を設定する。
  @param position 位置
  */
-void AKCharacter::setPosition(const CCPoint &position)
+void AKCharacter::setPosition(const Vector2 &position)
 {
     m_position = position;
 }
@@ -102,7 +102,7 @@ void AKCharacter::setPosition(const CCPoint &position)
  前回位置を取得する。
  @return 前回位置
  */
-const CCPoint* AKCharacter::getPrevPosition()
+const Vector2* AKCharacter::getPrevPosition()
 {
     return &m_prevPosition;
 }
@@ -113,7 +113,7 @@ const CCPoint* AKCharacter::getPrevPosition()
  サイズを取得する。
  @return サイズ
  */
-const CCSize* AKCharacter::getSize()
+const Size* AKCharacter::getSize()
 {
     return &m_size;
 }
@@ -265,7 +265,7 @@ void AKCharacter::restorePosition()
  画像を取得する。
  @return 画像
  */
-CCSprite* AKCharacter::getImage()
+Sprite* AKCharacter::getImage()
 {
     AKAssert(m_image, "画像が作成されていない");
     return m_image;
@@ -334,7 +334,7 @@ void AKCharacter::setImageName(const std::string &imageName)
 
             AKLog(kAKLogCharacter_1, "スプライトの作成");
 
-            m_image = CCSprite::createWithSpriteFrameName(imageFileName);
+            m_image = Sprite::createWithSpriteFrameName(imageFileName);
             AKAssert(m_image, "スプライト作成に失敗:%s", imageFileName);
         }
         // すでにスプライトを作成している場合は画像の切り替えを行う
@@ -342,10 +342,9 @@ void AKCharacter::setImageName(const std::string &imageName)
 
             AKLog(kAKLogCharacter_1, "画像の切り替え");
 
-            CCSpriteFrameCache *spriteFrameCache =
-                CCSpriteFrameCache::sharedSpriteFrameCache();
+            SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();
 
-            CCSpriteFrame *spriteFrame = spriteFrameCache->spriteFrameByName(imageFileName);
+            SpriteFrame *spriteFrame = spriteFrameCache->getSpriteFrameByName(imageFileName);
             AKAssert(spriteFrame, "スプライト作成に失敗:%s", imageFileName);
 
             m_image->setDisplayFrame(spriteFrame);
@@ -380,9 +379,8 @@ void AKCharacter::setAnimationInitPattern(int animationInitPattern)
                  animationInitPattern);
         
         // 表示スプライトを変更する
-        CCSpriteFrameCache *spriteFrameCache =
-            CCSpriteFrameCache::sharedSpriteFrameCache();
-        m_image->setDisplayFrame(spriteFrameCache->spriteFrameByName(imageFileName));
+        SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();
+        m_image->setDisplayFrame(spriteFrameCache->getSpriteFrameByName(imageFileName));
     }
 }
 
@@ -504,9 +502,8 @@ void AKCharacter::move(AKPlayDataInterface *data)
         AKLog(kAKLogCharacter_2, "imageFileName=%s", imageFileName);
         
         // 表示スプライトを変更する
-        CCSpriteFrameCache *spriteFrameCache =
-            CCSpriteFrameCache::sharedSpriteFrameCache();
-        m_image->setDisplayFrame(spriteFrameCache->spriteFrameByName(imageFileName));
+        SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();
+        m_image->setDisplayFrame(spriteFrameCache->getSpriteFrameByName(imageFileName));
     }
     
     // キャラクター固有の動作を行う
@@ -574,7 +571,7 @@ void AKCharacter::hit(AKCharacter *character, AKPlayDataInterface *data)
 void AKCharacter::moveOfBlockHit(AKCharacter *character, AKPlayDataInterface *data)
 {
     // 衝突による移動先の座標を現在の座標で初期化する
-    CCPoint newPoint(m_position.x, m_position.y);
+    Vector2 newPoint(m_position.x, m_position.y);
     
     // 判定後の接触フラグを現在の値で初期化する
     unsigned int newHitSide = m_blockHitSide;
@@ -792,5 +789,5 @@ void AKCharacter::updateImagePosition()
     float x = AKScreenSize::xOfStage(m_position.x + dx);
     float y = AKScreenSize::yOfStage(m_position.y + dy);
     
-    m_image->setPosition(CCPoint(x, y));
+    m_image->setPosition(Vector2(x, y));
 }

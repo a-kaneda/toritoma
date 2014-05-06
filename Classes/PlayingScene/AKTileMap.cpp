@@ -36,14 +36,15 @@
 #include "AKTileMap.h"
 #include "AKPlayingScene.h"
 
-using cocos2d::CCPoint;
-using cocos2d::CCTMXTiledMap;
-using cocos2d::CCTMXLayer;
-using cocos2d::CCDictionary;
-using cocos2d::CCString;
-using cocos2d::CCNode;
+using cocos2d::Vector2;
+using cocos2d::TMXTiledMap;
+using cocos2d::TMXLayer;
+using cocos2d::__String;
+using cocos2d::Node;
 using CocosDenshion::SimpleAudioEngine;
 using std::vector;
+using cocos2d::Value;
+using cocos2d::ValueMap;
 
 /// タイルマップのファイル名
 static const char *kAKTileMapFileName = "Stage_%02d.tmx";
@@ -55,7 +56,7 @@ static const char *kAKTileMapFileName = "Stage_%02d.tmx";
  @param stage ステージ番号
  @param parent 親ノード
  */
-AKTileMap::AKTileMap(int stage, CCNode *parent) :
+AKTileMap::AKTileMap(int stage, Node *parent) :
 m_currentCol(0), m_progress(0), m_isClear(false)
 {
     // ステージ番号からタイルマップのファイル名を決定する
@@ -63,28 +64,28 @@ m_currentCol(0), m_progress(0), m_isClear(false)
     snprintf(fileName, sizeof(fileName), kAKTileMapFileName, stage);
     
     // タイルマップファイルを開く
-    m_tileMap = CCTMXTiledMap::create(fileName);
+    m_tileMap = TMXTiledMap::create(fileName);
     AKAssert(m_tileMap != NULL, "タイルマップ読み込みに失敗");
     m_tileMap->retain();
     
     // 各レイヤーを取得する
-    m_background = m_tileMap->layerNamed("Background");
+    m_background = m_tileMap->getLayer("Background");
     AKAssert(m_background != NULL, "背景レイヤーの取得に失敗");
     m_background->retain();
     
-    m_foreground = m_tileMap->layerNamed("Foreground");
+    m_foreground = m_tileMap->getLayer("Foreground");
     AKAssert(m_foreground != NULL, "前景レイヤーの取得に失敗");
     m_foreground->retain();
     
-    m_block = m_tileMap->layerNamed("Block");
+    m_block = m_tileMap->getLayer("Block");
     AKAssert(m_block != NULL, "障害物レイヤーの取得に失敗");
     m_block->retain();
     
-    m_event = m_tileMap->layerNamed("Event");
+    m_event = m_tileMap->getLayer("Event");
     AKAssert(m_event != NULL, "イベントレイヤーの取得に失敗");
     m_event->retain();
 
-    m_enemy = m_tileMap->layerNamed("Enemy");
+    m_enemy = m_tileMap->getLayer("Enemy");
     AKAssert(m_enemy != NULL, "敵レイヤーの取得に失敗");
     m_enemy->retain();
     
@@ -99,7 +100,7 @@ m_currentCol(0), m_progress(0), m_isClear(false)
     // 左端に初期位置を移動する
     float x = AKScreenSize::xOfStage(0.0f);
     float y = AKScreenSize::yOfStage(0.0f);
-    m_tileMap->setPosition(CCPoint(x, y));
+    m_tileMap->setPosition(Vector2(x, y));
 }
 
 /*!
@@ -116,9 +117,6 @@ AKTileMap::~AKTileMap()
     m_event->release();
     m_enemy->release();
     m_tileMap->release();
-    for (CCDictionary *dictionary : m_waitEvents) {
-        dictionary->release();
-    }
 }
 
 /*!
@@ -134,7 +132,7 @@ void AKTileMap::update(AKPlayDataInterface *data)
     // 背景をスクロールする
     float x = m_tileMap->getPosition().x - data->getScrollSpeedX();
     float y = m_tileMap->getPosition().y - data->getScrollSpeedY();
-    m_tileMap->setPosition(CCPoint(x, y));
+    m_tileMap->setPosition(Vector2(x, y));
     
     // 画面に表示されているタイルマップの右端の座標を計算する
     int right = AKScreenSize::stageSize().width - AKScreenSize::xOfDevice(m_tileMap->getPosition().x);
@@ -151,18 +149,18 @@ void AKTileMap::update(AKPlayDataInterface *data)
     }
 
     // 待機イベントを処理する
-    vector<CCDictionary*>::iterator it = m_waitEvents.begin();
+    vector<ValueMap>::iterator it = m_waitEvents.begin();
     while (it != m_waitEvents.end()) {
         
         // 実行する進行状況の値を取得する
-        const CCString *progressString = (*it)->valueForKey("Progress");
-        int progress = progressString->intValue();
+        const std::string progressString = it->at("Progress").asString();
+        int progress = std::stoi(progressString);
         
         // 進行度に到達している場合はイベントを実行する
         if (progress <= m_progress) {
 
             // パラメータを作成する
-            AKTileMapEventParameter param(CCPoint(0.0f, 0.0f), *it);
+            AKTileMapEventParameter param(Vector2(0.0f, 0.0f), *it);
 
             // イベントを実行する
             execEvent(param, data);
@@ -187,7 +185,7 @@ void AKTileMap::update(AKPlayDataInterface *data)
  @param devicePosition デバイススクリーン座標
  @return マップ座標
  */
-CCPoint AKTileMap::getMapPositionFromDevicePosition(const CCPoint &devicePosition)
+Vector2 AKTileMap::getMapPositionFromDevicePosition(const Vector2 &devicePosition)
 {
     // タイルマップの左端からの距離をタイル幅で割った値を列番号とする
     int col = (devicePosition.x - m_tileMap->getPosition().x) / m_tileMap->getTileSize().width;
@@ -196,7 +194,7 @@ CCPoint AKTileMap::getMapPositionFromDevicePosition(const CCPoint &devicePositio
     int row = m_tileMap->getMapSize().height -
         (devicePosition.y - m_tileMap->getPosition().y) / m_tileMap->getTileSize().height;
     
-    return CCPoint(col, row);
+    return Vector2(col, row);
 }
 
 /*!
@@ -207,7 +205,7 @@ CCPoint AKTileMap::getMapPositionFromDevicePosition(const CCPoint &devicePositio
  @param mapPosition マップ座標
  @return タイルの座標
  */
-CCPoint AKTileMap::getTilePositionFromMapPosition(const CCPoint &mapPosition)
+Vector2 AKTileMap::getTilePositionFromMapPosition(const Vector2 &mapPosition)
 {
     // x座標はマップの左端 + タイルサイズ * 列番号 (列番号は左から0,1,2,…)
     // タイルの真ん中を指定するために列番号には+0.5する
@@ -218,7 +216,7 @@ CCPoint AKTileMap::getTilePositionFromMapPosition(const CCPoint &mapPosition)
     int y = round(m_tileMap->getPosition().y) +
         m_tileMap->getTileSize().height * (m_tileMap->getMapSize().height - (mapPosition.y + 0.5));
     
-    return CCPoint(x, y);
+    return Vector2(x, y);
 }
 
 /*!
@@ -295,7 +293,7 @@ void AKTileMap::execEventByCol(int col, AKPlayDataInterface *data)
  @param data ゲームデータ
  @param execFunc イベント処理関数
  */
-void AKTileMap::execEventLayer(CCTMXLayer *layer,
+void AKTileMap::execEventLayer(TMXLayer *layer,
                                int col,
                                float x,
                                AKPlayDataInterface *data,
@@ -305,10 +303,10 @@ void AKTileMap::execEventLayer(CCTMXLayer *layer,
     for (int i = 0; i < m_tileMap->getMapSize().height; i++) {
         
         // 処理対象のタイルの座標を作成する
-        CCPoint tilePos(col, i);
+        Vector2 tilePos(col, i);
         
         // タイルのGIDを取得する
-        int tileGid = layer->tileGIDAt(tilePos);
+        int tileGid = layer->getTileGIDAt(tilePos);
         
         AKLog(kAKLogTileMap_2, "i=%d tileGid=%d", i, tileGid);
         
@@ -316,24 +314,23 @@ void AKTileMap::execEventLayer(CCTMXLayer *layer,
         if (tileGid > 0) {
             
             // プロパティを取得する
-            CCDictionary *properties = m_tileMap->propertiesForGID(tileGid);
-            
-            AKLog(kAKLogTileMap_2, "properties=%p", properties);
-            
-            // プロパティが取得できた場合
-            if (properties) {
-                
-                // y座標はマップの下端 + (マップの行数 - 行番号) * タイルサイズ (行番号は上から0,1,2…)
-                // タイルの真ん中を指定するために行番号には+0.5する
-                float y = AKScreenSize::yOfDevice(m_tileMap->getPosition().y) +
-                    (m_tileMap->getMapSize().height - (i + 0.5)) * m_tileMap->getTileSize().height;
-                
-                // パラメータを作成する
-                AKTileMapEventParameter param(CCPoint(x, y), properties);
-                
-                // イベントを実行する
-                (this->*execFunc)(param, data);
+            Value value = m_tileMap->getPropertiesForGID(tileGid);
+            if (value.isNull()) {
+                continue;
             }
+            
+            ValueMap properties = value.asValueMap();
+            
+            // y座標はマップの下端 + (マップの行数 - 行番号) * タイルサイズ (行番号は上から0,1,2…)
+            // タイルの真ん中を指定するために行番号には+0.5する
+            float y = AKScreenSize::yOfDevice(m_tileMap->getPosition().y) +
+                (m_tileMap->getMapSize().height - (i + 0.5)) * m_tileMap->getTileSize().height;
+                
+            // パラメータを作成する
+            AKTileMapEventParameter param(Vector2(x, y), properties);
+                
+            // イベントを実行する
+            (this->*execFunc)(param, data);
         }
     }
 }
@@ -350,8 +347,8 @@ void AKTileMap::execEventLayer(CCTMXLayer *layer,
 void AKTileMap::createBlock(const AKTileMapEventParameter &param, AKPlayDataInterface *data)
 {
     // 種別を取得する
-    const CCString *typeString = param.getProperties()->valueForKey("Type");
-    int type = typeString->intValue();
+    const std::string typeString = param.getProperties()->at("Type").asString();
+    int type = std::stoi(typeString);
     
     // 障害物を作成する
     data->createBlock(type, *param.getPosition());
@@ -370,12 +367,12 @@ void AKTileMap::createBlock(const AKTileMapEventParameter &param, AKPlayDataInte
 void AKTileMap::createEnemy(const AKTileMapEventParameter &param, AKPlayDataInterface *data)
 {
     // 種別を取得する
-    const CCString *typeString = param.getProperties()->valueForKey("Type");
-    int type = typeString->intValue();
+    const std::string typeString = param.getProperties()->at("Type").asString();
+    int type = std::stoi(typeString);
     
     // 倒した時に進む進行度を取得する
-    const CCString *progressString = param.getProperties()->valueForKey("Progress");
-    int progress = progressString->intValue();
+    const std::string progressString = param.getProperties()->at("Progress").asString();
+    int progress = std::stoi(progressString);
     
     AKLog(kAKLogTileMap_1, "type=%d position=(%f, %f) progress=%d", type, param.getPosition()->x, param.getPosition()->y, progress);
 
@@ -402,8 +399,8 @@ void AKTileMap::createEnemy(const AKTileMapEventParameter &param, AKPlayDataInte
 void AKTileMap::execEvent(const AKTileMapEventParameter &param, AKPlayDataInterface *data)
 {
     // 実行する進行状況の値を取得する
-    const CCString *progressString = param.getProperties()->valueForKey("Progress");
-    int progress = progressString->intValue();
+    const std::string progressString = param.getProperties()->at("Progress").asString();
+    int progress = std::stoi(progressString);
     
     AKLog(kAKLogTileMap_1 && progress > 0, "progress=%d m_progress=%d", progress, m_progress);
     
@@ -415,26 +412,26 @@ void AKTileMap::execEvent(const AKTileMapEventParameter &param, AKPlayDataInterf
         // 座標が0の場合は待機イベントの実行なので無処理とする。
         if (!(param.getPosition()->x < 0.0f && param.getPosition()->y < 0.0f)) {
             
-            m_waitEvents.push_back(param.getProperties());
+            m_waitEvents.push_back(*param.getProperties());
         }
         
         return;
     }
     
     // 種別を取得する
-    const CCString *type = param.getProperties()->valueForKey("Type");
+    const std::string type = param.getProperties()->at("Type").asString();
     
     // 値を取得する
-    const CCString *valueString = param.getProperties()->valueForKey("Value");
-    int value = valueString->intValue();
+    const std::string valueString = param.getProperties()->at("Value").asString();
+    int value = std::stoi(valueString);
     
     // 水平方向のスクロールスピード変更の場合
-    if (strcmp(type->getCString(), "hspeed") == 0) {
+    if (type.compare("hspeed") == 0) {
         // スピードは0.1単位で指定するものとする
         data->setScrollSpeedX(value / 10.0f);
     }
     // BGM変更の場合
-    else if (strcmp(type->getCString(), "bgm") == 0) {
+    else if (type.compare("bgm") == 0) {
 
         // ファイル名を作成する
         char fileName[32] = "";
@@ -443,10 +440,10 @@ void AKTileMap::execEvent(const AKTileMapEventParameter &param, AKPlayDataInterf
         AKLog(kAKLogTileMap_1, "BGM:%.32sを再生", fileName);
 
         // BGMを再生する
-        SimpleAudioEngine::sharedEngine()->playBackgroundMusic(fileName, true);
+        SimpleAudioEngine::getInstance()->playBackgroundMusic(fileName, true);
     }
     // ステージクリアの場合
-    else if (strcmp(type->getCString(), "clear") == 0) {
+    else if (type.compare("clear") == 0) {
         
         AKLog(kAKLogTileMap_1, "progress=%d m_progress=%d", progress, m_progress);
         AKLog(kAKLogTileMap_1, "stage clear.");
@@ -456,6 +453,6 @@ void AKTileMap::execEvent(const AKTileMapEventParameter &param, AKPlayDataInterf
     }
     // 不明な種別の場合
     else {
-        AKAssert(false, "不明な種別:%s", type->getCString());
+        AKAssert(false, "不明な種別:%s", type.c_str());
     }
 }

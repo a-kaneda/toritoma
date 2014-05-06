@@ -46,20 +46,20 @@
 class AKPlayerShot : public AKCharacter {
 public:
     // 自機弾生成
-    void createPlayerShot(const cocos2d::CCPoint &position, cocos2d::CCNode *parent);
+    void createPlayerShot(const cocos2d::Vector2 &position, cocos2d::Node *parent);
     // 自機弾(上向き)生成
-    void createPlayerShotUpward(const cocos2d::CCPoint &position, cocos2d::CCNode *parent);
+    void createPlayerShotUpward(const cocos2d::Vector2 &position, cocos2d::Node *parent);
     // 自機弾(下向き)生成
-    void createPlayerShotDownward(const cocos2d::CCPoint &position, cocos2d::CCNode *parent);
+    void createPlayerShotDownward(const cocos2d::Vector2 &position, cocos2d::Node *parent);
     // オプション弾生成
-    void createOptionShot(const cocos2d::CCPoint &position, cocos2d::CCNode *parent);
+    void createOptionShot(const cocos2d::Vector2 &position, cocos2d::Node *parent);
     // オプション弾(上向き)生成
-    void createOptionShotUpward(const cocos2d::CCPoint &position, cocos2d::CCNode *parent);
+    void createOptionShotUpward(const cocos2d::Vector2 &position, cocos2d::Node *parent);
     // オプション弾(下向き)生成
-    void createOptionShotDownward(const cocos2d::CCPoint &position, cocos2d::CCNode *parent);
+    void createOptionShotDownward(const cocos2d::Vector2 &position, cocos2d::Node *parent);
 private:
     // 共通項目設定
-    void setCommonParam(const cocos2d::CCPoint &position, cocos2d::CCNode *parent);
+    void setCommonParam(const cocos2d::Vector2 &position, cocos2d::Node *parent);
 };
 
 

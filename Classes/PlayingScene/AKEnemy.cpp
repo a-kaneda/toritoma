@@ -37,9 +37,9 @@
 #include "AKEnemyShot.h"
 #include "AKBlock.h"
 
-using cocos2d::CCPoint;
-using cocos2d::CCSize;
-using cocos2d::CCNode;
+using cocos2d::Vector2;
+using cocos2d::Size;
+using cocos2d::Node;
 
 /// 敵種別定義
 struct AKEnemyDef {
@@ -139,7 +139,7 @@ const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
  @param speed 弾の速度
  @param data ゲームデータ
  */
-void AKEnemy::fireNWay(CCPoint position,
+void AKEnemy::fireNWay(Vector2 position,
                        int count,
                        float interval,
                        float speed,
@@ -183,7 +183,7 @@ void AKEnemy::fireNWay(CCPoint position,
  @param data ゲームデータ
  */
 void AKEnemy::fireNWay(float angle,
-                       CCPoint position,
+                       Vector2 position,
                        int count,
                        float interval,
                        float speed,
@@ -235,7 +235,7 @@ void AKEnemy::fireNWay(float angle,
  @param speed 弾の速度
  @param data ゲームデータ
  */
-void AKEnemy::fireGroupShot(CCPoint position,
+void AKEnemy::fireGroupShot(Vector2 position,
                             const float distance[][2],
                             int count,
                             float speed,
@@ -259,7 +259,7 @@ void AKEnemy::fireGroupShot(CCPoint position,
         }
         
         // 通常弾を生成する
-        CCPoint shotPosition(position.x + distance[i][0],
+        Vector2 shotPosition(position.x + distance[i][0],
                              position.y + distance[i][1]);
         enemyShot->createNormalShot(shotPosition,
                                     nWayAngle.getTopAngle(),
@@ -280,7 +280,7 @@ void AKEnemy::fireGroupShot(CCPoint position,
  @param burstSpeed 破裂後の速度
  @param data ゲームデータ
  */
-void AKEnemy::fireBurstShot(CCPoint position,
+void AKEnemy::fireBurstShot(Vector2 position,
                             int count,
                             float interval,
                             float speed,
@@ -312,7 +312,7 @@ void AKEnemy::fireBurstShot(CCPoint position,
         }
         
         // 破裂弾を生成する
-        CCPoint shotPosition(position.x + cosf(angle) * kAKDistance,
+        Vector2 shotPosition(position.x + cosf(angle) * kAKDistance,
                              position.y + sinf(angle) * kAKDistance);
         enemyShot->createChangeSpeedShot(shotPosition,
                                         centerAngle.getTopAngle(),
@@ -337,8 +337,8 @@ void AKEnemy::fireBurstShot(CCPoint position,
  @param data ゲームデータ
  @return 移動先の座標
  */
-CCPoint AKEnemy::checkBlockPosition(const CCPoint &current,
-                                    const CCSize &size,
+Vector2 AKEnemy::checkBlockPosition(const Vector2 &current,
+                                    const Size &size,
                                     bool isReverse,
                                     AKPlayDataInterface *data)
 {
@@ -458,7 +458,7 @@ CCPoint AKEnemy::checkBlockPosition(const CCPoint &current,
     AKLog(kAKLogEnemy_3, "(%.0f, %.0f)->(%.0f, %.0f)", current.x, current.y, newX, newY);
     
     // 移動先の座標を返す
-    return CCPoint(newX, newY);
+    return Vector2(newX, newY);
 }
 
 /*!
@@ -559,9 +559,9 @@ AKCharacter* AKEnemy::getBlockAtFeet(float x,
  @param parent 敵キャラを配置する親ノード
  */
 void AKEnemy::createEnemy(int type,
-                          const CCPoint &position,
+                          const Vector2 &position,
                           int progress,
-                          CCNode *parent)
+                          Node *parent)
 {
     AKLog(kAKLogEnemy_1, "start createEnemy():type=%d", type); 
 
@@ -677,7 +677,7 @@ void AKEnemy::setState(int state)
  移動履歴を取得する。
  @return 移動履歴
  */
-const std::queue<cocos2d::CCPoint>* AKEnemy::getMoveHistory()
+const std::queue<cocos2d::Vector2>* AKEnemy::getMoveHistory()
 {
     return &m_moveHistory;
 }
@@ -761,7 +761,7 @@ void AKEnemy::actionOfDragonfly(AKPlayDataInterface *data)
         
         // 左へ弾を発射する
         AKEnemy::fireNWay(M_PI,
-                          CCPoint(m_position.x, m_position.y),
+                          Vector2(m_position.x, m_position.y),
                           1,
                           0.0f,
                           kAKShotSpeed,
@@ -830,7 +830,7 @@ void AKEnemy::actionOfAnt(AKPlayDataInterface *data)
             
             // スピードをマイナスにして、左右反転はなしにする
             m_speedX = -kAKMoveSpeed;
-            getImage()->setFlipX(false);
+            getImage()->setFlippedX(false);
             
             // 移動フレーム数が経過したら弾発射に遷移する
             if ((m_frame - m_work[0] + 1) % kAKMoveFrame == 0) {
@@ -847,7 +847,7 @@ void AKEnemy::actionOfAnt(AKPlayDataInterface *data)
             
             // スピードをプラスにして、左右反転はありにする
             m_speedX = kAKMoveSpeed;
-            getImage()->setFlipX(true);
+            getImage()->setFlippedX(true);
             
             // 移動フレーム数が経過したら弾発射に遷移する
             if ((m_frame - m_work[0] + 1) % kAKMoveFrame == 0) {
@@ -864,10 +864,10 @@ void AKEnemy::actionOfAnt(AKPlayDataInterface *data)
             
             // 自分より右側に自機がいれば左右反転する
             if (m_position.x < data->getPlayerPosition()->x) {
-                getImage()->setFlipX(true);
+                getImage()->setFlippedX(true);
             }
             else {
-                getImage()->setFlipX(false);
+                getImage()->setFlippedX(false);
             }
 
             // 待機する
@@ -903,7 +903,7 @@ void AKEnemy::actionOfAnt(AKPlayDataInterface *data)
     // 障害物との衝突判定を行う
     m_position = AKEnemy::checkBlockPosition(m_position,
                                              getImage()->getContentSize(),
-                                             getImage()->isFlipY(),
+                                             getImage()->isFlippedY(),
                                              data);
     
     // 画像表示位置の更新を行う
@@ -1186,7 +1186,7 @@ void AKEnemy::actionOfGrasshopper(AKPlayDataInterface *data)
     if (m_state == kAKStateLeftMove) {
 
         // 重力加速度をかけて減速する
-        if (!getImage()->isFlipY()) {
+        if (!getImage()->isFlippedY()) {
             m_speedY -= kAKGravitationAlacceleration;
         }
         else {
@@ -1208,8 +1208,8 @@ void AKEnemy::actionOfGrasshopper(AKPlayDataInterface *data)
     }
     
     // 落ちていく方向の障害物に接触している場合、着地したとしてスピードを0にする。
-    if ((!getImage()->isFlipY() && (m_blockHitSide & kAKHitSideBottom)) ||
-        (getImage()->isFlipY() && (m_blockHitSide & kAKHitSideTop))) {
+    if ((!getImage()->isFlippedY() && (m_blockHitSide & kAKHitSideBottom)) ||
+        (getImage()->isFlippedY() && (m_blockHitSide & kAKHitSideTop))) {
         
         m_speedX = 0.0f;
         m_speedY = 0.0f;
@@ -1224,7 +1224,7 @@ void AKEnemy::actionOfGrasshopper(AKPlayDataInterface *data)
         m_speedX = kAKMoveSpeed;
         
         // ジャンプする方向へ加速する
-        if (!getImage()->isFlipY()) {
+        if (!getImage()->isFlippedY()) {
             m_speedY = kAKJumpSpeed;
         }
         else {
@@ -1468,7 +1468,7 @@ void AKEnemy::actionOfSnail(AKPlayDataInterface *data)
     // 障害物との衝突判定を行う
     m_position = AKEnemy::checkBlockPosition(m_position,
                                              getImage()->getContentSize(),
-                                             getImage()->isFlipY(),
+                                             getImage()->isFlippedY(),
                                              data);
     
     // 画像表示位置の更新を行う
@@ -1648,7 +1648,7 @@ void AKEnemy::actionOfRhinocerosBeetle(AKPlayDataInterface *data)
             if ((m_frame + 1) % kAKLeftShotInterval == 0) {
                 
                 // 3箇所から同時に弾を発射する
-                CCPoint position(m_position.x, m_position.y);
+                Vector2 position(m_position.x, m_position.y);
                 AKEnemy::fireNWay(M_PI,
                                   position,
                                   1,
@@ -1778,7 +1778,7 @@ void AKEnemy::actionOfMantis(AKPlayDataInterface *data)
     // 状態遷移間隔
     const int kAKStateInterval[kAKStateCount] = {340, 900, 900, 900};
     // 手の位置
-    const CCPoint kAKHandPosition(-48.0f, 48.0f);
+    const Vector2 kAKHandPosition(-48.0f, 48.0f);
     // 定周期弾の発射間隔
     const int kAKCycleShotInterval = 60;
     // 定周期弾の弾数
@@ -1889,7 +1889,7 @@ void AKEnemy::actionOfMantis(AKPlayDataInterface *data)
                 m_work[1] = m_frame;
                 
                 // 破裂弾を発射する
-                CCPoint position(m_position.x + kAKHandPosition.x,
+                Vector2 position(m_position.x + kAKHandPosition.x,
                                  m_position.y + kAKHandPosition.y);
                 AKEnemy::fireBurstShot(position,
                                        kAKBurstShotCount,
@@ -1924,7 +1924,7 @@ void AKEnemy::actionOfMantis(AKPlayDataInterface *data)
                 m_work[1] = m_frame;
                 
                 // n-way弾を発射する
-                CCPoint position(m_position.x + kAKHandPosition.x,
+                Vector2 position(m_position.x + kAKHandPosition.x,
                                  m_position.y + kAKHandPosition.y);
                 AKEnemy::fireNWay(position,
                                   kAKNWayCount[1 - m_work[0]],
@@ -2087,7 +2087,7 @@ void AKEnemy::actionOfHoneycomb(AKPlayDataInterface *data)
                 for (int i = 0; i < kAKAllRangeCount; i++) {
                     
                     AKEnemy::fireNWay(M_PI / 2.0f,
-                                      CCPoint(x * (i + 1), kAKAllRangeYPosition),
+                                      Vector2(x * (i + 1), kAKAllRangeYPosition),
                                       1,
                                       0.0f,
                                       kAKAllRangeSpeed,
@@ -2123,7 +2123,7 @@ void AKEnemy::actionOfHoneycomb(AKPlayDataInterface *data)
         
         // ハチを呼ぶ
         data->createEnemy(kAKEnemyHornet,
-                          CCPoint(kAKHornetXPosition, kAKHornetYPosition[position]),
+                          Vector2(kAKHornetXPosition, kAKHornetYPosition[position]),
                           0);
 
     }
@@ -2250,7 +2250,7 @@ void AKEnemy::actionOfSpider(AKPlayDataInterface *data)
     };
     
     // 状態によって処理を分岐する
-    CCPoint nextPosition;
+    Vector2 nextPosition;
     switch (m_state) {
         case kAKStateInit:      // 初期状態
             
@@ -2728,7 +2728,7 @@ void AKEnemy::actionOfCentipedeBody(AKPlayDataInterface *data)
     }
     
     // 一つ前の体の移動履歴を取得する
-    const std::queue<CCPoint> *history = m_parentEnemy->getMoveHistory();
+    const std::queue<Vector2> *history = m_parentEnemy->getMoveHistory();
     
     // 履歴がない場合は処理を終了する
     if (history->size() <= 0) {
@@ -2801,7 +2801,7 @@ void AKEnemy::actionOfCentipedeTail(AKPlayDataInterface *data)
     }
     
     // 一つ前の体の移動履歴を取得する
-    const std::queue<CCPoint> *history = m_parentEnemy->getMoveHistory();
+    const std::queue<Vector2> *history = m_parentEnemy->getMoveHistory();
     
     // 履歴がない場合は処理を終了する
     if (history->size() <= 0) {
@@ -2982,7 +2982,7 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
             for (int i = 0; i < kAKMaggotCount; i++) {
                 
                 // 生成位置を決める
-                CCPoint position(m_position.x + kAKMaggotPotision[i][0],
+                Vector2 position(m_position.x + kAKMaggotPotision[i][0],
                                  m_position.y + kAKMaggotPotision[i][1]);
                 
                 // ウジを生成する
@@ -3033,7 +3033,7 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
                 int y = rand() % (h * 2) - h;
                 
                 // 画面効果を生成する
-                data->createEffect(1, CCPoint(m_position.x + x, m_position.y + y));           
+                data->createEffect(1, Vector2(m_position.x + x, m_position.y + y));           
             }
             
             break;
@@ -3148,7 +3148,7 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
                     }
                     
                     AKEnemy::fireNWay(-M_PI / 2,
-                                      CCPoint(i, AKScreenSize::stageSize().height - 36),
+                                      Vector2(i, AKScreenSize::stageSize().height - 36),
                                       1,
                                       0,
                                       kAKAllRangeSpeed,
@@ -3168,7 +3168,7 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
                     }
                     
                     AKEnemy::fireNWay(M_PI,
-                                      CCPoint(AKScreenSize::stageSize().width, i),
+                                      Vector2(AKScreenSize::stageSize().width, i),
                                       1,
                                       0,
                                       kAKAllRangeSpeed,
@@ -3242,7 +3242,7 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
             
             // 目的地の角度を求める
             float destAngle = AKAngle::calcDestAngle(m_position,
-                                                     CCPoint(m_work[kAKWorkNextPositionX],
+                                                     Vector2(m_work[kAKWorkNextPositionX],
                                                              m_work[kAKWorkNextPositionY]));
             
             // 現在の角度を求める
@@ -3468,7 +3468,7 @@ void AKEnemy::checkReverse(const std::vector<AKBlock*> &blocks)
     // 上方向の距離が小さい場合は上方向に移動して、逆さにする
     if (upDistance < downDistance) {
         m_position.y = upPosition;
-        getImage()->setFlipY(true);
+        getImage()->setFlippedY(true);
     }
     // 下方向の距離が小さい場合は下方向に移動する
     else {

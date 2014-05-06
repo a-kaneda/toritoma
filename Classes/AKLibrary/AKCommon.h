@@ -50,7 +50,7 @@ enum kAKColorNumber {
 };
 
 // 色
-extern const cocos2d::ccColor4B kAKColor[kAKColorCount];
+extern const cocos2d::Color4B kAKColor[kAKColorCount];
 
 #ifdef DEBUG
 
@@ -98,7 +98,7 @@ extern bool kAKLogTwitterHelper_1;
  @param cond 出力条件
  @param fmt 出力フォーマット
  */
-#define AKLog(cond, fmt, ...) if (cond) cocos2d::CCLog("%s(%d) " fmt, __FILE__, __LINE__, ## __VA_ARGS__)
+#define AKLog(cond, fmt, ...) if (cond) cocos2d::log("%s(%d) " fmt, __FILE__, __LINE__, ## __VA_ARGS__)
 
 /*!
  @brief アサート
@@ -107,7 +107,7 @@ extern bool kAKLogTwitterHelper_1;
  @param cond 出力条件
  @param fmt 出力フォーマット
  */
-#define AKAssert(cond, fmt, ...) if (!(cond)) {cocos2d::CCLog("%s(%d) " fmt, __FILE__, __LINE__, ## __VA_ARGS__); assert(0);}
+#define AKAssert(cond, fmt, ...) if (!(cond)) {cocos2d::log("%s(%d) " fmt, __FILE__, __LINE__, ## __VA_ARGS__); assert(0);}
 
 #else
 
@@ -151,19 +151,19 @@ float AKRangeCheckLF(float val, float min, float max);
 float AKRangeCheckF(float val, float min, float max);
 
 // 矩形内判定
-bool AKIsInside(const cocos2d::CCPoint &point, const cocos2d::CCRect &rect);
+bool AKIsInside(const cocos2d::Vector2 &point, const cocos2d::Rect &rect);
 
 // float同値判定
 bool AKIsEqualFloat(float a, float b);
 
 // 中心座標とサイズから矩形を作成する
-cocos2d::CCRect AKMakeRectFromCenter(const cocos2d::CCPoint &center, int size);
+cocos2d::Rect AKMakeRectFromCenter(const cocos2d::Vector2 &center, int size);
 
 // 単一色レイヤーを作成する
-cocos2d::CCLayerColor *AKCreateColorLayer(int colorNo, const cocos2d::CCRect &rect);
+cocos2d::LayerColor *AKCreateColorLayer(int colorNo, const cocos2d::Rect &rect);
 
 // 背景色レイヤーを作成する
-cocos2d::CCLayerColor *AKCreateBackColorLayer(void);
+cocos2d::LayerColor *AKCreateBackColorLayer(void);
 
 
 #endif

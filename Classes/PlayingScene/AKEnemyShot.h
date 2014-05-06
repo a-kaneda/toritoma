@@ -85,25 +85,25 @@ public:
     // かすりポイント設定
     void setGrazePoint(float grazePoint);
     // 通常弾生成
-    void createNormalShot(const cocos2d::CCPoint &position,
+    void createNormalShot(const cocos2d::Vector2 &position,
                           float angle,
                           float speed,
-                          cocos2d::CCNode *parent);
+                          cocos2d::Node *parent);
     // スクロール影響弾生成
-    void createScrollShot(const cocos2d::CCPoint &position,
+    void createScrollShot(const cocos2d::Vector2 &position,
                           float angle,
                           float speed,
-                          cocos2d::CCNode *parent);
+                          cocos2d::Node *parent);
     // 速度変更弾生成
-    void createChangeSpeedShot(const cocos2d::CCPoint &position,
+    void createChangeSpeedShot(const cocos2d::Vector2 &position,
                                float angle,
                                float speed,
                                int changeInterval,
                                float changeAngle,
                                float changeSpeed,
-                               cocos2d::CCNode *parent);
+                               cocos2d::Node *parent);
     // 反射弾生成
-    void createReflectShot(AKEnemyShot *base, cocos2d::CCNode *parent);
+    void createReflectShot(AKEnemyShot *base, cocos2d::Node *parent);
 
 protected:
     // キャラクター固有の動作
@@ -112,10 +112,10 @@ protected:
 private:
     // 敵弾生成
     void createEnemyShot(int type,
-                         const cocos2d::CCPoint &position,
+                         const cocos2d::Vector2 &position,
                          float angle,
                          float speed,
-                         cocos2d::CCNode *parent);
+                         cocos2d::Node *parent);
     // 種別から動作処理を判定
     ACTION_FUNC getActionOfType(int type);
     // 動作処理なし

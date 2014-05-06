@@ -35,13 +35,14 @@
 
 #include "AKInterface.h"
 
-using cocos2d::CCDirector;
-using cocos2d::CCTouchDispatcher;
-using cocos2d::CCTouch;
-using cocos2d::CCEvent;
-using cocos2d::CCPoint;
-using cocos2d::CCSprite;
-using cocos2d::CCRect;
+using cocos2d::Director;
+using cocos2d::Touch;
+using cocos2d::Event;
+using cocos2d::EventListenerTouchOneByOne;
+using cocos2d::Vector2;
+using cocos2d::Sprite;
+using cocos2d::Rect;
+using cocos2d::Node;
 
 /*!
  @brief コンビニエンスコンストラクタ
@@ -95,22 +96,6 @@ void AKInterface::setEnableTag(unsigned int enableTag)
 }
 
 /*!
- @brief レイヤー表示時処理
- 
- レイヤーが表示された際の処理。タッチイベント処理を開始する。
- */
-void AKInterface::onEnter()
-{
-    // 親クラスの処理を呼び出す
-    CCLayer::onEnter();
-
-    // タッチイベント処理を開始する
-    CCDirector *director = CCDirector::sharedDirector();
-    CCTouchDispatcher *touchDispatcher = director->getTouchDispatcher();
-    touchDispatcher->addTargetedDelegate(this, 0, true);
-}
-
-/*!
  @brief タッチ開始処理
  
  タッチが開始されたときの処理。
@@ -118,7 +103,7 @@ void AKInterface::onEnter()
  @param event イベント情報
  @return タッチイベントを処理するかどうか
  */
-bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
+bool AKInterface::onTouchBegan(Touch *pTouch, Event *pEvent)
 {
     AKLog(kAKLogInterface_1, "ccTouchBegan() start");
 
@@ -128,10 +113,10 @@ bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
     }
     
     // 画面上のタッチ位置を取得する
-    CCPoint locationInView = pTouch->getLocationInView();
+    Vector2 locationInView = pTouch->getLocationInView();
     
     // cocos2dの座標系に変換する
-    CCPoint location = CCDirector::sharedDirector()->convertToGL(locationInView);
+    Vector2 location = Director::getInstance()->convertToGL(locationInView);
     
     // 各項目の選択処理を行う
     std::vector<AKMenuItem*>::iterator it;
@@ -203,7 +188,7 @@ bool AKInterface::ccTouchBegan(CCTouch *pTouch, CCEvent *pEvent)
  @param touch タッチ情報
  @param event イベント情報
  */
-void AKInterface::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
+void AKInterface::onTouchCancelled(Touch *pTouch, Event *pEvent)
 {
     // キャンセルするメニュー項目を検索する
     for (AKMenuItem *item : m_menuItems) {
@@ -233,7 +218,7 @@ void AKInterface::ccTouchCancelled(CCTouch *pTouch, CCEvent *pEvent)
  @param touch タッチ情報
  @param event イベント情報
  */
-void AKInterface::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
+void AKInterface::onTouchEnded(Touch *pTouch, Event *pEvent)
 {
     // 終了するメニュー項目を検索する
     for (AKMenuItem *item : m_menuItems) {
@@ -263,7 +248,7 @@ void AKInterface::ccTouchEnded(CCTouch *pTouch, CCEvent *pEvent)
  @param touch タッチ情報
  @param event イベント情報
  */
-void AKInterface::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
+void AKInterface::onTouchMoved(Touch *pTouch, Event *pEvent)
 {
     // 移動するメニュー項目を検索する
     for (AKMenuItem *item : m_menuItems) {
@@ -278,10 +263,10 @@ void AKInterface::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
             m_eventHandler->execEvent(item);
             
             // 画面上のタッチ位置を取得する
-            CCPoint locationInView = pTouch->getLocationInView();
+            Vector2 locationInView = pTouch->getLocationInView();
             
             // cocos2dの座標系に変換する
-            CCPoint location = CCDirector::sharedDirector()->convertToGL(locationInView);
+            Vector2 location = Director::getInstance()->convertToGL(locationInView);
 
             // 前回タッチ位置を更新する
             item->setPrevPoint(location);
@@ -291,10 +276,10 @@ void AKInterface::ccTouchMoved(CCTouch *pTouch, CCEvent *pEvent)
     }
     
     // 画面上のタッチ位置を取得する
-    CCPoint locationInView = pTouch->getLocationInView();
+    Vector2 locationInView = pTouch->getLocationInView();
     
     // cocos2dの座標系に変換する
-    CCPoint location = CCDirector::sharedDirector()->convertToGL(locationInView);
+    Vector2 location = Director::getInstance()->convertToGL(locationInView);
     
     // 一致するメニュー項目がなかった場合に、まだタッチイベントが開始されていない項目がある場合は関連付ける
     for (AKMenuItem *item : m_menuItems) {
@@ -349,8 +334,8 @@ void AKInterface::addMenuItem(AKMenuItem *menu)
  @param type メニュータイプ
  @return 作成したメニュー項目のスプライト
  */
-CCSprite* AKInterface::addSpriteMenu(const std::string &spriteName,
-                                     CCPoint position,
+Sprite* AKInterface::addSpriteMenu(const std::string &spriteName,
+                                     Vector2 position,
                                      int z,
                                      int event,
                                      unsigned int tag,
@@ -360,7 +345,7 @@ CCSprite* AKInterface::addSpriteMenu(const std::string &spriteName,
         spriteName.c_str(), position.x, position.y, z, event, tag, type);
 
     // ボタンの画像を読み込む
-    CCSprite *itemSprite = CCSprite::createWithSpriteFrameName(spriteName.c_str());
+    Sprite *itemSprite = Sprite::createWithSpriteFrameName(spriteName.c_str());
     AKAssert(itemSprite != NULL, "ボタンの画像読み込みに失敗");
     
     // ボタンの位置を設定する
@@ -371,10 +356,10 @@ CCSprite* AKInterface::addSpriteMenu(const std::string &spriteName,
     
     // メニュー項目の位置をスプライトの左上の端を設定する
     // メニュー項目の大きさにスプライトのサイズを設定する
-    CCRect rect(itemSprite->getPosition().x - itemSprite->getContentSize().width / 2,
-                itemSprite->getPosition().y - itemSprite->getContentSize().height / 2,
-                itemSprite->getContentSize().width,
-                itemSprite->getContentSize().height);
+    Rect rect(itemSprite->getPosition().x - itemSprite->getContentSize().width / 2,
+              itemSprite->getPosition().y - itemSprite->getContentSize().height / 2,
+              itemSprite->getContentSize().width,
+              itemSprite->getContentSize().height);
 
     // メニュー項目を追加する
     AKMenuItem *menuItem = new AKMenuItem(rect, type, event, tag);
@@ -399,7 +384,7 @@ CCSprite* AKInterface::addSpriteMenu(const std::string &spriteName,
  @return 作成したメニュー項目
  */
 AKLabel* AKInterface::addLabelMenu(const std::string menuString,
-                                   CCPoint position,
+                                   Vector2 position,
                                    int z,
                                    int event,
                                    unsigned int tag,
@@ -431,7 +416,7 @@ AKLabel* AKInterface::addLabelMenu(const std::string menuString,
  @param event 項目処理時の処理
  @param tag タグ情報(任意に使用)
  */
-void AKInterface::addSlideMenu(CCRect rect, int event, unsigned int tag)
+void AKInterface::addSlideMenu(Rect rect, int event, unsigned int tag)
 {
     AKMenuItem *menuItem = new AKMenuItem(rect, kAKMenuTypeSlide, event, tag);
     addMenuItem(menuItem);
@@ -446,6 +431,16 @@ void AKInterface::addSlideMenu(CCRect rect, int event, unsigned int tag)
 AKInterface::AKInterface(AKMenuEventHandler * const eventHandler) :
 m_eventHandler(eventHandler), m_enableTag(0), m_menuItems()
 {
+    // Register Touch Event
+    auto listener = EventListenerTouchOneByOne::create();
+    listener->setSwallowTouches(true);
+    
+    listener->onTouchBegan = CC_CALLBACK_2(AKInterface::onTouchBegan, this);
+    listener->onTouchCancelled = CC_CALLBACK_2(AKInterface::onTouchCancelled, this);
+    listener->onTouchEnded = CC_CALLBACK_2(AKInterface::onTouchEnded, this);
+    listener->onTouchMoved = CC_CALLBACK_2(AKInterface::onTouchMoved, this);
+    
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(listener, this);
 }
 
 /*!
@@ -457,10 +452,7 @@ m_eventHandler(eventHandler), m_enableTag(0), m_menuItems()
 void AKInterface::updateVisible()
 {
     // レイヤー上のすべてのノードに対して処理を行う
-    CCObject *object = NULL;
-    CCARRAY_FOREACH(getChildren(), object) {
-        
-        CCNode *item = static_cast<CCNode*>(object);
+    for (Node *item : getChildren()) {
         
         // 有効タグならば表示する、タグが0の場合は無条件に表示する
         if ((item->getTag() == 0) || (item->getTag() & m_enableTag)) {
@@ -483,7 +475,7 @@ void AKInterface::updateVisible()
  派生クラスで使用する。
  @param item 設定するメニュー項目
  */
-void AKInterface::updateVisible(CCNode *item)
+void AKInterface::updateVisible(Node *item)
 {
     // 派生クラスで処理を追加する
 }

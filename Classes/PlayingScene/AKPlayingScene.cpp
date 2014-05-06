@@ -36,19 +36,19 @@
 #include "AKPlayingScene.h"
 #include "AppDelegate.h"
 
-using cocos2d::CCSpriteFrameCache;
-using cocos2d::CCLayer;
-using cocos2d::CCScene;
-using cocos2d::CCDirector;
-using cocos2d::CCPoint;
-using cocos2d::CCBlink;
-using cocos2d::CCCallFunc;
-using cocos2d::CCSequence;
-using cocos2d::SEL_CallFunc;
-using cocos2d::CCTransitionFade;
-using cocos2d::CCSpriteBatchNode;
-using cocos2d::CCRect;
-using cocos2d::CCSprite;
+using std::mem_fun;
+using cocos2d::SpriteFrameCache;
+using cocos2d::Layer;
+using cocos2d::Scene;
+using cocos2d::Director;
+using cocos2d::Vector2;
+using cocos2d::Blink;
+using cocos2d::CallFunc;
+using cocos2d::Sequence;
+using cocos2d::TransitionFade;
+using cocos2d::SpriteBatchNode;
+using cocos2d::Rect;
+using cocos2d::Sprite;
 using CocosDenshion::SimpleAudioEngine;
 
 /// レイヤーのz座標、タグの値にも使用する
@@ -152,7 +152,7 @@ m_sleepFrame(0), m_backgroundLayer(NULL), m_characterLayer(NULL),
 m_infoLayer(NULL), m_interfaceLayer(NULL), m_life(NULL), m_chickenGauge(NULL)
 {
     // テクスチャアトラスを読み込む
-    CCSpriteFrameCache *spriteFrameCache = CCSpriteFrameCache::sharedSpriteFrameCache();
+    SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();
     spriteFrameCache->addSpriteFramesWithFile(kAKControlTextureAtlasDefFile,
                                               kAKControlTextureAtlasFile);
 
@@ -213,7 +213,7 @@ AKPlayingScene::~AKPlayingScene()
     delete m_data;
     
     // 未使用のスプライトフレームを解放する
-    CCSpriteFrameCache::sharedSpriteFrameCache()->removeUnusedSpriteFrames();
+    SpriteFrameCache::getInstance()->removeUnusedSpriteFrames();
 }
 
 #pragma mark アクセサ
@@ -291,7 +291,7 @@ void AKPlayingScene::setState(enum AKGameState state)
  背景レイヤーを取得する。
  @return 背景レイヤー
  */
-CCLayer* AKPlayingScene::getBackgroundLayer()
+Layer* AKPlayingScene::getBackgroundLayer()
 {
     AKAssert(m_backgroundLayer, "レイヤーが作成されていない");
 
@@ -304,7 +304,7 @@ CCLayer* AKPlayingScene::getBackgroundLayer()
  キャラクターレイヤーを取得する。
  @return キャラクターレイヤー
  */
-CCLayer* AKPlayingScene::getCharacterLayer()
+Layer* AKPlayingScene::getCharacterLayer()
 {
     AKAssert(m_characterLayer, "レイヤーが作成されていない");
 
@@ -317,7 +317,7 @@ CCLayer* AKPlayingScene::getCharacterLayer()
  情報レイヤーを取得する。
  @return 情報レイヤー
  */
-CCLayer* AKPlayingScene::getInfoLayer()
+Layer* AKPlayingScene::getInfoLayer()
 {
     AKAssert(m_infoLayer, "レイヤーが作成されていない");
 
@@ -381,7 +381,7 @@ void AKPlayingScene::onEnterTransitionDidFinish()
     setState(kAKGameStateStart);
     
     // スーパークラスの処理を実行する
-    CCScene::onEnterTransitionDidFinish();
+    Scene::onEnterTransitionDidFinish();
 }
 
 /*!
@@ -398,7 +398,7 @@ void AKPlayingScene::onWillEnterForeground()
         AKLog(kAKLogPlayingScene_1, "フォアグラウンド移行処理");
         
         // BGMを一時停止する
-        SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+        SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 
         // ゲーム状態を一時停止に変更する
         setState(kAKGameStatePause);
@@ -417,10 +417,10 @@ void AKPlayingScene::onWillEnterForeground()
 void AKPlayingScene::movePlayer(const AKMenuItem *item)
 {
     // 画面上のタッチ位置を取得する
-    CCPoint locationInView = item->getTouch()->getLocationInView();
+    Vector2 locationInView = item->getTouch()->getLocationInView();
     
     // cocos2dの座標系に変換する
-    CCPoint location = CCDirector::sharedDirector()->convertToGL(locationInView);
+    Vector2 location = Director::getInstance()->convertToGL(locationInView);
     
     // 自機を移動する
     float x = (location.x - item->getPrevPoint()->x) * kAKPlayerMoveVal;
@@ -474,10 +474,10 @@ void AKPlayingScene::touchPauseButton()
     }
 
     // BGMを一時停止する
-    SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
+    SimpleAudioEngine::getInstance()->pauseBackgroundMusic();
 
     // 一時停止効果音を鳴らす
-    SimpleAudioEngine::sharedEngine()->playEffect(kAKPauseSEFileName);
+    SimpleAudioEngine::getInstance()->playEffect(kAKPauseSEFileName);
 
     // ゲーム状態を一時停止に変更する
     setState(kAKGameStatePause);
@@ -497,18 +497,18 @@ void AKPlayingScene::touchResumeButton()
     setState(kAKGameStateWait);
     
     // ボタンのブリンクアクションを作成する
-    CCBlink *blink = CCBlink::create(0.2f, 2);
-    CCCallFunc *callFunc = CCCallFunc::create(this, callfunc_selector(AKPlayingScene::resume));
-    CCSequence *action = CCSequence::create(blink, callFunc, NULL);
+    Blink *blink = Blink::create(0.2f, 2);
+    CallFunc *callFunc = CallFunc::create(std::bind(mem_fun(&AKPlayingScene::resume), this));
+    Sequence *action = Sequence::create(blink, callFunc, NULL);
     
     // ボタンを取得する
-    CCNode *button = m_interfaceLayer->getResumeButton();
+    Node *button = m_interfaceLayer->getResumeButton();
     
     // ブリンクアクションを開始する
     button->runAction(action);
     
     // 一時停止効果音を鳴らす
-    SimpleAudioEngine::sharedEngine()->playEffect(kAKPauseSEFileName);
+    SimpleAudioEngine::getInstance()->playEffect(kAKPauseSEFileName);
 }
 
 /*!
@@ -524,18 +524,18 @@ void AKPlayingScene::touchQuitButton()
     setState(kAKGameStateWait);
     
     // ボタンのブリンクアクションを作成する
-    CCBlink *blink = CCBlink::create(0.2f, 2);
-    CCCallFunc *callFunc = CCCallFunc::create(this, callfunc_selector(AKPlayingScene::viewQuitMenu));
-    CCSequence *action = CCSequence::create(blink, callFunc, NULL);
+    Blink *blink = Blink::create(0.2f, 2);
+    CallFunc *callFunc = CallFunc::create(std::bind(mem_fun(&AKPlayingScene::viewQuitMenu), this));
+    Sequence *action = Sequence::create(blink, callFunc, NULL);
     
     // ボタンを取得する
-    CCNode *button = m_interfaceLayer->getQuitButton();
+    Node *button = m_interfaceLayer->getQuitButton();
     
     // ブリンクアクションを開始する
     button->runAction(action);
     
     // ボタン選択効果音を鳴らす
-    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
+    SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
 }
 
 /*!
@@ -551,13 +551,13 @@ void AKPlayingScene::touchQuitYesButton()
     m_data->writeHiScore();
     
     // タイトルシーンへの遷移を作成する
-    CCTransitionFade *transition = CCTransitionFade::create(0.5f, AKTitleScene::create());
+    TransitionFade *transition = TransitionFade::create(0.5f, AKTitleScene::create());
 
     // BGMを停止する
-    SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     
     // タイトルシーンへと遷移する
-    CCDirector::sharedDirector()->replaceScene(transition);
+    Director::getInstance()->replaceScene(transition);
 }
 
 /*!
@@ -572,18 +572,18 @@ void AKPlayingScene::touchQuitNoButton()
     setState(kAKGameStateWait);
     
     // ボタンのブリンクアクションを作成する
-    CCBlink *blink = CCBlink::create(0.2f, 2);
-    CCCallFunc *callFunc = CCCallFunc::create(this, callfunc_selector(AKPlayingScene::viewPauseMenu));
-    CCSequence *action = CCSequence::create(blink, callFunc, NULL);
+    Blink *blink = Blink::create(0.2f, 2);
+    CallFunc *callFunc = CallFunc::create(std::bind(std::mem_fun(&AKPlayingScene::viewPauseMenu), this));
+    Sequence *action = Sequence::create(blink, callFunc, NULL);
     
     // ボタンを取得する
-    CCNode *button = m_interfaceLayer->getQuitNoButton();
+    Node *button = m_interfaceLayer->getQuitNoButton();
     
     // ブリンクアクションを開始する
     button->runAction(action);
     
     // ボタン選択効果音を鳴らす
-    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
+    SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
 }
 
 /*!
@@ -595,7 +595,7 @@ void AKPlayingScene::touchQuitNoButton()
 void AKPlayingScene::touchTweetButton()
 {
     // ボタン選択効果音を鳴らす
-    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
+    SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
     
     // TODO:ツイートビューを表示する
 //    [[AKTwitterHelper sharedHelper] viewTwitterWithInitialString:[data_ makeTweet]];
@@ -733,7 +733,7 @@ void AKPlayingScene::setScoreLabel(int score)
 void AKPlayingScene::gameOver()
 {
     // BGMを停止する
-    SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 
     // 状態を待機中へ遷移する
     setState(kAKGameStateSleep);
@@ -756,10 +756,10 @@ void AKPlayingScene::stageClear()
     m_data->setShield(false);
 
     // BGMを停止する
-    SimpleAudioEngine::sharedEngine()->stopBackgroundMusic();
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
 
     // ステージクリアのジングルを再生する
-    SimpleAudioEngine::sharedEngine()->playBackgroundMusic(kAKClearJingleFileName, false);
+    SimpleAudioEngine::getInstance()->playBackgroundMusic(kAKClearJingleFileName, false);
 
     // 状態をステージクリア状態に遷移する
     setState(kAKGameStateStageClear);
@@ -804,7 +804,7 @@ void AKPlayingScene::createBackGround()
 void AKPlayingScene::createCharacterLayer()
 {
     // キャラクターを配置するレイヤーを作成する
-    m_characterLayer = CCLayer::create();
+    m_characterLayer = Layer::create();
     m_characterLayer->retain();
     
     AKLog(kAKLogPlayingScene_1, "キャラクターレイヤー作成:%p", m_characterLayer);
@@ -821,7 +821,7 @@ void AKPlayingScene::createCharacterLayer()
 void AKPlayingScene::createInfoLayer()
 {
     // 情報レイヤーを作成する
-    m_infoLayer = CCLayer::create();
+    m_infoLayer = Layer::create();
     m_infoLayer->retain();
     
     // 情報レイヤーを画面に配置する
@@ -837,7 +837,7 @@ void AKPlayingScene::createInfoLayer()
     // チキンゲージの座標を設定する
     float x = AKScreenSize::center().x;
     float y = AKScreenSize::positionFromBottomPoint(kAKChickenGaugePosFromBottomPoint);
-    m_chickenGauge->setPosition(CCPoint(x, y));
+    m_chickenGauge->setPosition(Vector2(x, y));
     
     // 残機表示を作成する
     m_life = AKLife::create();
@@ -849,7 +849,7 @@ void AKPlayingScene::createInfoLayer()
     // 残機表示の座標を設定する
     x = AKScreenSize::xOfStage(kAKLifePosXOfStage) + m_life->getWidth() / 2;
     y = AKScreenSize::yOfStage(kAKLifePosYOfStage);
-    m_life->setPosition(CCPoint(x, y));
+    m_life->setPosition(Vector2(x, y));
     
     // スコア表示の文字列を作成する
     char scoreString[16] = "";
@@ -864,7 +864,7 @@ void AKPlayingScene::createInfoLayer()
     // スコア表示の座標を設定する
     x = AKScreenSize::center().x;
     y = AKScreenSize::yOfStage(kAKScorePosYOfStage);
-    m_score->setPosition(CCPoint(x, y));
+    m_score->setPosition(Vector2(x, y));
 }
 
 /*!
@@ -904,16 +904,16 @@ void AKPlayingScene::createFrame()
 void AKPlayingScene::createFrameBack()
 {
     // 枠の背景用バッチノードを作成する
-    CCSpriteBatchNode *frameBackBatch = CCSpriteBatchNode::create(kAKControlTextureAtlasFile);
+    SpriteBatchNode *frameBackBatch = SpriteBatchNode::create(kAKControlTextureAtlasFile);
     
     // ブロックサイズをデバイスに合わせて計算する
     int frameBackSize = AKScreenSize::deviceLength(kAKFrameBackSize);
     
     // 左側の枠の座標を作成する
-    CCRect rect(0.0f,
-                0.0f,
-                (AKScreenSize::screenSize().width - AKScreenSize::stageSize().width) / 2.0f,
-                AKScreenSize::screenSize().height);
+    Rect rect(0.0f,
+              0.0f,
+              (AKScreenSize::screenSize().width - AKScreenSize::stageSize().width) / 2.0f,
+              AKScreenSize::screenSize().height);
     
     // 右端揃えにするため、ブロックのはみ出している分だけ左にずらす
     if ((int)rect.size.width % frameBackSize > 0) {
@@ -984,16 +984,16 @@ void AKPlayingScene::createFrameBack()
 void AKPlayingScene::createFrameBar()
 {
     // 枠の棒用バッチノードを作成する
-    CCSpriteBatchNode *frameBarBatch = CCSpriteBatchNode::create(kAKControlTextureAtlasFile);
+    SpriteBatchNode *frameBarBatch = SpriteBatchNode::create(kAKControlTextureAtlasFile);
     
     // ブロックサイズをデバイスに合わせて計算する
     int frameBarSize = AKScreenSize::deviceLength(kAKFrameBarSize);
     
     // 左側の棒の位置を決定する
-    CCRect rect(AKScreenSize::xOfStage(0.0f) - frameBarSize,
-                AKScreenSize::yOfStage(0.0f),
-                frameBarSize,
-                AKScreenSize::stageSize().height);
+    Rect rect(AKScreenSize::xOfStage(0.0f) - frameBarSize,
+              AKScreenSize::yOfStage(0.0f),
+              frameBarSize,
+              AKScreenSize::stageSize().height);
     
     // 左側の棒を配置する
     createFrameBlock(frameBarBatch, kAKFrameBarLeft, frameBarSize, rect);
@@ -1078,10 +1078,10 @@ void AKPlayingScene::createFrameBar()
  @param size 1ブロックのサイズ
  @param rect 配置先の範囲
  */
-void AKPlayingScene::createFrameBlock(CCNode *node,
+void AKPlayingScene::createFrameBlock(Node *node,
                                       const char *name,
                                       int size,
-                                      const CCRect &rect)
+                                      const Rect &rect)
 {
     // 枠の背景ブロックを指定範囲に敷き詰める
     for (int y = rect.origin.y; y < rect.origin.y + rect.size.height; y += size) {
@@ -1090,11 +1090,11 @@ void AKPlayingScene::createFrameBlock(CCNode *node,
             AKLog(kAKLogPlayingScene_3, "x=%d, y=%d", x, y);
             
             // 背景ブロック画像のスプライトを作成する
-            CCSprite *sprite = CCSprite::createWithSpriteFrameName(name);
+            Sprite *sprite = Sprite::createWithSpriteFrameName(name);
             
             // 位置を設定する
             // 左下を(0, 0)に合うようにするため、サイズの半分ずらす
-            sprite->setPosition(CCPoint(x + size / 2, y + size / 2));
+            sprite->setPosition(Vector2(x + size / 2, y + size / 2));
             
             // 背景ブロックをノードに配置する
             node->addChild(sprite);
@@ -1170,7 +1170,7 @@ void AKPlayingScene::resume()
     AKAssert(m_state == kAKGameStateWait, "状態遷移異常");
     
     // 一時停止したBGMを再開する
-    SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
+    SimpleAudioEngine::getInstance()->resumeBackgroundMusic();
     
     // ゲーム状態をプレイ中に変更する
     setState(kAKGameStatePlaying);

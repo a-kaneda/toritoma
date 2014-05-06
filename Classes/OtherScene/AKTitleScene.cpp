@@ -38,11 +38,11 @@
 #include "AKHowToPlayScene.h"
 #include "AKOptionScene.h"
 
-using cocos2d::CCPoint;
-using cocos2d::CCTransitionFade;
-using cocos2d::CCDirector;
-using cocos2d::CCBlink;
-using cocos2d::CCNode;
+using cocos2d::Vector2;
+using cocos2d::TransitionFade;
+using cocos2d::Director;
+using cocos2d::Blink;
+using cocos2d::Node;
 using CocosDenshion::SimpleAudioEngine;
 
 // メニュー項目のタグ
@@ -203,7 +203,7 @@ AKTitleScene::AKTitleScene()
 
     // ゲームスタートのメニューを作成する
     m_interface->addLabelMenu(kAKGameStartCaption,
-                              CCPoint(x, y),
+                              Vector2(x, y),
                               0,
                               kAKEventTouchGameStartButton,
                               kAKTitleMenuGame,
@@ -216,7 +216,7 @@ AKTitleScene::AKTitleScene()
 
     // 遊び方のメニューを作成する
     m_interface->addLabelMenu(kAKHowToPlayCaption,
-                              CCPoint(x, y),
+                              Vector2(x, y),
                               0,
                               kAKEventTouchHowToButton,
                               kAKTitleMenuHowTo,
@@ -229,7 +229,7 @@ AKTitleScene::AKTitleScene()
 
     // オプションのメニューを作成する
     m_interface->addLabelMenu(kAKOptionCaption,
-                              CCPoint(x, y),
+                              Vector2(x, y),
                               0,
                               kAKEventTouchOptionButton,
                               kAKTitleMenuOption,
@@ -242,7 +242,7 @@ AKTitleScene::AKTitleScene()
 
     // クレジットのメニューを作成する
     m_interface->addLabelMenu(kAKCreditCaption,
-                              CCPoint(x, y),
+                              Vector2(x, y),
                               0,
                               kAKEventTouchCreditBUtton,
                               kAKTitleMenuCredit,
@@ -267,10 +267,10 @@ void AKTitleScene::touchGameStartButton()
     selectButton(kAKTitleMenuGame);
     
     // ゲームシーンへの遷移を作成する
-    CCTransitionFade *transition = CCTransitionFade::create(0.5f, AKPlayingScene::create());
+    TransitionFade *transition = TransitionFade::create(0.5f, AKPlayingScene::create());
     
     // ゲームシーンへ遷移する
-    CCDirector::sharedDirector()->replaceScene(transition);
+    Director::getInstance()->replaceScene(transition);
 }
 
 /*!
@@ -286,10 +286,10 @@ void AKTitleScene::touchHowToButton()
     selectButton(kAKTitleMenuHowTo);
     
     // 遊び方シーンへの遷移を作成する
-    CCTransitionFade *transition = CCTransitionFade::create(0.5f, AKHowToPlayScene::create());
+    TransitionFade *transition = TransitionFade::create(0.5f, AKHowToPlayScene::create());
     
     // 遊び方シーンへ遷移する
-    CCDirector::sharedDirector()->replaceScene(transition);
+    Director::getInstance()->replaceScene(transition);
 }
 
 /*!
@@ -305,10 +305,10 @@ void AKTitleScene::touchOptionButton()
     selectButton(kAKTitleMenuOption);
     
     // オプションシーンへの遷移を作成する
-    CCTransitionFade *transition = CCTransitionFade::create(0.5f, AKOptionScene::create());
+    TransitionFade *transition = TransitionFade::create(0.5f, AKOptionScene::create());
     
     // オプションシーンへ遷移する
-    CCDirector::sharedDirector()->replaceScene(transition);
+    Director::getInstance()->replaceScene(transition);
 }
 
 /*!
@@ -340,13 +340,13 @@ void AKTitleScene::touchCreditButton()
 void AKTitleScene::selectButton(int tag)
 {
     // メニュー選択時の効果音を鳴らす
-    SimpleAudioEngine::sharedEngine()->playEffect(kAKSelectSEFileName);
+    SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
     
     // ボタンのブリンクアクションを作成する
-    CCBlink *action = CCBlink::create(0.2f, 2);
+    Blink *action = Blink::create(0.2f, 2);
     
     // ボタンを取得する
-    CCNode *button = m_interface->getChildByTag(tag);
+    Node *button = m_interface->getChildByTag(tag);
     
     // ブリンクアクションを開始する
     button->runAction(action);

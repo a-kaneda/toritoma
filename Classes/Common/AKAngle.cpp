@@ -35,7 +35,7 @@
 
 #include "AKAngle.h"
 
-using cocos2d::CCPoint;
+using cocos2d::Vector2;
 
 /*!
  @brief radianからdegreeへの角度変換
@@ -114,7 +114,7 @@ float AKAngle::convertAngleScr2Rad(float screenAngle)
  @param dest 終点
  @return 2点間の角度
  */
-float AKAngle::calcDestAngle(const CCPoint &src, const CCPoint &dest)
+float AKAngle::calcDestAngle(const Vector2 &src, const Vector2 &dest)
 {
     // x方向のベクトルの大きさを計算する
     float vx = dest.x - src.x;

@@ -63,7 +63,7 @@ private:
 
 public:
     // 親ノードを指定したコンストラクタ
-    AKPlayer(cocos2d::CCNode *parent, cocos2d::CCNode *optionParent);
+    AKPlayer(cocos2d::Node *parent, cocos2d::Node *optionParent);
     // デストラクタ
     ~AKPlayer();
     // 復活
@@ -73,7 +73,7 @@ public:
     // かすり判定
     void graze(std::vector<AKEnemyShot*> &characters);
     // 移動座標設定
-    void setPosition(const cocos2d::CCPoint &position, AKPlayDataInterface *data);
+    void setPosition(const cocos2d::Vector2 &position, AKPlayDataInterface *data);
     // オプション数更新
     void updateOptionCount();
     // シールド有無設定

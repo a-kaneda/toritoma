@@ -65,15 +65,15 @@ private:
     /// 種別
     const enum AKMenuType m_type;
     /// 位置
-    const cocos2d::CCRect m_rect;
+    const cocos2d::Rect m_rect;
     /// イベント番号
     const int m_eventNo;
     /// タグ
     const unsigned int m_tag;
     /// 前回タッチ位置(スライド入力時に使用)
-    cocos2d::CCPoint m_prevPoint;
+    cocos2d::Vector2 m_prevPoint;
     /// タッチ情報
-    cocos2d::CCTouch *m_touch;
+    cocos2d::Touch *m_touch;
     /// タッチ状態
     enum AKMenuTouchPhase m_touchPhase;
     
@@ -83,18 +83,18 @@ private:
     
 public:
     // 矩形指定のコンストラクタ
-    AKMenuItem(const cocos2d::CCRect &rect,
+    AKMenuItem(const cocos2d::Rect &rect,
                enum AKMenuType type,
                int eventNo,
                unsigned int tag);
     // 座標指定のコンストラクタ
-    AKMenuItem(const cocos2d::CCPoint &position,
+    AKMenuItem(const cocos2d::Vector2 &position,
                int size,
                enum AKMenuType type,
                int eventNo,
                unsigned int tag);
     // 項目選択判定
-    bool isSelect(const cocos2d::CCPoint &position) const;
+    bool isSelect(const cocos2d::Vector2 &position) const;
     // イベント番号取得
     int getEventNo() const;
     // タグ取得
@@ -102,13 +102,13 @@ public:
     // 種別取得
     enum AKMenuType getType() const;
     // タッチ情報取得
-    cocos2d::CCTouch *getTouch() const;
+    cocos2d::Touch *getTouch() const;
     // タッチ情報設定
-    void setTouch(cocos2d::CCTouch *touch);
+    void setTouch(cocos2d::Touch *touch);
     // 前回タッチ位置取得
-    const cocos2d::CCPoint* getPrevPoint() const;
+    const cocos2d::Vector2* getPrevPoint() const;
     // 前回タッチ位置設定
-    void setPrevPoint(cocos2d::CCPoint prevPoint);
+    void setPrevPoint(cocos2d::Vector2 prevPoint);
     // タッチ状態取得
     enum AKMenuTouchPhase getTouchPhase() const;
     // タッチ状態設定

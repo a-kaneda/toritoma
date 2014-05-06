@@ -50,7 +50,7 @@ enum AKLabelFrame {
  
  テキストラベルを表示する。
  */
-class AKLabel : public cocos2d::CCNode, cocos2d::CCLabelProtocol {
+class AKLabel : public cocos2d::Node, cocos2d::LabelProtocol {
 public:
     // コンビニエンスコンストラクタ
     static AKLabel* createLabel(const std::string &str, int length, int line, enum AKLabelFrame frame);
@@ -61,7 +61,7 @@ public:
     // 指定行数の高さ取得
     static int getHeight(int line, bool hasFrame);
     // 指定文字数、指定行数の指定位置の矩形範囲取得
-    static cocos2d::CCRect getRect(cocos2d::CCPoint position, int length, int line, bool hasFrame);
+    static cocos2d::Rect getRect(cocos2d::Vector2 position, int length, int line, bool hasFrame);
     
 private:
     /// 表示文字列
@@ -87,21 +87,21 @@ public:
     // 色反転するかどうかの設定
     void setIsReverse(bool isReverse);
     // 文字列の取得
-    virtual const char* getString(void);
+    virtual const std::string &getString() const;
     // 文字列の設定
-    virtual void setString(const char *label);
+    virtual void setString(const std::string &label);
     // ラベルの幅の取得
     int getWidth();
     // ラベルの高さの取得
     int getHeight();
     // ラベルの矩形領域の取得
-    cocos2d::CCRect getRect();
+    cocos2d::Rect getRect();
     
 private:
     // 枠表示用バッチノード取得
-    cocos2d::CCSpriteBatchNode* getFrameBatch();
+    cocos2d::SpriteBatchNode* getFrameBatch();
     // 文字表示用バッチノード取得
-    cocos2d::CCSpriteBatchNode* getLabelBatch();
+    cocos2d::SpriteBatchNode* getLabelBatch();
     // 表示更新
     void updateLabel();
     // 枠の生成

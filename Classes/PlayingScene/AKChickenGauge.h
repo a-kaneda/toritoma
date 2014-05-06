@@ -43,15 +43,15 @@
  
  チキンゲージの表示を行うクラス。
  */
-class AKChickenGauge : public cocos2d::CCNode {
+class AKChickenGauge : public cocos2d::Node {
 public:
     static AKChickenGauge* create();
 
 private:
     /// 空ゲージの画像
-    cocos2d::CCSprite *m_emptyImage;
+    cocos2d::Sprite *m_emptyImage;
     /// 満ゲージの画像
-    cocos2d::CCSprite *m_fullImage;
+    cocos2d::Sprite *m_fullImage;
     /// ゲージの溜まっている比率
     float m_percent;
 

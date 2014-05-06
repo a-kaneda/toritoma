@@ -65,7 +65,7 @@ protected:
     virtual void action(AKPlayDataInterface *data);
 public:
     // 画面効果開始
-    void createEffect(int type, const cocos2d::CCPoint &position, cocos2d::CCNode *parent);
+    void createEffect(int type, const cocos2d::Vector2 &position, cocos2d::Node *parent);
 };
 
 #endif
