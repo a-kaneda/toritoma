@@ -299,7 +299,7 @@ void AKOptionScene::initGameCenterPage(AKInterface *interface)
 {
     // Game Centerのラベルを作成する
     AKLabel *gameCenterLabel = AKLabel::createLabel(kAKGameCenterCaption,
-                                                    strlen(kAKGameCenterCaption),
+                                                    (int)strlen(kAKGameCenterCaption),
                                                     1,
                                                     kAKLabelFrameNone);
     
@@ -343,7 +343,7 @@ void AKOptionScene::initStorePage(AKInterface *interface)
 {
     // Storeのラベルを作成する
     AKLabel *storeLabel = AKLabel::createLabel(kAKStoreCaption,
-                                               strlen(kAKStoreCaption),
+                                               (int)strlen(kAKStoreCaption),
                                                1,
                                                kAKLabelFrameNone);
     
@@ -397,7 +397,7 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     
     // 購入済みのラベルを作成する
     AKLabel *purchasedLabel = AKLabel::createLabel(purchasedMessage,
-                                                   purchasedMessage.length(),
+                                                   (int)purchasedMessage.length(),
                                                    1,
                                                    kAKLabelFrameNone);
     

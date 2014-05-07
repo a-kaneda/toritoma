@@ -277,7 +277,7 @@ void AKPlayingSceneIF::createPauseMenu()
 {
     // ゲームオーバーラベルを生成する
     AKLabel *label = AKLabel::createLabel(kAKPauseString,
-                                          strlen(kAKPauseString),
+                                          (int)strlen(kAKPauseString),
                                           1,
                                           kAKLabelFrameMessage);
     
@@ -321,7 +321,7 @@ void AKPlayingSceneIF::createQuitMenu()
 {
     // 終了確認メッセージラベルを生成する
     AKLabel *label = AKLabel::createLabel(kAKQuitMessageString,
-                                          strlen(kAKQuitMessageString),
+                                          (int)strlen(kAKQuitMessageString),
                                           1,
                                           kAKLabelFrameMessage);
     
@@ -364,7 +364,7 @@ void AKPlayingSceneIF::createGameOverMenu()
 {
     // ゲームオーバーラベルを生成する
     AKLabel *label = AKLabel::createLabel(kAKGameOverString,
-                                          strlen(kAKGameOverString),
+                                          (int)strlen(kAKGameOverString),
                                           1,
                                           kAKLabelFrameMessage);
     
@@ -406,7 +406,7 @@ void AKPlayingSceneIF::createStageClear()
 {
     // ステージクリアラベルを生成する
     AKLabel *label = AKLabel::createLabel(kAKStageClearString,
-                                          strlen(kAKStageClearString),
+                                          (int)strlen(kAKStageClearString),
                                           1,
                                           kAKLabelFrameNone);
     

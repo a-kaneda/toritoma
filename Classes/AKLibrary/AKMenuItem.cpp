@@ -36,6 +36,10 @@
 #include "AKMenuItem.h"
 #include "AKLogNoDef.h"
 
+using cocos2d::Rect;
+using cocos2d::Vector2;
+using cocos2d::Touch;
+
 /*!
  @brief 矩形指定のコンストラクタ
  
@@ -45,7 +49,7 @@
  @param eventNo イベント番号
  @param tag タグ情報(任意に使用)
  */
-AKMenuItem::AKMenuItem(const cocos2d::CCRect &rect,
+AKMenuItem::AKMenuItem(const Rect &rect,
                        enum AKMenuType type,
                        int eventNo,
                        unsigned int tag) :
@@ -65,7 +69,7 @@ m_prevPoint(0.0f, 0.0f), m_touch(NULL)
  @param tag タグ情報(任意に使用)
  @return 生成したオブジェクト。失敗時はnilを返す。
  */
-AKMenuItem::AKMenuItem(const cocos2d::CCPoint &position,
+AKMenuItem::AKMenuItem(const Vector2 &position,
                        int size,
                        enum AKMenuType type,
                        int eventNo,
@@ -82,7 +86,7 @@ m_tag(tag), m_prevPoint(0.0f, 0.0f), m_touch(NULL)
  @param pos 選択位置
  @return メニュー項目の範囲内かどうかを
  */
-bool AKMenuItem::isSelect(const cocos2d::CCPoint &position) const
+bool AKMenuItem::isSelect(const Vector2 &position) const
 {
     // 座標がメニュー項目の範囲内の場合は処理を行う
     return AKIsInside(position, m_rect);
@@ -124,7 +128,7 @@ enum AKMenuType AKMenuItem::getType() const
  タッチ情報を取得する。
  @return タッチ情報
  */
-cocos2d::CCTouch *AKMenuItem::getTouch() const
+Touch *AKMenuItem::getTouch() const
 {
     return m_touch;
 }
@@ -135,7 +139,7 @@ cocos2d::CCTouch *AKMenuItem::getTouch() const
  タッチ情報を設定する。
  @param touch タッチ情報
  */
-void AKMenuItem::setTouch(cocos2d::CCTouch *touch)
+void AKMenuItem::setTouch(Touch *touch)
 {
     m_touch = touch;
 }
@@ -146,7 +150,7 @@ void AKMenuItem::setTouch(cocos2d::CCTouch *touch)
  前回のタッチ位置を取得する。
  @return 前回タッチ位置
  */
-const cocos2d::CCPoint* AKMenuItem::getPrevPoint() const
+const Vector2* AKMenuItem::getPrevPoint() const
 {
     return &m_prevPoint;
 }
@@ -157,7 +161,7 @@ const cocos2d::CCPoint* AKMenuItem::getPrevPoint() const
  前回のタッチ位置を設定する。
  @param 前回タッチ位置
  */
-void AKMenuItem::setPrevPoint(cocos2d::CCPoint prevPoint)
+void AKMenuItem::setPrevPoint(Vector2 prevPoint)
 {
     m_prevPoint = prevPoint;
 }

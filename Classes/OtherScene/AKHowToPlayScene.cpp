@@ -194,7 +194,7 @@ bool AKHowToPlayScene::init()
     snprintf(pageString, sizeof(pageString), kAKHowToPageFormat, 1, kAKHowToPageCount);
     
     // ページ番号のラベルを作成する
-    AKLabel *pageLabel = AKLabel::createLabel(pageString, strlen(pageString), 1, kAKLabelFrameNone);
+    AKLabel *pageLabel = AKLabel::createLabel(pageString, (int)strlen(pageString), 1, kAKLabelFrameNone);
     
     // ページ番号の位置を設定する
     float x = AKScreenSize::center().x;
