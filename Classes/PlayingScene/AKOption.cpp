@@ -147,7 +147,7 @@ void AKOption::setShiled(bool shield)
         setImageName(imageName);
         
         // アニメーションフレームの個数を設定する
-        m_animationPattern = kAKOptionAnimationCountOfShieldOn;
+        m_animationPattern = kAKOptionAnimationCountOfShieldOff;
     }
     
     // 次のオプションがある場合は次のオプションにも設定する
