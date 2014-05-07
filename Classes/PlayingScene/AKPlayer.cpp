@@ -380,7 +380,7 @@ void AKPlayer::action(AKPlayDataInterface *data)
     m_shootFrame--;
     
     // 弾発射までの残りフレーム数が0になっている場合は弾を発射する
-    if (m_shootFrame <= 0) {
+    if (m_shootFrame <= 0 && (!m_isInvincible || m_invincivleFrame > 0)) {
         
         AKLog(kAKLogPlayer_1, "弾発射");
         
