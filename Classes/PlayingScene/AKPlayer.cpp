@@ -248,8 +248,6 @@ void AKPlayer::graze(std::vector<AKEnemyShot*> &characters)
  */
 void AKPlayer::setPosition(const Vector2 &position, AKPlayDataInterface *data)
 {
-//    AKLog(1, "before:%.0f", m_position.y);
-    
     // オプションに自分の移動前の座標を通知する
     if (m_option != NULL && m_option->isStaged()) {
         m_option->setPosition(m_position);
@@ -260,10 +258,14 @@ void AKPlayer::setPosition(const Vector2 &position, AKPlayDataInterface *data)
     // 移動先の座標を設定する
     m_position = position;
     
+//    AKLog(1, "before:%.0f, %.0f", m_position.x, m_position.y);
+//    AKSetDebugFlg(1);
+    
     // 障害物との衝突判定を行う
     checkHit(*data->getBlocks(), data, &AKPlayer::moveOfBlockHit);
     
-//    AKLog(1, "after:%.0f", m_position.y);
+//    AKSetDebugFlg(1);
+//    AKLog(1, "after:%.0f %.0f", m_position.x, m_position.y);
 }
 
 /*!

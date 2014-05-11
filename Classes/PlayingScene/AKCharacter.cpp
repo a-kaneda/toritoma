@@ -701,7 +701,7 @@ void AKCharacter::moveOfBlockHit(AKCharacter *character, AKPlayDataInterface *da
         m_position.x = newPoint.x;
         
         // 移動後に衝突がある場合は縦方向を採用する
-        if (checkHitNoFunc(*data->getBlocks(), data)) {
+        if (isYMoved && checkHitNoFunc(*data->getBlocks(), data)) {
             AKLog(kAKLogCharacter_4, "縦方向の移動採用");
             // 縦方向の座標と接触フラグを採用する
             m_position.x = oldX;

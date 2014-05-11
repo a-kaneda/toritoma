@@ -364,6 +364,7 @@ protected:
         
         // 衝突している方向を初期化する
         m_blockHitSide = 0;
+//        AKLog(AKGetDebugFlg() && func != NULL, "self (l, t)=(%.0f, %.0f) (r, b)=(%.0f, %.0f)", myleft, mytop, myright, mybottom);
         
         // 判定対象のキャラクターごとに判定を行う
         for (T *target : characters) {
@@ -385,6 +386,11 @@ protected:
             float targettop = target->getPosition()->y + target->getSize()->height / 2.0f;
             float targetbottom = target->getPosition()->y - target->getSize()->height / 2.0f;
             
+//            AKLog(AKGetDebugFlg() && func != NULL && (targetright > myleft - 5) &&
+//                (targetleft < myright + 5) &&
+//                (targettop > mybottom - 5) &&
+//                (targetbottom < mytop + 5), "target (l, t)=(%.0f, %.0f) (r, b)=(%.0f, %.0f)", targetleft, targettop, targetright, targetbottom);
+            
             // 以下のすべての条件を満たしている時、衝突していると判断する。
             //   ・相手の右端が自キャラの左端よりも右側にある
             //   ・相手の左端が自キャラの右端よりも左側にある
@@ -404,6 +410,8 @@ protected:
                     myright = m_position.x + m_size.width / 2.0f;
                     mytop = m_position.y + m_size.height / 2.0f;
                     mybottom = m_position.y - m_size.height / 2.0f;
+                    
+//                    AKLog(AKGetDebugFlg(), "self (l, t)=(%.0f, %.0f) (r, b)=(%.0f, %.0f)", myleft, mytop, myright, mybottom);
                 }
                 
                 // 衝突したかどうかを記憶する

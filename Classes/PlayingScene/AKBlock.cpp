@@ -255,6 +255,9 @@ void AKBlock::pushCharacter(AKCharacter *character, AKPlayDataInterface *data)
         // 衝突判定を行う
         if (!character->checkHitNoFunc(*data->getBlocks(), data)) {
             
+//            AKLog(1, "(x, y)=(%.0f, %.0f)", this->m_position.x, this->m_position.y);
+//            assert(moveLeft > -10.0f);
+            
             // 衝突しなかった場合はこの値を採用して処理を終了する
             return;
         }
