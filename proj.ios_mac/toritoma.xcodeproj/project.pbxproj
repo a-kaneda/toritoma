@@ -21,6 +21,8 @@
 		0C9CC40A19139B62008F43AC /* stage6.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C9CC3FC19139B62008F43AC /* stage6.mp3 */; };
 		0C9CC40B19139B62008F43AC /* stage7.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C9CC3FD19139B62008F43AC /* stage7.mp3 */; };
 		0C9CC40C19139B62008F43AC /* stage8.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C9CC3FE19139B62008F43AC /* stage8.mp3 */; };
+		0CB620AB1928A5E300FC8E49 /* hit.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB620AA1928A5E300FC8E49 /* hit.mp3 */; };
+		0CB620AF1928B9EA00FC8E49 /* miss.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CB620AE1928B9EA00FC8E49 /* miss.mp3 */; };
 		0CDDBE9419120F17007FBA6B /* AKBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CDDBE6F19120F17007FBA6B /* AKBlock.cpp */; };
 		0CDDBE9519120F17007FBA6B /* AKCharacter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CDDBE7119120F17007FBA6B /* AKCharacter.cpp */; };
 		0CDDBE9619120F17007FBA6B /* AKCharacterPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CDDBE7319120F17007FBA6B /* AKCharacterPool.cpp */; };
@@ -299,6 +301,8 @@
 		0C9CC3FC19139B62008F43AC /* stage6.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = stage6.mp3; path = Sound/stage6.mp3; sourceTree = "<group>"; };
 		0C9CC3FD19139B62008F43AC /* stage7.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = stage7.mp3; path = Sound/stage7.mp3; sourceTree = "<group>"; };
 		0C9CC3FE19139B62008F43AC /* stage8.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = stage8.mp3; path = Sound/stage8.mp3; sourceTree = "<group>"; };
+		0CB620AA1928A5E300FC8E49 /* hit.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = hit.mp3; path = Sound/hit.mp3; sourceTree = "<group>"; };
+		0CB620AE1928B9EA00FC8E49 /* miss.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = miss.mp3; path = Sound/miss.mp3; sourceTree = "<group>"; };
 		0CDDBE6F19120F17007FBA6B /* AKBlock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AKBlock.cpp; path = ../Classes/PlayingScene/AKBlock.cpp; sourceTree = "<group>"; };
 		0CDDBE7019120F17007FBA6B /* AKBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKBlock.h; path = ../Classes/PlayingScene/AKBlock.h; sourceTree = "<group>"; };
 		0CDDBE7119120F17007FBA6B /* AKCharacter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AKCharacter.cpp; path = ../Classes/PlayingScene/AKCharacter.cpp; sourceTree = "<group>"; };
@@ -512,6 +516,8 @@
 		0C9CC3F019139B50008F43AC /* Sound */ = {
 			isa = PBXGroup;
 			children = (
+				0CB620AE1928B9EA00FC8E49 /* miss.mp3 */,
+				0CB620AA1928A5E300FC8E49 /* hit.mp3 */,
 				0C9CC3F119139B62008F43AC /* bomb_big.mp3 */,
 				0C9CC3F219139B62008F43AC /* bomb_min.mp3 */,
 				0C9CC3F319139B62008F43AC /* clear.mp3 */,
@@ -970,6 +976,7 @@
 				0CDDBF02191210A4007FBA6B /* Character-ipad.png in Resources */,
 				0CDDBF0B191210A4007FBA6B /* Control.plist in Resources */,
 				0C9CC40A19139B62008F43AC /* stage6.mp3 in Resources */,
+				0CB620AB1928A5E300FC8E49 /* hit.mp3 in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				0CDDBF14191210A4007FBA6B /* HowTo-ipad.png in Resources */,
 				0CDDBF0A191210A4007FBA6B /* Control-ipad.png in Resources */,
@@ -998,6 +1005,7 @@
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				0CDDBF16191210A4007FBA6B /* HowTo.png in Resources */,
 				0CDDBF18191210A4007FBA6B /* Localized_ja in Resources */,
+				0CB620AF1928B9EA00FC8E49 /* miss.mp3 in Resources */,
 				0CDDBF05191210A4007FBA6B /* ChickenGauge_01-ipad.png in Resources */,
 				0CDDBF1D191210A4007FBA6B /* Stage_05.tmx in Resources */,
 				0C9CC40519139B62008F43AC /* stage1.mp3 in Resources */,

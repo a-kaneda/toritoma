@@ -40,6 +40,7 @@
 using cocos2d::Vector2;
 using cocos2d::Size;
 using cocos2d::Node;
+using CocosDenshion::SimpleAudioEngine;
 
 /// 敵種別定義
 struct AKEnemyDef {
@@ -3314,6 +3315,9 @@ void AKEnemy::destroyNormal(AKPlayDataInterface *data)
     
     // 画面効果を生成する
     data->createEffect(1, m_position);
+    
+    // 破壊の効果音を鳴らす
+    SimpleAudioEngine::getInstance()->playEffect(kAKBombMinSEFileName);
 }
 
 /*!

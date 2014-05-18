@@ -69,5 +69,9 @@ const char *kAKPauseSEFileName = "pause.mp3";
 const char *kAKBombMinSEFileName = "bomb_min.mp3";
 /// 爆発(大)効果音のファイル名
 const char *kAKBombBigSEFileName = "bomb_big.mp3";
+/// 弾衝突効果音のファイル名
+const char *kAKHitSEFileName = "hit.mp3";
+/// 自機死亡時の効果音
+const char *kAKMissSEFileName = "miss.mp3";
 
 

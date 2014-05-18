@@ -440,6 +440,7 @@ void AKTileMap::execEvent(const AKTileMapEventParameter &param, AKPlayDataInterf
         AKLog(kAKLogTileMap_1, "BGM:%.32sを再生", fileName);
 
         // BGMを再生する
+        SimpleAudioEngine::getInstance()->stopBackgroundMusic();
         SimpleAudioEngine::getInstance()->playBackgroundMusic(fileName, true);
     }
     // ステージクリアの場合

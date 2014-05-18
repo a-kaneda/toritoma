@@ -46,6 +46,7 @@ using cocos2d::Node;
 using cocos2d::Vector2;
 using cocos2d::SpriteFrameCache;
 using cocos2d::SpriteBatchNode;
+using CocosDenshion::SimpleAudioEngine;
 
 /// ステージの数
 const int kAKStageCount = 6;
@@ -564,13 +565,19 @@ void AKPlayData::update()
     }
     
     // 敵と自機弾、反射弾の当たり判定を行う
+    bool isHit = false;
     for (AKEnemy *enemy : *m_enemyPool.getPool()) {
         
         // 自機弾との当たり判定を行う
-        enemy->checkHit(*m_playerShotPool.getPool(), this);
+        isHit = enemy->checkHit(*m_playerShotPool.getPool(), this) || isHit;
         
         // 反射弾との当たり判定を行う
-        enemy->checkHit(*m_reflectShotPool.getPool(), this);
+        isHit = enemy->checkHit(*m_reflectShotPool.getPool(), this) || isHit;
+    }
+    
+    // 敵が自機弾と当たっている場合は効果音を鳴らす
+    if (isHit) {
+        SimpleAudioEngine::getInstance()->playEffect(kAKHitSEFileName);
     }
     
     // シールド有効時、反射の判定を行う

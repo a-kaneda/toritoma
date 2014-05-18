@@ -40,6 +40,7 @@
 using cocos2d::Vector2;
 using cocos2d::Node;
 using cocos2d::Blink;
+using CocosDenshion::SimpleAudioEngine;
 
 /// 自機のサイズ
 static const int kAKPlayerSize = 8;
@@ -414,10 +415,14 @@ void AKPlayer::destroy(AKPlayDataInterface *data)
 {
     AKLog(kAKLogPlayer_1, "destroy() start");
 
-    // TODO:破壊時の効果音を鳴らす
+    // 破壊時の効果音を鳴らす
+    SimpleAudioEngine::getInstance()->playEffect(kAKMissSEFileName);
 
     // HPの設定
     m_hitPoint = 1;
+    
+    // チキンゲージを一旦０にしてオプションを消す
+    setChickenGauge(0);
     
     // 画面効果を生成する
     data->createEffect(2, m_position);

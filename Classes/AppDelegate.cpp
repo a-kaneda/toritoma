@@ -85,16 +85,23 @@ void AppDelegate::preloadSound()
         // ファイルを読み込む
         SimpleAudioEngine::getInstance()->preloadBackgroundMusic(fileName);
     }
-    /// エンディングBGMのファイル名
+    // エンディングBGMのファイルを読み込む
     SimpleAudioEngine::getInstance()->preloadBackgroundMusic(kAKEndingBGMFileName);
-    /// ステージクリアジングルのファイル名
+    // ステージクリアジングルのファイルを読み込む
     SimpleAudioEngine::getInstance()->preloadBackgroundMusic(kAKClearJingleFileName);
-    /// ボタン選択効果音のファイル名
+    // ボタン選択効果音のファイルを読み込む
     SimpleAudioEngine::getInstance()->preloadEffect(kAKSelectSEFileName);
-    /// ポーズ効果音のファイル名
+    // ポーズ効果音のファイルを読み込む
     SimpleAudioEngine::getInstance()->preloadEffect(kAKPauseSEFileName);
-    /// 爆発(小)効果音のファイル名
+    // 爆発(小)効果音のファイルを読み込む
     SimpleAudioEngine::getInstance()->preloadEffect(kAKBombMinSEFileName);
-    /// 爆発(大)効果音のファイル名
+    // 爆発(大)効果音のファイルを読み込む
     SimpleAudioEngine::getInstance()->preloadEffect(kAKBombBigSEFileName);
+    // 弾衝突効果音のファイルを読み込む
+    SimpleAudioEngine::getInstance()->preloadEffect(kAKHitSEFileName);
+    // 自機死亡時の効果音のファイルを読み込む
+    SimpleAudioEngine::getInstance()->preloadEffect(kAKMissSEFileName);
+    
+    // 音量を調整する
+    SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.3f);
 }
