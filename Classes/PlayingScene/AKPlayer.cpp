@@ -248,6 +248,11 @@ void AKPlayer::graze(std::vector<AKEnemyShot*> &characters)
  */
 void AKPlayer::setPosition(const Vector2 &position, AKPlayDataInterface *data)
 {
+    // 死亡しているときは処理しない
+    if (m_isInvincible && m_invincivleFrame == 0) {
+        return;
+    }
+    
     // オプションに自分の移動前の座標を通知する
     if (m_option != NULL && m_option->isStaged()) {
         m_option->setPosition(m_position);
