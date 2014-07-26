@@ -60,14 +60,14 @@ static const int kAKOptionShotPower = 1;
  @param position 生成位置
  @param parent 配置する親ノード
  */
-void AKPlayerShot::createPlayerShot(const Vector2 &position, Node *parent)
+void AKPlayerShot::createPlayerShot(const Vector2 &position, float angle, Node *parent)
 {
     // 攻撃力を設定する
     m_power = kAKPlayerShotPower;
 
-    // スピードを設定する。右方向へまっすぐに進む。
-    m_speedX = kAKPlayerShotSpeed;
-    m_speedY = 0.0f;
+    // スピードをxとyに分割して設定する
+    m_speedX = cos(angle) * kAKPlayerShotSpeed;
+    m_speedY = sin(angle) * kAKPlayerShotSpeed;
     
     // その他のパラメータを設定する
     setCommonParam(position, parent);

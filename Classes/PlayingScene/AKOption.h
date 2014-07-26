@@ -67,6 +67,8 @@ public:
     void setShiled(bool shield);
     // オプション数設定
     void setOptionCount(int count, const cocos2d::Vector2 &position);
+    // 移動処理
+    void movePosition(const cocos2d::Vector2 &position, const cocos2d::Vector2 &distance);
     // 移動座標設定
     void setPosition(const cocos2d::Vector2 &position);
     // オプション移動

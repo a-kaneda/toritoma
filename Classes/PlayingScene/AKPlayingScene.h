@@ -115,6 +115,8 @@ public:
     AKLife* getLife();
     // シールドボタン表示切替
     void setShieldButtonSelected(bool selected);
+    // ホールドボタン表示切替
+    void setHoldButtonSelected(bool selected);
     // トランジション終了時の処理
     virtual void onEnterTransitionDidFinish();
     // 更新処理
@@ -141,6 +143,8 @@ private:
     void movePlayer(const AKMenuItem *item);
     // シールドボタン選択処理
     void touchShieldButton(const AKMenuItem *item);
+    // ホールドボタン選択処理
+    void touchHoldButton(const AKMenuItem *item);
     // ポーズボタン選択処理
     void touchPauseButton();
     // 再開ボタン選択処理

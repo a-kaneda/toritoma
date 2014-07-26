@@ -165,6 +165,8 @@
             <filename>../95_4times/Control/ShieldButton_01.png</filename>
             <filename>../95_4times/Control/ShieldButton_02.png</filename>
             <filename>../95_4times/Control/TwitterButton.png</filename>
+            <filename>../95_4times/Control/HoldButton_01.png</filename>
+            <filename>../95_4times/Control/HoldButton_02.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

@@ -245,18 +245,34 @@ void AKPlayer::graze(std::vector<AKEnemyShot*> &characters)
  
  移動座標を設定する。オプションが付属している場合はオプションの移動も行う。
  @param position 移動先座標
+ @param hold オプション位置を固定するかどうか
  @param data ゲームデータ
  */
-void AKPlayer::setPosition(const Vector2 &position, AKPlayDataInterface *data)
+void AKPlayer::setPosition(const Vector2 &position, bool hold, AKPlayDataInterface *data)
 {
     // 死亡しているときは処理しない
     if (m_isInvincible && m_invincivleFrame == 0) {
         return;
     }
     
-    // オプションに自分の移動前の座標を通知する
+    // オプションが存在する場合はオプションの移動処理を行う
     if (m_option != NULL && m_option->isStaged()) {
-        m_option->setPosition(m_position);
+        
+        // ホールドモードオンの時はオプションも自機と同じ方向へ同じ距離移動する
+        // ホールドモードオフの時は自機の位置をオプション移動位置のキューへ追加する
+        if (hold) {
+            // 移動量を計算する
+            Vector2 distance;
+            distance.x = position.x - m_position.x;
+            distance.y = position.y - m_position.y;
+            
+            // 移動量をオプションへ渡す
+            m_option->movePosition(m_position, distance);
+        }
+        else {
+            // オプションに自分の移動前の座標を通知する
+            m_option->setPosition(m_position);
+        }
     }
     // 移動前の座標を記憶する
     savePosition();

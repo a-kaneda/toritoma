@@ -71,7 +71,7 @@ extern const char *kAKMissSEFileName;
 #ifdef DEBUG
 
 /// 自機当たり判定無効化
-#define DEBUG_MODE_PLAYER_INVINCIBLE 0
+#define DEBUG_MODE_PLAYER_INVINCIBLE 1
 
 #else
 

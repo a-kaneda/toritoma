@@ -93,6 +93,8 @@ private:
     std::vector<cocos2d::SpriteBatchNode*> m_batches;
     /// シールドモード
     bool m_shield;
+    /// ホールドモード
+    bool m_hold;
     /// x軸方向のスクロールスピード
     float m_scrollSpeedX;
     /// y軸方向のスクロールスピード
@@ -157,6 +159,8 @@ public:
     void resume();
     // シールドモード設定
     void setShield(bool shield);
+    // ホールドモード切替
+    void changeHoldMode();
 
 private:
     // メンバオブジェクト生成処理

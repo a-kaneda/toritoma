@@ -461,6 +461,22 @@ void AKPlayingScene::touchShieldButton(const AKMenuItem *item)
 }
 
 /*!
+ @brief ホールドボタン選択処理
+ 
+ ホールドボタン選択時にホールドモードの切替を行う。
+ @param object メニュー項目
+ */
+void AKPlayingScene::touchHoldButton(const AKMenuItem *item)
+{
+    // プレイ中以外の場合は無処理
+    if (m_state != kAKGameStatePlaying) {
+        return;
+    }
+    
+    // ホールドモードを切り替える
+    m_data->changeHoldMode();
+}
+/*!
  @brief ポーズボタン選択処理
  
  ポーズボタン選択時の処理。一時停止メニューを表示し、ゲームの状態を一時停止状態に遷移する。
@@ -645,6 +661,10 @@ void AKPlayingScene::execEvent(const AKMenuItem *item)
             touchShieldButton(item);
             break;
             
+        case kAKEventTouchHoldButton:       // ホールドボタン
+            touchHoldButton(item);
+            break;
+            
         case kAKEventTouchPauseButton:      // ポーズボタン
             touchPauseButton();
             break;
@@ -705,6 +725,17 @@ AKChickenGauge* AKPlayingScene::getChickenGauge()
 void AKPlayingScene::setShieldButtonSelected(bool selected)
 {
     m_interfaceLayer->setShieldButtonSelected(selected);
+}
+
+/*!
+ @brief ホールドボタン表示切替
+ 
+ ホールドボタンの表示を選択・非選択状態で切り替えを行う。
+ @param seleted 選択状態かどうか
+ */
+void AKPlayingScene::setHoldButtonSelected(bool selected)
+{
+    m_interfaceLayer->setHoldButtonSelected(selected);
 }
 
 /*!

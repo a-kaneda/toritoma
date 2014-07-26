@@ -7,7 +7,7 @@
             <key>BackButton.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{3,335},{64,64}}</string>
+                <string>{{271,71},{64,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -20,7 +20,7 @@
             <key>FrameBack.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{3,267},{64,64}}</string>
+                <string>{{407,3},{64,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -33,7 +33,7 @@
             <key>FrameBottom.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{223,99},{16,16}}</string>
+                <string>{{99,487},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -46,7 +46,7 @@
             <key>FrameLeft.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{203,99},{16,16}}</string>
+                <string>{{99,467},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -59,7 +59,7 @@
             <key>FrameLeftBottom.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{223,79},{16,16}}</string>
+                <string>{{79,487},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -72,7 +72,7 @@
             <key>FrameLeftTop.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{203,79},{16,16}}</string>
+                <string>{{79,467},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -85,7 +85,7 @@
             <key>FrameRight.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{223,59},{16,16}}</string>
+                <string>{{59,487},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -98,7 +98,7 @@
             <key>FrameRightBottom.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{203,59},{16,16}}</string>
+                <string>{{59,467},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -111,7 +111,7 @@
             <key>FrameRightTop.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{223,39},{16,16}}</string>
+                <string>{{39,487},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -124,7 +124,7 @@
             <key>FrameTop.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{203,39},{16,16}}</string>
+                <string>{{39,467},{16,16}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -134,10 +134,36 @@
                 <key>sourceSize</key>
                 <string>{16,16}</string>
             </dict>
+            <key>HoldButton_01.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{139,3},{128,128}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{128,128}}</string>
+                <key>sourceSize</key>
+                <string>{128,128}</string>
+            </dict>
+            <key>HoldButton_02.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{3,267},{128,128}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{128,128}}</string>
+                <key>sourceSize</key>
+                <string>{128,128}</string>
+            </dict>
             <key>Life.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{203,3},{32,32}}</string>
+                <string>{{3,467},{32,32}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -150,7 +176,7 @@
             <key>NextButton.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{135,207},{64,64}}</string>
+                <string>{{339,3},{64,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -163,7 +189,7 @@
             <key>PauseButton.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{135,139},{64,64}}</string>
+                <string>{{271,3},{64,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -176,7 +202,7 @@
             <key>PrevButton.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{135,71},{64,64}}</string>
+                <string>{{71,399},{64,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -215,7 +241,7 @@
             <key>TwitterButton.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{135,3},{64,64}}</string>
+                <string>{{3,399},{64,64}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -233,9 +259,9 @@
             <key>realTextureFileName</key>
             <string>Control-ipad.png</string>
             <key>size</key>
-            <string>{256,512}</string>
+            <string>{512,512}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:b019bd67477881b88905bd99cfad0981:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:9595726592764a92b5a6f7e802c8f21e:1/1$</string>
             <key>textureFileName</key>
             <string>Control-ipad.png</string>
         </dict>

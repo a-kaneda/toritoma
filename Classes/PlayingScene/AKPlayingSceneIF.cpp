@@ -62,6 +62,14 @@ static const float kAKShieldButtonPosFromBottomPoint = 50.0f;
 static const char *kAKShiledButtonNoSelectImage = "ShieldButton_01.png";
 /// シールドボタン選択時の画像名
 static const char *kAKShiledButtonSelectedImage = "ShieldButton_02.png";
+/// ホールドボタン配置位置、右からの座標
+static const float kAKHoldButtonPosFromRightPoint = 50.0f;
+/// ホールドボタン配置位置、下からの座標
+static const float kAKHoldButtonPosFromBottomPoint = 125.0f;
+/// ホールドボタン非選択時の画像名
+static const char *kAKHoldButtonNoSelectImage = "HoldButton_01.png";
+/// ホールドボタン選択時の画像名
+static const char *kAKHoldButtonSelectedImage = "HoldButton_02.png";
 /// ポーズボタンの配置位置、右からの位置
 static const float kAKPauseButtonPosRightPoint = 22.0f;
 /// ポーズボタンの配置位置、上からの位置
@@ -162,6 +170,8 @@ AKPlayingSceneIF::~AKPlayingSceneIF()
     // メンバを解放する
     m_shieldButton->removeFromParentAndCleanup(true);
     m_shieldButton->release();
+    m_holdButton->removeFromParentAndCleanup(true);
+    m_holdButton->release();
     m_resumeButton->release();
     m_quitButton->release();
     m_quitNoButton->release();
@@ -247,6 +257,17 @@ void AKPlayingSceneIF::createPlayingMenu()
                                    kAKMenuTagPlaying | kAKMenuTagStageClear,
                                    kAKMenuTypeMomentary);
     m_shieldButton->retain();
+    
+    // ホールドボタンを作成する
+    x = AKScreenSize::positionFromRightPoint(kAKHoldButtonPosFromRightPoint);
+    y = AKScreenSize::positionFromBottomPoint(kAKHoldButtonPosFromBottomPoint);
+    m_holdButton = addSpriteMenu(kAKHoldButtonNoSelectImage,
+                                   Vector2(x, y),
+                                   0,
+                                   kAKEventTouchHoldButton,
+                                   kAKMenuTagPlaying | kAKMenuTagStageClear,
+                                   kAKMenuTypeButton);
+    m_holdButton->retain();
     
     // ポーズボタンを追加する
     x = AKScreenSize::positionFromRightPoint(kAKPauseButtonPosRightPoint);
@@ -436,6 +457,26 @@ void AKPlayingSceneIF::setShieldButtonSelected(bool selected)
     }
     else {
         m_shieldButton->setDisplayFrame(spriteFrameCache->getSpriteFrameByName(kAKShiledButtonNoSelectImage));
+    }
+}
+
+/*!
+ @brief ホールドボタン表示切替
+ 
+ ホールドボタンの表示を選択・非選択状態で切り替えを行う。
+ @param seleted 選択状態かどうか
+ */
+void AKPlayingSceneIF::setHoldButtonSelected(bool selected)
+{
+    // スプライトフレームキャッシュを取得する
+    SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();
+
+    // 選択中かどうかで画像を切り替える
+    if (selected) {
+        m_holdButton->setDisplayFrame(spriteFrameCache->getSpriteFrameByName(kAKHoldButtonSelectedImage));
+    }
+    else {
+        m_holdButton->setDisplayFrame(spriteFrameCache->getSpriteFrameByName(kAKHoldButtonNoSelectImage));
     }
 }
 

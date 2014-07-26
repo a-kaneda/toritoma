@@ -73,7 +73,7 @@ public:
     // かすり判定
     void graze(std::vector<AKEnemyShot*> &characters);
     // 移動座標設定
-    void setPosition(const cocos2d::Vector2 &position, AKPlayDataInterface *data);
+    void setPosition(const cocos2d::Vector2 &position, bool hold, AKPlayDataInterface *data);
     // オプション数更新
     void updateOptionCount();
     // シールド有無設定

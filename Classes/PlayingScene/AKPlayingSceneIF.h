@@ -52,6 +52,7 @@ extern const unsigned int kAKMenuTagStageClear;
 // メニュー項目のイベント番号
 enum {
     kAKEventTouchShieldButton = 0,  ///< シールドボタン
+    kAKEventTouchHoldButton,        ///< ホールドボタン
     kAKEventTouchPauseButton,       ///< ポーズボタン
     kAKEventSlide,                  ///< 画面スライド
     kAKEventTouchResumeButton,      ///< ポーズ解除ボタン
@@ -75,6 +76,8 @@ public:
 private:
     /// シールドボタン
     cocos2d::Sprite *m_shieldButton;
+    /// ホールドボタン
+    cocos2d::Sprite *m_holdButton;
     /// ポーズ解除ボタン
     AKLabel *m_resumeButton;
     /// 終了ボタン
@@ -97,6 +100,8 @@ public:
     AKLabel* getQuitNoButton();
     // シールドボタン表示切替
     void setShieldButtonSelected(bool selected);
+    // ホールドボタン表示切替
+    void setHoldButtonSelected(bool selected);
     
 protected:
     // 項目数を指定したコンストラクタ

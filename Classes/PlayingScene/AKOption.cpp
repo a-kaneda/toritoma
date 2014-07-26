@@ -205,6 +205,34 @@ void AKOption::setOptionCount(int count, const Vector2 &position)
 }
 
 /*!
+ @brief 移動処理
+ 
+ 現在位置と移動先キューのすべての要素について、指定された移動量だけ移動する。
+ オプションが付属している場合はオプションの移動も行う。
+ @param distance 移動量
+ */
+void AKOption::movePosition(const Vector2 &position, const cocos2d::Vector2 &distance)
+{
+    // 移動先座標が間隔分溜まっている場合は先頭の座標を削除する
+    if (m_movePositions.size() >= kAKOptionSpace) {
+        m_movePositions.erase(m_movePositions.begin());
+    }
+    
+    // 移動先座標の配列の末尾に追加する
+    m_movePositions.push_back(position);
+    
+    // 次のオプションが存在する場合は次のオプションも移動する
+    if (m_next != NULL && m_next->isStaged()) {
+        m_next->movePosition(m_position, distance);
+    }
+    
+    // 現在位置を移動する
+    m_position.x += distance.x;
+    m_position.y += distance.y;
+    
+}
+
+/*!
  @brief 移動座標設定
  
  移動座標を設定する。オプションが付属している場合はオプションの移動も行う。

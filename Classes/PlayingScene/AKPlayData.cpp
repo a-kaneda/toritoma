@@ -40,6 +40,7 @@
 #include "AKEffect.h"
 #include "AKBlock.h"
 #include "AKHiScoreFile.h"
+#include "AKNWayAngle.h"
 #include "string.h"
 
 using cocos2d::Node;
@@ -229,10 +230,15 @@ void AKPlayData::setScrollSpeedY(float speed)
 void AKPlayData::clearPlayData()
 {
     // 自機の初期位置を設定する
-    m_player->setPosition(Vector2(kAKPlayerDefaultPosX, kAKPlayerDefaultPosY), this);
+    m_player->setPosition(Vector2(kAKPlayerDefaultPosX, kAKPlayerDefaultPosY),
+                          false,
+                          this);
     
     // シールドは無効状態で初期化する
     m_shield = false;
+    
+    // ホールドは無効状態で初期化する
+    m_hold = false;
     
     // スクロールスピード・位置は0で初期化する
     m_scrollSpeedX = 0.0f;
@@ -309,6 +315,21 @@ void AKPlayData::setShield(bool shield)
     // 自機・オプションに対してシールド有無を設定する
     // オプションは自機の処理の中で設定される
     m_player->setShield(shield);
+}
+
+/*!
+ @brief ホールドモード切替
+ 
+ ホールドモードの有効無効を切り替える。
+ 画面のホールドボタンの表示も切り替える。
+ */
+void AKPlayData::changeHoldMode()
+{
+    // ホールドを切り替える
+    m_hold = !m_hold;
+    
+    // シーンのホールドボタンの表示を切り替える
+    m_scene->setHoldButtonSelected(m_hold);
 }
 
 #pragma mark ファイルアクセス
@@ -651,7 +672,7 @@ void AKPlayData::movePlayer(float dx, float dy)
     float y = AKRangeCheckF(m_player->getPosition()->y + dy,
                             0.0f,
                             AKScreenSize::stageSize().height);
-    m_player->setPosition(Vector2(x, y), this);
+    m_player->setPosition(Vector2(x, y), m_hold, this);
 }
 
 /*!
@@ -804,18 +825,19 @@ void AKPlayData::createPlayerShot(Vector2 position)
 {
     // プールから未使用のメモリを取得する
     AKPlayerShot *playerShot = m_playerShotPool.getNext();
-    AKPlayerShot *playerUpwardShot = m_playerShotPool.getNext();
-    AKPlayerShot *playerDownwardShot = m_playerShotPool.getNext();
-    if (playerShot == NULL || playerUpwardShot == NULL || playerDownwardShot == NULL) {
+    //AKPlayerShot *playerUpwardShot = m_playerShotPool.getNext();
+    //AKPlayerShot *playerDownwardShot = m_playerShotPool.getNext();
+    //if (playerShot == NULL || playerUpwardShot == NULL || playerDownwardShot == NULL) {
+    if (playerShot == NULL) {
         // 空きがない場合は処理終了する
         AKAssert(false, "自機弾プールに空きなし");
         return;
     }
     
     // 自機弾を生成する
-    playerShot->createPlayerShot(position, m_batches.at(kAKCharaPosZPlayerShot));
-    playerUpwardShot->createPlayerShotUpward(position, m_batches.at(kAKCharaPosZPlayerShot));
-    playerDownwardShot->createPlayerShotDownward(position, m_batches.at(kAKCharaPosZPlayerShot));
+    playerShot->createPlayerShot(position, 0.0f, m_batches.at(kAKCharaPosZPlayerShot));
+    //playerUpwardShot->createPlayerShotUpward(position, m_batches.at(kAKCharaPosZPlayerShot));
+    //playerDownwardShot->createPlayerShotDownward(position, m_batches.at(kAKCharaPosZPlayerShot));
 }
 
 /*!
@@ -828,18 +850,21 @@ void AKPlayData::createOptionShot(Vector2 position)
 {
     // プールから未使用のメモリを取得する
     AKPlayerShot *playerShot = m_playerShotPool.getNext();
-    AKPlayerShot *playerUpwardShot = m_playerShotPool.getNext();
-    AKPlayerShot *playerDownwardShot = m_playerShotPool.getNext();
+    //AKPlayerShot *playerUpwardShot = m_playerShotPool.getNext();
+    //AKPlayerShot *playerDownwardShot = m_playerShotPool.getNext();
     if (playerShot == NULL) {
         // 空きがない場合は処理終了する
         AKAssert(false, "自機弾プールに空きなし");
         return;
     }
     
+    AKNWayAngle angle(*getPlayerPosition(), position, 1, 0);
+    
     // 自機弾を生成する
-    playerShot->createOptionShot(position, m_batches.at(kAKCharaPosZPlayerShot));
-    playerUpwardShot->createOptionShotUpward(position, m_batches.at(kAKCharaPosZPlayerShot));
-    playerDownwardShot->createOptionShotDownward(position, m_batches.at(kAKCharaPosZPlayerShot));
+    playerShot->createPlayerShot(position, angle.getTopAngle(), m_batches.at(kAKCharaPosZPlayerShot));
+    //playerShot->createOptionShot(position, m_batches.at(kAKCharaPosZPlayerShot));
+    //playerUpwardShot->createOptionShotUpward(position, m_batches.at(kAKCharaPosZPlayerShot));
+    //playerDownwardShot->createOptionShotDownward(position, m_batches.at(kAKCharaPosZPlayerShot));
 }
 
 /*!
