@@ -63,9 +63,9 @@ static const char *kAKShiledButtonNoSelectImage = "ShieldButton_01.png";
 /// シールドボタン選択時の画像名
 static const char *kAKShiledButtonSelectedImage = "ShieldButton_02.png";
 /// ホールドボタン配置位置、右からの座標
-static const float kAKHoldButtonPosFromRightPoint = 50.0f;
+//static const float kAKHoldButtonPosFromRightPoint = 50.0f;
 /// ホールドボタン配置位置、下からの座標
-static const float kAKHoldButtonPosFromBottomPoint = 125.0f;
+//static const float kAKHoldButtonPosFromBottomPoint = 125.0f;
 /// ホールドボタン非選択時の画像名
 static const char *kAKHoldButtonNoSelectImage = "HoldButton_01.png";
 /// ホールドボタン選択時の画像名
@@ -170,8 +170,8 @@ AKPlayingSceneIF::~AKPlayingSceneIF()
     // メンバを解放する
     m_shieldButton->removeFromParentAndCleanup(true);
     m_shieldButton->release();
-    m_holdButton->removeFromParentAndCleanup(true);
-    m_holdButton->release();
+//    m_holdButton->removeFromParentAndCleanup(true);
+//    m_holdButton->release();
     m_resumeButton->release();
     m_quitButton->release();
     m_quitNoButton->release();
@@ -259,15 +259,15 @@ void AKPlayingSceneIF::createPlayingMenu()
     m_shieldButton->retain();
     
     // ホールドボタンを作成する
-    x = AKScreenSize::positionFromRightPoint(kAKHoldButtonPosFromRightPoint);
-    y = AKScreenSize::positionFromBottomPoint(kAKHoldButtonPosFromBottomPoint);
-    m_holdButton = addSpriteMenu(kAKHoldButtonNoSelectImage,
-                                   Vector2(x, y),
-                                   0,
-                                   kAKEventTouchHoldButton,
-                                   kAKMenuTagPlaying | kAKMenuTagStageClear,
-                                   kAKMenuTypeButton);
-    m_holdButton->retain();
+//    x = AKScreenSize::positionFromRightPoint(kAKHoldButtonPosFromRightPoint);
+//    y = AKScreenSize::positionFromBottomPoint(kAKHoldButtonPosFromBottomPoint);
+//    m_holdButton = addSpriteMenu(kAKHoldButtonNoSelectImage,
+//                                   Vector2(x, y),
+//                                   0,
+//                                   kAKEventTouchHoldButton,
+//                                   kAKMenuTagPlaying | kAKMenuTagStageClear,
+//                                   kAKMenuTypeButton);
+//    m_holdButton->retain();
     
     // ポーズボタンを追加する
     x = AKScreenSize::positionFromRightPoint(kAKPauseButtonPosRightPoint);
