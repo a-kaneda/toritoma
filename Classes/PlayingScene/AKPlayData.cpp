@@ -86,6 +86,8 @@ static const int kAKRebirthInterval = 60;
 static const int kAKExtendScore = 50000;
 /// クリアした後の待機時間
 static const int kAKClearWait = 540;
+/// ボス体力ゲージ最小値
+static const float kAKBossLifeMin = 4.0f;
 
 /// ゲームクリア時のツイートのフォーマットのキー
 //static const char *kAKGameClearTweetKey = "GameClearTweet";
@@ -118,7 +120,7 @@ AKPlayData::AKPlayData(AKPlayingScene *scene) :
 m_scene(scene), m_playerShotPool(kAKMaxPlayerShotCount),
 m_reflectShotPool(kAKMaxEnemyShotCount), m_enemyPool(kAKMaxEnemyCount),
 m_enemyShotPool(kAKMaxEnemyShotCount), m_effectPool(kAKMaxEffectCount),
-m_blockPool(kAKMaxBlockCount), m_tileMap(NULL), m_player(NULL)
+m_blockPool(kAKMaxBlockCount), m_tileMap(NULL), m_player(NULL), m_boss(NULL)
 {
     // シーンを確保する
     m_scene->retain();
@@ -255,6 +257,12 @@ void AKPlayData::clearPlayData()
     m_score = 0;
     m_clearWait = 0;
     m_rebirthWait = 0;
+    
+    // ボスはなしとする
+    m_boss = NULL;
+    m_bossHP = 0;
+    AKGauge *gauge = m_scene->getBossLifeGauge();
+    gauge->setVisible(false);
 }
 
 #pragma mark アクセサ
@@ -478,6 +486,11 @@ void AKPlayData::update()
                     // TODO:ゲームクリア処理を作成する
                 }
                 else {
+                    
+                    // ボス体力ゲージを非表示にする
+                    AKGauge *gauge = m_scene->getBossLifeGauge();
+                    gauge->setVisible(false);
+                    
                     // 次のステージのスクリプトを読み込む
                     readScript(m_stage);
                     
@@ -546,7 +559,7 @@ void AKPlayData::update()
     // 敵を更新する
     for (AKEnemy *enemy : *m_enemyPool.getPool()) {
         if (enemy->isStaged()) {
-            AKLog(kAKLogPlayData_3, "enemy move start.");
+//            AKLog(kAKLogPlayData_3, "enemy move start.");
             enemy->move(this);
         }
     }
@@ -654,6 +667,9 @@ void AKPlayData::update()
     
     // チキンゲージからオプション個数を決定する
     m_player->updateOptionCount();
+    
+    // ボス体力ゲージの表示を更新する
+    updateBossLifeGage();
 }
 
 /*!
@@ -899,6 +915,20 @@ AKEnemy* AKPlayData::createEnemy(int type, Vector2 position, int progress)
     // 敵を生成する
     enemy->createEnemy(type, position, progress, m_batches.at(kAKCharaPosZEnemy));
     
+    // ボスキャラの場合
+    if (enemy->isBoss()) {
+        
+        // メンバに保存する
+        m_boss = enemy;
+        
+        // 初期HPを保存する
+        m_bossHP = m_boss->getHitPoint();
+        
+        // ボス登場時にボス体力ゲージを表示する
+        AKGauge *gauge = m_scene->getBossLifeGauge();
+        gauge->setVisible(true);
+    }
+    
     return enemy;
 }
 
@@ -1071,3 +1101,35 @@ void AKPlayData::clearEnemyShot()
     }
 }
 
+/*!
+ @brief ボス体力ゲージ表示更新
+ 
+ ボス体力ゲージの表示を更新する。
+ ボスキャラがいない場合は非表示にする。
+ ボスキャラがいる場合は表示し、初期HPを最大値として、現在HPの比率をゲージに反映させる。
+ */
+void AKPlayData::updateBossLifeGage()
+{
+    // ボスがステージに配置されていない場合はポインタをクリアする
+    if (m_boss != NULL && !m_boss->isStaged()) {
+        
+        m_boss = NULL;
+    }
+    
+    // ボスがいない場合は処理しない
+    if (m_boss == NULL) {
+        return;
+    }
+    
+    // ボス体力ゲージを取得する
+    AKGauge *gauge = m_scene->getBossLifeGauge();
+    
+    // ゲージの比率を計算する
+    // 単純に計算するとHPが0になる前にゲージの表示がなくなるので、若干補正する。
+    float percent = (100.0f - kAKBossLifeMin) * m_boss->getHitPoint() / m_bossHP + kAKBossLifeMin;
+    if (percent > 100.0f) {
+        percent = 100.0f;
+    }
+    AKLog(kAKLogPlayData_3, "nowhp=%d maxhp=%d percent=%f", m_boss->getHitPoint(), m_bossHP, percent);
+    gauge->setPercent(percent);
+}

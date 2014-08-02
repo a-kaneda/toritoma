@@ -39,7 +39,7 @@
 #include "AKToritoma.h"
 #include "AKPlayingSceneIF.h"
 #include "AKPlayData.h"
-#include "AKChickenGauge.h"
+#include "AKGauge.h"
 #include "AKLife.h"
 #include "AKTitleScene.h"
 
@@ -90,7 +90,9 @@ private:
     /// 残機表示
     AKLife *m_life;
     /// チキンゲージ
-    AKChickenGauge *m_chickenGauge;
+    AKGauge *m_chickenGauge;
+    /// ボス体力ゲージ
+    AKGauge *m_bossLifeGauge;
 
 private:
     // コンストラクタ
@@ -124,7 +126,9 @@ public:
     // イベント実行
     virtual void execEvent(const AKMenuItem *item);
     // チキンゲージ取得
-    AKChickenGauge* getChickenGauge();
+    AKGauge* getChickenGauge();
+    // ボス体力ゲージ取得
+    AKGauge* getBossLifeGauge();
     // スコアラベル取得
     AKLabel* getScore();
     // ゲームオーバーかどうか取得

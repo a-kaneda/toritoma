@@ -99,6 +99,10 @@ private:
     float m_scrollSpeedX;
     /// y軸方向のスクロールスピード
     float m_scrollSpeedY;
+    /// ボスキャラ
+    AKEnemy *m_boss;
+    /// ボスキャラの初期HP
+    int m_bossHP;
 
 private:
     // デフォルトコンストラクタは使用禁止にする
@@ -175,6 +179,8 @@ private:
     void setLife(int life);
     // 敵弾削除
     void clearEnemyShot();
+    // ボス体力ゲージ表示更新
+    void updateBossLifeGage();
 };
 
 #endif

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013 Akihiro Kaneda.
+ * Copyright (c) 2014 Akihiro Kaneda.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,43 +27,66 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 /*!
- @file AKChickenGauge.h
- @brief チキンゲージクラス定義
+ @file AKGauge.h
+ @brief ゲージクラス定義
  
- チキンゲージのクラスを定義する。
+ ゲージのクラスを定義する。
  */
 
-#ifndef AKCHICKENGAUGE_H
-#define AKCHICKENGAUGE_H
+#ifndef __toritoma__AKGauge__
+#define __toritoma__AKGauge__
 
 #include "AKToritoma.h"
 
 /*!
- @brifef チキンゲージクラス
+ @brifef ゲージクラス
  
- チキンゲージの表示を行うクラス。
+ ゲージの表示を行うクラス。
  */
-class AKChickenGauge : public cocos2d::Node {
+class AKGauge : public cocos2d::Node {
 public:
-    static AKChickenGauge* create();
-
+    // コンビニエンスコンストラクタ
+    static AKGauge* create(const char *emptyFileName,
+                           const char *fullFileName,
+                           int width,
+                           int height,
+                           bool isHorizontal);
+    
 private:
+    /// 空ゲージの画像ファイル名
+    std::string m_emptyFileName;
+    /// 満ゲージの画像ファイル名
+    std::string m_fullFileName;
     /// 空ゲージの画像
     cocos2d::Sprite *m_emptyImage;
     /// 満ゲージの画像
     cocos2d::Sprite *m_fullImage;
+    /// 画像の幅
+    int m_imageWidth;
+    /// 画像の高さ
+    int m_imageHeight;
     /// ゲージの溜まっている比率
     float m_percent;
-
+    /// 水平方向かどうか
+    bool m_isHorizontal;
+    // デフォルトコンストラクタは使用不可とする
+    AKGauge();
+    
 public:
     // コンストラクタ
-    AKChickenGauge();
+    AKGauge(const char *emptyFileName,
+            const char *fullFileName,
+            int width,
+            int height,
+            bool isHorizontal);
     // デストラクタ
-    ~AKChickenGauge();
+    ~AKGauge();
     // ゲージの溜まっている比率取得
-    float getPercent();
+    float getPercent() const;
     // ゲージの溜まっている比率設定
     void setPercent(float percent);
+    // 表示非表示切替
+    void setVisible(bool visible);
 };
 
-#endif
+#endif /* defined(__toritoma__AKGauge__) */

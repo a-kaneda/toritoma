@@ -123,6 +123,8 @@ private:
     int m_historyCount;
     /// 移動履歴
     std::queue<cocos2d::Vector2> m_moveHistory;
+    /// ボスキャラかどうか
+    bool m_boss;
     
 public:
     // 生成処理
@@ -135,6 +137,8 @@ public:
     void setState(int state);
     // 移動履歴取得
     const std::queue<cocos2d::Vector2>* getMoveHistory();
+    // ボスキャラかどうかを取得する
+    bool isBoss() const;
 
 protected:
     // キャラクター固有の動作

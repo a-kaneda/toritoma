@@ -65,6 +65,7 @@ enum {
 /// 情報レイヤーに配置するノードのタグ
 enum {
     kAKInfoTagChickenGauge = 0, ///< チキンゲージ
+    kAKInfoTagBossLifeGauge,    ///< ボス体力ゲージ
     kAKInfoTagLife,             ///< 残機
     kAKInfoTagScore,            ///< スコア
     kAKInfoTagHiScore,          ///< ハイスコア
@@ -83,8 +84,28 @@ static const int kAKGameOverWaitFrame = 60;
 //======================================================================
 // コントロールの表示に関する定数
 //======================================================================
+/// チキンゲージ空ゲージの画像名
+static const char *kAKChickenGaugeEmptyImageName = "ChickenGauge_01.png";
+/// チキンゲージ満ゲージの画像名
+static const char *kAKChickenGaugeFullImageName = "ChickenGauge_02.png";
+/// チキンゲージの画像の幅
+static const int kAKChickenGaugeImageWidth = 256;
+/// チキンゲージの画像の高さ
+static const int kAKChickenGaugeImageHeight = 16;
 /// チキンゲージ配置位置、下からの座標
 static const float kAKChickenGaugePosFromBottomPoint = 12.0f;
+/// ボス体力ゲージ空ゲージの画像名
+static const char *kAKBossLifeGaugeEmptyImageName = "BossLifeGauge_01.png";
+/// ボス体力ゲージ満ゲージの画像名
+static const char *kAKBossLifeGaugeFullmageName = "BossLifeGauge_02.png";
+/// ボス体力ゲージの画像の幅
+static const int kAKBossLifeGaugeImageWidth = 16;
+/// ボス体力ゲージの画像の高さ
+static const int kAKBossLifeGaugeImageHeight = 192;
+/// ボス体力ゲージ配置位置、ステージ座標x座標
+static const float kAKBossLifeGaugePosXOfStage = 360.0f;
+/// ボス体力ゲージ配置位置、ステージ座標y座標
+static const float kAKBossLifeGaugePosYOfStage = 144.0f;
 /// 残機表示の位置、ステージ座標x座標
 static const float kAKLifePosXOfStage = 4.0f;
 /// 残機表示の位置、ステージ座標y座標
@@ -147,9 +168,17 @@ AKPlayingScene* AKPlayingScene::create()
  オブジェクトの初期化を行う。
  */
 AKPlayingScene::AKPlayingScene() :
-m_data(NULL), m_state(kAKGameStatePreLoad), m_nextState(kAKGameStatePreLoad),
-m_sleepFrame(0), m_backgroundLayer(NULL), m_characterLayer(NULL),
-m_infoLayer(NULL), m_interfaceLayer(NULL), m_life(NULL), m_chickenGauge(NULL)
+m_data(NULL),
+m_state(kAKGameStatePreLoad),
+m_nextState(kAKGameStatePreLoad),
+m_sleepFrame(0),
+m_backgroundLayer(NULL),
+m_characterLayer(NULL),
+m_infoLayer(NULL),
+m_interfaceLayer(NULL),
+m_life(NULL),
+m_chickenGauge(NULL),
+m_bossLifeGauge(NULL)
 {
     // テクスチャアトラスを読み込む
     SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();
@@ -209,6 +238,9 @@ AKPlayingScene::~AKPlayingScene()
     }
     if (m_chickenGauge != NULL) {
         m_chickenGauge->release();
+    }
+    if (m_bossLifeGauge != NULL) {
+        m_bossLifeGauge->release();
     }
     delete m_data;
     
@@ -711,9 +743,20 @@ void AKPlayingScene::execEvent(const AKMenuItem *item)
  チキンゲージを取得する。
  @return チキンゲージ
  */
-AKChickenGauge* AKPlayingScene::getChickenGauge()
+AKGauge* AKPlayingScene::getChickenGauge()
 {
     return m_chickenGauge;
+}
+
+/*!
+ @brief ボス体力ゲージ取得
+ 
+ ボス体力ゲージを取得する。
+ @return ボス体力ゲージ
+ */
+AKGauge* AKPlayingScene::getBossLifeGauge()
+{
+    return m_bossLifeGauge;
 }
 
 /*!
@@ -859,7 +902,11 @@ void AKPlayingScene::createInfoLayer()
     addChild(m_infoLayer, kAKLayerPosZInfo, kAKLayerPosZInfo);
     
     // チキンゲージを作成する
-    m_chickenGauge = AKChickenGauge::create();
+    m_chickenGauge = AKGauge::create(kAKChickenGaugeEmptyImageName,
+                                     kAKChickenGaugeFullImageName,
+                                     kAKChickenGaugeImageWidth,
+                                     kAKChickenGaugeImageHeight,
+                                     true);
     m_chickenGauge->retain();
     
     // チキンゲージを情報レイヤーに配置する
@@ -869,6 +916,25 @@ void AKPlayingScene::createInfoLayer()
     float x = AKScreenSize::center().x;
     float y = AKScreenSize::positionFromBottomPoint(kAKChickenGaugePosFromBottomPoint);
     m_chickenGauge->setPosition(Vector2(x, y));
+    
+    // ボス体力ゲージを作成する
+    m_bossLifeGauge = AKGauge::create(kAKBossLifeGaugeEmptyImageName,
+                                      kAKBossLifeGaugeFullmageName,
+                                      kAKBossLifeGaugeImageWidth,
+                                      kAKBossLifeGaugeImageHeight,
+                                      false);
+    m_bossLifeGauge->retain();
+    
+    // ボス体力ゲージを情報レイヤーに配置する
+    m_infoLayer->addChild(m_bossLifeGauge, 0, kAKInfoTagBossLifeGauge);
+    
+    // ボス体力ゲージの座標を設定する
+    x = AKScreenSize::xOfStage(kAKBossLifeGaugePosXOfStage);
+    y = AKScreenSize::yOfStage(kAKBossLifeGaugePosYOfStage);
+    m_bossLifeGauge->setPosition(Vector2(x, y));
+    
+    // ボス体力ゲージを非表示にする
+    m_bossLifeGauge->setVisible(false);
     
     // 残機表示を作成する
     m_life = AKLife::create();

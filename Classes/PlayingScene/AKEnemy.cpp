@@ -57,6 +57,7 @@ struct AKEnemyDef {
     int hitPoint;                   ///< ヒットポイント
     int defence;                    ///< 防御力
     int score;                      ///< スコア
+    int boss;                       ///< ボスフラグ(0:雑魚、1:ボス)
 };
 
 /// 画像名のフォーマット
@@ -87,47 +88,47 @@ enum AKEnemyType {
 
 /// 敵の定義
 const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
-    // 破壊,画像,フレーム数,フレーム間隔,幅,高さ,オフセットX,オフセットY,移動履歴,HP,防御力,スコア
-    {&AKEnemy::actionOfDragonfly, &AKEnemy::destroyNormal, 1, 2, 30, 32, 32, 0, 0, 0, 10, 0, 100},   // トンボ
-    {&AKEnemy::actionOfAnt, &AKEnemy::destroyNormal, 2, 2, 30, 32, 16, 0, 0, 0, 10, 0, 100},         // アリ
-    {&AKEnemy::actionOfButterfly, &AKEnemy::destroyNormal, 3, 2, 30, 32, 32, 0, 0, 0, 10, 0, 100},   // チョウ
-    {&AKEnemy::actionOfLadybug, &AKEnemy::destroyNormal, 4, 2, 6, 32, 32, 0, 0, 0, 15, 0, 100},      // テントウムシ
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備5
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備6
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備7
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備8
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備9
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備10
-    {&AKEnemy::actionOfBagworm, &AKEnemy::destroyNormal, 11, 1, 0, 32, 32, 0, 0, 0, 30, 0, 100},        // ミノムシ
-    {&AKEnemy::actionOfCicada, &AKEnemy::destroyNormal, 12, 1, 0, 32, 32, 0, 0, 0, 15, 0, 100},          // セミ
-    {&AKEnemy::actionOfGrasshopper, &AKEnemy::destroyNormal, 13, 1, 0, 32, 32, 0, 0, 0, 10, 0, 100},     // バッタ
-    {&AKEnemy::actionOfHornet, &AKEnemy::destroyNormal, 14, 2, 6, 32, 32, 0, 0, 0, 15, 0, 100},          // ハチ
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備15
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備16
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備17
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備18
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備19
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備20
-    {&AKEnemy::actionOfCockroach, &AKEnemy::destroyNormal, 21, 2, 6, 32, 32, 0, 0, 0, 15, 0, 100},   // ゴキブリ
-    {&AKEnemy::actionOfSnail, &AKEnemy::destroyNormal, 22, 2, 30, 32, 32, 0, 0, 0, 15, 0, 100},      // カタツムリ
-    {&AKEnemy::actionOfStagBeetle, &AKEnemy::destroyNormal, 23, 2, 6, 32, 32, 0, 0, 0, 20, 0, 100},  // クワガタ
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備24
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備25
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備26
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備27
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備28
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備29
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},  // 予備30
-    {&AKEnemy::actionOfRhinocerosBeetle, &AKEnemy::destroyNormal, 31, 2, 3, 64, 40, 0, 0, 0, 500, 0, 10000},   // カブトムシ
-    {&AKEnemy::actionOfMantis, &AKEnemy::destroyNormal, 32, 0, 0, 64, 64, 0, 0, 0, 1000, 0, 10000},             // カマキリ
-    {&AKEnemy::actionOfHoneycomb, &AKEnemy::destroyNormal, 33, 0, 0, 64, 64, 0, 0, 0, 1000, 0, 10000},          // ハチの巣
-    {&AKEnemy::actionOfSpider, &AKEnemy::destroyNormal, 34, 2, 12, 64, 64, 0, 0, 0, 1000, 0, 10000},            // クモ
-    {&AKEnemy::actionOfCentipedeHead, &AKEnemy::destroyNormal, 35, 0, 0, 32, 32, 0, 16, 11, 1000, 99, 0},   // ムカデ（頭）
-    {&AKEnemy::actionOfCentipedeBody, &AKEnemy::destroyNone, 36, 2, 12, 32, 16, 0, 0, 11, 1000, 99, 0},   // ムカデ（胴体）
-    {&AKEnemy::actionOfCentipedeTail, &AKEnemy::destroyOfCentipede, 37, 2, 12, 32, 16, 0, -24, 0, 10, 0, 1000},   // ムカデ（尾）
-    {&AKEnemy::actionOfMaggot, &AKEnemy::destroyOfMaggot, 38, 2, 30, 16, 16, 0, 0, 0, 300, 0, 1000},            // ウジ
-    {&AKEnemy::actionOfFly, &AKEnemy::destroyNormal, 39, 2, 6, 32, 32, 0, 0, 0, 1500, 0, 10000},                // ハエ
-    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}   // 予備40
+    // 破壊,画像,フレーム数,フレーム間隔,幅,高さ,オフセットX,オフセットY,移動履歴,HP,防御力,スコア,ボスフラグ
+    {&AKEnemy::actionOfDragonfly, &AKEnemy::destroyNormal, 1, 2, 30, 32, 32, 0, 0, 0, 10, 0, 100, 0},   // トンボ
+    {&AKEnemy::actionOfAnt, &AKEnemy::destroyNormal, 2, 2, 30, 32, 16, 0, 0, 0, 10, 0, 100, 0},         // アリ
+    {&AKEnemy::actionOfButterfly, &AKEnemy::destroyNormal, 3, 2, 30, 32, 32, 0, 0, 0, 10, 0, 100, 0},   // チョウ
+    {&AKEnemy::actionOfLadybug, &AKEnemy::destroyNormal, 4, 2, 6, 32, 32, 0, 0, 0, 15, 0, 100, 0},      // テントウムシ
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備5
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備6
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備7
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備8
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備9
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備10
+    {&AKEnemy::actionOfBagworm, &AKEnemy::destroyNormal, 11, 1, 0, 32, 32, 0, 0, 0, 30, 0, 100, 0},     // ミノムシ
+    {&AKEnemy::actionOfCicada, &AKEnemy::destroyNormal, 12, 1, 0, 32, 32, 0, 0, 0, 15, 0, 100, 0},      // セミ
+    {&AKEnemy::actionOfGrasshopper, &AKEnemy::destroyNormal, 13, 1, 0, 32, 32, 0, 0, 0, 10, 0, 100, 0}, // バッタ
+    {&AKEnemy::actionOfHornet, &AKEnemy::destroyNormal, 14, 2, 6, 32, 32, 0, 0, 0, 15, 0, 100, 0},      // ハチ
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備15
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備16
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備17
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備18
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備19
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備20
+    {&AKEnemy::actionOfCockroach, &AKEnemy::destroyNormal, 21, 2, 6, 32, 32, 0, 0, 0, 15, 0, 100, 0},   // ゴキブリ
+    {&AKEnemy::actionOfSnail, &AKEnemy::destroyNormal, 22, 2, 30, 32, 32, 0, 0, 0, 15, 0, 100, 0},      // カタツムリ
+    {&AKEnemy::actionOfStagBeetle, &AKEnemy::destroyNormal, 23, 2, 6, 32, 32, 0, 0, 0, 20, 0, 100, 0},  // クワガタ
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備24
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備25
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備26
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備27
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備28
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備29
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備30
+    {&AKEnemy::actionOfRhinocerosBeetle, &AKEnemy::destroyNormal, 31, 2, 3, 64, 40, 0, 0, 0, 500, 0, 10000, 1},     // カブトムシ
+    {&AKEnemy::actionOfMantis, &AKEnemy::destroyNormal, 32, 0, 0, 64, 64, 0, 0, 0, 1000, 0, 10000, 1},              // カマキリ
+    {&AKEnemy::actionOfHoneycomb, &AKEnemy::destroyNormal, 33, 0, 0, 64, 64, 0, 0, 0, 1000, 0, 10000, 1},           // ハチの巣
+    {&AKEnemy::actionOfSpider, &AKEnemy::destroyNormal, 34, 2, 12, 64, 64, 0, 0, 0, 1000, 0, 10000, 1},             // クモ
+    {&AKEnemy::actionOfCentipedeHead, &AKEnemy::destroyNormal, 35, 0, 0, 32, 32, 0, 16, 11, 1000, 99, 0, 1},        // ムカデ（頭）
+    {&AKEnemy::actionOfCentipedeBody, &AKEnemy::destroyNone, 36, 2, 12, 32, 16, 0, 0, 11, 1000, 99, 0, 1},          // ムカデ（胴体）
+    {&AKEnemy::actionOfCentipedeTail, &AKEnemy::destroyOfCentipede, 37, 2, 12, 32, 16, 0, -24, 0, 10, 0, 1000, 1},  // ムカデ（尾）
+    {&AKEnemy::actionOfMaggot, &AKEnemy::destroyOfMaggot, 38, 2, 30, 16, 16, 0, 0, 0, 300, 0, 1000, 1},             // ウジ
+    {&AKEnemy::actionOfFly, &AKEnemy::destroyNormal, 39, 2, 6, 32, 32, 0, 0, 0, 1500, 0, 10000, 1},                 // ハエ
+    {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}    // 予備40
 };
 
 /*!
@@ -629,6 +630,14 @@ void AKEnemy::createEnemy(int type,
     // スコアを設定する
     m_score = kAKEnemyDef[type - 1].score;
     
+    // ボスフラグを設定する
+    if (kAKEnemyDef[type - 1].boss != 0) {
+        m_boss = true;
+    }
+    else {
+        m_boss = false;
+    }
+    
     // 画像の回転をリセットする
     getImage()->setRotation(0.0f);
 
@@ -681,6 +690,17 @@ void AKEnemy::setState(int state)
 const std::queue<cocos2d::Vector2>* AKEnemy::getMoveHistory()
 {
     return &m_moveHistory;
+}
+
+/*!
+ @brief ボスキャラかどうかを取得する
+ 
+ ボスキャラかどうかを取得する。
+ @return ボスキャラかどうか
+ */
+bool AKEnemy::isBoss() const
+{
+    return m_boss;
 }
 
 /*!

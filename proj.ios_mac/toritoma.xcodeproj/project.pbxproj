@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C1C3CB21987E63E00C110BA /* AKGauge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C3CB01987E63E00C110BA /* AKGauge.cpp */; };
+		0C6F33871986F88400CA0D64 /* BossLifeGauge_01-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6F33831986F88400CA0D64 /* BossLifeGauge_01-ipad.png */; };
+		0C6F33881986F88400CA0D64 /* BossLifeGauge_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6F33841986F88400CA0D64 /* BossLifeGauge_01.png */; };
+		0C6F33891986F88400CA0D64 /* BossLifeGauge_02-iadp.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6F33851986F88400CA0D64 /* BossLifeGauge_02-iadp.png */; };
+		0C6F338A1986F88400CA0D64 /* BossLifeGauge_02.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6F33861986F88400CA0D64 /* BossLifeGauge_02.png */; };
 		0C9CC3FF19139B62008F43AC /* bomb_big.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C9CC3F119139B62008F43AC /* bomb_big.mp3 */; };
 		0C9CC40019139B62008F43AC /* bomb_min.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C9CC3F219139B62008F43AC /* bomb_min.mp3 */; };
 		0C9CC40119139B62008F43AC /* clear.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C9CC3F319139B62008F43AC /* clear.mp3 */; };
@@ -26,7 +31,6 @@
 		0CDDBE9419120F17007FBA6B /* AKBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CDDBE6F19120F17007FBA6B /* AKBlock.cpp */; };
 		0CDDBE9519120F17007FBA6B /* AKCharacter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CDDBE7119120F17007FBA6B /* AKCharacter.cpp */; };
 		0CDDBE9619120F17007FBA6B /* AKCharacterPool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CDDBE7319120F17007FBA6B /* AKCharacterPool.cpp */; };
-		0CDDBE9719120F17007FBA6B /* AKChickenGauge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CDDBE7519120F17007FBA6B /* AKChickenGauge.cpp */; };
 		0CDDBE9819120F17007FBA6B /* AKEffect.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CDDBE7719120F17007FBA6B /* AKEffect.cpp */; };
 		0CDDBE9919120F17007FBA6B /* AKEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CDDBE7919120F17007FBA6B /* AKEnemy.cpp */; };
 		0CDDBE9A19120F17007FBA6B /* AKEnemyShot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CDDBE7B19120F17007FBA6B /* AKEnemyShot.cpp */; };
@@ -287,6 +291,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C1C3CB01987E63E00C110BA /* AKGauge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AKGauge.cpp; path = ../Classes/PlayingScene/AKGauge.cpp; sourceTree = "<group>"; };
+		0C1C3CB11987E63E00C110BA /* AKGauge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKGauge.h; path = ../Classes/PlayingScene/AKGauge.h; sourceTree = "<group>"; };
+		0C6F33831986F88400CA0D64 /* BossLifeGauge_01-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BossLifeGauge_01-ipad.png"; sourceTree = "<group>"; };
+		0C6F33841986F88400CA0D64 /* BossLifeGauge_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BossLifeGauge_01.png; sourceTree = "<group>"; };
+		0C6F33851986F88400CA0D64 /* BossLifeGauge_02-iadp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BossLifeGauge_02-iadp.png"; sourceTree = "<group>"; };
+		0C6F33861986F88400CA0D64 /* BossLifeGauge_02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BossLifeGauge_02.png; sourceTree = "<group>"; };
 		0C9CC3F119139B62008F43AC /* bomb_big.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bomb_big.mp3; path = Sound/bomb_big.mp3; sourceTree = "<group>"; };
 		0C9CC3F219139B62008F43AC /* bomb_min.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = bomb_min.mp3; path = Sound/bomb_min.mp3; sourceTree = "<group>"; };
 		0C9CC3F319139B62008F43AC /* clear.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = clear.mp3; path = Sound/clear.mp3; sourceTree = "<group>"; };
@@ -309,8 +319,6 @@
 		0CDDBE7219120F17007FBA6B /* AKCharacter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKCharacter.h; path = ../Classes/PlayingScene/AKCharacter.h; sourceTree = "<group>"; };
 		0CDDBE7319120F17007FBA6B /* AKCharacterPool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AKCharacterPool.cpp; path = ../Classes/PlayingScene/AKCharacterPool.cpp; sourceTree = "<group>"; };
 		0CDDBE7419120F17007FBA6B /* AKCharacterPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKCharacterPool.h; path = ../Classes/PlayingScene/AKCharacterPool.h; sourceTree = "<group>"; };
-		0CDDBE7519120F17007FBA6B /* AKChickenGauge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AKChickenGauge.cpp; path = ../Classes/PlayingScene/AKChickenGauge.cpp; sourceTree = "<group>"; };
-		0CDDBE7619120F17007FBA6B /* AKChickenGauge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKChickenGauge.h; path = ../Classes/PlayingScene/AKChickenGauge.h; sourceTree = "<group>"; };
 		0CDDBE7719120F17007FBA6B /* AKEffect.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AKEffect.cpp; path = ../Classes/PlayingScene/AKEffect.cpp; sourceTree = "<group>"; };
 		0CDDBE7819120F17007FBA6B /* AKEffect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKEffect.h; path = ../Classes/PlayingScene/AKEffect.h; sourceTree = "<group>"; };
 		0CDDBE7919120F17007FBA6B /* AKEnemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AKEnemy.cpp; path = ../Classes/PlayingScene/AKEnemy.cpp; sourceTree = "<group>"; };
@@ -545,8 +553,6 @@
 				0CDDBE7219120F17007FBA6B /* AKCharacter.h */,
 				0CDDBE7319120F17007FBA6B /* AKCharacterPool.cpp */,
 				0CDDBE7419120F17007FBA6B /* AKCharacterPool.h */,
-				0CDDBE7519120F17007FBA6B /* AKChickenGauge.cpp */,
-				0CDDBE7619120F17007FBA6B /* AKChickenGauge.h */,
 				0CDDBE7719120F17007FBA6B /* AKEffect.cpp */,
 				0CDDBE7819120F17007FBA6B /* AKEffect.h */,
 				0CDDBE7919120F17007FBA6B /* AKEnemy.cpp */,
@@ -576,6 +582,8 @@
 				0CDDBE9119120F17007FBA6B /* AKTileMap.h */,
 				0CDDBE9219120F17007FBA6B /* AKTileMapEventParameter.cpp */,
 				0CDDBE9319120F17007FBA6B /* AKTileMapEventParameter.h */,
+				0C1C3CB01987E63E00C110BA /* AKGauge.cpp */,
+				0C1C3CB11987E63E00C110BA /* AKGauge.h */,
 			);
 			name = PlayingScene;
 			sourceTree = "<group>";
@@ -763,9 +771,12 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				0C9CC3F019139B50008F43AC /* Sound */,
 				0CDDBEDE191210A4007FBA6B /* Back.png */,
 				0CDDBEDF191210A4007FBA6B /* Block.png */,
+				0C6F33831986F88400CA0D64 /* BossLifeGauge_01-ipad.png */,
+				0C6F33841986F88400CA0D64 /* BossLifeGauge_01.png */,
+				0C6F33851986F88400CA0D64 /* BossLifeGauge_02-iadp.png */,
+				0C6F33861986F88400CA0D64 /* BossLifeGauge_02.png */,
 				0CDDBEE0191210A4007FBA6B /* Character-ipad.plist */,
 				0CDDBEE1191210A4007FBA6B /* Character-ipad.png */,
 				0CDDBEE2191210A4007FBA6B /* Character.plist */,
@@ -774,6 +785,8 @@
 				0CDDBEE5191210A4007FBA6B /* ChickenGauge_01.png */,
 				0CDDBEE6191210A4007FBA6B /* ChickenGauge_02-ipad.png */,
 				0CDDBEE7191210A4007FBA6B /* ChickenGauge_02.png */,
+				1AFAF8B916D35E4900DB1158 /* CloseNormal.png */,
+				1AFAF8BA16D35E4900DB1158 /* CloseSelected.png */,
 				0CDDBEE8191210A4007FBA6B /* Control-ipad.plist */,
 				0CDDBEE9191210A4007FBA6B /* Control-ipad.png */,
 				0CDDBEEA191210A4007FBA6B /* Control.plist */,
@@ -790,14 +803,13 @@
 				0CDDBEF6191210A4007FBA6B /* HowTo.png */,
 				0CDDBEF7191210A4007FBA6B /* Localized_en */,
 				0CDDBEF8191210A4007FBA6B /* Localized_ja */,
+				0C9CC3F019139B50008F43AC /* Sound */,
 				0CDDBEF9191210A4007FBA6B /* Stage_01.tmx */,
 				0CDDBEFA191210A4007FBA6B /* Stage_02.tmx */,
 				0CDDBEFB191210A4007FBA6B /* Stage_03.tmx */,
 				0CDDBEFC191210A4007FBA6B /* Stage_04.tmx */,
 				0CDDBEFD191210A4007FBA6B /* Stage_05.tmx */,
 				0CDDBEFE191210A4007FBA6B /* Stage_06.tmx */,
-				1AFAF8B916D35E4900DB1158 /* CloseNormal.png */,
-				1AFAF8BA16D35E4900DB1158 /* CloseSelected.png */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -998,10 +1010,12 @@
 				1AFAF8BD16D35E4900DB1158 /* CloseSelected.png in Resources */,
 				0CDDBF1B191210A4007FBA6B /* Stage_03.tmx in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
+				0C6F33881986F88400CA0D64 /* BossLifeGauge_01.png in Resources */,
 				0CDDBEFF191210A4007FBA6B /* Back.png in Resources */,
 				0CDDBF00191210A4007FBA6B /* Block.png in Resources */,
 				0CDDBF09191210A4007FBA6B /* Control-ipad.plist in Resources */,
 				0C9CC40119139B62008F43AC /* clear.mp3 in Resources */,
+				0C6F33891986F88400CA0D64 /* BossLifeGauge_02-iadp.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
 				0CDDBF16191210A4007FBA6B /* HowTo.png in Resources */,
 				0CDDBF18191210A4007FBA6B /* Localized_ja in Resources */,
@@ -1012,10 +1026,12 @@
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				0CDDBF1A191210A4007FBA6B /* Stage_02.tmx in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
+				0C6F33871986F88400CA0D64 /* BossLifeGauge_01-ipad.png in Resources */,
 				0C9CC40719139B62008F43AC /* stage3.mp3 in Resources */,
 				5087E78217EB970100C73F5D /* Icon-144.png in Resources */,
 				0CDDBF06191210A4007FBA6B /* ChickenGauge_01.png in Resources */,
 				0CDDBF11191210A4007FBA6B /* Font.png in Resources */,
+				0C6F338A1986F88400CA0D64 /* BossLifeGauge_02.png in Resources */,
 				0C9CC40B19139B62008F43AC /* stage7.mp3 in Resources */,
 				0CDDBF01191210A4007FBA6B /* Character-ipad.plist in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
@@ -1067,7 +1083,6 @@
 				0CDDBED019120F4A007FBA6B /* AKAngle.cpp in Sources */,
 				0CDDBEA119120F17007FBA6B /* AKPlayerShot.cpp in Sources */,
 				0CDDBEC019120F32007FBA6B /* AKInterface.cpp in Sources */,
-				0CDDBE9719120F17007FBA6B /* AKChickenGauge.cpp in Sources */,
 				0CDDBE9B19120F17007FBA6B /* AKHiScoreFile.cpp in Sources */,
 				0CDDBEC519120F32007FBA6B /* AKStringSplitter.cpp in Sources */,
 				0CDDBE9519120F17007FBA6B /* AKCharacter.cpp in Sources */,
@@ -1088,6 +1103,7 @@
 				0CDDBEA519120F17007FBA6B /* AKTileMapEventParameter.cpp in Sources */,
 				0CFC39A71918F3F700667232 /* LocalizedResource.cpp in Sources */,
 				0CDDBEC219120F32007FBA6B /* AKMenuItem.cpp in Sources */,
+				0C1C3CB21987E63E00C110BA /* AKGauge.cpp in Sources */,
 				0CDDBED219120F4A007FBA6B /* AKLogNoDef.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
