@@ -200,6 +200,14 @@ public:
      @param progress 進行度
      */
     virtual void addProgress(int progress) = 0;
+    
+    /*!
+     @brief チキンゲージ増加
+     
+     チキンゲージを増加させる。
+     @param inc 増加量
+     */
+    virtual void addChickenGauge(int inc) = 0;
 };
 
 #endif

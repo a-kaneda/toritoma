@@ -337,7 +337,7 @@
  </layer>
  <layer name="Block" width="100" height="9">
   <data encoding="base64" compression="zlib">
-   eJzlVu0KwCAI9JnWx/s/2ggmRFRaKhk7ONgf3Z1nbQkAkhM+E1r1pfpb6JnRE0b+pToz0TsvavI2N0u0/jW917lQOYw0/SkLBOf8ho874OZQw+N94gUlB9zX8hzPyrkOAWT73KL3HbDORVP/SdS7jHPT7CfNJTJq2vN4K0azk3ji/LtycsEcqJqeB8tMgiGpeWn3XHkPt0ZbP8UXutw/JA==
+   eJztktEKwCAIRf2mnP3/p+1hCE5m1kpWowuX0YNHr44AgCZxKjiK6/GjZrI8kzi/3kfvnNlhZ2cmeReqqPmTdM6RuXvYM/6/W1tb6+j4eoAFhXDtjY0DmMxJio/i3cKSX0vMXlm8M+2eXBbzqUdpx/qmVg3Cveebm7cIA+3tazSzpU9tTUSGkk/UDDiI
   </data>
  </layer>
  <layer name="Event" width="100" height="9" opacity="0.37">
@@ -347,7 +347,7 @@
  </layer>
  <layer name="Enemy" width="100" height="9">
   <data encoding="base64" compression="zlib">
-   eJztVNsNwCAIdP8lBAfpbP0yMRegULWaxvtphONpz5QO/gwK+nJnjTfxkfwjuSuBe8qGT7N5a9Rv6chl5UeQwCsCbwd4+qocBnuPVrRcaMc45GP/kZ4Y+F/fkbXPdh8kxFr6qcC46H1pu2nt7LQTnKt/tCZ3gzZXz7zazj11LL6Vd+X7FZlXg/T/MpyjMxKcn9555D/xUH+tblaDBsXO0McsUJB/zWjiYCpu20E13g==
+   eJztlFEOgCAIhr3/JUQP0tl6YnMk8FOyXOt7aeEvIIKl/HwZCq7VxTFWgPpHdTsg61yNNc2GxuBvD/iigH9EuysN0HDdpPbJnWi+kHxGfVfsGqO+AfpMrHp69ZjNj+xvcvZ4jPpervMk80Ps/L+il96CAlrtXJod8T2rrZwDLY71ZrHf8a53wOqlO8jZ8mqoQcn6Gej7mA0l792p/xgK6o+MJH5SOQEJtjF6
   </data>
  </layer>
 </map>

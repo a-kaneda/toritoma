@@ -79,11 +79,11 @@ const char *kAKTextureAtlasFile = "Character.png";
 /// ステージクリア後の待機時間
 //static const float kAKStageClearWaitTime = 5.0f;
 /// 初期残機
-static const int kAKInitialLife = 2;
+static const int kAKInitialLife = 10;
 /// 自機復活待機フレーム数
 static const int kAKRebirthInterval = 60;
 /// エクステンドするスコア
-static const int kAKExtendScore = 50000;
+static const int kAKExtendScore = 10000;
 /// クリアした後の待機時間
 static const int kAKClearWait = 540;
 /// ボス体力ゲージ最小値
@@ -633,8 +633,8 @@ void AKPlayData::update()
         }
     }
     
-    // 自機が無敵状態でない場合は当たり判定処理を行う
-    if (!m_player->isInvincible()) {
+    // 自機が無敵状態でない、ステージクリア中でない場合は当たり判定処理を行う
+    if (!m_player->isInvincible() && m_clearWait <= 0) {
         
         // 自機と敵弾のかすり判定処理を行う
         m_player->graze(*m_enemyShotPool.getPool());
@@ -656,7 +656,7 @@ void AKPlayData::update()
         m_player->setChickenGauge(m_player->getChickenGauge() - 5);
         
         // チキンゲージがなくなった場合は強制的にシールドを無効にする
-        if (m_player->getChickenGauge() < 0.0f) {
+        if (m_player->getChickenGauge() < 0.00001f ) {
             m_player->setChickenGauge(0.0f);
             setShield(false);
         }
@@ -1053,7 +1053,8 @@ void AKPlayData::addScore(int score)
     if ((int)(m_score / kAKExtendScore) < (int)((m_score + score) / kAKExtendScore) &&
         !m_scene->isGameOver()) {
         
-        // TODO:エクステンドの効果音を鳴らす
+        // エクステンドの効果音を鳴らす
+        SimpleAudioEngine::getInstance()->playEffect(kAK1UpSEFileName);
         
         // 残機の数を増やす
         setLife(m_life + 1);
@@ -1084,6 +1085,17 @@ void AKPlayData::addScore(int score)
 void AKPlayData::addProgress(int progress)
 {
     m_tileMap->setProgress(m_tileMap->getProgress() + progress);
+}
+
+/*!
+ @brief チキンゲージ増加
+ 
+ チキンゲージを増加させる。
+ @param inc 増加量
+ */
+void AKPlayData::addChickenGauge(int inc)
+{
+    m_player->setChickenGauge(m_player->getChickenGauge() + inc);
 }
 
 /*!

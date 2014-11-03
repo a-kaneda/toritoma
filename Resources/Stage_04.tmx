@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" width="100" height="9" tilewidth="32" tileheight="32">
+<map version="1.0" orientation="orthogonal" width="110" height="9" tilewidth="32" tileheight="32">
  <tileset firstgid="1" name="Back" tilewidth="32" tileheight="32" spacing="1" margin="1">
   <image source="Back.png" width="256" height="256"/>
  </tileset>
@@ -273,7 +273,7 @@
   </tile>
   <tile id="32">
    <properties>
-    <property name="Progress" value="0"/>
+    <property name="Progress" value="1"/>
     <property name="Type" value="33"/>
    </properties>
   </tile>
@@ -320,34 +320,34 @@
    </properties>
   </tile>
  </tileset>
- <layer name="Base" width="100" height="9">
+ <layer name="Base" width="110" height="9">
   <data encoding="base64" compression="zlib">
-   eJztwwENAAAMw6DOv+kLOSSsmqqqqu8ezqADhQ==
+   eJztw0ENAAAMA6Grf9NTsR8krJqqqqr68gAB/gPf
   </data>
  </layer>
- <layer name="Background" width="100" height="9">
+ <layer name="Background" width="110" height="9">
   <data encoding="base64" compression="zlib">
-   eJztkVEKgDAMQ3sFRXf/o+rH+jE1tcFNFBIYrOM1hMVM+pLW/Uz1Ptc5OqNYdqc39wafYe3AuYq1KgTrb4yv62onw/XIy/iiHIjL/gfyVB+xL8qBOPWB/dTHvW+UJcOpj9hTfZxn9fHPPhgtD/elWBvPhhbv
+   eJztkUsKwCAMRHOFltb7H7UuzEaSmKFxUToPBJXJd0TIF7n7Ocb9HO/o7NKiMVW61W6qZqvem0w6pU0zNECrf0hexYrJ6JB+Lb2FNxdSX8n2kd2bl/NPvnke0rd13qiXjI6+xX3QN6y+Qt9sHX2L+6BvWH1lh28I18t4UsMDmsIYIA==
   </data>
  </layer>
- <layer name="Foreground" width="100" height="9">
+ <layer name="Foreground" width="110" height="9">
   <data encoding="base64" compression="zlib">
-   eJyTZGBgkBzFgwYLA7HIKD1o6FEwCkbBKBgFo2AUDD/ABMUwwIxFngFNHpsYLvXIYvjUMWERx6eeGYc4NvuINROfPnx+INYebGISo3hQYQBUURsU
+   eJztkdEKwCAIRaW+YG0P6/9/dAsatKFmT07xwCW4aV2xAkB1JgmSN7Tn4LTfOhyfIyu9jfKD/JK5gjdFO0CwxNbP2JstYm82ib3ZxOLeUtdDRu7hc495VP3ocXUJ8bn6TPhYP/d/87C9SbJiGWZ/URlnvadDSZC8oT0HpwvIGBxQ
   </data>
  </layer>
- <layer name="Block" width="100" height="9">
+ <layer name="Block" width="110" height="9">
   <data encoding="base64" compression="zlib">
-   eJztVkEKwCAM802K///a2GEgoYmuijLWQJitMw12OGtKqU4wd+InZ+XxfbZ2JGdpMY74OsVZoIalqWpVMn6bs7RYL0Z8BdYDexJ7fx4rz4JA4O8oDQNncfeg/d98qSfMq/q2CjyZHs73YuVHecCa1n1sd0+Kk1nk1Rxbm4V2L1Z+lAesyejdIw8vqxYzLQ==
+   eJztV+0KgCAQ85kU3//Voh+BjNvO9CiEG4xy5jmb9NFLKX2D1Wk/mqXj9WzsjKZ0zz/jjP+/uAusYdVUc3Vy/lZTugLLDn1F3KtELDC7zOgcRD6DEolELNrAxBm4sxrfhydlx7yqPdjgyOphv9dWflYxekVv1vfn19m1RVahqz42toraXlv52V0frkf970XO7/ECsJo3PQ==
   </data>
  </layer>
- <layer name="Event" width="100" height="9" opacity="0.37">
+ <layer name="Event" width="110" height="9" opacity="0.37">
   <data encoding="base64" compression="zlib">
-   eJztzqERACAQBDH6AguW/rvB/7w+TOLW7RwkndK39E6N0Fq/BwAAIOgBk2ABUg==
+   eJztzqERACAMADH2Alss+2+Dr+0dRSTu3c/Bj3bqkzpejVCyugcAAIB2Fzn+AVI=
   </data>
  </layer>
- <layer name="Enemy" width="100" height="9">
+ <layer name="Enemy" width="110" height="9">
   <data encoding="base64" compression="zlib">
-   eJztVkkOwyAM5P+fiOgtaR7Rp1WVYmk09UoOpGrmkoC3McZAazf+Bc/ifKRzxl8Vns9R2dXxCOR7YOvJM+C1W47vqsRCPgvIrP+ZEL4aH85tU3R4jm04jqYX1TaCcEc/PWkrPLhuGbwKuhE0vp+8cH29dWIZ+7Pyw3GHsbcvrPksV5Fvhx/uld6+c58FzkPL29prFf7Z2vJeXxXZDpxGzhmMZ/XzDGR7WkPlbMA+YFuBdr5HMUZqcfX748ybovJWicZV/1kfke4vv6lu+HgDWIg/Ug==
+   eJztVkEOwzAIy/8/UWW3dn3EnrbLkDwXCAnSUk3xKRSCXUJoS1lY+Maz83krJpMvEz+aa9R3dzwa/rOx1/JrebeQIh9c693gFV3Iaa1nQvRqevjdDiWGn/Ee5tHi2CdaqpErA+TaDA6shcTvZHt9iXiFlcVg6cVz8O4U+zif9X5oV7A5H9dL9LXWxYnxehR5j08M371arjWaBavXEVbf9+iP9oBw9cwjibXO+hzMi7DmyAxk5pBWa48H75l2htrc4Zmmrdn2dI2e2R2/b5l/o55/rpad4YrE/Wr/wv/iDcGvSMc=
   </data>
  </layer>
 </map>

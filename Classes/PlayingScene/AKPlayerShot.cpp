@@ -47,9 +47,9 @@ static const int kAKPlayerShotWidth = 6;
 /// 自機弾の高さ
 static const int kAKPlayerShotHeight = 6;
 /// 自機弾の画面外判定しきい値
-static const int kAKPlayerShotOutThreshold = 5;
+static const int kAKPlayerShotOutThreshold = 3;
 /// 自機弾の攻撃力
-static const int kAKPlayerShotPower = 1;
+static const int kAKPlayerShotPower = 4;
 /// オプション弾の攻撃力
 static const int kAKOptionShotPower = 1;
 

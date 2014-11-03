@@ -73,5 +73,7 @@ const char *kAKBombBigSEFileName = "bomb_big.mp3";
 const char *kAKHitSEFileName = "hit.mp3";
 /// 自機死亡時の効果音
 const char *kAKMissSEFileName = "miss.mp3";
+/// 1UP時の効果音
+const char *kAK1UpSEFileName = "1up.mp3";
 
 

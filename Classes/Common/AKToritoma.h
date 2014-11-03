@@ -66,12 +66,14 @@ extern const char *kAKBombBigSEFileName;
 extern const char *kAKHitSEFileName;
 // 自機死亡時の効果音
 extern const char *kAKMissSEFileName;
+// 1UP時の効果音
+extern const char *kAK1UpSEFileName;
 
 // デバッグ用フラグ
 #ifdef DEBUG
 
 /// 自機当たり判定無効化
-#define DEBUG_MODE_PLAYER_INVINCIBLE 1
+#define DEBUG_MODE_PLAYER_INVINCIBLE 0
 
 #else
 

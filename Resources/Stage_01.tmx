@@ -337,7 +337,7 @@
  </layer>
  <layer name="Block" width="100" height="9">
   <data encoding="base64" compression="zlib">
-   eJztlkEKwCAMBPOmWvv/p5VCFnIQ4qFuomRgTwYcXQ92EemEXBrGXjMeNt4M04/Fo4kGHjj/yAnr6KLIQYb3UxTF3jRNEc/XA/49UZ3cmlPBe/fOabtgdgIveNq94f0XLUFGdzwz582v8lvp8AL3RDBN
+   eJztlkEKwCAMBPOmRv3/03qJEEIlwcq2hx2YQ3FTV092EekALxOxV6WHN8sg+6EY5tfMHvP8T52GW0PeESGEEELIKdRs5ooWcprk42z2/2w29vTfp9AfGN/71VyWX82+7bfboeINwJ8vKA==
   </data>
  </layer>
  <layer name="Event" width="100" height="9" opacity="0.37">
@@ -347,7 +347,7 @@
  </layer>
  <layer name="Enemy" width="100" height="9">
   <data encoding="base64" compression="zlib">
-   eJztlEsOwCAIRL3/Jfzco3drunBj+Ayg1oVvYyozQDA0pcslpXJYTSk207OS7NRSPimX5uViks/SOwra507ycCJa9J7TVIefogG99O/GxK31H4MWwTo7TT/OlstTlD6QOVGaqsSlPNR7/olnXyM74slvnRm3D/2k3k/a3R1Y/uma3lMj4p/x7lSO03blozhjSDxSe5U3UvNyJi9tMS2d
+   eJztkzsSwCAIRLn/JaLeI3fLpLBx+CwQjYWvcZRdYFSIDgeisllNLfalZyZXUMv5tFyWV4ppPk/vKGifK7mGFdGi55KmBvwcDeil75sQ99a/HVoE791Z+vFu0VrI/0c01Yhrebj3/JPIvGZmJJLfe2fSPPSVez9tdlfg+beWHs1Tkn7rPJt7t1l5KcEYEs/UnuXN1DzsyQN5Ey2d
   </data>
  </layer>
 </map>

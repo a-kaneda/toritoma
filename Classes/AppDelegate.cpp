@@ -101,6 +101,8 @@ void AppDelegate::preloadSound()
     SimpleAudioEngine::getInstance()->preloadEffect(kAKHitSEFileName);
     // 自機死亡時の効果音のファイルを読み込む
     SimpleAudioEngine::getInstance()->preloadEffect(kAKMissSEFileName);
+    // 1Up時の効果音のファイルを読み込む
+    SimpleAudioEngine::getInstance()->preloadEffect(kAK1UpSEFileName);
     
     // 音量を調整する
     SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.3f);

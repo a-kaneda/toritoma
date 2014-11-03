@@ -59,7 +59,7 @@ static const int kAKMaxOptionCount = 3;
 /// チキンゲージの最大値
 static const int kAKMaxChicenGauge = 1000;
 /// 復活時のチキンゲージ設定量
-static const int kAKRebirthChickenGauge = 200;
+static const int kAKRebirthChickenGauge = 130;
 
 /*!
  @brief 親ノードを指定したコンストラクタ
@@ -225,13 +225,7 @@ void AKPlayer::graze(std::vector<AKEnemyShot*> &characters)
             if (enemyShot->getGrazePoint() > 0.0f) {
                 
                 AKLog(kAKLogPlayer_2, "かすりポイント:%f", enemyShot->getGrazePoint());
-                
-                m_chickenGauge += enemyShot->getGrazePoint();
-                
-                // 最大で100%とする
-                if (m_chickenGauge > kAKMaxChicenGauge) {
-                    m_chickenGauge = kAKMaxChicenGauge;
-                }
+                setChickenGauge(m_chickenGauge + enemyShot->getGrazePoint());
             }
             
             // 相手のかすりポイントをリセットする
@@ -367,6 +361,16 @@ int AKPlayer::getChickenGauge()
 void AKPlayer::setChickenGauge(int chickenGauge)
 {
     m_chickenGauge = chickenGauge;
+   
+    // 最大で100%とする
+    if (m_chickenGauge > kAKMaxChicenGauge) {
+        m_chickenGauge = kAKMaxChicenGauge;
+    }
+    
+    // 最小で0%とする
+    if (m_chickenGauge < 0) {
+        m_chickenGauge = 0;
+    }
 }
 
 /*!

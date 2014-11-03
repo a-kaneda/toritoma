@@ -149,6 +149,8 @@ public:
     virtual void addScore(int score);
     // 進行度を進める
     virtual void addProgress(int progress);
+    // チキンゲージ増加
+    virtual void addChickenGauge(int inc);
     // 状態更新
     void update();
     // 自機の移動
