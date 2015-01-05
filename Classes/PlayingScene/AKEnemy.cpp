@@ -130,7 +130,7 @@ const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
     {&AKEnemy::actionOfCentipedeBody, &AKEnemy::destroyNone, 36, 2, 12, 32, 16, 0, 0, 11, 1, 99, 0, 0},             // ムカデ（胴体）
     {&AKEnemy::actionOfCentipedeTail, &AKEnemy::destroyOfCentipede, 37, 2, 12, 32, 16, 0, -24, 0, 15, 0, 0, 0},     // ムカデ（尾）
     {&AKEnemy::actionOfMaggot, &AKEnemy::destroyOfMaggot, 38, 2, 30, 16, 16, 0, 0, 0, 150, 0, 500, 0},              // ウジ
-    {&AKEnemy::actionOfFly, &AKEnemy::destroyNormal, 39, 2, 6, 32, 32, 0, 0, 0, 1500, 0, 3000, 1},                  // ハエ
+    {&AKEnemy::actionOfFly, &AKEnemy::destroyNormal, 39, 2, 6, 32, 32, 0, 0, 0, 1500, 0, 8000, 1},                  // ハエ
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}    // 予備40
 };
 
@@ -2882,7 +2882,7 @@ void AKEnemy::actionOfMaggot(AKPlayDataInterface *data)
     // 3-way弾の角度の間隔
     const float kAK3WayShotAngle = M_PI / 8;
     // 3-way弾のスピード
-    const float kAK3WayShotSpeed = 1.0f;
+    const float kAK3WayShotSpeed[8] = {0.8f, 0.8f, 0.9f, 0.9f, 1.0f, 1.0f, 1.1f, 1.1f};
     // 3-way弾発射までの間
     const int kAK3WayShotWait = 230;
 
@@ -2899,7 +2899,18 @@ void AKEnemy::actionOfMaggot(AKPlayDataInterface *data)
         AKEnemy::fireNWay(m_position,
                           kAK3WayShotCount,
                           kAK3WayShotAngle,
-                          kAK3WayShotSpeed,
+                          kAK3WayShotSpeed[m_state % 8],
+                          data);
+    }
+
+    // 定周期に4-way弾を発射する
+    if (m_frame > kAK3WayShotWait &&
+        ((m_frame + 60) % kAK3WayShotInterval[(m_state + 3) % 8]) == 0) {
+        
+        AKEnemy::fireNWay(m_position,
+                          kAK3WayShotCount + 1,
+                          kAK3WayShotAngle,
+                          kAK3WayShotSpeed[(m_state + 3) % 8],
                           data);
     }
 }
