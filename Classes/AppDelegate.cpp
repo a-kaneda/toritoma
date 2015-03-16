@@ -107,3 +107,16 @@ void AppDelegate::preloadSound()
     // 音量を調整する
     SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.3f);
 }
+
+extern "C"
+{
+    size_t fwrite$UNIX2003(const void *ptr, size_t size, size_t nitems, FILE *stream)
+    {
+        return fwrite(ptr, size, nitems, stream);
+    }
+    
+    char * strerror$UNIX2003(int errnum)
+    {
+        return strerror(errnum);
+    }
+}
