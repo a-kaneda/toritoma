@@ -50,10 +50,10 @@ extern const char *kAKControlTextureAtlasFile;
 extern const int kAKStageBGMCount;
 // ステージBGMのファイル名
 extern const char *kAKStageBGMFileName;
-// エンディングBGMのファイル名
-extern const char *kAKEndingBGMFileName;
 // ステージクリアジングルのファイル名
 extern const char *kAKClearJingleFileName;
+// ゲームクリアジングルのファイル名
+extern const char *kAKGameClearJingleFileName;
 // ボタン選択効果音のファイル名
 extern const char *kAKSelectSEFileName;
 // ポーズ効果音のファイル名
@@ -73,7 +73,7 @@ extern const char *kAK1UpSEFileName;
 #ifdef DEBUG
 
 /// 自機当たり判定無効化
-#define DEBUG_MODE_PLAYER_INVINCIBLE 0
+#define DEBUG_MODE_PLAYER_INVINCIBLE 1
 
 #else
 

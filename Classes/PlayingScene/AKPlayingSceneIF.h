@@ -48,6 +48,8 @@ extern const unsigned int kAKMenuTagQuit;
 extern const unsigned int kAKMenuTagGameOver;
 // ステージクリア時メニュー項目のタグ
 extern const unsigned int kAKMenuTagStageClear;
+// 全ステージクリア時メニュー項目のタグ
+extern const unsigned int kAKMenuTagAllStageClear;
 
 // メニュー項目のイベント番号
 enum {
@@ -60,7 +62,8 @@ enum {
     kAKEventTouchQuitYesButton,     ///< 終了メニューYESボタン
     kAKEventTouchQuitNoButton,      ///< 終了メニューNOボタン
     kAKEventTouchBackButton,        ///< タイトルへ戻るボタン
-    kAKEventTouchTwitterButton      ///< Twitterボタン
+    kAKEventTouchTwitterButton,     ///< Twitterボタン
+    kAKEventTouchContinuePlayingButton  ///< 2周目続行ボタン
 };
 
 /*!
@@ -118,6 +121,8 @@ private:
     void createGameOverMenu();
     // ステージクリア時のメニュー項目作成
     void createStageClear();
+    // 全ステージクリア時のメニュー項目作成
+    void createAllStageClear();
     // メニュー項目個別表示設定
     virtual void updateVisibleItem(cocos2d::Node *item);
 };

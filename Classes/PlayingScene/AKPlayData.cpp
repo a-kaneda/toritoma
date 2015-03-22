@@ -509,11 +509,21 @@ void AKPlayData::update()
         
         AKLog(kAKLogPlayData_1, "ステージクリア");
         
-        // 待機時間を設定する
-        m_clearWait = kAKClearWait;
+        // 最終ステージ以外の場合
+        if (m_stage < kAKStageCount) {
 
-        // ステージクリア状態に遷移する
-        m_scene->stageClear();
+            // 待機時間を設定する
+            m_clearWait = kAKClearWait;
+            
+            // ステージクリア状態に遷移する
+            m_scene->stageClear();
+        }
+        // 最終ステージの場合
+        else {
+            
+            // ゲームクリア状態に遷移する
+            m_scene->gameClear();
+        }
     }
     
     // 復活待機フレーム数が設定されている場合はフレーム数をカウントする

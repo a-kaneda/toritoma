@@ -85,10 +85,10 @@ void AppDelegate::preloadSound()
         // ファイルを読み込む
         SimpleAudioEngine::getInstance()->preloadBackgroundMusic(fileName);
     }
-    // エンディングBGMのファイルを読み込む
-    SimpleAudioEngine::getInstance()->preloadBackgroundMusic(kAKEndingBGMFileName);
     // ステージクリアジングルのファイルを読み込む
     SimpleAudioEngine::getInstance()->preloadBackgroundMusic(kAKClearJingleFileName);
+    // ゲームクリアジングルのファイルを読み込む
+    SimpleAudioEngine::getInstance()->preloadBackgroundMusic(kAKGameClearJingleFileName);
     // ボタン選択効果音のファイルを読み込む
     SimpleAudioEngine::getInstance()->preloadEffect(kAKSelectSEFileName);
     // ポーズ効果音のファイルを読み込む

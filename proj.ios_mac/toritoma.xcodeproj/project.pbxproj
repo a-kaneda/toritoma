@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0C1C3CB21987E63E00C110BA /* AKGauge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C1C3CB01987E63E00C110BA /* AKGauge.cpp */; };
 		0C1C3CB4198DB36900C110BA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C1C3CB3198DB36900C110BA /* Images.xcassets */; };
+		0C21B02A1ABEA00200432138 /* gameclear.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C21B0291ABEA00200432138 /* gameclear.mp3 */; };
 		0C36C5F81AA5F68700AAEFA6 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C36C5F61AA5F68700AAEFA6 /* Icon.png */; };
 		0C36C5F91AA5F68700AAEFA6 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C36C5F71AA5F68700AAEFA6 /* Icon@2x.png */; };
 		0C36C5FB1AA5F70A00AAEFA6 /* Icon-60@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C36C5FA1AA5F70A00AAEFA6 /* Icon-60@2x.png */; };
@@ -289,6 +290,7 @@
 		0C1C3CB01987E63E00C110BA /* AKGauge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AKGauge.cpp; path = ../Classes/PlayingScene/AKGauge.cpp; sourceTree = "<group>"; };
 		0C1C3CB11987E63E00C110BA /* AKGauge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKGauge.h; path = ../Classes/PlayingScene/AKGauge.h; sourceTree = "<group>"; };
 		0C1C3CB3198DB36900C110BA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "toritoma iOS/Images.xcassets"; sourceTree = SOURCE_ROOT; };
+		0C21B0291ABEA00200432138 /* gameclear.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = gameclear.mp3; path = Sound/gameclear.mp3; sourceTree = "<group>"; };
 		0C36C5F61AA5F68700AAEFA6 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../../Resources/icons/Icon.png; sourceTree = "<group>"; };
 		0C36C5F71AA5F68700AAEFA6 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../../Resources/icons/Icon@2x.png"; sourceTree = "<group>"; };
 		0C36C5FA1AA5F70A00AAEFA6 /* Icon-60@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon-60@2x.png"; path = "../../Resources/icons/Icon-60@2x.png"; sourceTree = "<group>"; };
@@ -515,6 +517,7 @@
 			isa = PBXGroup;
 			children = (
 				0C61675B19B2BD0E00D032E0 /* 1up.mp3 */,
+				0C21B0291ABEA00200432138 /* gameclear.mp3 */,
 				0CB620AE1928B9EA00FC8E49 /* miss.mp3 */,
 				0CB620AA1928A5E300FC8E49 /* hit.mp3 */,
 				0C9CC3F119139B62008F43AC /* bomb_big.mp3 */,
@@ -966,6 +969,7 @@
 			files = (
 				0CDDBF17191210A4007FBA6B /* Localized_en in Resources */,
 				0CDDBF0F191210A4007FBA6B /* Font-ipad.png in Resources */,
+				0C21B02A1ABEA00200432138 /* gameclear.mp3 in Resources */,
 				0C9CC3FF19139B62008F43AC /* bomb_big.mp3 in Resources */,
 				0C61675C19B2BD0E00D032E0 /* 1up.mp3 in Resources */,
 				0C9CC40919139B62008F43AC /* stage5.mp3 in Resources */,
@@ -1285,7 +1289,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Akihiro Kaneda (E8ZRMTB82M)";
 				COPY_PHASE_STRIP = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -1307,7 +1311,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "0d348025-c31f-44f5-aa3a-b6fe6b2cba48";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1317,7 +1321,7 @@
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "c++0x";
 				CLANG_CXX_LIBRARY = "libc++";
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Akihiro Kaneda (E8ZRMTB82M)";
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = (
@@ -1337,7 +1341,7 @@
 				);
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "0d348025-c31f-44f5-aa3a-b6fe6b2cba48";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

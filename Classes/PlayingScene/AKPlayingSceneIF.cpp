@@ -50,6 +50,8 @@ const unsigned int kAKMenuTagQuit = 0x04;
 const unsigned int kAKMenuTagGameOver = 0x08;
 /// ステージクリア時メニュー項目のタグ
 const unsigned int kAKMenuTagStageClear = 0x10;
+/// 全ステージクリア時メニュー項目のタグ
+const unsigned int kAKMenuTagAllStageClear = 0x20;
 
 //======================================================================
 // プレイ中のメニュー項目
@@ -136,6 +138,19 @@ static const float kAKTwitterButtonPosBottomRatio = 0.6f;
 //======================================================================
 /// ステージクリア時のメッセージ
 static const char *kAKStageClearString = "STAGE CLEAR";
+
+
+//======================================================================
+// 全ステージクリア時のメニュー項目
+//======================================================================
+/// 全ステージクリア時のメッセージ
+static const char *kAKAllStageClearString = "ALL STAGE CLEAR";
+/// 2周目続行ボタンのキャプション
+static const char *kAKContinuePlayingButtonString = "CONTINUE";
+/// ステージクリアキャプションの表示位置、下からの比率
+static const float kAKAllStageClearCaptionPosBottomRatio = 0.6f;
+/// 2周目続行ボタンの位置、下からの比率
+static const float kAKContinuePlayingButtonPosBottomRatio = 0.4f;
 
 /*!
  @brief コンビニエンスコンストラクタ
@@ -236,6 +251,9 @@ AKInterface(eventHandler)
 
     // ステージクリア時のメニュー項目を作成する
     createStageClear();
+    
+    // 全ステージクリア時のメニュー項目を作成する
+    createAllStageClear();
 }
 
 /*!
@@ -296,18 +314,18 @@ void AKPlayingSceneIF::createPlayingMenu()
  */
 void AKPlayingSceneIF::createPauseMenu()
 {
-    // ゲームオーバーラベルを生成する
+    // ポーズラベルを生成する
     AKLabel *label = AKLabel::createLabel(kAKPauseString,
                                           (int)strlen(kAKPauseString),
                                           1,
                                           kAKLabelFrameMessage);
     
-    // ゲームオーバーラベルの位置を設定する
+    // ポーズラベルの位置を設定する
     float x = AKScreenSize::center().x;
     float y = AKScreenSize::positionFromBottomRatio(kAKPauseMessagePosBottomRatio);
     label->setPosition(Vector2(x, y));
     
-    // ゲームオーバーラベルをレイヤーに配置する
+    // ポーズラベルをレイヤーに配置する
     addChild(label, 0, kAKMenuTagPause);
     
     // ポーズ解除ボタンを作成する
@@ -438,6 +456,38 @@ void AKPlayingSceneIF::createStageClear()
 
     // ステージクリアラベルをレイヤーに配置する
     addChild(label, 0, kAKMenuTagStageClear);
+}
+
+/*!
+ @brief 全ステージクリア時のメニュー項目作成
+ 
+ 全ステージクリア時のメニュー項目を作成する。
+ */
+void AKPlayingSceneIF::createAllStageClear()
+{
+    // ステージクリアラベルを生成する
+    AKLabel *label = AKLabel::createLabel(kAKAllStageClearString,
+                                          (int)strlen(kAKAllStageClearString),
+                                          1,
+                                          kAKLabelFrameNone);
+    
+    // ステージクリアラベルの位置を設定する
+    float x = AKScreenSize::center().x;
+    float y = AKScreenSize::positionFromBottomRatio(kAKAllStageClearCaptionPosBottomRatio);
+    label->setPosition(Vector2(x, y));
+    
+    // ステージクリアラベルをレイヤーに配置する
+    addChild(label, 0, kAKMenuTagAllStageClear);
+    
+    // 2周目続行ボタンを作成する
+    x = AKScreenSize::center().x;
+    y = AKScreenSize::positionFromBottomRatio(kAKContinuePlayingButtonPosBottomRatio);
+    addLabelMenu(kAKContinuePlayingButtonString,
+                 Vector2(x, y),
+                 0,
+                 kAKEventTouchContinuePlayingButton,
+                 kAKMenuTagAllStageClear,
+                 true);
 }
 
 /*!

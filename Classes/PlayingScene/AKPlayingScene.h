@@ -139,6 +139,8 @@ public:
     void stageClear();
     // 次のステージへ進める
     void nextStage();
+    // ゲームクリア
+    void gameClear();
     // スコアラベル更新
     void setScoreLabel(int score);
     

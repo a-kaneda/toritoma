@@ -57,10 +57,10 @@ const char *kAKControlTextureAtlasFile = "Control.png";
 const int kAKStageBGMCount = 8;
 /// ステージBGMのファイル名
 const char *kAKStageBGMFileName = "stage%d.mp3";
-/// エンディングBGMのファイル名
-const char *kAKEndingBGMFileName = "ending.mp3";
 /// ステージクリアジングルのファイル名
 const char *kAKClearJingleFileName = "clear.mp3";
+/// ゲームクリアジングルのファイル名
+const char *kAKGameClearJingleFileName = "gameclear.mp3";
 /// ボタン選択効果音のファイル名
 const char *kAKSelectSEFileName = "select.mp3";
 /// ポーズ効果音のファイル名

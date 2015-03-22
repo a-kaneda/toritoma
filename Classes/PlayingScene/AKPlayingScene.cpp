@@ -77,7 +77,7 @@ enum {
 /// 自機移動をスライド量の何倍にするか
 static const float kAKPlayerMoveVal = 1.8f;
 /// 開始ステージ番号
-static const int kAKStartStage = 1;
+static const int kAKStartStage = 6;
 /// ゲームオーバー時の待機フレーム数
 static const int kAKGameOverWaitFrame = 60;
 
@@ -282,6 +282,10 @@ void AKPlayingScene::setState(enum AKGameState state)
             
         case kAKGameStateGameOver:  // ゲームオーバー
             m_interfaceLayer->setEnableTag(kAKMenuTagGameOver);
+            break;
+            
+        case kAKGameStateGameClear: // ゲームクリア後
+            m_interfaceLayer->setEnableTag(kAKMenuTagAllStageClear);
             break;
             
         default:                    // その他
@@ -729,6 +733,10 @@ void AKPlayingScene::execEvent(const AKMenuItem *item)
             touchTweetButton();
             break;
             
+        case kAKEventTouchContinuePlayingButton:    // 2周目実行ボタン
+            AKLog(true, "Touch CONTINUE button.");
+            break;
+            
         default:
             AKAssert(false, "不正なイベント番号:%d", item->getEventNo());
             break;
@@ -851,6 +859,26 @@ void AKPlayingScene::nextStage()
 
     // 状態をプレイ中状態に遷移する
     setState(kAKGameStatePlaying);
+}
+
+/*!
+ @brief ゲームクリア
+ 
+ ゲームクリア状態に遷移する。
+ */
+void AKPlayingScene::gameClear()
+{
+    // シールドモードを無効にする
+    m_data->setShield(false);
+    
+    // BGMを停止する
+    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
+    
+    // ステージクリアのジングルを再生する
+    SimpleAudioEngine::getInstance()->playBackgroundMusic(kAKGameClearJingleFileName, false);
+    
+    // 状態をステージクリア状態に遷移する
+    setState(kAKGameStateGameClear);
 }
 
 #pragma mark プライベートメソッド_インスタンス初期化
