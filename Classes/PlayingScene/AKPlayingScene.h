@@ -161,6 +161,8 @@ private:
     void touchQuitYesButton();
     // 終了メニューNOボタン選択処理
     void touchQuitNoButton();
+    // 2周目続行ボタン選択処理
+    void touchContinueButton();
     // 背景レイヤー作成
     void createBackGround();
     // キャラクターレイヤー作成

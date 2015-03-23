@@ -167,12 +167,14 @@ public:
     void setShield(bool shield);
     // ホールドモード切替
     void changeHoldMode();
+    // ステージ再開
+    void restartStage(int stage);
 
 private:
     // メンバオブジェクト生成処理
     void createMember();
     // 初期値設定処理
-    void clearPlayData();
+    void clearPlayData(bool resetScore);
     // ハイスコアファイル読込
     void readHiScore();
     // ツイートメッセージの作成
@@ -183,6 +185,8 @@ private:
     void clearEnemyShot();
     // ボス体力ゲージ表示更新
     void updateBossLifeGage();
+    // ステージ変更
+    void changeStage(int stage);
 };
 
 #endif

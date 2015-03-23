@@ -105,7 +105,7 @@ void AppDelegate::preloadSound()
     SimpleAudioEngine::getInstance()->preloadEffect(kAK1UpSEFileName);
     
     // 音量を調整する
-    SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.3f);
+    SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.2f);
 }
 
 extern "C"

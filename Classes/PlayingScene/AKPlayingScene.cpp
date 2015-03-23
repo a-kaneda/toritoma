@@ -78,6 +78,8 @@ enum {
 static const float kAKPlayerMoveVal = 1.8f;
 /// 開始ステージ番号
 static const int kAKStartStage = 6;
+/// 2周目開始ステージ番号
+static const int kAKSecondStartStage = 1;
 /// ゲームオーバー時の待機フレーム数
 static const int kAKGameOverWaitFrame = 60;
 
@@ -639,6 +641,18 @@ void AKPlayingScene::touchQuitNoButton()
 }
 
 /*!
+ @brief 2周目続行ボタン選択処理
+ 
+ 2周目続行ボタン選択時の処理。
+ 2周目開始ステージからやり直す。
+ */
+void AKPlayingScene::touchContinueButton()
+{
+    // 2周目開始ステージからやり直す
+    m_data->restartStage(kAKSecondStartStage);
+}
+
+/*!
  @brief ツイートボタン選択処理
  
  ツイートボタンが選択された時の処理を行う。
@@ -734,7 +748,7 @@ void AKPlayingScene::execEvent(const AKMenuItem *item)
             break;
             
         case kAKEventTouchContinuePlayingButton:    // 2周目実行ボタン
-            AKLog(true, "Touch CONTINUE button.");
+            touchContinueButton();
             break;
             
         default:
@@ -855,7 +869,7 @@ void AKPlayingScene::stageClear()
 void AKPlayingScene::nextStage()
 {
     // ステージクリア状態でない場合はエラー
-    AKAssert(m_state == kAKGameStateStageClear, "ステージクリア状態でないときに次のステージへの処理が行われた");
+    AKAssert(m_state == kAKGameStateStageClear || m_state == kAKGameStateGameClear, "ステージクリア状態でないときに次のステージへの処理が行われた");
 
     // 状態をプレイ中状態に遷移する
     setState(kAKGameStatePlaying);

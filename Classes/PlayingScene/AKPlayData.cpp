@@ -134,7 +134,7 @@ m_blockPool(kAKMaxBlockCount), m_tileMap(NULL), m_player(NULL), m_boss(NULL)
     createMember();
     
     // ゲームデータを初期化する
-    clearPlayData();
+    clearPlayData(true);
 }
 
 /*!
@@ -229,7 +229,7 @@ void AKPlayData::setScrollSpeedY(float speed)
  
  ゲームデータに初期値を設定する。
  */
-void AKPlayData::clearPlayData()
+void AKPlayData::clearPlayData(bool resetScore)
 {
     // 自機の初期位置を設定する
     m_player->setPosition(Vector2(kAKPlayerDefaultPosX, kAKPlayerDefaultPosY),
@@ -246,15 +246,21 @@ void AKPlayData::clearPlayData()
     m_scrollSpeedX = 0.0f;
     m_scrollSpeedY = 0.0f;
     
-    // 残機の初期値を設定する
-    setLife(kAKInitialLife);
-    
-    // ハイスコアをファイルから読み込む
-    readHiScore();
+    // スコア、残機を初期化する
+    if (resetScore) {
+
+        // 残機の初期値を設定する
+        setLife(kAKInitialLife);
+        
+        // ハイスコアをファイルから読み込む
+        readHiScore();
+
+        // スコアを初期化する
+        m_score = 0;
+    }
     
     // その他のメンバを初期化する
     m_stage = 0;
-    m_score = 0;
     m_clearWait = 0;
     m_rebirthWait = 0;
     
@@ -476,30 +482,10 @@ void AKPlayData::update()
                 // TODO:ステージクリアの実績をGame Centerへ送信する
                 //[[AKGameCenterHelper sharedHelper] reportStageClear:stage_];
                 
-                // ステージを進める
-                m_stage++;
-                
                 AKLog(kAKLogPlayData_1, "ステージクリア後の待機時間経過:m_stage=%d", m_stage);
                 
-                // すべてのステージをクリアしている場合はクリア処理を行う
-                if (m_stage > kAKStageCount) {
-                    // TODO:ゲームクリア処理を作成する
-                }
-                else {
-                    
-                    // ボス体力ゲージを非表示にする
-                    AKGauge *gauge = m_scene->getBossLifeGauge();
-                    gauge->setVisible(false);
-                    
-                    // 次のステージのスクリプトを読み込む
-                    readScript(m_stage);
-                    
-                    // 待機フレーム数をリセットする
-                    m_clearWait = 0;
-
-                    // プレイ中状態に戻す
-                    m_scene->nextStage();
-                }
+                // ステージを進める
+                changeStage(m_stage + 1);
             }
         }
     }
@@ -821,6 +807,22 @@ void AKPlayData::pause()
             character->getImage()->pause();
         }
     }
+}
+
+/*!
+ @brief ステージ再開
+ 
+ ステージを最初からやり直す。2周目プレイ用。
+ 2周目フラグを立て、スコア等は維持したままにする。
+ @param stage ステージ番号
+ */
+void AKPlayData::restartStage(int stage)
+{
+    // スコア初期化なしでデータをクリアする
+    clearPlayData(false);
+    
+    // ステージを変更する
+    changeStage(stage);
 }
 
 #pragma mark キャラクタークラスからのデータ操作用
@@ -1154,4 +1156,26 @@ void AKPlayData::updateBossLifeGage()
     }
     AKLog(kAKLogPlayData_3, "nowhp=%d maxhp=%d percent=%f", m_boss->getHitPoint(), m_bossHP, percent);
     gauge->setPercent(percent);
+}
+
+/*!
+ @brief ステージ変更
+ 
+ ステージクリア語に次のステージへの変更を行う。
+ @param stage ステージ番号
+ */
+void AKPlayData::changeStage(int stage)
+{
+    // ボス体力ゲージを非表示にする
+    AKGauge *gauge = m_scene->getBossLifeGauge();
+    gauge->setVisible(false);
+    
+    // 次のステージのスクリプトを読み込む
+    readScript(stage);
+    
+    // 待機フレーム数をリセットする
+    m_clearWait = 0;
+    
+    // プレイ中状態に戻す
+    m_scene->nextStage();
 }
