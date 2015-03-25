@@ -103,6 +103,8 @@ private:
     AKEnemy *m_boss;
     /// ボスキャラの初期HP
     int m_bossHP;
+    /// 2周めかどうか
+    bool m_is2ndloop;
 
 private:
     // デフォルトコンストラクタは使用禁止にする
@@ -151,6 +153,8 @@ public:
     virtual void addProgress(int progress);
     // チキンゲージ増加
     virtual void addChickenGauge(int inc);
+    // 2周目かどうか
+    virtual bool is2ndLoop();
     // 状態更新
     void update();
     // 自機の移動

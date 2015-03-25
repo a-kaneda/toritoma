@@ -120,7 +120,8 @@ AKPlayData::AKPlayData(AKPlayingScene *scene) :
 m_scene(scene), m_playerShotPool(kAKMaxPlayerShotCount),
 m_reflectShotPool(kAKMaxEnemyShotCount), m_enemyPool(kAKMaxEnemyCount),
 m_enemyShotPool(kAKMaxEnemyShotCount), m_effectPool(kAKMaxEffectCount),
-m_blockPool(kAKMaxBlockCount), m_tileMap(NULL), m_player(NULL), m_boss(NULL)
+m_blockPool(kAKMaxBlockCount), m_tileMap(NULL), m_player(NULL), m_boss(NULL),
+m_is2ndloop(false)
 {
     // シーンを確保する
     m_scene->retain();
@@ -257,6 +258,9 @@ void AKPlayData::clearPlayData(bool resetScore)
 
         // スコアを初期化する
         m_score = 0;
+        
+        // 2周目フラグを落とす
+        m_is2ndloop = false;
     }
     
     // その他のメンバを初期化する
@@ -464,6 +468,8 @@ void AKPlayData::writeHiScore()
  */
 void AKPlayData::update()
 {
+    AKLog(kAKLogPlayData_4, "m_is2ndloop=%d", m_is2ndloop);
+    
     // クリア後の待機中の場合はステージクリア処理を行う
     if (m_clearWait > 0) {
         
@@ -821,6 +827,9 @@ void AKPlayData::restartStage(int stage)
     // スコア初期化なしでデータをクリアする
     clearPlayData(false);
     
+    // 2周目フラグをONにする
+    m_is2ndloop = true;
+    
     // ステージを変更する
     changeStage(stage);
 }
@@ -1108,6 +1117,17 @@ void AKPlayData::addProgress(int progress)
 void AKPlayData::addChickenGauge(int inc)
 {
     m_player->setChickenGauge(m_player->getChickenGauge() + inc);
+}
+
+/*!
+ @brief 2周目かどうか
+ 
+ 2周目かどうかを取得する。
+ @return 2周目かどうか
+ */
+bool AKPlayData::is2ndLoop()
+{
+    return m_is2ndloop;
 }
 
 /*!

@@ -162,7 +162,7 @@ void AKGauge::setPercent(float percent)
                                         m_imageHeight * (100.0f - percent) / 100.0f,
                                         m_imageWidth,
                                         m_imageHeight * percent / 100.0f);
-        AKLog(true, "percent=%f y=%f h=%f", percent, rect.origin.y, rect.size.height);
+        AKLog(kAKLogGauge_1, "percent=%f y=%f h=%f", percent, rect.origin.y, rect.size.height);
     }
     m_fullImage->setTextureRect(rect);
 }

@@ -208,6 +208,14 @@ public:
      @param inc 増加量
      */
     virtual void addChickenGauge(int inc) = 0;
+    
+    /*!
+     @brief 2周目かどうか
+     
+     2周目かどうかを取得する。
+     @return 2周目かどうか
+     */
+    virtual bool is2ndLoop() = 0;
 };
 
 #endif
