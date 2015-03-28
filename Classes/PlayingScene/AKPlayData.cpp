@@ -259,8 +259,13 @@ void AKPlayData::clearPlayData(bool resetScore)
         // スコアを初期化する
         m_score = 0;
         
+#ifdef DEBUG_MODE_SECOND_LOOP_ON
+        // 2周目フラグは立てたままにする
+        m_is2ndloop = true;
+#else
         // 2周目フラグを落とす
         m_is2ndloop = false;
+#endif
     }
     
     // その他のメンバを初期化する
@@ -641,7 +646,7 @@ void AKPlayData::update()
         // 自機と敵弾のかすり判定処理を行う
         m_player->graze(*m_enemyShotPool.getPool());
         
-#if DEBUG_MODE_PLAYER_INVINCIBLE != 1
+#ifdef DEBUG_MODE_PLAYER_INVINCIBLE
         
         // 自機と敵の当たり判定処理を行う
         m_player->checkHit(*m_enemyPool.getPool(), this);
