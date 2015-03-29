@@ -84,46 +84,6 @@ void AKPlayerShot::createPlayerShot(const Vector2 &position, float angle, Node *
 }
 
 /*!
- @brief 自機弾(上向き)生成
- 
- 上向きに移動する自機の弾を生成する。
- @param position 生成位置
- @param parent 配置する親ノード
- */
-void AKPlayerShot::createPlayerShotUpward(const Vector2 &position, Node *parent)
-{
-    // 攻撃力を設定する
-    m_power = kAKPlayerShotPower;
-
-    // スピードを設定する。右上方向へまっすぐに進む。
-    m_speedX = kAKPlayerShotSpeed;
-    m_speedY = -kAKPlayerShotSpeed / 2.0f;
-    
-    // その他のパラメータを設定する
-    setCommonParam(position, parent);
-}
-
-/*!
- @brief 自機弾(下向き)生成
- 
- 下向きに移動する自機の弾を生成する。
- @param position 生成位置
- @param parent 配置する親ノード
- */
-void AKPlayerShot::createPlayerShotDownward(const Vector2 &position, Node *parent)
-{
-    // 攻撃力を設定する
-    m_power = kAKPlayerShotPower;
-
-    // スピードを設定する。右下方向へまっすぐに進む。
-    m_speedX = kAKPlayerShotSpeed;
-    m_speedY = kAKPlayerShotSpeed / 2.0f;
-    
-    // その他のパラメータを設定する
-    setCommonParam(position, parent);
-}
-
-/*!
  @brief オプション弾生成
  
  オプションの弾を生成する。
@@ -138,46 +98,6 @@ void AKPlayerShot::createOptionShot(const Vector2 &position, Node *parent)
     // スピードを設定する。右方向へまっすぐに進む。
     m_speedX = kAKPlayerShotSpeed;
     m_speedY = 0.0f;
-    
-    // その他のパラメータを設定する
-    setCommonParam(position, parent);
-}
-
-/*!
- @brief オプション弾(上向き)生成
- 
- 上向きに移動するオプションの弾を生成する。
- @param position 生成位置
- @param parent 配置する親ノード
- */
-void AKPlayerShot::createOptionShotUpward(const Vector2 &position, Node *parent)
-{
-    // 攻撃力を設定する
-    m_power = kAKOptionShotPower;
-
-    // スピードを設定する。右上方向へまっすぐに進む。
-    m_speedX = kAKPlayerShotSpeed;
-    m_speedY = -kAKPlayerShotSpeed / 2.0f;
-    
-    // その他のパラメータを設定する
-    setCommonParam(position, parent);
-}
-
-/*!
- @brief オプション弾(下向き)生成
- 
- 下向きに移動するオプションの弾を生成する。
- @param position 生成位置
- @param parent 配置する親ノード
- */
-void AKPlayerShot::createOptionShotDownward(const Vector2 &position, Node *parent)
-{
-    // 攻撃力を設定する
-    m_power = kAKOptionShotPower;
-
-    // スピードを設定する。右下方向へまっすぐに進む。
-    m_speedX = kAKPlayerShotSpeed;
-    m_speedY = kAKPlayerShotSpeed / 2.0f;
     
     // その他のパラメータを設定する
     setCommonParam(position, parent);
