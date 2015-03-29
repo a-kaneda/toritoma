@@ -3354,6 +3354,8 @@ void AKEnemy::destroyNone(AKPlayDataInterface *data)
  */
 void AKEnemy::destroyNormal(AKPlayDataInterface *data)
 {
+    const float kAKShotSpeed = 1.0f;
+    
     AKLog(kAKLogEnemy_1, "start");
     
     // 画面効果を生成する
@@ -3361,6 +3363,15 @@ void AKEnemy::destroyNormal(AKPlayDataInterface *data)
     
     // 破壊の効果音を鳴らす
     SimpleAudioEngine::getInstance()->playEffect(kAKBombMinSEFileName);
+    
+    // 2周目時は1-way弾を発射する
+    if (data->is2ndLoop()) {
+        AKEnemy::fireNWay(m_position,
+                          3,
+                          M_PI / 8.0f,
+                          kAKShotSpeed,
+                          data);
+    }
 }
 
 /*!
