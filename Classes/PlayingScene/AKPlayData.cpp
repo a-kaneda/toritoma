@@ -646,7 +646,7 @@ void AKPlayData::update()
         // 自機と敵弾のかすり判定処理を行う
         m_player->graze(*m_enemyShotPool.getPool());
         
-#ifdef DEBUG_MODE_PLAYER_INVINCIBLE
+#ifndef DEBUG_MODE_PLAYER_INVINCIBLE
         
         // 自機と敵の当たり判定処理を行う
         m_player->checkHit(*m_enemyPool.getPool(), this);
@@ -874,7 +874,7 @@ void AKPlayData::createPlayerShot(Vector2 position)
     }
     
     // 自機弾を生成する
-    playerShot->createPlayerShot(position, 0.0f, m_batches.at(kAKCharaPosZPlayerShot));
+    playerShot->createPlayerShot(position, 0.0f, m_batches.at(kAKCharaPosZPlayerShot), is2ndLoop());
 }
 
 /*!
@@ -893,8 +893,8 @@ void AKPlayData::createOptionShot(Vector2 position)
         return;
     }
     
-    // 自機弾を生成する
-    playerShot->createPlayerShot(position, 0.0f, m_batches.at(kAKCharaPosZPlayerShot));
+    // オプション弾を生成する
+    playerShot->createOptionShot(position, m_batches.at(kAKCharaPosZPlayerShot));
 }
 
 /*!
