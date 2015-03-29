@@ -332,7 +332,7 @@
  </layer>
  <layer name="Foreground" width="110" height="9">
   <data encoding="base64" compression="zlib">
-   eJztj0EKACAIBKWeUIf6/0frUBBhInQpmIFFWFfFKiIVfafUlanPVG8WAAAA4FXC0CQqfdn6mnfKr56VC4pv5ePB1+55d1pz1g/eOzezBX2pBg6tHcs=
+   eJztj0EKACAIBKWeUIf6/0frUBBhEnRJmIFBWDWpikhFd6ZuprqrAAAAAL8ShpOo9GXra9lpfs2suaDk1nw85Nq92zetPesPt3dedgu6tAEOmR3L
   </data>
  </layer>
  <layer name="Block" width="110" height="9">

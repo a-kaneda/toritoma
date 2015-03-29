@@ -327,7 +327,7 @@
  </layer>
  <layer name="Background" width="110" height="9">
   <data encoding="base64" compression="zlib">
-   eJztkUsKwCAMRHOFltb7H7UuzEaSmKFxUToPBJXJd0TIF7n7Ocb9HO/o7NKiMVW61W6qZqvem0w6pU0zNECrf0hexYrJ6JB+Lb2FNxdSX8n2kd2bl/NPvnke0rd13qiXjI6+xX3QN6y+Qt9sHX2L+6BvWH1lh28I18t4UsMDmsIYIA==
+   eJztUUEKwCAM8wsbm/9/6nawF2ljwxwyloCgkrRpU4rwRZz32dp9b2903uKymlm80W5W7CHDLx3PULsZKsG1P6auwdNkeIxfj+8hmovpjzxEuuyO/55blKFyG9dFXjI85YZ9KDeuP/IQ6ZSbclNuuO6K3BgcD/XCHFydmhgg
   </data>
  </layer>
  <layer name="Foreground" width="110" height="9">
@@ -347,7 +347,7 @@
  </layer>
  <layer name="Enemy" width="110" height="9">
   <data encoding="base64" compression="zlib">
-   eJztVkEOwzAIy/8/UWW3dn3EnrbLkDwXCAnSUk3xKRSCXUJoS1lY+Maz83krJpMvEz+aa9R3dzwa/rOx1/JrebeQIh9c693gFV3Iaa1nQvRqevjdDiWGn/Ee5tHi2CdaqpErA+TaDA6shcTvZHt9iXiFlcVg6cVz8O4U+zif9X5oV7A5H9dL9LXWxYnxehR5j08M371arjWaBavXEVbf9+iP9oBw9cwjibXO+hzMi7DmyAxk5pBWa48H75l2htrc4Zmmrdn2dI2e2R2/b5l/o55/rpad4YrE/Wr/wv/iDcGvSMc=
+   eJztVkEOwzAIy/8/UWW3dX3EnjZNGhJzMSFBWqopPpVCsEsIaSkLC994dL5vxWTyZeJHc436ro5bw3801jK/lXcLKfKBtb4TXtGlOdnzTIheSw9+227E4DtcgzxWHPpESyW5MtBcG+HQtXjHW1q9vtR4hpXFwPTqffDOFPowH/s+bVdlYz6xdc16zwDGeD2qefdPDJ69Ws41mgXW6xqs73v0R3tAuHrmkcSyvT4G8wrYDJmFzByyau3x6HNm7aE1d3CmWc9oe7pG76Yr3m+Zf6Oef66WneGKxP1q/cL/4gXG90jH
   </data>
  </layer>
 </map>
