@@ -75,12 +75,13 @@ extern const char *kAK1UpSEFileName;
 /// 自機当たり判定無効化
 //#define DEBUG_MODE_PLAYER_INVINCIBLE
 /// 初回から2周目フラグON
-#define DEBUG_MODE_SECOND_LOOP_ON
+//#define DEBUG_MODE_SECOND_LOOP_ON
 /// 開始ステージ番号
 #define DEBUG_MODE_START_STAGE 1
-
 /// 2周目開始ステージ番号
 #define DEBUG_MODE_2ND_START_STAGE 1
+/// 初期残機
+#define DEBUG_MODE_INITIAL_LIFE 10
 
 #else
 
@@ -88,6 +89,8 @@ extern const char *kAK1UpSEFileName;
 #define DEBUG_MODE_START_STAGE 1
 /// 2周目開始ステージ番号
 #define DEBUG_MODE_2ND_START_STAGE 1
+/// 初期残機
+#define DEBUG_MODE_INITIAL_LIFE 10
 
 #endif
 
