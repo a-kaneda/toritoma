@@ -353,6 +353,11 @@ protected:
             return false;
         }
         
+        // HPが0のキャラクターは処理しない
+        if (m_hitPoint <= 0) {
+            return false;
+        }
+        
         // 自キャラの上下左右の端を計算する
         float myleft = m_position.x - m_size.width / 2.0f;
         float myright = m_position.x + m_size.width / 2.0f;
@@ -377,6 +382,11 @@ protected:
             // 当たり判定のサイズが0のキャラクターは処理しない
             if (target->getSize()->width <= 0 ||
                 target->getSize()->height <= 0) {
+                continue;
+            }
+            
+            // HPが0のキャラクターは処理しない
+            if (target->getHitPoint() <= 0) {
                 continue;
             }
             

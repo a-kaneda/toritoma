@@ -107,6 +107,8 @@ private:
     int m_state;
     /// 作業領域(各敵種別で使用)
     int m_work[kAKEnemyWorkCount];
+    /// 破壊開始からの経過フレーム数（各敵種別で使用）
+    int m_destroyframe;
     /// 動作処理のセレクタ
     AKActionFunc m_action;
     /// 破壊処理のセレクタ
@@ -125,6 +127,8 @@ private:
     std::queue<cocos2d::Vector2> m_moveHistory;
     /// ボスキャラかどうか
     bool m_boss;
+    /// 死亡しているかどうか
+    bool m_isDead;
     
 public:
     // 生成処理

@@ -122,15 +122,15 @@ const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備28
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備29
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備30
-    {&AKEnemy::actionOfRhinocerosBeetle, &AKEnemy::destroyNormal, 31, 2, 3, 64, 40, 0, 0, 0, 1000, 0, 3000, 1},     // カブトムシ
-    {&AKEnemy::actionOfMantis, &AKEnemy::destroyNormal, 32, 0, 0, 64, 64, 0, 0, 0, 1000, 3, 3000, 1},               // カマキリ
-    {&AKEnemy::actionOfHoneycomb, &AKEnemy::destroyNormal, 33, 0, 0, 64, 64, 0, 0, 0, 1200, 3, 3000, 1},            // ハチの巣
-    {&AKEnemy::actionOfSpider, &AKEnemy::destroyNormal, 34, 2, 12, 64, 64, 0, 0, 0, 1600, 0, 3000, 1},              // クモ
-    {&AKEnemy::actionOfCentipedeHead, &AKEnemy::destroyNormal, 35, 0, 0, 32, 32, 0, 16, 11, 19, 99, 3000, 1},       // ムカデ（頭）
+    {&AKEnemy::actionOfRhinocerosBeetle, &AKEnemy::destroyOfBoss, 31, 2, 3, 64, 40, 0, 0, 0, 1000, 0, 3000, 1},     // カブトムシ
+    {&AKEnemy::actionOfMantis, &AKEnemy::destroyOfBoss, 32, 0, 0, 64, 64, 0, 0, 0, 1000, 3, 3000, 1},               // カマキリ
+    {&AKEnemy::actionOfHoneycomb, &AKEnemy::destroyOfBoss, 33, 0, 0, 64, 64, 0, 0, 0, 1200, 3, 3000, 1},            // ハチの巣
+    {&AKEnemy::actionOfSpider, &AKEnemy::destroyOfBoss, 34, 2, 12, 64, 64, 0, 0, 0, 1600, 0, 3000, 1},              // クモ
+    {&AKEnemy::actionOfCentipedeHead, &AKEnemy::destroyOfBoss, 35, 0, 0, 32, 32, 0, 16, 11, 19, 99, 3000, 1},       // ムカデ（頭）
     {&AKEnemy::actionOfCentipedeBody, &AKEnemy::destroyNone, 36, 2, 12, 32, 16, 0, 0, 11, 1, 99, 0, 0},             // ムカデ（胴体）
     {&AKEnemy::actionOfCentipedeTail, &AKEnemy::destroyOfCentipede, 37, 2, 12, 32, 16, 0, -24, 0, 15, 0, 0, 0},     // ムカデ（尾）
     {&AKEnemy::actionOfMaggot, &AKEnemy::destroyOfMaggot, 38, 2, 30, 16, 16, 0, 0, 0, 150, 0, 500, 0},              // ウジ
-    {&AKEnemy::actionOfFly, &AKEnemy::destroyNormal, 39, 2, 6, 32, 32, 0, 0, 0, 1500, 0, 8000, 1},                  // ハエ
+    {&AKEnemy::actionOfFly, &AKEnemy::destroyOfBoss, 39, 2, 6, 32, 32, 0, 0, 0, 1500, 0, 8000, 1},                  // ハエ
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}    // 予備40
 };
 
@@ -592,6 +592,8 @@ void AKEnemy::createEnemy(int type,
     while (!m_moveHistory.empty()) {
         m_moveHistory.pop();
     }
+    m_isDead = false;
+    m_destroyframe = 0;
     setAnimationInitPattern(1);
     
     AKAssert(type > 0 && type <= kAKEnemyDefCount, "敵の種類の値が範囲外:%d", type);
@@ -741,25 +743,35 @@ void AKEnemy::action(AKPlayDataInterface *data)
  */
 void AKEnemy::destroy(AKPlayDataInterface *data)
 {
-    // 破壊時の効果音を鳴らす
-//    [[SimpleAudioEngine sharedEngine] playEffect:kAKHitSE];
+    // 破壊開始1回目の場合
+    if (m_destroyframe == 0) {
+        
+        // スコアを加算する
+        data->addScore(m_score);
+        
+        // チキンゲージを増やす
+        data->addChickenGauge(kAKIncrementChickenGauge);
+    }
     
-    // スコアを加算する
-    data->addScore(m_score);
+    // 破壊開始からの経過フレーム数をカウントする
+    m_destroyframe++;
     
-    // 進行度を進める
-    data->addProgress(m_progress);
-    
-    // チキンゲージを増やす
-    data->addChickenGauge(kAKIncrementChickenGauge);
+    // 死亡フラグを立てる
+    m_isDead = true;
     
     // 敵種別ごとの処理を実行
     if (this->m_destroy != NULL) {
         (this->*m_destroy)(data);
     }
     
-    // HPが0の場合はスーパークラスの処理を行う
-    if (m_hitPoint <= 0) {
+    // 死亡フラグが立っている場合は進行度を進め、スーパークラスの処理を行う
+    // 死んだあと画面からすぐに消えない場合は敵種別ごとの処理でフラグを落とす
+    if (m_isDead) {
+
+        // 進行度を進める
+        data->addProgress(m_progress);
+        
+        // スーパークラスの処理を行う（ステージから取り除かれる）
         AKCharacter::destroy(data);
     }
 }
@@ -3509,10 +3521,39 @@ void AKEnemy::destroyNormal(AKPlayDataInterface *data)
 /*!
  @brief ボス敵の破壊処理
  
+ 一定期間爆発エフェクトを発生させる。
+ @param data ゲームデータ
  */
 void AKEnemy::destroyOfBoss(AKPlayDataInterface *data)
 {
+    // 爆発の間隔
+    const int kAKExplosionInterval = 20;
+    // 状態遷移間隔
+    const int kAKStateInterval = 300;
     
+    // 爆発の間隔が経過している場合は爆発を発生させる
+    if ((m_destroyframe + 1) % kAKExplosionInterval == 0) {
+        
+        // 爆発発生位置を決める
+        int w = kAKEnemyDef[kAKEnemyFly - 1].hitWidth;
+        int h = kAKEnemyDef[kAKEnemyFly - 1].hitHeight;
+        int x = rand() % (w * 2) - w;
+        int y = rand() % (h * 2) - h;
+        
+        // 画面効果を生成する
+        data->createEffect(1, Vector2(m_position.x + x, m_position.y + y));
+        
+        // 破壊の効果音を鳴らす
+        SimpleAudioEngine::getInstance()->playEffect(kAKBombMinSEFileName);
+    }
+    
+    // 状態遷移間隔を経過するまでは死亡フラグを立てない
+    if (m_destroyframe < kAKStateInterval) {
+        m_isDead = false;
+    }
+    else {
+        m_isDead = true;
+    }
 }
 
 /*!
