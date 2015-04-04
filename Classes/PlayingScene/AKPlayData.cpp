@@ -495,8 +495,20 @@ void AKPlayData::update()
                 
                 AKLog(kAKLogPlayData_1, "ステージクリア後の待機時間経過:m_stage=%d", m_stage);
                 
-                // ステージを進める
-                changeStage(m_stage + 1);
+                // 最終ステージ以外の場合
+                if (m_stage < kAKStageCount) {
+                    
+                    // ステージを進める
+                    changeStage(m_stage + 1);
+                }
+                // 最終ステージの場合
+                else {
+                    
+                    // ゲームクリア後メニューを表示する
+                    m_scene->viewGameClearedMenu();
+                    
+                    return;
+                }
             }
         }
     }
@@ -506,12 +518,12 @@ void AKPlayData::update()
         
         AKLog(kAKLogPlayData_1, "ステージクリア");
         
+        // 待機時間を設定する
+        m_clearWait = kAKClearWait;
+        
         // 最終ステージ以外の場合
         if (m_stage < kAKStageCount) {
 
-            // 待機時間を設定する
-            m_clearWait = kAKClearWait;
-            
             // ステージクリア状態に遷移する
             m_scene->stageClear();
         }

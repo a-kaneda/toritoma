@@ -286,6 +286,10 @@ void AKPlayingScene::setState(enum AKGameState state)
             m_interfaceLayer->setEnableTag(kAKMenuTagGameOver);
             break;
             
+        case kAKGameStateGameClearWait: // ゲームクリア待機中
+            m_interfaceLayer->setEnableTag(kAKMenuTagAllStageWaitClear);
+            break;
+            
         case kAKGameStateGameClear: // ゲームクリア後
             m_interfaceLayer->setEnableTag(kAKMenuTagAllStageClear);
             break;
@@ -683,6 +687,7 @@ void AKPlayingScene::update(float delta)
             
         case kAKGameStatePlaying:       // プレイ中
         case kAKGameStateStageClear:    // ステージクリア後
+        case kAKGameStateGameClearWait: // ゲームクリア待機中
             updatePlaying();
             break;
             
@@ -891,7 +896,18 @@ void AKPlayingScene::gameClear()
     // ステージクリアのジングルを再生する
     SimpleAudioEngine::getInstance()->playBackgroundMusic(kAKGameClearJingleFileName, false);
     
-    // 状態をステージクリア状態に遷移する
+    // 状態をゲームクリア待機状態に遷移する
+    setState(kAKGameStateGameClearWait);
+}
+
+/*!
+ @brief ゲームクリア後メニュー表示
+ 
+ ゲームクリア後のメニューを表示する。
+ */
+void AKPlayingScene::viewGameClearedMenu()
+{
+    // 状態をゲームクリア待機状態に遷移する
     setState(kAKGameStateGameClear);
 }
 

@@ -51,6 +51,7 @@ enum AKGameState {
     kAKGameStateStageClear,     ///< ステージクリア後
     kAKGameStateResult,         ///< リザルト画面
     kAKGameStateGameOver,       ///< ゲームオーバー
+    kAKGameStateGameClearWait,  ///< ゲームクリア待機中
     kAKGameStateGameClear,      ///< ゲームクリア時
     kAKGameStatePause,          ///< 一時停止中
     kAKGameStateQuitMenu,       ///< 終了メニュー
@@ -141,6 +142,8 @@ public:
     void nextStage();
     // ゲームクリア
     void gameClear();
+    // ゲームクリア後メニュー表示
+    void viewGameClearedMenu();
     // スコアラベル更新
     void setScoreLabel(int score);
     

@@ -50,8 +50,10 @@ const unsigned int kAKMenuTagQuit = 0x04;
 const unsigned int kAKMenuTagGameOver = 0x08;
 /// ステージクリア時メニュー項目のタグ
 const unsigned int kAKMenuTagStageClear = 0x10;
+/// 全ステージクリア待機時メニュー項目のタグ
+const unsigned int kAKMenuTagAllStageWaitClear = 0x20;
 /// 全ステージクリア時メニュー項目のタグ
-const unsigned int kAKMenuTagAllStageClear = 0x20;
+const unsigned int kAKMenuTagAllStageClear = 0x40;
 
 //======================================================================
 // プレイ中のメニュー項目
@@ -302,7 +304,7 @@ void AKPlayingSceneIF::createPlayingMenu()
               0.0f,
               AKScreenSize::screenSize().width,
               AKScreenSize::screenSize().height);
-    addSlideMenu(rect,kAKEventSlide, kAKMenuTagPlaying | kAKMenuTagStageClear);
+    addSlideMenu(rect,kAKEventSlide, kAKMenuTagPlaying | kAKMenuTagStageClear | kAKMenuTagAllStageWaitClear);
 
     AKLog(true, "end createPlayingMenu()");
 }
@@ -477,7 +479,7 @@ void AKPlayingSceneIF::createAllStageClear()
     label->setPosition(Vector2(x, y));
     
     // ステージクリアラベルをレイヤーに配置する
-    addChild(label, 0, kAKMenuTagAllStageClear);
+    addChild(label, 0, kAKMenuTagAllStageWaitClear | kAKMenuTagAllStageClear);
     
     // 2周目続行ボタンを作成する
     x = AKScreenSize::center().x;

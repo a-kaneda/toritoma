@@ -48,6 +48,8 @@ extern const unsigned int kAKMenuTagQuit;
 extern const unsigned int kAKMenuTagGameOver;
 // ステージクリア時メニュー項目のタグ
 extern const unsigned int kAKMenuTagStageClear;
+// 全ステージクリア待機時メニュー項目のタグ
+extern const unsigned int kAKMenuTagAllStageWaitClear;
 // 全ステージクリア時メニュー項目のタグ
 extern const unsigned int kAKMenuTagAllStageClear;
 
