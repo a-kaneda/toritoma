@@ -3134,6 +3134,8 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
     const int kAK2ndLoopShotInterval = 120;
     // 2周目追加ショットスピード
     const float kAK2ndLoopShotSpeed = 1.0f;
+    // 縦方向の移動範囲の画面端からの距離
+    const int kAKMaxMoveRangeFromEdge = 96;
     
     // 状態によって処理を分岐する
     switch (m_state) {
@@ -3390,6 +3392,21 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
                 
                 // y座標は自機の位置を設定する
                 m_work[kAKWorkNextPositionY] = data->getPlayerPosition()->y;
+                
+                AKLog(kAKLogEnemy_3, "y=%d", m_work[kAKWorkNextPositionY]);
+                // 画面端まで移動すると、回転して方向を変えるときに画面外に出てしまうため
+                // 上下限を決める
+                if (m_work[kAKWorkNextPositionY] < kAKMaxMoveRangeFromEdge) {
+                    m_work[kAKWorkNextPositionY] = kAKMaxMoveRangeFromEdge;
+                    AKLog(kAKLogEnemy_3, "下限補正 : y=%d", m_work[kAKWorkNextPositionY]);
+                }
+                else if (m_work[kAKWorkNextPositionY] > AKScreenSize::stageSize().height - kAKMaxMoveRangeFromEdge) {
+                    m_work[kAKWorkNextPositionY] = AKScreenSize::stageSize().height - kAKMaxMoveRangeFromEdge;
+                    AKLog(kAKLogEnemy_3, "上限補正 : y=%d", m_work[kAKWorkNextPositionY]);
+                }
+                else {
+                    // Do nothing.
+                }
             }
             
             // 速度を0に設定する
