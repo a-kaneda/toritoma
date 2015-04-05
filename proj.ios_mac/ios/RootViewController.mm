@@ -110,5 +110,15 @@
     [super dealloc];
 }
 
+/*!
+ @brief リーダーボードで完了タップ時の処理
+ 
+ リーダーボードで完了タップ時の処理。前の画面に戻る。
+ @param gameCenterViewController The view controller the player finished interacting with.
+ */
+- (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
 
 @end

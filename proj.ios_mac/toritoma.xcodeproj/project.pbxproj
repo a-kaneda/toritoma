@@ -22,6 +22,9 @@
 		0C4AE4311A0761A10056E625 /* libcocos2dx iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB07180E9839004C840B /* libcocos2dx iOS.a */; };
 		0C4AE4321A0761A60056E625 /* libCocosDenshion iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB0F180E9839004C840B /* libCocosDenshion iOS.a */; };
 		0C4AE4331A0761AA0056E625 /* libcocos2dx-extensions iOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1AC6FB09180E9839004C840B /* libcocos2dx-extensions iOS.a */; };
+		0C4E773F1AD102A20064AC6C /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4E773E1AD102A20064AC6C /* GameKit.framework */; };
+		0C4E77421AD10E890064AC6C /* OnlineScore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C4E77411AD10E890064AC6C /* OnlineScore.mm */; };
+		0C4E77461AD1145B0064AC6C /* GameCenterHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C4E77451AD1145B0064AC6C /* GameCenterHelper.m */; };
 		0C61675C19B2BD0E00D032E0 /* 1up.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C61675B19B2BD0E00D032E0 /* 1up.mp3 */; };
 		0C6F33871986F88400CA0D64 /* BossLifeGauge_01-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6F33831986F88400CA0D64 /* BossLifeGauge_01-ipad.png */; };
 		0C6F33881986F88400CA0D64 /* BossLifeGauge_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6F33841986F88400CA0D64 /* BossLifeGauge_01.png */; };
@@ -300,6 +303,11 @@
 		0C4AE41D1A075FF80056E625 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/OpenGLES.framework; sourceTree = DEVELOPER_DIR; };
 		0C4AE41F1A0760230056E625 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
 		0C4AE4211A0760820056E625 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS8.1.sdk/System/Library/Frameworks/CoreMotion.framework; sourceTree = DEVELOPER_DIR; };
+		0C4E773E1AD102A20064AC6C /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
+		0C4E77401AD10BB60064AC6C /* OnlineScore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = OnlineScore.h; path = ../Classes/AKLibrary/OnlineScore.h; sourceTree = "<group>"; };
+		0C4E77411AD10E890064AC6C /* OnlineScore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OnlineScore.mm; path = ../Classes/AKLibrary/OnlineScore.mm; sourceTree = "<group>"; };
+		0C4E77451AD1145B0064AC6C /* GameCenterHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GameCenterHelper.m; path = ../Classes/AKLibrary/GameCenterHelper.m; sourceTree = "<group>"; };
+		0C4E77471AD114790064AC6C /* GameCenterHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = GameCenterHelper.h; path = ../Classes/AKLibrary/GameCenterHelper.h; sourceTree = "<group>"; };
 		0C61675B19B2BD0E00D032E0 /* 1up.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = 1up.mp3; path = Sound/1up.mp3; sourceTree = "<group>"; };
 		0C6F33831986F88400CA0D64 /* BossLifeGauge_01-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BossLifeGauge_01-ipad.png"; sourceTree = "<group>"; };
 		0C6F33841986F88400CA0D64 /* BossLifeGauge_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BossLifeGauge_01.png; sourceTree = "<group>"; };
@@ -455,6 +463,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C4E773F1AD102A20064AC6C /* GameKit.framework in Frameworks */,
 				0C4AE4331A0761AA0056E625 /* libcocos2dx-extensions iOS.a in Frameworks */,
 				0C4AE4321A0761A60056E625 /* libCocosDenshion iOS.a in Frameworks */,
 				0C4AE4311A0761A10056E625 /* libcocos2dx iOS.a in Frameworks */,
@@ -583,6 +592,8 @@
 			isa = PBXGroup;
 			children = (
 				0CDDBEA919120F32007FBA6B /* AKCommon.cpp */,
+				0C4E77451AD1145B0064AC6C /* GameCenterHelper.m */,
+				0C4E77471AD114790064AC6C /* GameCenterHelper.h */,
 				0CDDBEAA19120F32007FBA6B /* AKCommon.h */,
 				0CDDBEAB19120F32007FBA6B /* AKFont.cpp */,
 				0CDDBEAC19120F32007FBA6B /* AKFont.h */,
@@ -600,6 +611,8 @@
 				0CDDBEBA19120F32007FBA6B /* AKStringSplitter.h */,
 				0CFC39A51918F3F700667232 /* LocalizedResource.cpp */,
 				0CFC39A61918F3F700667232 /* LocalizedResource.h */,
+				0C4E77401AD10BB60064AC6C /* OnlineScore.h */,
+				0C4E77411AD10E890064AC6C /* OnlineScore.mm */,
 			);
 			name = AKLibrary;
 			sourceTree = "<group>";
@@ -695,6 +708,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0C4E773E1AD102A20064AC6C /* GameKit.framework */,
 				0C4AE4211A0760820056E625 /* CoreMotion.framework */,
 				0C4AE41F1A0760230056E625 /* UIKit.framework */,
 				0C4AE41D1A075FF80056E625 /* OpenGLES.framework */,
@@ -1058,6 +1072,7 @@
 				0CDDBEA319120F17007FBA6B /* AKPlayingSceneIF.cpp in Sources */,
 				503AE10117EB989F00D1A890 /* main.m in Sources */,
 				0CDDBED319120F4A007FBA6B /* AKToritoma.cpp in Sources */,
+				0C4E77421AD10E890064AC6C /* OnlineScore.mm in Sources */,
 				0CDDBE9C19120F17007FBA6B /* AKLife.cpp in Sources */,
 				0CDDBEDD19120F61007FBA6B /* AKTitleScene.cpp in Sources */,
 				0CDDBED019120F4A007FBA6B /* AKAngle.cpp in Sources */,
@@ -1066,6 +1081,7 @@
 				0CDDBE9B19120F17007FBA6B /* AKHiScoreFile.cpp in Sources */,
 				0CDDBEC519120F32007FBA6B /* AKStringSplitter.cpp in Sources */,
 				0CDDBE9519120F17007FBA6B /* AKCharacter.cpp in Sources */,
+				0C4E77461AD1145B0064AC6C /* GameCenterHelper.m in Sources */,
 				0CDDBE9F19120F17007FBA6B /* AKPlayData.cpp in Sources */,
 				0CDDBE9E19120F17007FBA6B /* AKOption.cpp in Sources */,
 				0CDDBE9919120F17007FBA6B /* AKEnemy.cpp in Sources */,
@@ -1307,7 +1323,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0d348025-c31f-44f5-aa3a-b6fe6b2cba48";
+				PROVISIONING_PROFILE = "a3ef743f-3e2b-493b-b942-8dc25461e9fa";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1337,7 +1353,7 @@
 				);
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "0d348025-c31f-44f5-aa3a-b6fe6b2cba48";
+				PROVISIONING_PROFILE = "a3ef743f-3e2b-493b-b942-8dc25461e9fa";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

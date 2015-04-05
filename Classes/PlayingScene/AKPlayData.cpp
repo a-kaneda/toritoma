@@ -41,6 +41,7 @@
 #include "AKBlock.h"
 #include "AKHiScoreFile.h"
 #include "AKNWayAngle.h"
+#include "OnlineScore.h"
 #include "string.h"
 
 using cocos2d::Node;
@@ -121,7 +122,7 @@ m_scene(scene), m_playerShotPool(kAKMaxPlayerShotCount),
 m_reflectShotPool(kAKMaxEnemyShotCount), m_enemyPool(kAKMaxEnemyCount),
 m_enemyShotPool(kAKMaxEnemyShotCount), m_effectPool(kAKMaxEffectCount),
 m_blockPool(kAKMaxBlockCount), m_tileMap(NULL), m_player(NULL), m_boss(NULL),
-m_is2ndloop(false)
+m_is2ndloop(false), m_hiScore(0)
 {
     // シーンを確保する
     m_scene->retain();
@@ -457,10 +458,10 @@ void AKPlayData::writeHiScore()
     
     // ファイルを書き込む
     [data writeToFile:filePath atomically:YES];
+    */
     
     // Game Centerにスコアを送信する
-    [[AKGameCenterHelper sharedHelper] reportHiScore:score_];
-    */
+    aklib::OnlineScore::postHighScore(m_hiScore);
 }
 
 #pragma mark シーンクラスからのデータ操作用

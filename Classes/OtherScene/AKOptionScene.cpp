@@ -36,6 +36,7 @@
 #include "AKOptionScene.h"
 #include "AKTitleScene.h"
 //#include "AKInAppPurchaseHelper.h"
+#include "OnlineScore.h"
 
 using cocos2d::SpriteFrameCache;
 using cocos2d::LayerColor;
@@ -317,7 +318,7 @@ void AKOptionScene::initGameCenterPage(AKInterface *interface)
     m_leaderboardButton = interface->addLabelMenu(kAKLeaderboardCaption,
                                                   Vector2(x, y),
                                                   0,
-                                                  kAKSelectAchievements,
+                                                  kAKSelectLeaderboard,
                                                   kAKMenuGameCenter,
                                                   true);
     
@@ -516,8 +517,8 @@ void AKOptionScene::selectNextPage()
         return;
     }
     
-    // TODO:メニュー選択時の効果音を鳴らす
-//    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
+    // メニュー選択時の効果音を鳴らす
+    SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
     
     setPageNo(m_pageNo + 1);
 }
@@ -535,8 +536,8 @@ void AKOptionScene::selectBack()
         return;
     }
     
-    // TODO:メニュー選択時の効果音を鳴らす
-//    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
+    // メニュー選択時の効果音を鳴らす
+    SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
     
     // タイトルシーンへの遷移を作成する
     TransitionFade *transition = TransitionFade::create(0.5f, AKTitleScene::create());
@@ -556,8 +557,8 @@ void AKOptionScene::showLeaderboard()
     // ブリンク終了直後はボタン非表示になっているため、表示を元に戻す
     m_leaderboardButton->setVisible(true);
     
-    // TODO:Achievementsを表示する
-//    AKGameCenterHelper::sharedHelper()->showLeaderboard();
+    // ランキング画面を表示する
+    aklib::OnlineScore::openRanking();
 }
 
 /*! 

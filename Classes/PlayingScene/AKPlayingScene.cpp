@@ -844,6 +844,9 @@ void AKPlayingScene::gameOver()
     
     // 待機フレーム数を設定する
     m_sleepFrame = kAKGameOverWaitFrame;
+    
+    // ハイスコアを書き込む
+    m_data->writeHiScore();
 }
 
 /*!

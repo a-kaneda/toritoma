@@ -2,6 +2,7 @@
 #include "AKTitleScene.h"
 #include "AKPlayingScene.h"
 #include "AKScreenSize.h"
+#include "OnlineScore.h"
 
 USING_NS_CC;
 using CocosDenshion::SimpleAudioEngine;
@@ -40,6 +41,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // run
     director->runWithScene(scene);
+    
+    // オンラインスコア管理にログインする
+    aklib::OnlineScore::login();
 
     return true;
 }

@@ -4,3 +4,5 @@
 "HowToPlay_4" = "HowToPlay_4(にほんご)";
 "GameClearTweet" = "とりとま、全ステージをクリア。スコアを%d点獲得しました。 #toritoma";
 "GameOverTweet" = "とりとま、ステージ%dまで進めてスコアを%d点獲得しました。 #toritoma";
+"StoreMessage" = "StoreMessage";
+"StorePurchased" = "StorePurchased";
