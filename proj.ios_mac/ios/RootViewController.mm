@@ -130,9 +130,9 @@ static NSString *kAKTestDeviceID2 = @"59d89c955b8adbe31a45ec3f07ad5ea813b11c24";
 }
 
 /*!
- @brief 広告バナーを作成
+ @brief バナー広告を作成
  
- 広告バナーを作成する。
+ バナー広告を作成する。
  */
 - (void)createAdBanner
 {
@@ -163,9 +163,9 @@ static NSString *kAKTestDeviceID2 = @"59d89c955b8adbe31a45ec3f07ad5ea813b11c24";
 }
 
 /*!
- @brief 広告バナーを削除
+ @brief バナー広告を削除
  
- 広告バナーを削除する。
+ バナー広告を削除する。
  */
 - (void)deleteAdBanner
 {
@@ -174,6 +174,57 @@ static NSString *kAKTestDeviceID2 = @"59d89c955b8adbe31a45ec3f07ad5ea813b11c24";
     
     // バナーを削除する
     self.bannerView = nil;
+}
+
+/*!
+ @brief インタースティシャル広告を作成
+ 
+ インタースティシャル広告を作成する。
+ */
+- (void)createAdInterstitial
+{
+    // インタースティシャル広告を作成する
+    self.interstitialView = [[[GADInterstitial alloc] init] autorelease];
+    
+    // 広告のユニットIDを指定する。
+    self.interstitialView.adUnitID = kAKAdMobID;
+    
+    // デリゲートを設定する
+    self.interstitialView.delegate = self;
+    
+    // 広告リクエストを作成する
+    GADRequest *request = [GADRequest request];
+    
+    // テスト広告のリクエストを行う。
+    request.testDevices = [NSArray arrayWithObjects:kAKTestDeviceID, kAKTestDeviceID2, nil];
+    
+    // リクエストを行って広告を読み込む
+    [self.interstitialView loadRequest:request];
+}
+
+/*!
+ @brief インタースティシャル広告を表示
+ 
+ インタースティシャル広告を表示する。
+ */
+- (void)viewAdInterstitial
+{
+    // インタースティシャル広告を表示する準備ができている場合、
+    // 広告を表示する。
+    if ([self.interstitialView isReady]) {
+        [self.interstitialView presentFromRootViewController:self];
+    }
+}
+
+/*!
+ @brief インタースティシャル広告表示終了時処理
+ 
+ インタースティシャル広告の表示が終了した時に、再度インタースティシャル広告の作成を行う。
+ @param ad インタースティシャル広告
+ */
+- (void)interstitialDidDismissScreen:(GADInterstitial *)ad
+{
+    [self createAdInterstitial];
 }
 
 @end

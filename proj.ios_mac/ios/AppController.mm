@@ -80,6 +80,9 @@ static AppDelegate s_sharedApplication;
     // 他のアプリのBGMを止めて自分のBGMを鳴らすようにする
     [CDAudioManager configure:kAMM_FxPlusMusic];
     
+    // インタースティシャル広告表示の準備を行う
+    [_viewController createAdInterstitial];
+    
     // IMPORTANT: Setting the GLView should be done after creating the RootViewController
     cocos2d::GLView *glview = cocos2d::GLView::createWithEAGLView(eaglView);
     cocos2d::Director::getInstance()->setOpenGLView(glview);

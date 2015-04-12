@@ -168,6 +168,16 @@ void AKTitleScene::execEvent(const AKMenuItem *item)
 }
 
 /*!
+ @brief インタースティシャル広告表示を行う
+ 
+ インタースティシャル広告表示を行うようにする。
+ */
+void AKTitleScene::viewInterstitial()
+{
+    m_isViewInterstitial = true;
+}
+
+/*!
  @brief コンストラクタ
 
  シーンに配置する項目を作成する。
@@ -175,6 +185,9 @@ void AKTitleScene::execEvent(const AKMenuItem *item)
 AKTitleScene::AKTitleScene()
 {
     AKLog(kAKLogTitleScene_1, "start");
+    
+    // デフォルト（アプリ起動時）ではインタースティシャル広告は表示しない
+    m_isViewInterstitial = false;
     
     // 背景レイヤーを配置する
     addChild(AKCreateBackColorLayer(), kAKTitleBackground, kAKTitleBackground);
@@ -264,6 +277,11 @@ void AKTitleScene::onEnterTransitionDidFinish()
 {
     // バナー広告を表示する
     aklib::Advertisement::viewBanner();
+    
+    // インタースティシャル広告を表示する
+    if (m_isViewInterstitial) {
+        aklib::Advertisement::viewInterstatial();
+    }
 }
 
 /*!

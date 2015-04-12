@@ -52,6 +52,8 @@ public:
 private:
     /// インターフェースレイヤー
     AKInterface *m_interface;
+    /// インタースティシャル広告を表示するかどうか
+    bool m_isViewInterstitial;
 
 public:
     // イベント実行
@@ -60,6 +62,8 @@ public:
     ~AKTitleScene();
     // 画面遷移終了時処理
     virtual void onEnterTransitionDidFinish();
+    // インタースティシャル広告表示を行う
+    void viewInterstitial();
     
 private:
     // コンストラクタ

@@ -93,6 +93,20 @@ namespace aklib {
      */
     void Advertisement::viewInterstatial()
     {
+        // RootViewControllerを取得する
+        UIWindow *window = [UIApplication sharedApplication].keyWindow;
+        if (window == nil) {
+            window = [[UIApplication sharedApplication].windows objectAtIndex:0];
+        }
         
+        // RootViewControllerであることを確認する
+        if ([window.rootViewController isKindOfClass:[RootViewController class]]) {
+            
+            // RootViewControllerにキャストする
+            RootViewController *rootViewController = (RootViewController *)window.rootViewController;
+            
+            // ネイティブコードのインタースティシャル広告表示処理を呼び出す
+            [rootViewController viewAdInterstitial];
+        }
     }
 }

@@ -601,8 +601,14 @@ void AKPlayingScene::touchQuitYesButton()
     // ハイスコアをファイルに保存する
     m_data->writeHiScore();
     
+    // タイトルシーンを作成する
+    AKTitleScene *titleScene = AKTitleScene::create();
+    
+    // インタースティシャル広告を表示するようにする
+    titleScene->viewInterstitial();
+    
     // タイトルシーンへの遷移を作成する
-    TransitionFade *transition = TransitionFade::create(0.5f, AKTitleScene::create());
+    TransitionFade *transition = TransitionFade::create(0.5f, titleScene);
 
     // BGMを停止する
     SimpleAudioEngine::getInstance()->stopBackgroundMusic();

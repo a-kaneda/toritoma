@@ -26,22 +26,31 @@
 #import <UIKit/UIKit.h>
 #import <GameKit/GameKit.h>
 #import "GoogleMobileAds/GADBannerView.h"
+#import "GoogleMobileAds/GADInterstitial.h"
 
-@interface RootViewController : UIViewController<GKGameCenterControllerDelegate> {
+@interface RootViewController : UIViewController<GKGameCenterControllerDelegate, GADInterstitialDelegate> {
     
-    // AdMobビュー
+    // AdMobバナー広告
     GADBannerView *bannerView_;
+    // AdMobインタースティシャル広告
+    GADInterstitial *interstitialView_;
 }
 
-/// 広告バナー
+/// AdMobバナー広告
 @property (nonatomic, retain)GADBannerView *bannerView;
+/// AdMobインタースティシャル広告
+@property (nonatomic, retain)GADInterstitial *interstitialView;
 
 
 - (BOOL) prefersStatusBarHidden;
 
-// 広告バナーを作成
+// バナー広告を作成
 - (void)createAdBanner;
-// 広告バナーを削除
+// バナー広告を削除
 - (void)deleteAdBanner;
+// インタースティシャル広告を作成
+- (void)createAdInterstitial;
+// インタースティシャル広告を表示
+- (void)viewAdInterstitial;
 
 @end

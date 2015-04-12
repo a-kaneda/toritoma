@@ -39,3 +39,5 @@ tags
 # 音声ファイル
 *.mp3
 *.caf
+# Nendライブラリ
+NendAd
