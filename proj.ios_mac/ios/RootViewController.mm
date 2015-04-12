@@ -27,6 +27,12 @@
 #import "cocos2d.h"
 #import "CCEAGLView.h"
 
+/// AdMobパブリッシャーID
+static NSString *kAKAdMobID = @"ca-app-pub-8055460627535570/8664101241";
+/// テストデバイスID
+static NSString *kAKTestDeviceID = @"ab81ab90de92aeeb1e4b20b4647be22883e80300";
+static NSString *kAKTestDeviceID2 = @"59d89c955b8adbe31a45ec3f07ad5ea813b11c24";
+
 @implementation RootViewController
 
 /*
@@ -107,6 +113,8 @@
 
 
 - (void)dealloc {
+    
+    self.bannerView = nil;
     [super dealloc];
 }
 
@@ -119,6 +127,53 @@
 - (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+/*!
+ @brief 広告バナーを作成
+ 
+ 広告バナーを作成する。
+ */
+- (void)createAdBanner
+{
+    // すでに作成済みの場合は処理しない
+    if (self.bannerView != nil) {
+        return;
+    }
+    
+    // 画面下部に標準サイズのビューを作成する
+    self.bannerView = [[[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner] autorelease];
+    
+    // 広告の「ユニット ID」を指定する。これは AdMob パブリッシャー ID です。
+    self.bannerView.adUnitID = kAKAdMobID;
+    
+    // ユーザーに広告を表示した場所に後で復元する UIViewController をランタイムに知らせて
+    // ビュー階層に追加する。
+    self.bannerView.rootViewController = self;
+    [self.view addSubview:self.bannerView];
+    
+    // 広告リクエストを作成する
+    GADRequest *request = [GADRequest request];
+    
+    // テスト広告のリクエストを行う。
+    request.testDevices = [NSArray arrayWithObjects:kAKTestDeviceID, kAKTestDeviceID2, nil];
+    
+    // リクエストを行って広告を読み込む
+    [self.bannerView loadRequest:request];
+}
+
+/*!
+ @brief 広告バナーを削除
+ 
+ 広告バナーを削除する。
+ */
+- (void)deleteAdBanner
+{
+    // バナーを取り除く
+    [self.bannerView removeFromSuperview];
+    
+    // バナーを削除する
+    self.bannerView = nil;
 }
 
 @end

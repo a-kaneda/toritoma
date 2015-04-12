@@ -35,6 +35,7 @@
 
 #include "AKPlayingScene.h"
 #include "AppDelegate.h"
+#include "Advertisement.h"
 
 using std::mem_fun;
 using cocos2d::SpriteFrameCache;
@@ -299,32 +300,24 @@ void AKPlayingScene::setState(enum AKGameState state)
             break;
     }
     
-    /* TODO:広告処理を作成する 
-    // Root Viewを取得する
-    AKNavigationController *viewController = (AKNavigationController *)[UIApplication sharedApplication].keyWindow.rootViewController;
-
     // 広告バナーの表示・非表示を切り替える
     switch (state) {
-        case kAKGameStatePreLoad:   // ゲームシーン読み込み前
-        case kAKGameStatePlaying:   // プレイ中
-            AKLog(kAKLogPlayingScene_1, "広告バナーを非表示にする。:state=%d", state);
-            // プレイ中は広告バナーを非表示にする
-            [viewController hiddenAdBanner];
-            break;
+        case kAKGameStatePreLoad:       // ゲームシーン読み込み前
+        case kAKGameStatePlaying:       // プレイ中
+        case kAKGameStateStageClear:    // ステージクリア後
             
-        case kAKGameStateStart:     // ゲーム開始時
-        case kAKGameStateWait:      // アクション待機中
-        case kAKGameStateSleep:     // スリープ処理中
-            // 現在の状態を維持する
+            // プレイ中は広告バナーを非表示にする
+            aklib::Advertisement::hideBaaner();
+            
             break;
             
         default:                    // その他
-            AKLog(kAKLogPlayingScene_1, "広告バナーを表示する。:state=%d", state);
+
             // 広告バナーを表示する
-            [viewController viewAdBanner];
+            aklib::Advertisement::viewBanner();
+            
             break;
     }
-    */
 }
 
 /*!

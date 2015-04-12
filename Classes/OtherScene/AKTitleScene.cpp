@@ -37,6 +37,7 @@
 #include "AKPlayingScene.h"
 #include "AKHowToPlayScene.h"
 #include "AKOptionScene.h"
+#include "Advertisement.h"
 
 using cocos2d::Vector2;
 using cocos2d::TransitionFade;
@@ -252,6 +253,17 @@ AKTitleScene::AKTitleScene()
     m_interface->setEnableTag(0xFFFFFFFFUL);
     
     AKLog(kAKLogTitleScene_1, "end");
+}
+
+/*!
+ @brief 画面遷移終了時処理
+ 
+ 画面遷移終了時に広告を表示する。
+ */
+void AKTitleScene::onEnterTransitionDidFinish()
+{
+    // バナー広告を表示する
+    aklib::Advertisement::viewBanner();
 }
 
 /*!

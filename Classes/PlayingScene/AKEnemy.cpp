@@ -3414,8 +3414,8 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
             m_speedY = 0;
         }
         // 移動位置に到達している場合
-        else if (abs(m_position.x - m_work[kAKWorkNextPositionX]) < kAKMoveArrivalRange &&
-                 abs(m_position.y - m_work[kAKWorkNextPositionY]) < kAKMoveArrivalRange) {
+        else if (std::abs(m_position.x - m_work[kAKWorkNextPositionX]) < kAKMoveArrivalRange &&
+                 std::abs(m_position.y - m_work[kAKWorkNextPositionY]) < kAKMoveArrivalRange) {
             
             // 待機時間を設定する
             m_work[kAKWorkMoveWait] = kAKMoveInterval;

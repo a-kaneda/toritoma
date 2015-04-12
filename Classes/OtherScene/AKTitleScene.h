@@ -58,6 +58,8 @@ public:
     virtual void execEvent(const AKMenuItem *item);
     // デストラクタ
     ~AKTitleScene();
+    // 画面遷移終了時処理
+    virtual void onEnterTransitionDidFinish();
     
 private:
     // コンストラクタ

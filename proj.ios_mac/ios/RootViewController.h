@@ -25,10 +25,23 @@
 
 #import <UIKit/UIKit.h>
 #import <GameKit/GameKit.h>
+#import "GoogleMobileAds/GADBannerView.h"
 
 @interface RootViewController : UIViewController<GKGameCenterControllerDelegate> {
-
+    
+    // AdMobビュー
+    GADBannerView *bannerView_;
 }
+
+/// 広告バナー
+@property (nonatomic, retain)GADBannerView *bannerView;
+
+
 - (BOOL) prefersStatusBarHidden;
+
+// 広告バナーを作成
+- (void)createAdBanner;
+// 広告バナーを削除
+- (void)deleteAdBanner;
 
 @end
