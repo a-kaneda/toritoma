@@ -48,6 +48,7 @@ using cocos2d::Node;
 using cocos2d::Vector2;
 using cocos2d::SpriteFrameCache;
 using cocos2d::SpriteBatchNode;
+using cocos2d::UserDefault;
 using CocosDenshion::SimpleAudioEngine;
 
 /// ステージの数
@@ -384,41 +385,13 @@ void AKPlayData::readScript(int stage)
  */
 void AKPlayData::readHiScore()
 {
-    AKLog(kAKLogPlayData_1, "start");
+    // UserDefaultインスタンスを取得する
+    UserDefault *ud = UserDefault::getInstance();
     
-    /* TODO:ファイル入出力処理を作成する 
-    // HOMEディレクトリのパスを取得する
-    const char *homeDir = NSHomeDirectory();
-    
-    // Documentsディレクトリへのパスを作成する
-    const char *docDir = [homeDir stringByAppendingPathComponent:"Documents"];
-    
-    // ファイルパスを作成する
-    const char *filePath = [docDir stringByAppendingPathComponent:kAKDataFileName];
-    
-    // ファイルを読み込む
-    NSData *data = [NSData dataWithContentsOfFile:filePath];
-    
-    AKLog(kAKLogPlayData_1 && data == NULL, "ファイル読み込み失敗");
-    
-    // ファイルが読み込めた場合はデータを取得する
-    if (data != NULL) {
-        
-        // ファイルからデコーダーを生成する
-        NSKeyedUnarchiver *decoder = [[[NSKeyedUnarchiver alloc] initForReadingWithData:data] autorelease];
-        
-        // ハイスコアをデコードする
-        AKHiScoreFile *hiScore = [decoder decodeObjectForKey:kAKDataFileKey];
-        
-        // デコードを完了する
-        [decoder finishDecoding];
-        
-        // メンバに読み込む
-        hiScore_ = hiScore.hiscore;
-        
-        AKLog(kAKLogPlayData_1, "hiScore_=%d", hiScore_);
-    }
-    */
+    // ハイスコアを取得する
+    m_hiScore = ud->getIntegerForKey(kAKUDKeyHighScore, 0);
+
+    AKLog(kAKLogPlayData_1, "hiScore=%d", m_hiScore);
 }
 
 /*!
@@ -428,37 +401,13 @@ void AKPlayData::readHiScore()
  */
 void AKPlayData::writeHiScore()
 {
-    AKLog(kAKLogPlayData_1, "start hiScore=%d", m_hiScore);
+    AKLog(kAKLogPlayData_1, "hiScore=%d", m_hiScore);
     
-    /* TODO:ファイル入出力処理を作成する
-    // HOMEディレクトリのパスを取得する
-    const char *homeDir = NSHomeDirectory();
+    // UserDefaultインスタンスを取得する
+    UserDefault *ud = UserDefault::getInstance();
     
-    // Documentsディレクトリへのパスを作成する
-    const char *docDir = [homeDir stringByAppendingPathComponent:"Documents"];
-    
-    // ファイルパスを作成する
-    const char *filePath = [docDir stringByAppendingPathComponent:kAKDataFileName];
-    
-    // ハイスコアファイルオブジェクトを生成する
-    AKHiScoreFile *hiScore = [[[AKHiScoreFile alloc] init] autorelease];
-    
-    // ハイスコアを設定する
-    hiScore.hiscore = hiScore_;
-    
-    // エンコーダーを生成する
-    NSMutableData *data = [NSMutableData data];
-    NSKeyedArchiver *encoder = [[[NSKeyedArchiver alloc] initForWritingWithMutableData:data] autorelease];
-    
-    // ファイル内容をエンコードする
-    [encoder encodeObject:hiScore forKey:kAKDataFileKey];
-    
-    // エンコードを完了する
-    [encoder finishEncoding];
-    
-    // ファイルを書き込む
-    [data writeToFile:filePath atomically:YES];
-    */
+    // ハイスコアを書き込む
+    ud->setIntegerForKey(kAKUDKeyHighScore, m_hiScore);
     
     // Game Centerにスコアを送信する
     aklib::OnlineScore::postHighScore(m_hiScore);

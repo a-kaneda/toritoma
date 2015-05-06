@@ -76,4 +76,5 @@ const char *kAKMissSEFileName = "miss.mp3";
 /// 1UP時の効果音
 const char *kAK1UpSEFileName = "1up.mp3";
 
-
+/// ユーザーデフォルトキー、ハイスコア
+const char *kAKUDKeyHighScore = "HighScore";

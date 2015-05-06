@@ -69,6 +69,9 @@ extern const char *kAKMissSEFileName;
 // 1UP時の効果音
 extern const char *kAK1UpSEFileName;
 
+// ユーザーデフォルトキー、ハイスコア
+extern const char *kAKUDKeyHighScore;
+
 // デバッグ用フラグ
 #ifdef DEBUG
 
