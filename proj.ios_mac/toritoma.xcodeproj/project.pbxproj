@@ -36,6 +36,8 @@
 		0C4E77661AD5170F0064AC6C /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4E77651AD5170F0064AC6C /* CoreMotion.framework */; };
 		0C4E776A1AD5D4990064AC6C /* libAdapterNend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4E77691AD5D4990064AC6C /* libAdapterNend.a */; };
 		0C4E776C1AD5D6150064AC6C /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4E776B1AD5D6150064AC6C /* ImageIO.framework */; };
+		0C590A451AFFFD7B00D278D7 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C590A441AFFFD7B00D278D7 /* Social.framework */; };
+		0C590A491B00051500D278D7 /* Twitter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C590A481B00051500D278D7 /* Twitter.mm */; };
 		0C61675C19B2BD0E00D032E0 /* 1up.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C61675B19B2BD0E00D032E0 /* 1up.mp3 */; };
 		0C6F33871986F88400CA0D64 /* BossLifeGauge_01-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6F33831986F88400CA0D64 /* BossLifeGauge_01-ipad.png */; };
 		0C6F33881986F88400CA0D64 /* BossLifeGauge_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6F33841986F88400CA0D64 /* BossLifeGauge_01.png */; };
@@ -333,6 +335,9 @@
 		0C4E77651AD5170F0064AC6C /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		0C4E77691AD5D4990064AC6C /* libAdapterNend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdapterNend.a; sourceTree = "<group>"; };
 		0C4E776B1AD5D6150064AC6C /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		0C590A441AFFFD7B00D278D7 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		0C590A481B00051500D278D7 /* Twitter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Twitter.mm; path = ../Classes/AKLibrary/Twitter.mm; sourceTree = "<group>"; };
+		0C590A4A1B00053300D278D7 /* Twitter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Twitter.h; path = ../Classes/AKLibrary/Twitter.h; sourceTree = "<group>"; };
 		0C61675B19B2BD0E00D032E0 /* 1up.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = 1up.mp3; path = Sound/1up.mp3; sourceTree = "<group>"; };
 		0C6F33831986F88400CA0D64 /* BossLifeGauge_01-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BossLifeGauge_01-ipad.png"; sourceTree = "<group>"; };
 		0C6F33841986F88400CA0D64 /* BossLifeGauge_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BossLifeGauge_01.png; sourceTree = "<group>"; };
@@ -497,6 +502,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C590A451AFFFD7B00D278D7 /* Social.framework in Frameworks */,
 				0CDF3F7A1AD902F60027C3DD /* iAd.framework in Frameworks */,
 				0CDF3F761AD8FC7A0027C3DD /* Security.framework in Frameworks */,
 				0C4E776C1AD5D6150064AC6C /* ImageIO.framework in Frameworks */,
@@ -637,9 +643,9 @@
 		0CDDBEA619120F24007FBA6B /* AKLibrary */ = {
 			isa = PBXGroup;
 			children = (
+				0CD7068F1AD9FAA0000976B2 /* Advertisement.h */,
+				0CD706921AD9FB21000976B2 /* Advertisement.mm */,
 				0CDDBEA919120F32007FBA6B /* AKCommon.cpp */,
-				0C4E77451AD1145B0064AC6C /* GameCenterHelper.m */,
-				0C4E77471AD114790064AC6C /* GameCenterHelper.h */,
 				0CDDBEAA19120F32007FBA6B /* AKCommon.h */,
 				0CDDBEAB19120F32007FBA6B /* AKFont.cpp */,
 				0CDDBEAC19120F32007FBA6B /* AKFont.h */,
@@ -655,12 +661,14 @@
 				0CDDBEB819120F32007FBA6B /* AKScreenSize.h */,
 				0CDDBEB919120F32007FBA6B /* AKStringSplitter.cpp */,
 				0CDDBEBA19120F32007FBA6B /* AKStringSplitter.h */,
+				0C4E77471AD114790064AC6C /* GameCenterHelper.h */,
+				0C4E77451AD1145B0064AC6C /* GameCenterHelper.m */,
 				0CFC39A51918F3F700667232 /* LocalizedResource.cpp */,
 				0CFC39A61918F3F700667232 /* LocalizedResource.h */,
 				0C4E77401AD10BB60064AC6C /* OnlineScore.h */,
 				0C4E77411AD10E890064AC6C /* OnlineScore.mm */,
-				0CD7068F1AD9FAA0000976B2 /* Advertisement.h */,
-				0CD706921AD9FB21000976B2 /* Advertisement.mm */,
+				0C590A4A1B00053300D278D7 /* Twitter.h */,
+				0C590A481B00051500D278D7 /* Twitter.mm */,
 			);
 			name = AKLibrary;
 			sourceTree = "<group>";
@@ -771,6 +779,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0C590A441AFFFD7B00D278D7 /* Social.framework */,
 				0CDF3F791AD902F60027C3DD /* iAd.framework */,
 				0CDF3F751AD8FC7A0027C3DD /* Security.framework */,
 				0C4E776B1AD5D6150064AC6C /* ImageIO.framework */,
@@ -1159,6 +1168,7 @@
 				0C4E77461AD1145B0064AC6C /* GameCenterHelper.m in Sources */,
 				0CDDBE9F19120F17007FBA6B /* AKPlayData.cpp in Sources */,
 				0CD706931AD9FB21000976B2 /* Advertisement.mm in Sources */,
+				0C590A491B00051500D278D7 /* Twitter.mm in Sources */,
 				0CDDBE9E19120F17007FBA6B /* AKOption.cpp in Sources */,
 				0CDDBE9919120F17007FBA6B /* AKEnemy.cpp in Sources */,
 				0CDDBEA019120F17007FBA6B /* AKPlayer.cpp in Sources */,

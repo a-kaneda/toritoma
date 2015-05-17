@@ -49,7 +49,10 @@ using cocos2d::Vector2;
 using cocos2d::SpriteFrameCache;
 using cocos2d::SpriteBatchNode;
 using cocos2d::UserDefault;
+using cocos2d::Application;
+using cocos2d::LanguageType;
 using CocosDenshion::SimpleAudioEngine;
+using aklib::LocalizedResource;
 
 /// ステージの数
 const int kAKStageCount = 6;
@@ -123,7 +126,7 @@ m_scene(scene), m_playerShotPool(kAKMaxPlayerShotCount),
 m_reflectShotPool(kAKMaxEnemyShotCount), m_enemyPool(kAKMaxEnemyCount),
 m_enemyShotPool(kAKMaxEnemyShotCount), m_effectPool(kAKMaxEffectCount),
 m_blockPool(kAKMaxBlockCount), m_tileMap(NULL), m_player(NULL), m_boss(NULL),
-m_is2ndloop(false), m_hiScore(0)
+m_loopCount(0), m_hiScore(0)
 {
     // シーンを確保する
     m_scene->retain();
@@ -260,14 +263,9 @@ void AKPlayData::clearPlayData(bool resetScore)
 
         // スコアを初期化する
         m_score = 0;
-        
-#ifdef DEBUG_MODE_SECOND_LOOP_ON
-        // 2周目フラグは立てたままにする
-        m_is2ndloop = true;
-#else
-        // 2周目フラグを落とす
-        m_is2ndloop = false;
-#endif
+
+        // 周回数の初期化
+        m_loopCount = DEBUG_MODE_START_LOOP;
     }
     
     // その他のメンバを初期化する
@@ -423,7 +421,7 @@ void AKPlayData::writeHiScore()
  */
 void AKPlayData::update()
 {
-    AKLog(kAKLogPlayData_4, "m_is2ndloop=%d", m_is2ndloop);
+    AKLog(kAKLogPlayData_4, "m_loopCount=%d", m_loopCount);
     
     // クリア後の待機中の場合はステージクリア処理を行う
     if (m_clearWait > 0) {
@@ -669,32 +667,33 @@ void AKPlayData::movePlayer(float dx, float dy)
  */
 std::string AKPlayData::makeTweet()
 {
+    // 使用言語を取得する
+    LanguageType lang = Application::getInstance()->getCurrentLanguage();
+
+    // ツイートメッセージ
     char tweet[141] = "";
-    
-    // 全ステージクリアの場合と途中でゲームオーバーになった時でツイート内容を変更する。
-    if (m_stage > kAKStageCount) {
-        char format[141] = "";
-        // TODO:ローカライズ処理を作成する
-//        strncpy(format,
-//                CCLocalizedString(kAKGameClearTweetKey, "ゲームクリア時のツイート"),
-//                sizeof(format));
-        snprintf(tweet, sizeof(tweet), format, m_score);
+
+    // 1周目と2周目以降でメッセージを変える
+    if (!is2ndLoop()) {
+        
+        snprintf(tweet, sizeof(tweet), LocalizedResource::getInstance().getString("Tweet1stLoop").c_str(), m_stage, m_score);
+        
     }
     else {
-        char format[141] = "";
-        // TODO:ローカライズ処理を作成する
-//        strncpy(format,
-//                CCLocalizedString(kAKGameOverTweetKey, "ゲームオーバー時のツイート"),
-//                sizeof(format));
-        snprintf(tweet, sizeof(tweet), format, m_score);
+        
+        // 2周目以降は周回数が日本語と英語で異なる
+        if (lang == cocos2d::LanguageType::JAPANESE) {
+            
+            snprintf(tweet, sizeof(tweet), LocalizedResource::getInstance().getString("Tweet2ndLoop").c_str(),
+                     m_loopCount, m_stage, m_score);
+        }
+        else {
+            
+            snprintf(tweet, sizeof(tweet), LocalizedResource::getInstance().getString("Tweet2ndLoop").c_str(),
+                     m_stage, m_loopCount, MakeOrdinal(m_loopCount).c_str(), m_score);
+        }
     }
     
-    // Twitterでは同じ内容のツイートは連続して投稿できない。
-    // TODO:テスト時はこれを回避するため、末尾に現在日時を付加して同じ内容にならないようにする。
-#ifdef DEBUG
-//    return [const char stringWithFormat:"%@ %@", tweet, [[NSDate date] description]];
-#endif
-
     return std::string(tweet);
 }
 
@@ -794,8 +793,8 @@ void AKPlayData::restartStage(int stage)
     // スコア初期化なしでデータをクリアする
     clearPlayData(false);
     
-    // 2周目フラグをONにする
-    m_is2ndloop = true;
+    // 周回数を増やす
+    m_loopCount++;
     
     // ステージを変更する
     changeStage(stage);
@@ -1094,7 +1093,7 @@ void AKPlayData::addChickenGauge(int inc)
  */
 bool AKPlayData::is2ndLoop()
 {
-    return m_is2ndloop;
+    return m_loopCount > 1;
 }
 
 /*!

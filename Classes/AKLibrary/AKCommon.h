@@ -165,5 +165,7 @@ cocos2d::LayerColor *AKCreateColorLayer(int colorNo, const cocos2d::Rect &rect);
 // 背景色レイヤーを作成する
 cocos2d::LayerColor *AKCreateBackColorLayer(void);
 
+// 英語の序数詞を作成する
+std::string MakeOrdinal(int number);
 
 #endif

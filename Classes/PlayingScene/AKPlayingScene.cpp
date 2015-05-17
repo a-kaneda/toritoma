@@ -36,6 +36,7 @@
 #include "AKPlayingScene.h"
 #include "AppDelegate.h"
 #include "Advertisement.h"
+#include "Twitter.h"
 
 using std::mem_fun;
 using cocos2d::SpriteFrameCache;
@@ -51,6 +52,7 @@ using cocos2d::SpriteBatchNode;
 using cocos2d::Rect;
 using cocos2d::Sprite;
 using CocosDenshion::SimpleAudioEngine;
+using aklib::Twitter;
 
 /// レイヤーのz座標、タグの値にも使用する
 enum {
@@ -663,11 +665,16 @@ void AKPlayingScene::touchContinueButton()
  */
 void AKPlayingScene::touchTweetButton()
 {
+    const char URL[] = "https://itunes.apple.com/us/app/toritoma2/id982812762?l=ja&ls=1&mt=8";
+    
     // ボタン選択効果音を鳴らす
     SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
     
-    // TODO:ツイートビューを表示する
-//    [[AKTwitterHelper sharedHelper] viewTwitterWithInitialString:[data_ makeTweet]];
+    // ツイートメッセージを作成する
+    std::string message = m_data->makeTweet();
+    
+    // ツイートビューを表示する
+    Twitter::post(message.c_str(), URL);
 }
 
 /*!

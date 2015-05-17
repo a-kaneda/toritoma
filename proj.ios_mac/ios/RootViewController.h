@@ -52,5 +52,7 @@
 - (void)createAdInterstitial;
 // インタースティシャル広告を表示
 - (void)viewAdInterstitial;
+// Twitter投稿
+- (void)postTwitterMessage:(NSString*)message URL:(NSURL*)url Image:(UIImage*)image;
 
 @end

@@ -2,7 +2,7 @@
 "HowToPlay_2" = "HowToPlay_2";
 "HowToPlay_3" = "HowToPlay_3";
 "HowToPlay_4" = "HowToPlay_4";
-"GameClearTweet" = "Toritoma, Clear all stages. I earned %d points score. #toritoma";
-"GameOverTweet" = "Toritoma, Advanced to stage %d. I earned %d points the score. #toritoma";
+"Tweet1stLoop" = "Toritoma, Go on to stage %d. Earned %d points the score. #toritoma";
+"Tweet2ndLoop" = "Toritoma, Go on to stage %d in %d%s loop. Earned %d points the score. #toritoma";
 "StoreMessage" = "StoreMessage";
 "StorePurchased" = "StorePurchased";

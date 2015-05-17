@@ -226,3 +226,38 @@ LayerColor *AKCreateBackColorLayer(void)
     // 背景色のカラーレイヤーを作成して返す
     return AKCreateColorLayer(kAKColorLight, rect);
 }
+
+/*!
+ @brief 英語の序数詞を作成する
+ 
+ 英語の序数詞を作成する。  
+ 1の場合:st、2の場合:nd、3の場合:rd、4〜20の場合:th、
+ 以降100まで下1桁が1、2、3の場合はst、nd、rd、その他の場合はth。
+ 101以上は下2桁に対して上記と同じように考える。
+ @return 序数詞
+ */
+std::string MakeOrdinal(int number)
+{
+    switch (number % 100) {
+        case 11:
+        case 12:
+        case 13:
+            return std::string("th");
+            
+        default:
+            
+            switch (number % 10) {
+                case 1:
+                    return std::string("st");
+                    
+                case 2:
+                    return std::string("nd");
+                    
+                case 3:
+                    return std::string("rd");
+                    
+                default:
+                    return std::string("th");
+            }
+    }
+}

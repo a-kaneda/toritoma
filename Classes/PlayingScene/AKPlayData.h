@@ -103,8 +103,8 @@ private:
     AKEnemy *m_boss;
     /// ボスキャラの初期HP
     int m_bossHP;
-    /// 2周めかどうか
-    bool m_is2ndloop;
+    /// 何周目か
+    int m_loopCount;
 
 private:
     // デフォルトコンストラクタは使用禁止にする
@@ -173,6 +173,8 @@ public:
     void changeHoldMode();
     // ステージ再開
     void restartStage(int stage);
+    // ツイートメッセージの作成
+    std::string makeTweet();
 
 private:
     // メンバオブジェクト生成処理
@@ -181,8 +183,6 @@ private:
     void clearPlayData(bool resetScore);
     // ハイスコアファイル読込
     void readHiScore();
-    // ツイートメッセージの作成
-    std::string makeTweet();
     // 残機設定
     void setLife(int life);
     // 敵弾削除

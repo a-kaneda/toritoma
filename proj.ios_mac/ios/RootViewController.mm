@@ -23,6 +23,7 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+#import <Social/Social.h>
 #import "RootViewController.h"
 #import "cocos2d.h"
 #import "CCEAGLView.h"
@@ -225,6 +226,48 @@ static NSString *kAKTestDeviceID2 = @"59d89c955b8adbe31a45ec3f07ad5ea813b11c24";
 - (void)interstitialDidDismissScreen:(GADInterstitial *)ad
 {
     [self createAdInterstitial];
+}
+
+/*!
+ @brief Twitter投稿
+ 
+ Twitter投稿ビューを表示する。
+ @param message 初期投稿メッセージ
+ @param url URL
+ @param image 投稿画像
+ */
+- (void)postTwitterMessage:(NSString *)message URL:(NSURL *)url Image:(UIImage *)image
+{
+    // Twitterが使用可能な場合のみ処理を行う
+    if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
+        
+        // Twitter投稿ビューを作成する
+        SLComposeViewController *composeVC = [SLComposeViewController composeViewControllerForServiceType:SLServiceTypeTwitter];
+        
+        // 完了時のハンドラを設定する
+        [composeVC setCompletionHandler:^(SLComposeViewControllerResult result) {
+            
+            // Twitter投稿ビューを閉じる
+            [self dismissViewControllerAnimated:YES completion:nil];
+            
+        }];
+        
+        // 投稿するテキストの初期設定を行う
+        [composeVC setInitialText:message];
+        
+        // 投稿するURLの設定を行う
+        if (url != nil) {
+            [composeVC addURL:url];
+        }
+        
+        // 投稿する画像の設定を行う
+        if (image != nil) {
+            [composeVC addImage:image];
+        }
+        
+        // Twitter投稿ビューを表示する
+        [self presentViewController:composeVC animated:YES completion:nil];
+    }
 }
 
 @end
