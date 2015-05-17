@@ -77,9 +77,9 @@ extern const char *kAKUDKeyHighScore;
 /// 自機当たり判定無効化
 //#define DEBUG_MODE_PLAYER_INVINCIBLE
 /// 開始周回数
-#define DEBUG_MODE_START_LOOP 3
+#define DEBUG_MODE_START_LOOP 1
 /// 開始ステージ番号
-#define DEBUG_MODE_START_STAGE 4
+#define DEBUG_MODE_START_STAGE 1
 /// 2周目開始ステージ番号
 #define DEBUG_MODE_2ND_START_STAGE 1
 /// 初期残機

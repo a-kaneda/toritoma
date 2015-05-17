@@ -46,7 +46,7 @@ namespace aklib {
     class Twitter {
     public:
         // 投稿ビューを表示する
-        static void post(const char *message, const char *url);
+        static void post(const char *message, const char *url, const char *imagepath);
     };
 }
 #endif

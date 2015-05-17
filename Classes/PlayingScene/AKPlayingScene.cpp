@@ -51,6 +51,8 @@ using cocos2d::TransitionFade;
 using cocos2d::SpriteBatchNode;
 using cocos2d::Rect;
 using cocos2d::Sprite;
+using cocos2d::RenderTexture;
+using cocos2d::FileUtils;
 using CocosDenshion::SimpleAudioEngine;
 using aklib::Twitter;
 
@@ -145,6 +147,12 @@ static const char *kAKFrameBarLeftBottom = "FrameLeftBottom.png";
 static const char *kAKFrameBarRightTop = "FrameRightTop.png";
 /// 枠棒右下の画像名
 static const char *kAKFrameBarRightBottom = "FrameRightBottom.png";
+
+//======================================================================
+// その他
+//======================================================================
+// スクリーンショットのファイル名
+static const char *kAKScreenShot = "screenshot.png";
 
 #pragma mark オブジェクト生成/解放
 
@@ -673,8 +681,11 @@ void AKPlayingScene::touchTweetButton()
     // ツイートメッセージを作成する
     std::string message = m_data->makeTweet();
     
+    // スクリーンショットの保存先パスを作成する
+    std::string fullpath = FileUtils::getInstance()->getWritablePath() + kAKScreenShot;
+    
     // ツイートビューを表示する
-    Twitter::post(message.c_str(), URL);
+    Twitter::post(message.c_str(), URL, fullpath.c_str());
 }
 
 /*!
@@ -847,6 +858,22 @@ void AKPlayingScene::gameOver()
     
     // 待機後の状態をゲームオーバーに設定する
     m_nextState = kAKGameStateGameOver;
+    
+    // スクリーンショット用テクスチャを作成する
+    RenderTexture *texture = RenderTexture::create(AKScreenSize::screenSize().width, AKScreenSize::screenSize().height);
+    texture->setPosition(cocos2d::Vector2(AKScreenSize::screenSize().width / 2, AKScreenSize::screenSize().height / 2));
+    
+    // スクリーンショットを撮り始める
+    texture->begin();
+    
+    // 画面の描画
+    this->visit();
+    
+    // スクリーンショットを撮り終える
+    texture->end();
+    
+    // スクリーンショットを保存する
+    texture->saveToFile(kAKScreenShot, cocos2d::Image::Format::PNG);
     
     // 待機フレーム数を設定する
     m_sleepFrame = kAKGameOverWaitFrame;

@@ -43,8 +43,10 @@ namespace aklib {
      
      ネイティブコードのTwitter投稿処理を呼び出す。
      @param message 初期投稿メッセージ
+     @param url URL
+     @param imagepath 投稿画像のファイルパス
      */
-    void Twitter::post(const char *message, const char *url)
+    void Twitter::post(const char *message, const char *url, const char *imagepath)
     {
         // RootViewControllerを取得する
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -58,10 +60,13 @@ namespace aklib {
             // RootViewControllerにキャストする
             RootViewController *rootViewController = (RootViewController *)window.rootViewController;
             
+            // 投稿画像を開く
+            UIImage *image = [UIImage imageWithContentsOfFile:[NSString stringWithCString:imagepath encoding:NSUTF8StringEncoding]];
+            
             // ネイティブコードのバナー広告表示処理を呼び出す
             [rootViewController postTwitterMessage:[NSString stringWithCString:message encoding:NSUTF8StringEncoding]
                                                URL:[NSURL URLWithString:[NSString stringWithCString:url encoding:NSUTF8StringEncoding]]
-                                             Image:nil];
+                                             Image:image];            
         }
     }
 };
