@@ -44,6 +44,7 @@ using cocos2d::TransitionFade;
 using cocos2d::Director;
 using cocos2d::Blink;
 using cocos2d::Node;
+using cocos2d::Sprite;
 using CocosDenshion::SimpleAudioEngine;
 
 // メニュー項目のタグ
@@ -68,8 +69,8 @@ enum {
     kAKEventTouchCreditBUtton           ///< クレジットボタン
 };
 
-// TODO:タイトル画像のファイル名
-//static const char *kAKTitleImage = @"Title.png";
+// タイトル画像のファイル名
+static const char *kAKTitleImage = "Title.png";
 
 /// ゲーム開始メニューのキャプション
 static const char *kAKGameStartCaption  = "GAME START ";
@@ -80,11 +81,10 @@ static const char *kAKOptionCaption     = "OPTION     ";
 /// クレジット画面メニューのキャプション
 static const char *kAKCreditCaption     = "CREDIT     ";
 
-// TODO:タイトル作成後、不要なら削除する
 /// タイトルの位置、横方向の中心からの位置
-//static const float kAKTitlePosFromHorizontalCenterPoint = -100.0f;
+static const float kAKTitlePosFromHorizontalCenterPoint = -100.0f;
 /// タイトルの位置、上からの比率
-//static const float kAKTitlePosFromTopRatio = 0.45f;
+static const float kAKTitlePosFromTopRatio = 0.55f;
 /// メニュー項目の数
 //static const int kAKMenuItemCount = 3;
 /// メニュー項目の位置、右からの位置
@@ -199,16 +199,15 @@ AKTitleScene::AKTitleScene()
     // インターフェースをシーンに配置する
     addChild(m_interface, kAKTitleInterface, kAKTitleInterface);
 
-    // TODO:タイトル画像を読み込む
-//    CCSprite *image = [CCSprite spriteWithFile:kAKTitleImage];
-//    NSAssert(image != nil, @"can not open title image : %@", kAKTitleImage);
+    // タイトル画像を読み込む
+    Sprite *image = Sprite::create(kAKTitleImage);
     
-    // TODO:配置位置を設定する
-//    image.position = ccp([AKScreenSize positionFromHorizontalCenterPoint:kAKTitlePosFromHorizontalCenterPoint],
-//                         [AKScreenSize positionFromTopRatio:kAKTitlePosFromTopRatio]);
+    // 配置位置を設定する
+    image->setPosition(Vector2(AKScreenSize::positionFromHorizontalCenterPoint(kAKTitlePosFromHorizontalCenterPoint),
+                               AKScreenSize::positionFromTopRatio(kAKTitlePosFromTopRatio)));
     
-    // TODO:タイトル画像をシーンに配置する
-//    [self addChild:image z:kAKTitleLogoPosZ];
+    // タイトル画像をシーンに配置する
+    this->addChild(image, kAKTitleLogoPosZ);
     
     // ゲームスタートのメニューの位置を決める
     float x = AKScreenSize::positionFromRightPoint(kAKMenuPosRightPoint);

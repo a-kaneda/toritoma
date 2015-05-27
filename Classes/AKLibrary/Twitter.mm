@@ -63,7 +63,7 @@ namespace aklib {
             // 投稿画像を開く
             UIImage *image = [UIImage imageWithContentsOfFile:[NSString stringWithCString:imagepath encoding:NSUTF8StringEncoding]];
             
-            // ネイティブコードのバナー広告表示処理を呼び出す
+            // ネイティブコードのTwitter投稿ビュー表示処理を呼び出す
             [rootViewController postTwitterMessage:[NSString stringWithCString:message encoding:NSUTF8StringEncoding]
                                                URL:[NSURL URLWithString:[NSString stringWithCString:url encoding:NSUTF8StringEncoding]]
                                              Image:image];            

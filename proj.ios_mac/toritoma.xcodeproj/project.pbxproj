@@ -38,6 +38,7 @@
 		0C4E776C1AD5D6150064AC6C /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4E776B1AD5D6150064AC6C /* ImageIO.framework */; };
 		0C590A451AFFFD7B00D278D7 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C590A441AFFFD7B00D278D7 /* Social.framework */; };
 		0C590A491B00051500D278D7 /* Twitter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C590A481B00051500D278D7 /* Twitter.mm */; };
+		0C590A4C1B0950C700D278D7 /* Title.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C590A4B1B0950C700D278D7 /* Title.png */; };
 		0C61675C19B2BD0E00D032E0 /* 1up.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C61675B19B2BD0E00D032E0 /* 1up.mp3 */; };
 		0C6F33871986F88400CA0D64 /* BossLifeGauge_01-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6F33831986F88400CA0D64 /* BossLifeGauge_01-ipad.png */; };
 		0C6F33881986F88400CA0D64 /* BossLifeGauge_01.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C6F33841986F88400CA0D64 /* BossLifeGauge_01.png */; };
@@ -338,6 +339,7 @@
 		0C590A441AFFFD7B00D278D7 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 		0C590A481B00051500D278D7 /* Twitter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Twitter.mm; path = ../Classes/AKLibrary/Twitter.mm; sourceTree = "<group>"; };
 		0C590A4A1B00053300D278D7 /* Twitter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Twitter.h; path = ../Classes/AKLibrary/Twitter.h; sourceTree = "<group>"; };
+		0C590A4B1B0950C700D278D7 /* Title.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Title.png; sourceTree = "<group>"; };
 		0C61675B19B2BD0E00D032E0 /* 1up.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = 1up.mp3; path = Sound/1up.mp3; sourceTree = "<group>"; };
 		0C6F33831986F88400CA0D64 /* BossLifeGauge_01-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "BossLifeGauge_01-ipad.png"; sourceTree = "<group>"; };
 		0C6F33841986F88400CA0D64 /* BossLifeGauge_01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BossLifeGauge_01.png; sourceTree = "<group>"; };
@@ -850,6 +852,7 @@
 		78C7DDAA14EBA5050085D0C2 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0C590A4B1B0950C700D278D7 /* Title.png */,
 				0C1C3CB3198DB36900C110BA /* Images.xcassets */,
 				0CDDBEDE191210A4007FBA6B /* Back.png */,
 				0CDDBEDF191210A4007FBA6B /* Block.png */,
@@ -1071,6 +1074,7 @@
 				0CDDBF02191210A4007FBA6B /* Character-ipad.png in Resources */,
 				0CDDBF0B191210A4007FBA6B /* Control.plist in Resources */,
 				0CDF3F741AD8FBF30027C3DD /* NADView_readme.txt in Resources */,
+				0C590A4C1B0950C700D278D7 /* Title.png in Resources */,
 				0C36C5FE1AA5F73B00AAEFA6 /* Icon-Small.png in Resources */,
 				0C9CC40A19139B62008F43AC /* stage6.mp3 in Resources */,
 				0CB620AB1928A5E300FC8E49 /* hit.mp3 in Resources */,
