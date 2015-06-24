@@ -45,7 +45,7 @@
 #include "string.h"
 
 using cocos2d::Node;
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::SpriteFrameCache;
 using cocos2d::SpriteBatchNode;
 using cocos2d::UserDefault;
@@ -238,7 +238,7 @@ void AKPlayData::setScrollSpeedY(float speed)
 void AKPlayData::clearPlayData(bool resetScore)
 {
     // 自機の初期位置を設定する
-    m_player->setPosition(Vector2(kAKPlayerDefaultPosX, kAKPlayerDefaultPosY),
+    m_player->setPosition(Vec2(kAKPlayerDefaultPosX, kAKPlayerDefaultPosY),
                           false,
                           this);
     
@@ -288,7 +288,7 @@ void AKPlayData::clearPlayData(bool resetScore)
  自機の位置情報を取得する。
  @return 自機の位置情報
  */
-const Vector2* AKPlayData::getPlayerPosition()
+const Vec2* AKPlayData::getPlayerPosition()
 {
     return m_player->getPosition();
 }
@@ -655,7 +655,7 @@ void AKPlayData::movePlayer(float dx, float dy)
     float y = AKRangeCheckF(m_player->getPosition()->y + dy,
                             0.0f,
                             AKScreenSize::stageSize().height);
-    m_player->setPosition(Vector2(x, y), m_hold, this);
+    m_player->setPosition(Vec2(x, y), m_hold, this);
 }
 
 /*!
@@ -809,10 +809,10 @@ void AKPlayData::restartStage(int stage)
  @param devicePosition デバイススクリーン座標
  @return タイルの座標
  */
-Vector2 AKPlayData::convertDevicePositionToTilePosition(Vector2 devicePosition)
+Vec2 AKPlayData::convertDevicePositionToTilePosition(Vec2 devicePosition)
 {
     // デバイススクリーン座標からマップ座標を取得する
-    Vector2 mapPosition = m_tileMap->getMapPositionFromDevicePosition(devicePosition);
+    Vec2 mapPosition = m_tileMap->getMapPositionFromDevicePosition(devicePosition);
     
     // マップ座標からタイルの座標を取得する
     return m_tileMap->getTilePositionFromMapPosition(mapPosition);
@@ -824,7 +824,7 @@ Vector2 AKPlayData::convertDevicePositionToTilePosition(Vector2 devicePosition)
  自機弾を生成する。
  @param position 生成位置
  */
-void AKPlayData::createPlayerShot(Vector2 position)
+void AKPlayData::createPlayerShot(Vec2 position)
 {
     // プールから未使用のメモリを取得する
     AKPlayerShot *playerShot = m_playerShotPool.getNext();
@@ -844,7 +844,7 @@ void AKPlayData::createPlayerShot(Vector2 position)
  オプション弾を生成する。
  @param position 生成位置
  */
-void AKPlayData::createOptionShot(Vector2 position)
+void AKPlayData::createOptionShot(Vec2 position)
 {
     // プールから未使用のメモリを取得する
     AKPlayerShot *playerShot = m_playerShotPool.getNext();
@@ -889,7 +889,7 @@ void AKPlayData::createReflectShot(AKEnemyShot *enemyShot)
  @param progress 倒した時に進む進行度
  @return 生成した敵キャラ
  */
-AKEnemy* AKPlayData::createEnemy(int type, Vector2 position, int progress)
+AKEnemy* AKPlayData::createEnemy(int type, Vec2 position, int progress)
 {
     // プールから未使用のメモリを取得する
     AKEnemy *enemy = m_enemyPool.getNext();
@@ -959,7 +959,7 @@ Node* AKPlayData::getEnemyShotParent()
  @param x x座標
  @param y y座標
  */
-void AKPlayData::createEffect(int type, Vector2 position)
+void AKPlayData::createEffect(int type, Vec2 position)
 {
     // プールから未使用のメモリを取得する
     AKEffect *effect = m_effectPool.getNext();
@@ -981,7 +981,7 @@ void AKPlayData::createEffect(int type, Vector2 position)
  @param x x座標
  @param y y座標
  */
-void AKPlayData::createBlock(int type, Vector2 position)
+void AKPlayData::createBlock(int type, Vec2 position)
 {
     AKLog(kAKLogPlayData_3, "createBlock() start:type=%d position=(%f, %f)",
           type, position.x, position.y);

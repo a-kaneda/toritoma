@@ -36,7 +36,7 @@
 #include "AKTileMap.h"
 #include "AKPlayingScene.h"
 
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::TMXTiledMap;
 using cocos2d::TMXLayer;
 using cocos2d::__String;
@@ -100,7 +100,7 @@ m_currentCol(0), m_progress(0), m_isClear(false)
     // 左端に初期位置を移動する
     float x = AKScreenSize::xOfStage(0.0f);
     float y = AKScreenSize::yOfStage(0.0f);
-    m_tileMap->setPosition(Vector2(x, y));
+    m_tileMap->setPosition(Vec2(x, y));
 }
 
 /*!
@@ -132,7 +132,7 @@ void AKTileMap::update(AKPlayDataInterface *data)
     // 背景をスクロールする
     float x = m_tileMap->getPosition().x - data->getScrollSpeedX();
     float y = m_tileMap->getPosition().y - data->getScrollSpeedY();
-    m_tileMap->setPosition(Vector2(x, y));
+    m_tileMap->setPosition(Vec2(x, y));
     
     // 画面に表示されているタイルマップの右端の座標を計算する
     int right = AKScreenSize::stageSize().width - AKScreenSize::xOfDevice(m_tileMap->getPosition().x);
@@ -160,7 +160,7 @@ void AKTileMap::update(AKPlayDataInterface *data)
         if (progress <= m_progress) {
 
             // パラメータを作成する
-            AKTileMapEventParameter param(Vector2(0.0f, 0.0f), *it);
+            AKTileMapEventParameter param(Vec2(0.0f, 0.0f), *it);
 
             // イベントを実行する
             execEvent(param, data);
@@ -185,7 +185,7 @@ void AKTileMap::update(AKPlayDataInterface *data)
  @param devicePosition デバイススクリーン座標
  @return マップ座標
  */
-Vector2 AKTileMap::getMapPositionFromDevicePosition(const Vector2 &devicePosition)
+Vec2 AKTileMap::getMapPositionFromDevicePosition(const Vec2 &devicePosition)
 {
     // タイルマップの左端からの距離をタイル幅で割った値を列番号とする
     int col = (devicePosition.x - m_tileMap->getPosition().x) / m_tileMap->getTileSize().width;
@@ -194,7 +194,7 @@ Vector2 AKTileMap::getMapPositionFromDevicePosition(const Vector2 &devicePositio
     int row = m_tileMap->getMapSize().height -
         (devicePosition.y - m_tileMap->getPosition().y) / m_tileMap->getTileSize().height;
     
-    return Vector2(col, row);
+    return Vec2(col, row);
 }
 
 /*!
@@ -205,7 +205,7 @@ Vector2 AKTileMap::getMapPositionFromDevicePosition(const Vector2 &devicePositio
  @param mapPosition マップ座標
  @return タイルの座標
  */
-Vector2 AKTileMap::getTilePositionFromMapPosition(const Vector2 &mapPosition)
+Vec2 AKTileMap::getTilePositionFromMapPosition(const Vec2 &mapPosition)
 {
     // x座標はマップの左端 + タイルサイズ * 列番号 (列番号は左から0,1,2,…)
     // タイルの真ん中を指定するために列番号には+0.5する
@@ -216,7 +216,7 @@ Vector2 AKTileMap::getTilePositionFromMapPosition(const Vector2 &mapPosition)
     int y = round(m_tileMap->getPosition().y) +
         m_tileMap->getTileSize().height * (m_tileMap->getMapSize().height - (mapPosition.y + 0.5));
     
-    return Vector2(x, y);
+    return Vec2(x, y);
 }
 
 /*!
@@ -303,7 +303,7 @@ void AKTileMap::execEventLayer(TMXLayer *layer,
     for (int i = 0; i < m_tileMap->getMapSize().height; i++) {
         
         // 処理対象のタイルの座標を作成する
-        Vector2 tilePos(col, i);
+        Vec2 tilePos(col, i);
         
         // タイルのGIDを取得する
         int tileGid = layer->getTileGIDAt(tilePos);
@@ -327,7 +327,7 @@ void AKTileMap::execEventLayer(TMXLayer *layer,
                 (m_tileMap->getMapSize().height - (i + 0.5)) * m_tileMap->getTileSize().height;
                 
             // パラメータを作成する
-            AKTileMapEventParameter param(Vector2(x, y), properties);
+            AKTileMapEventParameter param(Vec2(x, y), properties);
                 
             // イベントを実行する
             (this->*execFunc)(param, data);

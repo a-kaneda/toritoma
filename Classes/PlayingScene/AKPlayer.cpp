@@ -37,7 +37,7 @@
 #include "AKEnemyShot.h"
 #include "AKBlock.h"
 
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::Node;
 using cocos2d::Blink;
 using CocosDenshion::SimpleAudioEngine;
@@ -152,7 +152,7 @@ void AKPlayer::reset()
     AKLog(kAKLogPlayer_1, "reset() start");
     
     // 初期位置は原点とする
-    Vector2 initPosition(0.0f, 0.0f);
+    Vec2 initPosition(0.0f, 0.0f);
     getImage()->setPosition(initPosition);
     
     // HPを設定する
@@ -242,7 +242,7 @@ void AKPlayer::graze(std::vector<AKEnemyShot*> &characters)
  @param hold オプション位置を固定するかどうか
  @param data ゲームデータ
  */
-void AKPlayer::setPosition(const Vector2 &position, bool hold, AKPlayDataInterface *data)
+void AKPlayer::setPosition(const Vec2 &position, bool hold, AKPlayDataInterface *data)
 {
     // 死亡しているときは処理しない
     if (m_isInvincible && m_invincivleFrame == 0) {
@@ -256,7 +256,7 @@ void AKPlayer::setPosition(const Vector2 &position, bool hold, AKPlayDataInterfa
         // ホールドモードオフの時は自機の位置をオプション移動位置のキューへ追加する
         if (hold) {
             // 移動量を計算する
-            Vector2 distance;
+            Vec2 distance;
             distance.x = position.x - m_position.x;
             distance.y = position.y - m_position.y;
             

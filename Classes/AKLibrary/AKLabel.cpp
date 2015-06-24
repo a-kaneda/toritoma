@@ -38,7 +38,7 @@
 
 using cocos2d::SpriteBatchNode;
 using cocos2d::Rect;
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::SpriteFrame;
 using cocos2d::Sprite;
 
@@ -141,7 +141,7 @@ int AKLabel::getHeight(int line, bool hasFrame)
  @param hasFrame 枠付きかどうか
  @return ラベルの矩形範囲
  */
-Rect AKLabel::getRect(Vector2 position, int length, int line, bool hasFrame)
+Rect AKLabel::getRect(Vec2 position, int length, int line, bool hasFrame)
 {
     return Rect(position.x - AKLabel::getWidth(length, hasFrame) / 2,
                 position.y - AKLabel::getHeight(line, hasFrame) / 2,
@@ -200,7 +200,7 @@ m_length(length), m_line(line), m_frame(frame), m_isReverse(false)
             // テキスト領域の中央とバッチノードの中央を一致させるため、
             // 左に1行の長さの半分、上方向に行数の半分移動する。
             // 行間に0.5文字分の隙間を入れるため、高さは1.5倍する。
-            Vector2 position((x - (m_length - 1) / 2.0f) * AKFont::getFontSize(),
+            Vec2 position((x - (m_length - 1) / 2.0f) * AKFont::getFontSize(),
                              (-y + (m_line - 1) / 2.0f) * AKFont::getFontSize() * kAKLabelLineHeight);
             charSprite->setPosition(position);
             
@@ -569,7 +569,7 @@ void AKLabel::createFrame()
                 // 表示位置を設定する。
                 // テキスト領域の中央とバッチノードの中央を一致させるため、
                 // 左に1行の長さの半分、上方向に行数の半分移動する。
-                charSprite->setPosition(Vector2((x - (m_length - 1) / 2.0f) * AKFont::getFontSize(),
+                charSprite->setPosition(Vec2((x - (m_length - 1) / 2.0f) * AKFont::getFontSize(),
                                                 (-y + (m_line - 1) * kAKLabelLineHeight / 2.0f) * AKFont::getFontSize()));
                 
                 // バッチノードに登録する

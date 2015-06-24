@@ -36,7 +36,7 @@
 #include "AKHowToPlayScene.h"
 #include "AKTitleScene.h"
 
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::Node;
 using cocos2d::Sprite;
 using cocos2d::SpriteFrameCache;
@@ -183,7 +183,7 @@ bool AKHowToPlayScene::init()
     AKLabel *message = AKLabel::createLabel("", kAKHowToMsgLength, kAKHowToMsgLineCount, kAKLabelFrameMessage);
     
     // 配置位置を設定する
-    message->setPosition(Vector2(AKScreenSize::center().x,
+    message->setPosition(Vec2(AKScreenSize::center().x,
                                  AKScreenSize::positionFromBottomPoint(kAKHowToMsgPosBottomPoint)));
     
     // シーンに配置する
@@ -199,7 +199,7 @@ bool AKHowToPlayScene::init()
     // ページ番号の位置を設定する
     float x = AKScreenSize::center().x;
     float y = AKScreenSize::positionFromTopPoint(kAKHowToPagePosTopPoint);
-    pageLabel->setPosition(Vector2(x, y));
+    pageLabel->setPosition(Vec2(x, y));
     
     // ページ番号のラベルをシーンに配置する
     addChild(pageLabel, kAKHowToItemPosZ, kAKHowToPageTag);
@@ -214,7 +214,7 @@ bool AKHowToPlayScene::init()
     x = AKScreenSize::positionFromLeftPoint(kAKHowToPrevPosLeftPoint);
     y = AKScreenSize::center().y;
     interface->addSpriteMenu(kAKHowToPrevImage,
-                             Vector2(x, y),
+                             Vec2(x, y),
                              kAKHowToItemPosZ,
                              kAKEventTouchPrevButton,
                              kAKHowToPrevTag,
@@ -224,7 +224,7 @@ bool AKHowToPlayScene::init()
     x = AKScreenSize::positionFromRightPoint(kAKHowToNextPosRightPoint);
     y = AKScreenSize::center().y;
     interface->addSpriteMenu(kAKHowToNextImage,
-                             Vector2(x, y),
+                             Vec2(x, y),
                              kAKHowToItemPosZ,
                              kAKEventTouchNextButton,
                              kAKHowToNextTag,
@@ -234,7 +234,7 @@ bool AKHowToPlayScene::init()
     x = AKScreenSize::positionFromRightPoint(kAKHowToBackPosRightPoint);
     y = AKScreenSize::positionFromTopPoint(kAKHowToBackPosTopPoint);
     interface->addSpriteMenu(kAKHowToBackImage,
-                             Vector2(x, y),
+                             Vec2(x, y),
                              kAKHowToItemPosZ,
                              kAKEventTouchBackButton,
                              kAKHowToBackTag,
@@ -392,7 +392,7 @@ void AKHowToPlayScene::setPageNo(int pageNo)
     // 表示位置を設定する
     float x = AKScreenSize::center().x;
     float y = AKScreenSize::positionFromBottomPoint(kAKHowToImagePosBottomPoint);
-    m_image->setPosition(Vector2(x, y));
+    m_image->setPosition(Vec2(x, y));
     
     // シーンに追加する
     addChild(m_image, kAKHowToItemPosZ, kAKHowToImageTag);

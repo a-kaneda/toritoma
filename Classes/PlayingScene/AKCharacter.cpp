@@ -37,7 +37,7 @@
 #include "AKBlock.h"
 
 using cocos2d::Sprite;
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::Size;
 using cocos2d::SpriteFrame;
 using cocos2d::SpriteFrameCache;
@@ -80,7 +80,7 @@ AKCharacter::~AKCharacter()
  位置を取得する。
  @return 位置
  */
-const Vector2* AKCharacter::getPosition()
+const Vec2* AKCharacter::getPosition()
 {
     return &m_position;
 }
@@ -91,7 +91,7 @@ const Vector2* AKCharacter::getPosition()
  位置を設定する。
  @param position 位置
  */
-void AKCharacter::setPosition(const Vector2 &position)
+void AKCharacter::setPosition(const Vec2 &position)
 {
     m_position = position;
 }
@@ -102,7 +102,7 @@ void AKCharacter::setPosition(const Vector2 &position)
  前回位置を取得する。
  @return 前回位置
  */
-const Vector2* AKCharacter::getPrevPosition()
+const Vec2* AKCharacter::getPrevPosition()
 {
     return &m_prevPosition;
 }
@@ -571,7 +571,7 @@ void AKCharacter::hit(AKCharacter *character, AKPlayDataInterface *data)
 void AKCharacter::moveOfBlockHit(AKCharacter *character, AKPlayDataInterface *data)
 {
     // 衝突による移動先の座標を現在の座標で初期化する
-    Vector2 newPoint(m_position.x, m_position.y);
+    Vec2 newPoint(m_position.x, m_position.y);
     
     // 判定後の接触フラグを現在の値で初期化する
     unsigned int newHitSide = m_blockHitSide;
@@ -789,5 +789,5 @@ void AKCharacter::updateImagePosition()
     float x = AKScreenSize::xOfStage(m_position.x + dx);
     float y = AKScreenSize::yOfStage(m_position.y + dy);
     
-    m_image->setPosition(Vector2(x, y));
+    m_image->setPosition(Vec2(x, y));
 }

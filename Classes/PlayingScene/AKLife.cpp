@@ -35,7 +35,7 @@
 
 #include "AKLife.h"
 
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 
 /// 残機マークの画像名
 static const char *kAKLifeMarkImageName = "Life.png";
@@ -93,10 +93,10 @@ m_lifeCount(0), m_numberLabel(NULL), m_mark(NULL)
     //   X2 = W1 / 2
     
     // 残機マークの座標を設定する
-    m_mark->setPosition(Vector2(-m_numberLabel->getWidth() / 2, 0.0f));
+    m_mark->setPosition(Vec2(-m_numberLabel->getWidth() / 2, 0.0f));
     
     // 残機数ラベルの座標を設定する
-    m_numberLabel->setPosition(Vector2(AKScreenSize::deviceLength(kAKLifeMarkSize) / 2, 0.0f));
+    m_numberLabel->setPosition(Vec2(AKScreenSize::deviceLength(kAKLifeMarkSize) / 2, 0.0f));
     
     // 自ノードに残機マークを配置する
     addChild(m_mark);

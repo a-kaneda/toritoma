@@ -35,7 +35,7 @@
 
 #include "AKEnemyShot.h"
 
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::Node;
 
 // 敵弾の種類
@@ -101,7 +101,7 @@ void AKEnemyShot::setGrazePoint(float grazePoint)
  @param speed スピード
  @param parent 配置する親ノード
  */
-void AKEnemyShot::createNormalShot(const Vector2 &position,
+void AKEnemyShot::createNormalShot(const Vec2 &position,
                                    float angle,
                                    float speed,
                                    Node *parent)
@@ -123,7 +123,7 @@ void AKEnemyShot::createNormalShot(const Vector2 &position,
  @param speed スピード
  @param parent 配置する親ノード
  */
-void AKEnemyShot::createScrollShot(const Vector2 &position,
+void AKEnemyShot::createScrollShot(const Vec2 &position,
                                    float angle,
                                    float speed,
                                    Node *parent)
@@ -151,7 +151,7 @@ void AKEnemyShot::createScrollShot(const Vector2 &position,
  @param changeSpeed 変更後のスピード
  @param parent 配置する親ノード
  */
-void AKEnemyShot::createChangeSpeedShot(const Vector2 &position,
+void AKEnemyShot::createChangeSpeedShot(const Vec2 &position,
                                         float angle,
                                         float speed,
                                         int changeInterval,
@@ -257,7 +257,7 @@ void AKEnemyShot::action(AKPlayDataInterface *data)
  @param parent 配置する親ノード
  */
 void AKEnemyShot::createEnemyShot(int type,
-                                  const Vector2 &position,
+                                  const Vec2 &position,
                                   float angle,
                                   float speed,
                                   Node *parent)

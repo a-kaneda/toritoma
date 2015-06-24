@@ -35,7 +35,7 @@
 
 #include "AKBlock.h"
 
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::Point;
 using cocos2d::Node;
 
@@ -62,7 +62,7 @@ static const struct AKBlcokDef kAKBlockDef[kAKBlockDefCount] = {
  @param position 生成位置
  @param parent 配置する親ノード
  */
-void AKBlock::createBlock(int type, const Vector2 &position, Node *parent)
+void AKBlock::createBlock(int type, const Vec2 &position, Node *parent)
 {
     AKLog(kAKLogBlock_1, "障害物生成");
     
@@ -93,7 +93,7 @@ void AKBlock::createBlock(int type, const Vector2 &position, Node *parent)
     m_size.height = kAKBlockDef[type - 1].hitHeight;
     
     // 画像表示位置オフセットを設定する
-    m_offset = Vector2(kAKBlockDef[type - 1].offsetX,
+    m_offset = Vec2(kAKBlockDef[type - 1].offsetX,
                        kAKBlockDef[type - 1].offsetY);
     
     // 画像のオフセットと逆方向にキャラクター位置を移動する
@@ -237,7 +237,7 @@ void AKBlock::pushCharacter(AKCharacter *character, AKPlayDataInterface *data)
     for (int i = 0; i < 4; i++) {
         
         // 位置を変更する
-        character->setPosition(Vector2(movePosX[i], movePosY[i]));
+        character->setPosition(Vec2(movePosX[i], movePosY[i]));
 //        AKLog(character->getBlockHitAction() == kAKBlockHitPlayer, "i=%d x=%.0f y=%.0f", i, movePosX[i], movePosY[i]);
         
         // 自機の場合は画面外への押し出しは禁止する

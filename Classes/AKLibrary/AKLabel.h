@@ -61,7 +61,7 @@ public:
     // 指定行数の高さ取得
     static int getHeight(int line, bool hasFrame);
     // 指定文字数、指定行数の指定位置の矩形範囲取得
-    static cocos2d::Rect getRect(cocos2d::Vector2 position, int length, int line, bool hasFrame);
+    static cocos2d::Rect getRect(cocos2d::Vec2 position, int length, int line, bool hasFrame);
     
 private:
     /// 表示文字列

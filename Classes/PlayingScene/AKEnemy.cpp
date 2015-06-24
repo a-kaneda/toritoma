@@ -37,7 +37,7 @@
 #include "AKEnemyShot.h"
 #include "AKBlock.h"
 
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::Size;
 using cocos2d::Node;
 using CocosDenshion::SimpleAudioEngine;
@@ -144,7 +144,7 @@ const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
  @param speed 弾の速度
  @param data ゲームデータ
  */
-void AKEnemy::fireNWay(Vector2 position,
+void AKEnemy::fireNWay(Vec2 position,
                        int count,
                        float interval,
                        float speed,
@@ -188,7 +188,7 @@ void AKEnemy::fireNWay(Vector2 position,
  @param data ゲームデータ
  */
 void AKEnemy::fireNWay(float angle,
-                       Vector2 position,
+                       Vec2 position,
                        int count,
                        float interval,
                        float speed,
@@ -240,7 +240,7 @@ void AKEnemy::fireNWay(float angle,
  @param speed 弾の速度
  @param data ゲームデータ
  */
-void AKEnemy::fireGroupShot(Vector2 position,
+void AKEnemy::fireGroupShot(Vec2 position,
                             const float distance[][2],
                             int count,
                             float speed,
@@ -264,7 +264,7 @@ void AKEnemy::fireGroupShot(Vector2 position,
         }
         
         // 通常弾を生成する
-        Vector2 shotPosition(position.x + distance[i][0],
+        Vec2 shotPosition(position.x + distance[i][0],
                              position.y + distance[i][1]);
         enemyShot->createNormalShot(shotPosition,
                                     nWayAngle.getTopAngle(),
@@ -285,7 +285,7 @@ void AKEnemy::fireGroupShot(Vector2 position,
  @param burstSpeed 破裂後の速度
  @param data ゲームデータ
  */
-void AKEnemy::fireBurstShot(Vector2 position,
+void AKEnemy::fireBurstShot(Vec2 position,
                             int count,
                             float interval,
                             float speed,
@@ -317,7 +317,7 @@ void AKEnemy::fireBurstShot(Vector2 position,
         }
         
         // 破裂弾を生成する
-        Vector2 shotPosition(position.x + cosf(angle) * kAKDistance,
+        Vec2 shotPosition(position.x + cosf(angle) * kAKDistance,
                              position.y + sinf(angle) * kAKDistance);
         enemyShot->createChangeSpeedShot(shotPosition,
                                         centerAngle.getTopAngle(),
@@ -342,7 +342,7 @@ void AKEnemy::fireBurstShot(Vector2 position,
  @param data ゲームデータ
  @return 移動先の座標
  */
-Vector2 AKEnemy::checkBlockPosition(const Vector2 &current,
+Vec2 AKEnemy::checkBlockPosition(const Vec2 &current,
                                     const Size &size,
                                     bool isReverse,
                                     AKPlayDataInterface *data)
@@ -463,7 +463,7 @@ Vector2 AKEnemy::checkBlockPosition(const Vector2 &current,
     AKLog(kAKLogEnemy_3, "(%.0f, %.0f)->(%.0f, %.0f)", current.x, current.y, newX, newY);
     
     // 移動先の座標を返す
-    return Vector2(newX, newY);
+    return Vec2(newX, newY);
 }
 
 /*!
@@ -564,7 +564,7 @@ AKCharacter* AKEnemy::getBlockAtFeet(float x,
  @param parent 敵キャラを配置する親ノード
  */
 void AKEnemy::createEnemy(int type,
-                          const Vector2 &position,
+                          const Vec2 &position,
                           int progress,
                           Node *parent)
 {
@@ -692,7 +692,7 @@ void AKEnemy::setState(int state)
  移動履歴を取得する。
  @return 移動履歴
  */
-const std::queue<cocos2d::Vector2>* AKEnemy::getMoveHistory()
+const std::queue<cocos2d::Vec2>* AKEnemy::getMoveHistory()
 {
     return &m_moveHistory;
 }
@@ -800,7 +800,7 @@ void AKEnemy::actionOfDragonfly(AKPlayDataInterface *data)
         
         // 左へ弾を発射する
         AKEnemy::fireNWay(M_PI,
-                          Vector2(m_position.x, m_position.y),
+                          Vec2(m_position.x, m_position.y),
                           1,
                           0.0f,
                           kAKShotSpeed,
@@ -1691,7 +1691,7 @@ void AKEnemy::actionOfRhinocerosBeetle(AKPlayDataInterface *data)
             if ((m_frame + 1) % kAKLeftShotInterval == 0) {
                 
                 // 3箇所から同時に弾を発射する
-                Vector2 position(m_position.x, m_position.y);
+                Vec2 position(m_position.x, m_position.y);
                 AKEnemy::fireNWay(M_PI,
                                   position,
                                   1,
@@ -1839,7 +1839,7 @@ void AKEnemy::actionOfMantis(AKPlayDataInterface *data)
     // 状態遷移間隔
     const int kAKStateInterval[kAKStateCount] = {340, 900, 900, 900};
     // 手の位置
-    const Vector2 kAKHandPosition(-48.0f, 48.0f);
+    const Vec2 kAKHandPosition(-48.0f, 48.0f);
     // 定周期弾の発射間隔
     const int kAKCycleShotInterval = 60;
     // 定周期弾の弾数
@@ -1954,7 +1954,7 @@ void AKEnemy::actionOfMantis(AKPlayDataInterface *data)
                 m_work[1] = m_frame;
                 
                 // 破裂弾を発射する
-                Vector2 position(m_position.x + kAKHandPosition.x,
+                Vec2 position(m_position.x + kAKHandPosition.x,
                                  m_position.y + kAKHandPosition.y);
                 AKEnemy::fireBurstShot(position,
                                        kAKBurstShotCount,
@@ -1989,7 +1989,7 @@ void AKEnemy::actionOfMantis(AKPlayDataInterface *data)
                 m_work[1] = m_frame;
                 
                 // n-way弾を発射する
-                Vector2 position(m_position.x + kAKHandPosition.x,
+                Vec2 position(m_position.x + kAKHandPosition.x,
                                  m_position.y + kAKHandPosition.y);
                 AKEnemy::fireNWay(position,
                                   kAKNWayCount[1 - m_work[0]],
@@ -2177,7 +2177,7 @@ void AKEnemy::actionOfHoneycomb(AKPlayDataInterface *data)
                 for (int i = 0; i < kAKAllRangeCount; i++) {
                     
                     AKEnemy::fireNWay(M_PI / 2.0f,
-                                      Vector2(x * (i + 1), kAKAllRangeYPosition),
+                                      Vec2(x * (i + 1), kAKAllRangeYPosition),
                                       1,
                                       0.0f,
                                       kAKAllRangeSpeed,
@@ -2213,7 +2213,7 @@ void AKEnemy::actionOfHoneycomb(AKPlayDataInterface *data)
         
         // ハチを呼ぶ
         data->createEnemy(kAKEnemyHornet,
-                          Vector2(kAKHornetXPosition, kAKHornetYPosition[position]),
+                          Vec2(kAKHornetXPosition, kAKHornetYPosition[position]),
                           0);
 
     }
@@ -2365,7 +2365,7 @@ void AKEnemy::actionOfSpider(AKPlayDataInterface *data)
     const float kAK2ndLoopShotSpeed = 1.0f;
     
     // 状態によって処理を分岐する
-    Vector2 nextPosition;
+    Vec2 nextPosition;
     switch (m_state) {
         case kAKStateInit:      // 初期状態
             
@@ -2883,7 +2883,7 @@ void AKEnemy::actionOfCentipedeBody(AKPlayDataInterface *data)
     }
     
     // 一つ前の体の移動履歴を取得する
-    const std::queue<Vector2> *history = m_parentEnemy->getMoveHistory();
+    const std::queue<Vec2> *history = m_parentEnemy->getMoveHistory();
     
     // 履歴がない場合は処理を終了する
     if (history->size() <= 0) {
@@ -2956,7 +2956,7 @@ void AKEnemy::actionOfCentipedeTail(AKPlayDataInterface *data)
     }
     
     // 一つ前の体の移動履歴を取得する
-    const std::queue<Vector2> *history = m_parentEnemy->getMoveHistory();
+    const std::queue<Vec2> *history = m_parentEnemy->getMoveHistory();
     
     // 履歴がない場合は処理を終了する
     if (history->size() <= 0) {
@@ -3154,7 +3154,7 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
             for (int i = 0; i < kAKMaggotCount; i++) {
                 
                 // 生成位置を決める
-                Vector2 position(m_position.x + kAKMaggotPotision[i][0],
+                Vec2 position(m_position.x + kAKMaggotPotision[i][0],
                                  m_position.y + kAKMaggotPotision[i][1]);
                 
                 // ウジを生成する
@@ -3205,7 +3205,7 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
                 int y = rand() % (h * 2) - h;
                 
                 // 画面効果を生成する
-                data->createEffect(1, Vector2(m_position.x + x, m_position.y + y));           
+                data->createEffect(1, Vec2(m_position.x + x, m_position.y + y));           
             }
             
             break;
@@ -3320,7 +3320,7 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
                     }
                     
                     AKEnemy::fireNWay(-M_PI / 2,
-                                      Vector2(i, AKScreenSize::stageSize().height - 36),
+                                      Vec2(i, AKScreenSize::stageSize().height - 36),
                                       1,
                                       0,
                                       kAKAllRangeSpeed,
@@ -3340,7 +3340,7 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
                     }
                     
                     AKEnemy::fireNWay(M_PI,
-                                      Vector2(AKScreenSize::stageSize().width, i),
+                                      Vec2(AKScreenSize::stageSize().width, i),
                                       1,
                                       0,
                                       kAKAllRangeSpeed,
@@ -3429,7 +3429,7 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
             
             // 目的地の角度を求める
             float destAngle = AKAngle::calcDestAngle(m_position,
-                                                     Vector2(m_work[kAKWorkNextPositionX],
+                                                     Vec2(m_work[kAKWorkNextPositionX],
                                                              m_work[kAKWorkNextPositionY]));
             
             // 現在の角度を求める
@@ -3558,7 +3558,7 @@ void AKEnemy::destroyOfBoss(AKPlayDataInterface *data)
         int y = rand() % (h * 2) - h;
         
         // 画面効果を生成する
-        data->createEffect(1, Vector2(m_position.x + x, m_position.y + y));
+        data->createEffect(1, Vec2(m_position.x + x, m_position.y + y));
         
         // 破壊の効果音を鳴らす
         SimpleAudioEngine::getInstance()->playEffect(kAKBombMinSEFileName);

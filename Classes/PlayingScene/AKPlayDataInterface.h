@@ -97,7 +97,7 @@ public:
      自機の位置情報を取得する。
      @return 自機の位置情報
      */
-    virtual const cocos2d::Vector2* getPlayerPosition() = 0;
+    virtual const cocos2d::Vec2* getPlayerPosition() = 0;
 
     /*!
      @brief デバイス座標からタイル座標の取得
@@ -106,7 +106,7 @@ public:
      @param devicePosition デバイススクリーン座標
      @return タイルの座標
      */
-    virtual cocos2d::Vector2 convertDevicePositionToTilePosition(cocos2d::Vector2 devicePosition) = 0;
+    virtual cocos2d::Vec2 convertDevicePositionToTilePosition(cocos2d::Vec2 devicePosition) = 0;
 
     /*!
      @brief 自機弾生成
@@ -114,7 +114,7 @@ public:
      自機弾を生成する。
      @param position 生成位置
      */
-    virtual void createPlayerShot(cocos2d::Vector2 position) = 0;
+    virtual void createPlayerShot(cocos2d::Vec2 position) = 0;
 
     /*!
      @brief オプション弾生成
@@ -122,7 +122,7 @@ public:
      オプション弾を生成する。
      @param position 生成位置
      */
-    virtual void createOptionShot(cocos2d::Vector2 position) = 0;
+    virtual void createOptionShot(cocos2d::Vec2 position) = 0;
 
     /*!
      @brief 反射弾生成
@@ -141,7 +141,7 @@ public:
      @param progress 倒した時に進む進行度
      @return 生成した敵キャラ
      */
-    virtual AKEnemy* createEnemy(int type, cocos2d::Vector2 position, int progress) = 0;
+    virtual AKEnemy* createEnemy(int type, cocos2d::Vec2 position, int progress) = 0;
 
     /*!
      @brief 敵弾インスタンスの取得
@@ -166,7 +166,7 @@ public:
      @param type 画面効果種別
      @param position 生成位置
      */
-    virtual void createEffect(int type, cocos2d::Vector2 position) = 0;
+    virtual void createEffect(int type, cocos2d::Vec2 position) = 0;
 
     /*!
      @brief 障害物生成
@@ -175,7 +175,7 @@ public:
      @param type 障害物種別
      @param position 生成位置
      */
-    virtual void createBlock(int type, cocos2d::Vector2 position) = 0;
+    virtual void createBlock(int type, cocos2d::Vec2 position) = 0;
 
     /*!
      @brief 失敗時処理

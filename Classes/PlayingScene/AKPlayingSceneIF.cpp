@@ -36,7 +36,7 @@
 #include "AKPlayingSceneIF.h"
 
 using cocos2d::Node;
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::SpriteFrameCache;
 using cocos2d::Rect;
 
@@ -271,7 +271,7 @@ void AKPlayingSceneIF::createPlayingMenu()
     float x = AKScreenSize::positionFromRightPoint(kAKShieldButtonPosFromRightPoint);
     float y = AKScreenSize::positionFromBottomPoint(kAKShieldButtonPosFromBottomPoint);
     m_shieldButton = addSpriteMenu(kAKShiledButtonNoSelectImage,
-                                   Vector2(x, y),
+                                   Vec2(x, y),
                                    0,
                                    kAKEventTouchShieldButton,
                                    kAKMenuTagPlaying | kAKMenuTagStageClear,
@@ -282,7 +282,7 @@ void AKPlayingSceneIF::createPlayingMenu()
 //    x = AKScreenSize::positionFromRightPoint(kAKHoldButtonPosFromRightPoint);
 //    y = AKScreenSize::positionFromBottomPoint(kAKHoldButtonPosFromBottomPoint);
 //    m_holdButton = addSpriteMenu(kAKHoldButtonNoSelectImage,
-//                                   Vector2(x, y),
+//                                   Vec2(x, y),
 //                                   0,
 //                                   kAKEventTouchHoldButton,
 //                                   kAKMenuTagPlaying | kAKMenuTagStageClear,
@@ -293,7 +293,7 @@ void AKPlayingSceneIF::createPlayingMenu()
     x = AKScreenSize::positionFromRightPoint(kAKPauseButtonPosRightPoint);
     y = AKScreenSize::positionFromTopPoint(kAKPauseButtonPosTopPoint);
     addSpriteMenu(kAKPauseButtonImage,
-                  Vector2(x, y),
+                  Vec2(x, y),
                   0,
                   kAKEventTouchPauseButton,
                   kAKMenuTagPlaying | kAKMenuTagStageClear,
@@ -325,7 +325,7 @@ void AKPlayingSceneIF::createPauseMenu()
     // ポーズラベルの位置を設定する
     float x = AKScreenSize::center().x;
     float y = AKScreenSize::positionFromBottomRatio(kAKPauseMessagePosBottomRatio);
-    label->setPosition(Vector2(x, y));
+    label->setPosition(Vec2(x, y));
     
     // ポーズラベルをレイヤーに配置する
     addChild(label, 0, kAKMenuTagPause);
@@ -334,7 +334,7 @@ void AKPlayingSceneIF::createPauseMenu()
     x = AKScreenSize::positionFromLeftRatio(kAKResumeButtonPosLeftRatio);
     y = AKScreenSize::positionFromBottomRatio(kAKPauseMenuPosBottomRatio);
     m_resumeButton = addLabelMenu(kAKResumeString,
-                                  Vector2(x, y),
+                                  Vec2(x, y),
                                   0,
                                   kAKEventTouchResumeButton,
                                   kAKMenuTagPause,
@@ -345,7 +345,7 @@ void AKPlayingSceneIF::createPauseMenu()
     x = AKScreenSize::positionFromRightRatio(kAKQuitButtonPosRightRatio);
     y = AKScreenSize::positionFromBottomRatio(kAKPauseMenuPosBottomRatio);
     m_quitButton = addLabelMenu(kAKQuitButtonString,
-                                Vector2(x, y),
+                                Vec2(x, y),
                                 0,
                                 kAKEventTouchQuitButton,
                                 kAKMenuTagPause,
@@ -369,7 +369,7 @@ void AKPlayingSceneIF::createQuitMenu()
     // 終了確認メッセージラベルの位置を設定する
     float x = AKScreenSize::center().x;
     float y = AKScreenSize::positionFromBottomRatio(kAKQuitMessagePosBottomRatio);
-    label->setPosition(Vector2(x, y));
+    label->setPosition(Vec2(x, y));
     
     // 終了確認メッセージラベルをレイヤーに配置する
     addChild(label, 0, kAKMenuTagQuit);
@@ -378,7 +378,7 @@ void AKPlayingSceneIF::createQuitMenu()
     x = AKScreenSize::positionFromLeftRatio(kAKQuitYesButtonPosLeftRatio);
     y = AKScreenSize::positionFromBottomRatio(kAKQuitButtonPosBottomRatio);
     addLabelMenu(kAKQuitYesString,
-                 Vector2(x, y),
+                 Vec2(x, y),
                  0,
                  kAKEventTouchQuitYesButton,
                  kAKMenuTagQuit,
@@ -388,7 +388,7 @@ void AKPlayingSceneIF::createQuitMenu()
     x = AKScreenSize::positionFromRightRatio(kAKQuitNoButtonPosRightRatio);
     y = AKScreenSize::positionFromBottomRatio(kAKQuitButtonPosBottomRatio);
     m_quitNoButton = addLabelMenu(kAKQuitNoString,
-                                  Vector2(x, y),
+                                  Vec2(x, y),
                                   0,
                                   kAKEventTouchQuitNoButton,
                                   kAKMenuTagQuit,
@@ -412,7 +412,7 @@ void AKPlayingSceneIF::createGameOverMenu()
     // ゲームオーバーラベルの位置を設定する
     float x = AKScreenSize::center().x;
     float y = AKScreenSize::positionFromBottomRatio(kAKGameOverCaptionPosBottomRatio);
-    label->setPosition(Vector2(x, y));
+    label->setPosition(Vec2(x, y));
     
     // ゲームオーバーラベルをレイヤーに配置する
     addChild(label, 0, kAKMenuTagGameOver);
@@ -421,7 +421,7 @@ void AKPlayingSceneIF::createGameOverMenu()
     x = AKScreenSize::center().x;
     y = AKScreenSize::positionFromBottomRatio(kAKGameOverQuitButtonPosBottomRatio);
     addLabelMenu(kAKGameOverQuitButtonCaption,
-                 Vector2(x, y),
+                 Vec2(x, y),
                  0,
                  kAKEventTouchQuitYesButton,
                  kAKMenuTagGameOver,
@@ -431,7 +431,7 @@ void AKPlayingSceneIF::createGameOverMenu()
     x = AKScreenSize::positionFromHorizontalCenterPoint(kAKTwitterButtonPosHorizontalCenterPoint);
     y = AKScreenSize::positionFromBottomRatio(kAKTwitterButtonPosBottomRatio);
     addSpriteMenu(kAKTwitterButtonImageFile,
-                  Vector2(x, y),
+                  Vec2(x, y),
                   0,
                   kAKEventTouchTwitterButton,
                   kAKMenuTagGameOver,
@@ -454,7 +454,7 @@ void AKPlayingSceneIF::createStageClear()
     // ステージクリアラベルの位置を設定する
     float x = AKScreenSize::center().x;
     float y = AKScreenSize::center().y;
-    label->setPosition(Vector2(x, y));
+    label->setPosition(Vec2(x, y));
 
     // ステージクリアラベルをレイヤーに配置する
     addChild(label, 0, kAKMenuTagStageClear);
@@ -476,7 +476,7 @@ void AKPlayingSceneIF::createAllStageClear()
     // ステージクリアラベルの位置を設定する
     float x = AKScreenSize::center().x;
     float y = AKScreenSize::positionFromBottomRatio(kAKAllStageClearCaptionPosBottomRatio);
-    label->setPosition(Vector2(x, y));
+    label->setPosition(Vec2(x, y));
     
     // ステージクリアラベルをレイヤーに配置する
     addChild(label, 0, kAKMenuTagAllStageWaitClear | kAKMenuTagAllStageClear);
@@ -485,7 +485,7 @@ void AKPlayingSceneIF::createAllStageClear()
     x = AKScreenSize::center().x;
     y = AKScreenSize::positionFromBottomRatio(kAKContinuePlayingButtonPosBottomRatio);
     addLabelMenu(kAKContinuePlayingButtonString,
-                 Vector2(x, y),
+                 Vec2(x, y),
                  0,
                  kAKEventTouchContinuePlayingButton,
                  kAKMenuTagAllStageClear,

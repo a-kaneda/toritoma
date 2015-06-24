@@ -35,7 +35,7 @@
 
 #include "AKTileMapEventParameter.h"
 
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::ValueMap;
 
 /*!
@@ -46,7 +46,7 @@ using cocos2d::ValueMap;
  @param position 座標
  @param properties プロパティ
  */
-AKTileMapEventParameter::AKTileMapEventParameter(const Vector2 &position, const ValueMap &properties) :
+AKTileMapEventParameter::AKTileMapEventParameter(const Vec2 &position, const ValueMap &properties) :
 m_position(position), m_properties(properties)
 {
 }
@@ -57,7 +57,7 @@ m_position(position), m_properties(properties)
  座標を取得する。
  @return 座標
  */
-const Vector2* AKTileMapEventParameter::getPosition() const
+const Vec2* AKTileMapEventParameter::getPosition() const
 {
     return &m_position;
 }

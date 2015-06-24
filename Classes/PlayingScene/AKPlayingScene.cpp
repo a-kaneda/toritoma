@@ -43,7 +43,7 @@ using cocos2d::SpriteFrameCache;
 using cocos2d::Layer;
 using cocos2d::Scene;
 using cocos2d::Director;
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::Blink;
 using cocos2d::CallFunc;
 using cocos2d::Sequence;
@@ -462,10 +462,10 @@ void AKPlayingScene::onWillEnterForeground()
 void AKPlayingScene::movePlayer(const AKMenuItem *item)
 {
     // 画面上のタッチ位置を取得する
-    Vector2 locationInView = item->getTouch()->getLocationInView();
+    Vec2 locationInView = item->getTouch()->getLocationInView();
     
     // cocos2dの座標系に変換する
-    Vector2 location = Director::getInstance()->convertToGL(locationInView);
+    Vec2 location = Director::getInstance()->convertToGL(locationInView);
     
     // 自機を移動する
     float x = (location.x - item->getPrevPoint()->x) * kAKPlayerMoveVal;
@@ -861,7 +861,7 @@ void AKPlayingScene::gameOver()
     
     // スクリーンショット用テクスチャを作成する
     RenderTexture *texture = RenderTexture::create(AKScreenSize::screenSize().width, AKScreenSize::screenSize().height);
-    texture->setPosition(cocos2d::Vector2(AKScreenSize::screenSize().width / 2, AKScreenSize::screenSize().height / 2));
+    texture->setPosition(cocos2d::Vec2(AKScreenSize::screenSize().width / 2, AKScreenSize::screenSize().height / 2));
     
     // スクリーンショットを撮り始める
     texture->begin();
@@ -1009,7 +1009,7 @@ void AKPlayingScene::createInfoLayer()
     // チキンゲージの座標を設定する
     float x = AKScreenSize::center().x;
     float y = AKScreenSize::positionFromBottomPoint(kAKChickenGaugePosFromBottomPoint);
-    m_chickenGauge->setPosition(Vector2(x, y));
+    m_chickenGauge->setPosition(Vec2(x, y));
     
     // ボス体力ゲージを作成する
     m_bossLifeGauge = AKGauge::create(kAKBossLifeGaugeEmptyImageName,
@@ -1025,7 +1025,7 @@ void AKPlayingScene::createInfoLayer()
     // ボス体力ゲージの座標を設定する
     x = AKScreenSize::xOfStage(kAKBossLifeGaugePosXOfStage);
     y = AKScreenSize::yOfStage(kAKBossLifeGaugePosYOfStage);
-    m_bossLifeGauge->setPosition(Vector2(x, y));
+    m_bossLifeGauge->setPosition(Vec2(x, y));
     
     // ボス体力ゲージを非表示にする
     m_bossLifeGauge->setVisible(false);
@@ -1040,7 +1040,7 @@ void AKPlayingScene::createInfoLayer()
     // 残機表示の座標を設定する
     x = AKScreenSize::xOfStage(kAKLifePosXOfStage) + m_life->getWidth() / 2;
     y = AKScreenSize::yOfStage(kAKLifePosYOfStage);
-    m_life->setPosition(Vector2(x, y));
+    m_life->setPosition(Vec2(x, y));
     
     // スコア表示の文字列を作成する
     char scoreString[16] = "";
@@ -1055,7 +1055,7 @@ void AKPlayingScene::createInfoLayer()
     // スコア表示の座標を設定する
     x = AKScreenSize::center().x;
     y = AKScreenSize::yOfStage(kAKScorePosYOfStage);
-    m_score->setPosition(Vector2(x, y));
+    m_score->setPosition(Vec2(x, y));
 }
 
 /*!
@@ -1285,7 +1285,7 @@ void AKPlayingScene::createFrameBlock(Node *node,
             
             // 位置を設定する
             // 左下を(0, 0)に合うようにするため、サイズの半分ずらす
-            sprite->setPosition(Vector2(x + size / 2, y + size / 2));
+            sprite->setPosition(Vec2(x + size / 2, y + size / 2));
             
             // 背景ブロックをノードに配置する
             node->addChild(sprite);

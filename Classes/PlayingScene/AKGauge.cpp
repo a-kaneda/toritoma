@@ -35,7 +35,7 @@
 
 #include "AKGauge.h"
 
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::Director;
 using cocos2d::TextureCache;
 using cocos2d::Sprite;
@@ -107,15 +107,15 @@ m_percent(0.0f)
         
         // 水平方向の場合、ゲージがたまるのを満ゲージの幅変更によって表現する。
         // 幅が変わってもx座標を変えなくても良いように左端にアンカーを設定する。
-        m_fullImage->setAnchorPoint(Vector2(0.0f, 0.5f));
-        m_fullImage->setPosition(Vector2(AKScreenSize::deviceLength(-m_imageWidth / 2.0f), 0.0f));
+        m_fullImage->setAnchorPoint(Vec2(0.0f, 0.5f));
+        m_fullImage->setPosition(Vec2(AKScreenSize::deviceLength(-m_imageWidth / 2.0f), 0.0f));
     }
     else {
         
         // 垂直方向の場合、ゲージがたまるのを満ゲージの高さ変更によって表現する。
         // 幅が変わってもx座標を変えなくても良いように下端にアンカーを設定する。
-        m_fullImage->setAnchorPoint(Vector2(0.5f, 0.0f));
-        m_fullImage->setPosition(Vector2(0.0f, AKScreenSize::deviceLength(-m_imageHeight / 2.0f)));
+        m_fullImage->setAnchorPoint(Vec2(0.5f, 0.0f));
+        m_fullImage->setPosition(Vec2(0.0f, AKScreenSize::deviceLength(-m_imageHeight / 2.0f)));
     }
 }
 

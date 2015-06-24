@@ -39,7 +39,7 @@
 #include "AKOptionScene.h"
 #include "Advertisement.h"
 
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::TransitionFade;
 using cocos2d::Director;
 using cocos2d::Blink;
@@ -203,7 +203,7 @@ AKTitleScene::AKTitleScene()
     Sprite *image = Sprite::create(kAKTitleImage);
     
     // 配置位置を設定する
-    image->setPosition(Vector2(AKScreenSize::positionFromHorizontalCenterPoint(kAKTitlePosFromHorizontalCenterPoint),
+    image->setPosition(Vec2(AKScreenSize::positionFromHorizontalCenterPoint(kAKTitlePosFromHorizontalCenterPoint),
                                AKScreenSize::positionFromTopRatio(kAKTitlePosFromTopRatio)));
     
     // タイトル画像をシーンに配置する
@@ -216,7 +216,7 @@ AKTitleScene::AKTitleScene()
 
     // ゲームスタートのメニューを作成する
     m_interface->addLabelMenu(kAKGameStartCaption,
-                              Vector2(x, y),
+                              Vec2(x, y),
                               0,
                               kAKEventTouchGameStartButton,
                               kAKTitleMenuGame,
@@ -229,7 +229,7 @@ AKTitleScene::AKTitleScene()
 
     // 遊び方のメニューを作成する
     m_interface->addLabelMenu(kAKHowToPlayCaption,
-                              Vector2(x, y),
+                              Vec2(x, y),
                               0,
                               kAKEventTouchHowToButton,
                               kAKTitleMenuHowTo,
@@ -242,7 +242,7 @@ AKTitleScene::AKTitleScene()
 
     // オプションのメニューを作成する
     m_interface->addLabelMenu(kAKOptionCaption,
-                              Vector2(x, y),
+                              Vec2(x, y),
                               0,
                               kAKEventTouchOptionButton,
                               kAKTitleMenuOption,
@@ -255,7 +255,7 @@ AKTitleScene::AKTitleScene()
 
     // クレジットのメニューを作成する
     m_interface->addLabelMenu(kAKCreditCaption,
-                              Vector2(x, y),
+                              Vec2(x, y),
                               0,
                               kAKEventTouchCreditBUtton,
                               kAKTitleMenuCredit,

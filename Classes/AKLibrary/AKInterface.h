@@ -80,9 +80,9 @@ public:
     // メニュー項目追加
     void addMenuItem(AKMenuItem *menu);
     // スプライトフレームからメニュー項目作成
-    cocos2d::Sprite* addSpriteMenu(const std::string &spriteName, cocos2d::Vector2 position, int z, int event, unsigned int tag, enum AKMenuType type);
+    cocos2d::Sprite* addSpriteMenu(const std::string &spriteName, cocos2d::Vec2 position, int z, int event, unsigned int tag, enum AKMenuType type);
     // 文字列からメニュー項目作成
-    AKLabel* addLabelMenu(const std::string menuString, cocos2d::Vector2 position, int z, int event, unsigned int tag, bool withFrame);
+    AKLabel* addLabelMenu(const std::string menuString, cocos2d::Vec2 position, int z, int event, unsigned int tag, bool withFrame);
     // スライド入力作成
     void addSlideMenu(cocos2d::Rect rect, int event, unsigned int tag);
     

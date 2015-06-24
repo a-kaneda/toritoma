@@ -37,7 +37,7 @@
 #include "AKLogNoDef.h"
 
 using cocos2d::Rect;
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::Touch;
 
 /*!
@@ -69,7 +69,7 @@ m_prevPoint(0.0f, 0.0f), m_touch(NULL)
  @param tag タグ情報(任意に使用)
  @return 生成したオブジェクト。失敗時はnilを返す。
  */
-AKMenuItem::AKMenuItem(const Vector2 &position,
+AKMenuItem::AKMenuItem(const Vec2 &position,
                        int size,
                        enum AKMenuType type,
                        int eventNo,
@@ -86,7 +86,7 @@ m_tag(tag), m_prevPoint(0.0f, 0.0f), m_touch(NULL)
  @param pos 選択位置
  @return メニュー項目の範囲内かどうかを
  */
-bool AKMenuItem::isSelect(const Vector2 &position) const
+bool AKMenuItem::isSelect(const Vec2 &position) const
 {
     // 座標がメニュー項目の範囲内の場合は処理を行う
     return AKIsInside(position, m_rect);
@@ -150,7 +150,7 @@ void AKMenuItem::setTouch(Touch *touch)
  前回のタッチ位置を取得する。
  @return 前回タッチ位置
  */
-const Vector2* AKMenuItem::getPrevPoint() const
+const Vec2* AKMenuItem::getPrevPoint() const
 {
     return &m_prevPoint;
 }
@@ -161,7 +161,7 @@ const Vector2* AKMenuItem::getPrevPoint() const
  前回のタッチ位置を設定する。
  @param 前回タッチ位置
  */
-void AKMenuItem::setPrevPoint(Vector2 prevPoint)
+void AKMenuItem::setPrevPoint(Vec2 prevPoint)
 {
     m_prevPoint = prevPoint;
 }

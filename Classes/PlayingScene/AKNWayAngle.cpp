@@ -35,7 +35,7 @@
 
 #include "AKNWayAngle.h"
 
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 
 /*!
  @brief 2点間指定によるn-way角度計算
@@ -46,7 +46,7 @@ using cocos2d::Vector2;
  @param count 弾数
  @param interval 弾の間の角度
  */
-AKNWayAngle::AKNWayAngle(const Vector2 &src, const Vector2 &dest, int count, float interval)
+AKNWayAngle::AKNWayAngle(const Vec2 &src, const Vec2 &dest, int count, float interval)
 {
     // 中心の弾の角度を計算する
     float centerAngle = AKAngle::calcDestAngle(src, dest);

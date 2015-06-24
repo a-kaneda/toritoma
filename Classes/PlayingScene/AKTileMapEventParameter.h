@@ -46,7 +46,7 @@
 class AKTileMapEventParameter {
 private:
     /// タイルの座標
-    cocos2d::Vector2 m_position;
+    cocos2d::Vec2 m_position;
     /// タイルのプロパティ
     cocos2d::ValueMap m_properties;
     
@@ -56,9 +56,9 @@ private:
     
 public:
     // パラメータを指定したコンストラクタ
-    AKTileMapEventParameter(const cocos2d::Vector2 &position, const cocos2d::ValueMap &properties);
+    AKTileMapEventParameter(const cocos2d::Vec2 &position, const cocos2d::ValueMap &properties);
     // 座標取得
-    const cocos2d::Vector2* getPosition() const;
+    const cocos2d::Vec2* getPosition() const;
     // プロパティ取得
     const cocos2d::ValueMap* getProperties() const;
 };

@@ -86,9 +86,9 @@ public:
     // 更新処理
     void update(AKPlayDataInterface *data);
     // デバイス座標からマップ座標の取得
-    cocos2d::Vector2 getMapPositionFromDevicePosition(const cocos2d::Vector2 &devicePosition);
+    cocos2d::Vec2 getMapPositionFromDevicePosition(const cocos2d::Vec2 &devicePosition);
     // タイルの座標取得
-    cocos2d::Vector2 getTilePositionFromMapPosition(const cocos2d::Vector2 &mapPosition);
+    cocos2d::Vec2 getTilePositionFromMapPosition(const cocos2d::Vec2 &mapPosition);
     // ステージ進行度取得
     int getProgress();
     // ステージ進行度設定

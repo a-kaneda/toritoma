@@ -35,7 +35,7 @@
 
 #include "AKPlayerShot.h"
 
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::Node;
 
 /// 自機弾のスピード
@@ -64,7 +64,7 @@ static const int kAKOptionShotPower = 2;
  @param parent 配置する親ノード
  @param is2ndLoop
  */
-void AKPlayerShot::createPlayerShot(const Vector2 &position, float angle, Node *parent, bool is2ndLoop)
+void AKPlayerShot::createPlayerShot(const Vec2 &position, float angle, Node *parent, bool is2ndLoop)
 {
     // 攻撃力を設定する
     // 1周目と2周目以降で攻撃力を変更する。
@@ -90,7 +90,7 @@ void AKPlayerShot::createPlayerShot(const Vector2 &position, float angle, Node *
  @param position 生成位置
  @param parent 配置する親ノード
  */
-void AKPlayerShot::createOptionShot(const Vector2 &position, Node *parent)
+void AKPlayerShot::createOptionShot(const Vec2 &position, Node *parent)
 {
     // 攻撃力を設定する
     m_power = kAKOptionShotPower;
@@ -110,7 +110,7 @@ void AKPlayerShot::createOptionShot(const Vector2 &position, Node *parent)
  @param position 生成位置
  @param parent 配置する親ノード
  */
-void AKPlayerShot::setCommonParam(const Vector2 &position, Node *parent)
+void AKPlayerShot::setCommonParam(const Vec2 &position, Node *parent)
 {
     // パラメータの内容をメンバに設定する
     m_position = position;

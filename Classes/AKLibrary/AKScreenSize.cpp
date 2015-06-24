@@ -38,7 +38,7 @@
 
 using cocos2d::Size;
 using cocos2d::CCDirector;
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::Rect;
 using cocos2d::CCDirector;
 using cocos2d::GLView;
@@ -50,7 +50,7 @@ const Size AKScreenSize::kAKStageSize(384, 288);
 /// スクリーンサイズ
 Size AKScreenSize::m_screenSize;
 /// 画面に表示されている一番左下の座標
-Vector2 AKScreenSize::m_screenOffset;
+Vec2 AKScreenSize::m_screenOffset;
 
 /*!
  @brief 解像度初期化処理
@@ -100,9 +100,9 @@ Size AKScreenSize::stageSize()
  画面の中央の座標を取得する。
  @return 中央座標
  */
-Vector2 AKScreenSize::center()
+Vec2 AKScreenSize::center()
 {
-    Vector2 center(kAKBaseSize.width / 2,
+    Vec2 center(kAKBaseSize.width / 2,
                    kAKBaseSize.height / 2);
 
     return center;
@@ -309,7 +309,7 @@ Rect AKScreenSize::deviceRect(float x, float y, float w, float h)
  @param size サイズ
  @return 補正した矩形
  */
-Rect AKScreenSize::deviceRect(const Vector2 &point, const Size &size)
+Rect AKScreenSize::deviceRect(const Vec2 &point, const Size &size)
 {
     return AKScreenSize::deviceRect(point.x, point.y, size.width, size.height);
 }
@@ -335,7 +335,7 @@ Rect AKScreenSize::deviceRect(const Rect &rect)
  @param size サイズ
  @return 矩形
  */
-Rect AKScreenSize::makeRectFromCenter(const Vector2 &center, int size)
+Rect AKScreenSize::makeRectFromCenter(const Vec2 &center, int size)
 {
     Rect rect(center.x - size / 2,
                 center.y - size / 2,

@@ -85,17 +85,17 @@ public:
     // かすりポイント設定
     void setGrazePoint(float grazePoint);
     // 通常弾生成
-    void createNormalShot(const cocos2d::Vector2 &position,
+    void createNormalShot(const cocos2d::Vec2 &position,
                           float angle,
                           float speed,
                           cocos2d::Node *parent);
     // スクロール影響弾生成
-    void createScrollShot(const cocos2d::Vector2 &position,
+    void createScrollShot(const cocos2d::Vec2 &position,
                           float angle,
                           float speed,
                           cocos2d::Node *parent);
     // 速度変更弾生成
-    void createChangeSpeedShot(const cocos2d::Vector2 &position,
+    void createChangeSpeedShot(const cocos2d::Vec2 &position,
                                float angle,
                                float speed,
                                int changeInterval,
@@ -112,7 +112,7 @@ protected:
 private:
     // 敵弾生成
     void createEnemyShot(int type,
-                         const cocos2d::Vector2 &position,
+                         const cocos2d::Vec2 &position,
                          float angle,
                          float speed,
                          cocos2d::Node *parent);

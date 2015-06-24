@@ -38,7 +38,7 @@
 #include "AKCommon.h"
 #include "AKScreenSize.h"
 
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::Rect;
 using cocos2d::LayerColor;
 using cocos2d::CCSize;
@@ -136,7 +136,7 @@ float AKRangeCheckLF(float val, float min, float max)
  @retval true 矩形内にある
  @retval false 外側にあれば
  */
-bool AKIsInside(const Vector2 &point, const Rect &rect)
+bool AKIsInside(const Vec2 &point, const Rect &rect)
 {    
     if ((point.x >= rect.origin.x && point.x <= rect.origin.x + rect.size.width) &&
         (point.y >= rect.origin.y && point.y <= rect.origin.y + rect.size.height)) {
@@ -175,7 +175,7 @@ bool AKIsEqualFloat(float a, float b)
  @param size サイズ
  @return 矩形
  */
-Rect AKMakeRectFromCenter(const Vector2 &center, int size)
+Rect AKMakeRectFromCenter(const Vec2 &center, int size)
 {
     Rect rect(center.x - size / 2,
                 center.y - size / 2,

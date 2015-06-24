@@ -61,7 +61,7 @@ public:
     // キャラクター固有の動作
     virtual void action(AKPlayDataInterface *data);
     // 障害物生成処理
-    void createBlock(int type, const cocos2d::Vector2 &position, cocos2d::Node *parent);
+    void createBlock(int type, const cocos2d::Vec2 &position, cocos2d::Node *parent);
     // ぶつかったキャラクターを押し動かす
     void pushCharacter(AKCharacter *character, AKPlayDataInterface *data);
     // ぶつかったキャラクターを消す

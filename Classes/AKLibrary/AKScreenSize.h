@@ -52,7 +52,7 @@ private:
     // スクリーンサイズ
     static cocos2d::Size m_screenSize;
     // 画面に表示されている一番左下の座標
-    static cocos2d::Vector2 m_screenOffset;
+    static cocos2d::Vec2 m_screenOffset;
 public:
     // 解像度初期化処理
     static void init(cocos2d::GLView *view);
@@ -61,7 +61,7 @@ public:
     // ステージサイズ取得
     static cocos2d::Size stageSize();
     // 中央座標取得
-    static cocos2d::Vector2 center();
+    static cocos2d::Vec2 center();
     // 左からの比率で座標取得
     static int positionFromLeftRatio(float ratio);
     // 右からの比率で座標取得
@@ -93,11 +93,11 @@ public:
     // 矩形のデバイス補正、x座標、y座標、幅、高さ指定
     static cocos2d::Rect deviceRect(float x, float y, float w, float h);
     // 句形のデバイス補正、座標、サイズ指定
-    static cocos2d::Rect deviceRect(const cocos2d::Vector2 &point, const cocos2d::Size &size);
+    static cocos2d::Rect deviceRect(const cocos2d::Vec2 &point, const cocos2d::Size &size);
     // 句形のデバイス補正、矩形指定
     static cocos2d::Rect deviceRect(const cocos2d::Rect &rect);
     // 中心座標とサイズから矩形を作成する
-    static cocos2d::Rect makeRectFromCenter(const cocos2d::Vector2 &center, int size);
+    static cocos2d::Rect makeRectFromCenter(const cocos2d::Vec2 &center, int size);
     // 長さのデバイス補正
     static float deviceLength(float len);
 };

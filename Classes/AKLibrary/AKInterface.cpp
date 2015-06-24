@@ -39,7 +39,7 @@ using cocos2d::Director;
 using cocos2d::Touch;
 using cocos2d::Event;
 using cocos2d::EventListenerTouchOneByOne;
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::Sprite;
 using cocos2d::Rect;
 using cocos2d::Node;
@@ -113,10 +113,10 @@ bool AKInterface::onTouchBegan(Touch *pTouch, Event *pEvent)
     }
     
     // 画面上のタッチ位置を取得する
-    Vector2 locationInView = pTouch->getLocationInView();
+    Vec2 locationInView = pTouch->getLocationInView();
     
     // cocos2dの座標系に変換する
-    Vector2 location = Director::getInstance()->convertToGL(locationInView);
+    Vec2 location = Director::getInstance()->convertToGL(locationInView);
     
     // 各項目の選択処理を行う
     std::vector<AKMenuItem*>::iterator it;
@@ -263,10 +263,10 @@ void AKInterface::onTouchMoved(Touch *pTouch, Event *pEvent)
             m_eventHandler->execEvent(item);
             
             // 画面上のタッチ位置を取得する
-            Vector2 locationInView = pTouch->getLocationInView();
+            Vec2 locationInView = pTouch->getLocationInView();
             
             // cocos2dの座標系に変換する
-            Vector2 location = Director::getInstance()->convertToGL(locationInView);
+            Vec2 location = Director::getInstance()->convertToGL(locationInView);
 
             // 前回タッチ位置を更新する
             item->setPrevPoint(location);
@@ -276,10 +276,10 @@ void AKInterface::onTouchMoved(Touch *pTouch, Event *pEvent)
     }
     
     // 画面上のタッチ位置を取得する
-    Vector2 locationInView = pTouch->getLocationInView();
+    Vec2 locationInView = pTouch->getLocationInView();
     
     // cocos2dの座標系に変換する
-    Vector2 location = Director::getInstance()->convertToGL(locationInView);
+    Vec2 location = Director::getInstance()->convertToGL(locationInView);
     
     // 一致するメニュー項目がなかった場合に、まだタッチイベントが開始されていない項目がある場合は関連付ける
     for (AKMenuItem *item : m_menuItems) {
@@ -335,7 +335,7 @@ void AKInterface::addMenuItem(AKMenuItem *menu)
  @return 作成したメニュー項目のスプライト
  */
 Sprite* AKInterface::addSpriteMenu(const std::string &spriteName,
-                                     Vector2 position,
+                                     Vec2 position,
                                      int z,
                                      int event,
                                      unsigned int tag,
@@ -384,7 +384,7 @@ Sprite* AKInterface::addSpriteMenu(const std::string &spriteName,
  @return 作成したメニュー項目
  */
 AKLabel* AKInterface::addLabelMenu(const std::string menuString,
-                                   Vector2 position,
+                                   Vec2 position,
                                    int z,
                                    int event,
                                    unsigned int tag,

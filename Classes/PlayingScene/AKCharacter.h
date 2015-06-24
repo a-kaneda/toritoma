@@ -77,9 +77,9 @@ protected:
     /// 当たり判定サイズ幅
     cocos2d::Size m_size;
     /// 位置
-    cocos2d::Vector2 m_position;
+    cocos2d::Vec2 m_position;
     /// 移動の位置
-    cocos2d::Vector2 m_prevPosition;
+    cocos2d::Vec2 m_prevPosition;
     /// 速度x方向
     float m_speedX;
     /// 速度y方向
@@ -107,7 +107,7 @@ protected:
     /// 障害物と接している面
     unsigned int m_blockHitSide;
     /// 画像表示のオフセット
-    cocos2d::Vector2 m_offset;
+    cocos2d::Vec2 m_offset;
     /// 画面外から削除されるしきい値
     int m_outThreshold;
     
@@ -119,11 +119,11 @@ public:
     
 public:
     // 位置取得
-    const cocos2d::Vector2* getPosition();
+    const cocos2d::Vec2* getPosition();
     // 位置設定
-    void setPosition(const cocos2d::Vector2 &position);
+    void setPosition(const cocos2d::Vec2 &position);
     // 前回位置取得
-    const cocos2d::Vector2* getPrevPosition();
+    const cocos2d::Vec2* getPrevPosition();
     // サイズ取得
     const cocos2d::Size* getSize();
     // x方向の速度取得

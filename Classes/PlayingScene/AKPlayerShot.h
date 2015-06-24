@@ -46,12 +46,12 @@
 class AKPlayerShot : public AKCharacter {
 public:
     // 自機弾生成
-    void createPlayerShot(const cocos2d::Vector2 &position, float angle, cocos2d::Node *parent, bool is2ndLoop);
+    void createPlayerShot(const cocos2d::Vec2 &position, float angle, cocos2d::Node *parent, bool is2ndLoop);
     // オプション弾生成
-    void createOptionShot(const cocos2d::Vector2 &position, cocos2d::Node *parent);
+    void createOptionShot(const cocos2d::Vec2 &position, cocos2d::Node *parent);
 private:
     // 共通項目設定
-    void setCommonParam(const cocos2d::Vector2 &position, cocos2d::Node *parent);
+    void setCommonParam(const cocos2d::Vec2 &position, cocos2d::Node *parent);
 };
 
 

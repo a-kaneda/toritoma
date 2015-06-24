@@ -40,7 +40,7 @@
 
 using cocos2d::SpriteFrameCache;
 using cocos2d::LayerColor;
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 using cocos2d::Blink;
 using cocos2d::CallFunc;
 using cocos2d::Sequence;
@@ -259,7 +259,7 @@ AKOptionScene::AKOptionScene()
 void AKOptionScene::initCommonItem(AKInterface *interface)
 {
     // 前ページボタンをインターフェースに配置する
-    Vector2 prevPoint(AKScreenSize::positionFromLeftPoint(kAKPrevPosLeftPoint),
+    Vec2 prevPoint(AKScreenSize::positionFromLeftPoint(kAKPrevPosLeftPoint),
                       AKScreenSize::center().y);
     interface->addSpriteMenu(kAKPrevImage,
                              prevPoint,
@@ -269,7 +269,7 @@ void AKOptionScene::initCommonItem(AKInterface *interface)
                              kAKMenuTypeButton);
     
     // 次ページボタンをインターフェースに配置する
-    Vector2 nextPoint(AKScreenSize::positionFromRightPoint(kAKNextPosRightPoint),
+    Vec2 nextPoint(AKScreenSize::positionFromRightPoint(kAKNextPosRightPoint),
                       AKScreenSize::center().y);
     interface->addSpriteMenu(kAKNextImage,
                              nextPoint,
@@ -279,7 +279,7 @@ void AKOptionScene::initCommonItem(AKInterface *interface)
                              kAKMenuTypeButton);
     
     // 戻るボタンをインターフェースに配置する
-    Vector2 backPoint(AKScreenSize::positionFromRightPoint(kAKBackPosRightPoint),
+    Vec2 backPoint(AKScreenSize::positionFromRightPoint(kAKBackPosRightPoint),
                       AKScreenSize::positionFromTopPoint(kAKBackPosTopPoint));
     interface->addSpriteMenu(kAKBackImage,
                              backPoint,
@@ -307,7 +307,7 @@ void AKOptionScene::initGameCenterPage(AKInterface *interface)
     // Game Centerのラベルの位置を設定する
     float x = AKScreenSize::center().x;
     float y = AKScreenSize::positionFromTopRatio(kAKGameCenterCaptionPosTopRatio);
-    gameCenterLabel->setPosition(Vector2(x, y));
+    gameCenterLabel->setPosition(Vec2(x, y));
     
     // Game Centerのラベルを配置する
     addChild(gameCenterLabel, 0, kAKMenuGameCenter);
@@ -316,7 +316,7 @@ void AKOptionScene::initGameCenterPage(AKInterface *interface)
     x = AKScreenSize::center().x;
     y = AKScreenSize::positionFromTopRatio(kAKLeaderboardPosTopRatio);
     m_leaderboardButton = interface->addLabelMenu(kAKLeaderboardCaption,
-                                                  Vector2(x, y),
+                                                  Vec2(x, y),
                                                   0,
                                                   kAKSelectLeaderboard,
                                                   kAKMenuGameCenter,
@@ -326,7 +326,7 @@ void AKOptionScene::initGameCenterPage(AKInterface *interface)
     x = AKScreenSize::center().x;
     y = AKScreenSize::positionFromTopRatio(kAKAchievemetnsPosTopRatio);
     m_achievementsButton = interface->addLabelMenu(kAKAchievementsCaption,
-                                                  Vector2(x, y),
+                                                  Vec2(x, y),
                                                   0,
                                                   kAKSelectAchievements,
                                                   kAKMenuGameCenter,
@@ -351,7 +351,7 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     // Storeのラベルの位置を設定する
     float x = AKScreenSize::center().x;
     float y = AKScreenSize::positionFromTopRatio(kAKStoreCaptionPosTopRatio);
-    storeLabel->setPosition(Vector2(x, y));
+    storeLabel->setPosition(Vec2(x, y));
     
     // Storeのラベルを配置する
     addChild(storeLabel, 0, kAKMenuStore);
@@ -360,7 +360,7 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     x = AKScreenSize::positionFromLeftRatio(kAKBuyButtonPosLeftRatio);
     y = AKScreenSize::positionFromTopRatio(kAKButtonPosTopRatio);
     m_buyButton = interface->addLabelMenu(kAKBuyButtonCaption,
-                                          Vector2(x, y),
+                                          Vec2(x, y),
                                           0,
                                           kAKSelectBuy,
                                           kAKMenuStoreBeforePurchase,
@@ -370,7 +370,7 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     x = AKScreenSize::positionFromLeftRatio(kAKRestoreButtonPosLeftRatio);
     y = AKScreenSize::positionFromTopRatio(kAKButtonPosTopRatio);
     m_restoreButton = interface->addLabelMenu(kAKRestoreButtonCaption,
-                                              Vector2(x, y),
+                                              Vec2(x, y),
                                               0,
                                               kAKSelectRestore,
                                               kAKMenuStoreBeforePurchase,
@@ -385,7 +385,7 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     // 配置位置を設定する
     x = AKScreenSize::center().x;
     y = AKScreenSize::positionFromBottomPoint(kAKMsgPosBottomPoint);
-    message->setPosition(Vector2(x, y));
+    message->setPosition(Vec2(x, y));
     
     // 表示文字列を設定する
     message->setString(aklib::LocalizedResource::getInstance().getString(kAKStoreMessageKey));
@@ -405,7 +405,7 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     // 購入済みのラベルの位置を設定する
     x = AKScreenSize::center().x;
     y = AKScreenSize::positionFromTopRatio(kAKPurchasedCaptionPosTopRatio);
-    purchasedLabel->setPosition(Vector2(x, y));
+    purchasedLabel->setPosition(Vec2(x, y));
     
     // レイヤーに配置する
     interface->addChild(purchasedLabel, 0, kAKMenuStoreAfterPurcase);

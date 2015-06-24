@@ -151,13 +151,13 @@ float AKRangeCheckLF(float val, float min, float max);
 float AKRangeCheckF(float val, float min, float max);
 
 // 矩形内判定
-bool AKIsInside(const cocos2d::Vector2 &point, const cocos2d::Rect &rect);
+bool AKIsInside(const cocos2d::Vec2 &point, const cocos2d::Rect &rect);
 
 // float同値判定
 bool AKIsEqualFloat(float a, float b);
 
 // 中心座標とサイズから矩形を作成する
-cocos2d::Rect AKMakeRectFromCenter(const cocos2d::Vector2 &center, int size);
+cocos2d::Rect AKMakeRectFromCenter(const cocos2d::Vec2 &center, int size);
 
 // 単一色レイヤーを作成する
 cocos2d::LayerColor *AKCreateColorLayer(int colorNo, const cocos2d::Rect &rect);

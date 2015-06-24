@@ -37,7 +37,7 @@
 #include "AKEnemyShot.h"
 
 using cocos2d::Node;
-using cocos2d::Vector2;
+using cocos2d::Vec2;
 
 /// オプションの画像ファイル名
 static const char *kAKOptionImageFile = "Option_%02d";
@@ -166,7 +166,7 @@ void AKOption::setShiled(bool shield)
  @param count オプション個数
  @param position 初期配置位置
  */
-void AKOption::setOptionCount(int count, const Vector2 &position)
+void AKOption::setOptionCount(int count, const Vec2 &position)
 {
     AKLog(kAKLogOption_2, "count=%d", count);
     
@@ -211,7 +211,7 @@ void AKOption::setOptionCount(int count, const Vector2 &position)
  オプションが付属している場合はオプションの移動も行う。
  @param distance 移動量
  */
-void AKOption::movePosition(const Vector2 &position, const cocos2d::Vector2 &distance)
+void AKOption::movePosition(const Vec2 &position, const cocos2d::Vec2 &distance)
 {
     // 移動先座標が間隔分溜まっている場合は先頭の座標を削除する
     if (m_movePositions.size() >= kAKOptionSpace) {
@@ -238,7 +238,7 @@ void AKOption::movePosition(const Vector2 &position, const cocos2d::Vector2 &dis
  移動座標を設定する。オプションが付属している場合はオプションの移動も行う。
  @param position 移動先座標
  */
-void AKOption::setPosition(const Vector2 &position)
+void AKOption::setPosition(const Vec2 &position)
 {
     // オプションに自分の移動前の座標を通知する
     if (m_next != NULL && m_next->isStaged()) {
@@ -250,7 +250,7 @@ void AKOption::setPosition(const Vector2 &position)
     if (m_movePositions.size() >= kAKOptionSpace) {
         
         // 先頭の要素を取得し、座標を移動する
-        std::vector<Vector2>::iterator start = m_movePositions.begin();
+        std::vector<Vec2>::iterator start = m_movePositions.begin();
         m_position = *start;
         
         // 取得した要素を配列から取り除く
