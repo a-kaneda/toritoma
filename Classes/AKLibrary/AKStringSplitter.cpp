@@ -110,18 +110,30 @@ const char *AKStringSplitter::split()
     // string型をchar型に変換する
     const char *orgChar = m_org.c_str();
     
-    // 1文字の長さを取得する
-    int charLength = AKStringSplitter::getByteOfCharacter(&orgChar[m_position]);
-    
-    // 出力文字列をクリアする
-    memset(m_char, '\0', sizeof(m_char));
-    
-    // 出力文字列に1文字分の文字列を設定する
-    strncpy(m_char, &orgChar[m_position], charLength);
-    
-    // 切り取った文字の位置を進める
-    m_position += charLength;
-    
+    // \nは改行文字に変換して処理を行う
+    if (m_position + 1 < m_org.size() && orgChar[m_position] == '\\' && orgChar[m_position + 1] == 'n') {
+        
+        // 出力文字列に改行文字を設定する
+        m_char[0] = '\n';
+        
+        // 2文字分位置を進める
+        m_position += 2;
+    }
+    else {
+        
+        // 1文字の長さを取得する
+        int charLength = AKStringSplitter::getByteOfCharacter(&orgChar[m_position]);
+        
+        // 出力文字列をクリアする
+        memset(m_char, '\0', sizeof(m_char));
+        
+        // 出力文字列に1文字分の文字列を設定する
+        strncpy(m_char, &orgChar[m_position], charLength);
+        
+        // 切り取った文字の位置を進める
+        m_position += charLength;
+    }
+
     // 切り取った文字を返す
     return m_char;
 }

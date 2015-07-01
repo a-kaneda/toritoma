@@ -404,6 +404,8 @@ void AKLabel::updateLabel()
             if (!isNewLine) {
                 const char *splitChar = stringSplitter.split();
                 
+                AKLog(kAKLogLabel_1, "splitChar=%s", splitChar);
+                
                 // 文字が切り取れた場合は出力文字に設定する
                 if (splitChar != NULL) {
                     
