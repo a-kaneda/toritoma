@@ -1,7 +1,8 @@
-"HowToPlay_1" = "がめんを すらいどすると、じきが いどうします。";
-"HowToPlay_2" = "HowToPlay_2(にほんご)";
-"HowToPlay_3" = "HowToPlay_3(にほんご)";
+"HowToPlay_1" = "がめんを スライドすると じきが いどうします。";
+"HowToPlay_2" = "じどうてきに ショットが はっしゃされます。";
+"HowToPlay_3" = "てきの たまに ちかづくと チキンゲージが たまります。";
 "HowToPlay_4" = "HowToPlay_4(にほんご)";
+"HowToPlay_5" = "HowToPlay_5(にほんご)";
 "Tweet1stLoop" = "とりとま、ステージ%dまで進めてスコアを%d点獲得しました。 #toritoma";
 "Tweet2ndLoop" = "とりとま、%d周目ステージ%dまで進めてスコアを%d点獲得しました。 #toritoma";
 "StoreMessage" = "StoreMessage";

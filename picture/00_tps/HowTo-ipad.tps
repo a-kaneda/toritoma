@@ -152,6 +152,7 @@
             <filename>../95_4times/HowTo/HowTo_2.png</filename>
             <filename>../95_4times/HowTo/HowTo_3.png</filename>
             <filename>../95_4times/HowTo/HowTo_4.png</filename>
+            <filename>../95_4times/HowTo/HowTo_5.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

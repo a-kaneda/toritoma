@@ -7,17 +7,30 @@
             <key>HowTo_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{263,3},{182,108}}</string>
+                <string>{{3,267},{256,128}}</string>
                 <key>offset</key>
-                <string>{35,-6}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{72,16},{182,108}}</string>
+                <string>{{0,0},{256,128}}</string>
                 <key>sourceSize</key>
                 <string>{256,128}</string>
             </dict>
             <key>HowTo_2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{263,263},{256,128}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{256,128}}</string>
+                <key>sourceSize</key>
+                <string>{256,128}</string>
+            </dict>
+            <key>HowTo_3.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{3,135},{256,128}}</string>
@@ -30,10 +43,10 @@
                 <key>sourceSize</key>
                 <string>{256,128}</string>
             </dict>
-            <key>HowTo_3.png</key>
+            <key>HowTo_4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{263,115},{256,128}}</string>
+                <string>{{263,3},{256,128}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -43,7 +56,7 @@
                 <key>sourceSize</key>
                 <string>{256,128}</string>
             </dict>
-            <key>HowTo_4.png</key>
+            <key>HowTo_5.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{3,3},{256,128}}</string>
@@ -64,9 +77,9 @@
             <key>realTextureFileName</key>
             <string>HowTo.png</string>
             <key>size</key>
-            <string>{512,512}</string>
+            <string>{512,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:3d78be6743fa05edbf7d99914ee640a7:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:15ce0a0e2f5f4da27590b2a88c9dfd4c:1/1$</string>
             <key>textureFileName</key>
             <string>HowTo.png</string>
         </dict>

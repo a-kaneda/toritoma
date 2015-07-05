@@ -48,7 +48,9 @@
 class AKStringSplitter {
 public:
     // 1文字のバイト数取得
-    static int getByteOfCharacter(const char *c);
+    static int getByteOfCharacter(char c);
+    // 文字数取得
+    static int getStringLength(const char *str);
 
 private:
     /// 元の文字列

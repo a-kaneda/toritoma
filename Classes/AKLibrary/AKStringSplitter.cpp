@@ -47,21 +47,17 @@
  @param c utf-8の文字
  @return 1文字のバイト数
  */
-int AKStringSplitter::getByteOfCharacter(const char *c)
+int AKStringSplitter::getByteOfCharacter(char c)
 {
     // utf-8の最大バイト数
     const int kAKMaxByte = 6;
-
-    // 文字の先頭1byteを取得する
-    unsigned char topByte = 0;
-    memcpy(&topByte, c, sizeof(unsigned char));
 
     // 先頭の1のビット数を数える
     int i = 0;
     for (i = 0; i < kAKMaxByte; i++) {
 
         // 0が見つかった時点でループを抜ける
-        if (((topByte >> (8 - i - 1)) & 0x01) == 0) {
+        if (((c >> (8 - i - 1)) & 0x01) == 0) {
             break;
         }
     }
@@ -78,6 +74,40 @@ int AKStringSplitter::getByteOfCharacter(const char *c)
     else {
         return i;
     }
+}
+
+/*!
+ @brief 文字数取得
+ 
+ 文字列の文字数を取得する。マルチバイト文字を1文字として扱う。
+ 文字列がUTF-8でない場合は1文字のバイト数が取得できず、エラーとして-1を返す。
+ @param str 文字列
+ @return 文字数
+ */
+int AKStringSplitter::getStringLength(const char *str)
+{
+    int length = 0;
+    int i = 0;
+    
+    // NULL終端までループする
+    while (str[i] != '\0') {
+        
+        // 文字数をカウントする
+        length++;
+        
+        // 1文字のバイト数を取得する
+        int byte = getByteOfCharacter(str[i]);
+        
+        // マイナスの場合は渡された文字列がUTF-8でないためエラー
+        if (byte < 0) {
+            return -1;
+        }
+        
+        // 1文字のバイト数を取得し、その分だけインデックスを進める
+        i += byte;
+    }
+    
+    return length;
 }
 
 /*!
@@ -122,7 +152,7 @@ const char *AKStringSplitter::split()
     else {
         
         // 1文字の長さを取得する
-        int charLength = AKStringSplitter::getByteOfCharacter(&orgChar[m_position]);
+        int charLength = AKStringSplitter::getByteOfCharacter(orgChar[m_position]);
         
         // 出力文字列をクリアする
         memset(m_char, '\0', sizeof(m_char));

@@ -162,7 +162,7 @@ AKLabel::AKLabel(const std::string &str, int length, int line, enum AKLabelFrame
 m_length(length), m_line(line), m_frame(frame), m_isReverse(false)
 {
     // 文字列が表示可能文字数を超えている場合はエラー
-    AKAssert(str.length() <= length * line, "文字列が表示可能文字数を超えている:str.size()=%lu, length=%d, line=%d", str.size(), length, line);
+    AKAssert(AKStringSplitter::getStringLength(str.c_str()) <= length * line, "文字列が表示可能文字数を超えている:str.size()=%d, length=%d, line=%d", AKStringSplitter::getStringLength(str.c_str()), length, line);
     
     // 行数、文字数は最低でも1以上とする
     AKAssert(length > 0, "文字数が0以下:length=%d", length);
@@ -294,7 +294,7 @@ const std::string& AKLabel::getString() const
 void AKLabel::setString(const std::string &label)
 {
     // 文字列が表示可能文字数を超えている場合はエラー
-    AKAssert(label.length() <= m_length * m_line, "文字列長が表示可能数を超えている:label=%s, m_length=%d, m_line=%d", label.c_str(), m_length, m_line);
+    AKAssert(AKStringSplitter::getStringLength(label.c_str()) <= m_length * m_line, "文字列が表示可能文字数を超えている:str.size()=%d, length=%d, line=%d", AKStringSplitter::getStringLength(label.c_str()), m_length, m_line);
     
     // パラメータをメンバに設定する
     if (m_labelString != label) {
