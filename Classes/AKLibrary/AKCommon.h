@@ -146,6 +146,13 @@ extern bool kAKLogTwitterHelper_1;
 
 #endif
 
+// 美咲フォント（MISAKI_FONT）
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#define MISAKI_FONT "fonts/misaki_gothic.ttf"
+#else
+#define MISAKI_FONT "misaki_gothic.ttf"
+#endif
+
 // 範囲チェック
 float AKRangeCheckLF(float val, float min, float max);
 float AKRangeCheckF(float val, float min, float max);

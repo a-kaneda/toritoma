@@ -7,9 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0CDAB2391B49185E002683B6 /* misaki_gothic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CDAB2381B49185E002683B6 /* misaki_gothic.ttf */; };
+		0CDAB2401B49302E002683B6 /* LabelFrame-ipad.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0CDAB23C1B49302E002683B6 /* LabelFrame-ipad.plist */; };
+		0CDAB2411B49302E002683B6 /* LabelFrame-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CDAB23D1B49302E002683B6 /* LabelFrame-ipad.png */; };
+		0CDAB2421B49302E002683B6 /* LabelFrame.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0CDAB23E1B49302E002683B6 /* LabelFrame.plist */; };
+		0CDAB2431B49302E002683B6 /* LabelFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CDAB23F1B49302E002683B6 /* LabelFrame.png */; };
 		0CFB61571B3600F4003FB45D /* Advertisement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB613E1B3600F4003FB45D /* Advertisement.mm */; };
 		0CFB61581B3600F4003FB45D /* AKCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB613F1B3600F4003FB45D /* AKCommon.cpp */; };
-		0CFB61591B3600F4003FB45D /* AKFont.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB61411B3600F4003FB45D /* AKFont.cpp */; };
 		0CFB615A1B3600F4003FB45D /* AKInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB61431B3600F4003FB45D /* AKInterface.cpp */; };
 		0CFB615B1B3600F4003FB45D /* AKLabel.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB61451B3600F4003FB45D /* AKLabel.cpp */; };
 		0CFB615C1B3600F4003FB45D /* AKMenuItem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB61491B3600F4003FB45D /* AKMenuItem.cpp */; };
@@ -63,9 +67,6 @@
 		0CFB61F31B36022C003FB45D /* Control.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CFB61C01B36022C003FB45D /* Control.png */; };
 		0CFB61F41B36022C003FB45D /* EnemyTile.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CFB61C11B36022C003FB45D /* EnemyTile.png */; };
 		0CFB61F51B36022C003FB45D /* Event.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CFB61C21B36022C003FB45D /* Event.png */; };
-		0CFB61F61B36022C003FB45D /* Font-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CFB61C31B36022C003FB45D /* Font-ipad.png */; };
-		0CFB61F71B36022C003FB45D /* Font.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0CFB61C41B36022C003FB45D /* Font.plist */; };
-		0CFB61F81B36022C003FB45D /* Font.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CFB61C51B36022C003FB45D /* Font.png */; };
 		0CFB61F91B36022C003FB45D /* HowTo-ipad.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0CFB61C61B36022C003FB45D /* HowTo-ipad.plist */; };
 		0CFB61FA1B36022C003FB45D /* HowTo-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CFB61C71B36022C003FB45D /* HowTo-ipad.png */; };
 		0CFB61FB1B36022C003FB45D /* HowTo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0CFB61C81B36022C003FB45D /* HowTo.plist */; };
@@ -321,12 +322,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0CDAB2381B49185E002683B6 /* misaki_gothic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = misaki_gothic.ttf; sourceTree = "<group>"; };
+		0CDAB23C1B49302E002683B6 /* LabelFrame-ipad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "LabelFrame-ipad.plist"; sourceTree = "<group>"; };
+		0CDAB23D1B49302E002683B6 /* LabelFrame-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LabelFrame-ipad.png"; sourceTree = "<group>"; };
+		0CDAB23E1B49302E002683B6 /* LabelFrame.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LabelFrame.plist; sourceTree = "<group>"; };
+		0CDAB23F1B49302E002683B6 /* LabelFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LabelFrame.png; sourceTree = "<group>"; };
 		0CFB613D1B3600F4003FB45D /* Advertisement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Advertisement.h; path = ../Classes/AKLibrary/Advertisement.h; sourceTree = "<group>"; };
 		0CFB613E1B3600F4003FB45D /* Advertisement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Advertisement.mm; path = ../Classes/AKLibrary/Advertisement.mm; sourceTree = "<group>"; };
 		0CFB613F1B3600F4003FB45D /* AKCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = AKCommon.cpp; path = ../Classes/AKLibrary/AKCommon.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		0CFB61401B3600F4003FB45D /* AKCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AKCommon.h; path = ../Classes/AKLibrary/AKCommon.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		0CFB61411B3600F4003FB45D /* AKFont.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AKFont.cpp; path = ../Classes/AKLibrary/AKFont.cpp; sourceTree = "<group>"; };
-		0CFB61421B3600F4003FB45D /* AKFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AKFont.h; path = ../Classes/AKLibrary/AKFont.h; sourceTree = "<group>"; };
 		0CFB61431B3600F4003FB45D /* AKInterface.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = AKInterface.cpp; path = ../Classes/AKLibrary/AKInterface.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		0CFB61441B3600F4003FB45D /* AKInterface.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = AKInterface.h; path = ../Classes/AKLibrary/AKInterface.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0CFB61451B3600F4003FB45D /* AKLabel.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = AKLabel.cpp; path = ../Classes/AKLibrary/AKLabel.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
@@ -416,9 +420,6 @@
 		0CFB61C01B36022C003FB45D /* Control.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Control.png; sourceTree = "<group>"; };
 		0CFB61C11B36022C003FB45D /* EnemyTile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = EnemyTile.png; sourceTree = "<group>"; };
 		0CFB61C21B36022C003FB45D /* Event.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Event.png; sourceTree = "<group>"; };
-		0CFB61C31B36022C003FB45D /* Font-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Font-ipad.png"; sourceTree = "<group>"; };
-		0CFB61C41B36022C003FB45D /* Font.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Font.plist; sourceTree = "<group>"; };
-		0CFB61C51B36022C003FB45D /* Font.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Font.png; sourceTree = "<group>"; };
 		0CFB61C61B36022C003FB45D /* HowTo-ipad.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "HowTo-ipad.plist"; sourceTree = "<group>"; };
 		0CFB61C71B36022C003FB45D /* HowTo-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "HowTo-ipad.png"; sourceTree = "<group>"; };
 		0CFB61C81B36022C003FB45D /* HowTo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = HowTo.plist; sourceTree = "<group>"; };
@@ -613,6 +614,14 @@
 			path = Classes;
 			sourceTree = "<group>";
 		};
+		0CDAB2371B49185E002683B6 /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				0CDAB2381B49185E002683B6 /* misaki_gothic.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
 		0CFB613C1B3600AB003FB45D /* AKLibrary */ = {
 			isa = PBXGroup;
 			children = (
@@ -620,8 +629,6 @@
 				0CFB613E1B3600F4003FB45D /* Advertisement.mm */,
 				0CFB613F1B3600F4003FB45D /* AKCommon.cpp */,
 				0CFB61401B3600F4003FB45D /* AKCommon.h */,
-				0CFB61411B3600F4003FB45D /* AKFont.cpp */,
-				0CFB61421B3600F4003FB45D /* AKFont.h */,
 				0CFB61431B3600F4003FB45D /* AKInterface.cpp */,
 				0CFB61441B3600F4003FB45D /* AKInterface.h */,
 				0CFB61451B3600F4003FB45D /* AKLabel.cpp */,
@@ -757,12 +764,12 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				0CFB61771B36014D003FB45D /* PlayingScene */,
-				0CFB616D1B360143003FB45D /* OtherScene */,
-				0CFB61631B36011F003FB45D /* Common */,
 				0CFB613C1B3600AB003FB45D /* AKLibrary */,
 				1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */,
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
+				0CFB61631B36011F003FB45D /* Common */,
+				0CFB616D1B360143003FB45D /* OtherScene */,
+				0CFB61771B36014D003FB45D /* PlayingScene */,
 			);
 			name = Classes;
 			path = ../classes;
@@ -915,20 +922,24 @@
 				0CFB61BA1B36022C003FB45D /* ChickenGauge_01.png */,
 				0CFB61BB1B36022C003FB45D /* ChickenGauge_02-ipad.png */,
 				0CFB61BC1B36022C003FB45D /* ChickenGauge_02.png */,
+				1AFAF8B916D35E4900DB1158 /* CloseNormal.png */,
+				1AFAF8BA16D35E4900DB1158 /* CloseSelected.png */,
 				0CFB61BD1B36022C003FB45D /* Control-ipad.plist */,
 				0CFB61BE1B36022C003FB45D /* Control-ipad.png */,
 				0CFB61BF1B36022C003FB45D /* Control.plist */,
 				0CFB61C01B36022C003FB45D /* Control.png */,
 				0CFB61C11B36022C003FB45D /* EnemyTile.png */,
 				0CFB61C21B36022C003FB45D /* Event.png */,
-				0CFB61C31B36022C003FB45D /* Font-ipad.png */,
-				0CFB61C41B36022C003FB45D /* Font.plist */,
-				0CFB61C51B36022C003FB45D /* Font.png */,
+				0CDAB2371B49185E002683B6 /* fonts */,
 				0CFB61C61B36022C003FB45D /* HowTo-ipad.plist */,
 				0CFB61C71B36022C003FB45D /* HowTo-ipad.png */,
 				0CFB61C81B36022C003FB45D /* HowTo.plist */,
 				0CFB61C91B36022C003FB45D /* HowTo.png */,
 				0CFB61CA1B36022C003FB45D /* icons */,
+				0CDAB23C1B49302E002683B6 /* LabelFrame-ipad.plist */,
+				0CDAB23D1B49302E002683B6 /* LabelFrame-ipad.png */,
+				0CDAB23E1B49302E002683B6 /* LabelFrame.plist */,
+				0CDAB23F1B49302E002683B6 /* LabelFrame.png */,
 				0CFB61D91B36022C003FB45D /* Localized_en */,
 				0CFB61DA1B36022C003FB45D /* Localized_ja */,
 				0CFB61DB1B36022C003FB45D /* Stage_01.tmx */,
@@ -938,8 +949,6 @@
 				0CFB61DF1B36022C003FB45D /* Stage_05.tmx */,
 				0CFB61E01B36022C003FB45D /* Stage_06.tmx */,
 				0CFB61E11B36022C003FB45D /* Title.png */,
-				1AFAF8B916D35E4900DB1158 /* CloseNormal.png */,
-				1AFAF8BA16D35E4900DB1158 /* CloseSelected.png */,
 			);
 			name = Resources;
 			path = ../Resources;
@@ -1113,10 +1122,12 @@
 				5087E78117EB970100C73F5D /* Icon-120.png in Resources */,
 				0CFB61E81B36022C003FB45D /* Character-ipad.plist in Resources */,
 				0CFB62121B36022C003FB45D /* Stage_06.tmx in Resources */,
+				0CDAB2431B49302E002683B6 /* LabelFrame.png in Resources */,
 				0CFB61F21B36022C003FB45D /* Control.plist in Resources */,
 				5087E78617EB970100C73F5D /* Icon-76.png in Resources */,
 				5087E77F17EB970100C73F5D /* Default@2x.png in Resources */,
 				50EF629917ECD46A001EB2F8 /* Icon-100.png in Resources */,
+				0CDAB2391B49185E002683B6 /* misaki_gothic.ttf in Resources */,
 				0CFB61FB1B36022C003FB45D /* HowTo.plist in Resources */,
 				0CFB62071B36022C003FB45D /* Icon-Small.png in Resources */,
 				0CFB620F1B36022C003FB45D /* Stage_03.tmx in Resources */,
@@ -1128,6 +1139,7 @@
 				0CFB620C1B36022C003FB45D /* Localized_ja in Resources */,
 				5087E78317EB970100C73F5D /* Icon-152.png in Resources */,
 				5087E77D17EB970100C73F5D /* Default-568h@2x.png in Resources */,
+				0CDAB2411B49302E002683B6 /* LabelFrame-ipad.png in Resources */,
 				0CFB61F51B36022C003FB45D /* Event.png in Resources */,
 				0CFB62061B36022C003FB45D /* Icon-Small-40@2x.png in Resources */,
 				0CFB62021B36022C003FB45D /* Icon-72.png in Resources */,
@@ -1142,18 +1154,17 @@
 				1AFAF8BD16D35E4900DB1158 /* CloseSelected.png in Resources */,
 				50EF62A317ECD613001EB2F8 /* Icon-50.png in Resources */,
 				0CFB61F01B36022C003FB45D /* Control-ipad.plist in Resources */,
-				0CFB61F61B36022C003FB45D /* Font-ipad.png in Resources */,
 				0CFB61E41B36022C003FB45D /* BossLifeGauge_01-ipad.png in Resources */,
 				0CFB61E21B36022C003FB45D /* Back.png in Resources */,
 				0CFB620E1B36022C003FB45D /* Stage_02.tmx in Resources */,
 				0CFB61E61B36022C003FB45D /* BossLifeGauge_02-iadp.png in Resources */,
+				0CDAB2401B49302E002683B6 /* LabelFrame-ipad.plist in Resources */,
 				0CFB62011B36022C003FB45D /* Icon-60@3x.png in Resources */,
 				0CFB61FA1B36022C003FB45D /* HowTo-ipad.png in Resources */,
 				0CFB61E31B36022C003FB45D /* Block.png in Resources */,
 				0CFB61F41B36022C003FB45D /* EnemyTile.png in Resources */,
 				0CFB61EB1B36022C003FB45D /* Character.png in Resources */,
 				5087E78017EB970100C73F5D /* Icon-114.png in Resources */,
-				0CFB61F71B36022C003FB45D /* Font.plist in Resources */,
 				0CFB61EA1B36022C003FB45D /* Character.plist in Resources */,
 				50EF62A217ECD613001EB2F8 /* Icon-29.png in Resources */,
 				50EF629617ECD46A001EB2F8 /* Icon-40.png in Resources */,
@@ -1166,13 +1177,13 @@
 				0CFB61FF1B36022C003FB45D /* Icon-50@2x.png in Resources */,
 				0CFB62131B36022C003FB45D /* Title.png in Resources */,
 				0CFB61EE1B36022C003FB45D /* ChickenGauge_02-ipad.png in Resources */,
-				0CFB61F81B36022C003FB45D /* Font.png in Resources */,
 				50EF629817ECD46A001EB2F8 /* Icon-80.png in Resources */,
 				5087E78417EB970100C73F5D /* Icon-57.png in Resources */,
 				5087E77E17EB970100C73F5D /* Default.png in Resources */,
 				50EF629717ECD46A001EB2F8 /* Icon-58.png in Resources */,
 				0CFB62101B36022C003FB45D /* Stage_04.tmx in Resources */,
 				0CFB61E91B36022C003FB45D /* Character-ipad.png in Resources */,
+				0CDAB2421B49302E002683B6 /* LabelFrame.plist in Resources */,
 				0CFB62111B36022C003FB45D /* Stage_05.tmx in Resources */,
 				0CFB61F31B36022C003FB45D /* Control.png in Resources */,
 				0CFB620D1B36022C003FB45D /* Stage_01.tmx in Resources */,
@@ -1206,7 +1217,6 @@
 				0CFB61581B3600F4003FB45D /* AKCommon.cpp in Sources */,
 				0CFB61A91B36014D003FB45D /* AKPlayer.cpp in Sources */,
 				0CFB61AE1B36014D003FB45D /* AKTileMapEventParameter.cpp in Sources */,
-				0CFB61591B3600F4003FB45D /* AKFont.cpp in Sources */,
 				0CFB61A11B36014D003FB45D /* AKEnemy.cpp in Sources */,
 				0CFB61AA1B36014D003FB45D /* AKPlayerShot.cpp in Sources */,
 				0CFB615F1B3600F4003FB45D /* GameCenterHelper.m in Sources */,

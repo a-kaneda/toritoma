@@ -39,9 +39,6 @@
 // 画面サイズ管理クラス
 #include "AKScreenSize.h"
 
-// フォントクラス
-#include "AKFont.h"
-
 // ラベルクラス
 #include "AKLabel.h"
 

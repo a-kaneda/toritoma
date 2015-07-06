@@ -36,7 +36,7 @@
 #ifndef AKLABEL_H
 #define AKLABEL_H
 
-#include "AKFont.h"
+#include "AKCommon.h"
 
 /// ラベルの枠のタイプ
 enum AKLabelFrame {
@@ -100,12 +100,12 @@ public:
 private:
     // 枠表示用バッチノード取得
     cocos2d::SpriteBatchNode* getFrameBatch();
-    // 文字表示用バッチノード取得
-    cocos2d::SpriteBatchNode* getLabelBatch();
     // 表示更新
     void updateLabel();
     // 枠の生成
     void createFrame();
+    // 半角文字全角文字変換
+    std::string convertHalfCharacter(const char *org);
 };
 
 #endif

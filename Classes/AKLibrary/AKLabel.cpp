@@ -41,42 +41,53 @@ using cocos2d::Rect;
 using cocos2d::Vec2;
 using cocos2d::SpriteFrame;
 using cocos2d::Sprite;
+using cocos2d::Label;
+using cocos2d::TTFConfig;
+using cocos2d::Color3B;
+using cocos2d::SpriteFrameCache;
 
-/// 左上の枠のキー
-static const char kAKTopLeft[] = "TopLeft";
-/// 右上の枠のキー
-static const char kAKTopRight[] = "TopRight";
-/// 左下の枠のキー
-static const char kAKBottomLeft[] = "BottomLeft";
-/// 右下の枠のキー
-static const char kAKBottomRight[] = "BottomRight";
-/// 上の枠のキー
-static const char kAKTopBar[] = "TopBar";
-/// 左の枠のキー
-static const char kAKLeftBar[] = "LeftBar";
-/// 右の枠のキー
-static const char kAKRightBar[] = "RightBar";
-/// 下の枠のキー
-static const char kAKBottomBar[] = "BottomBar";
-/// ボタン左上の枠のキー
-static const char kAKButtonTopLeft[] = "ButtonTopLeft";
-/// ボタン右上の枠のキー
-static const char kAKButtonTopRight[] = "ButtonTopRight";
-/// ボタン左下の枠のキー
-static const char kAKButtonBottomLeft[] = "ButtonBottomLeft";
-/// ボタン右下の枠のキー
-static const char kAKButtonBottomRight[] = "ButtonBottomRight";
-/// ボタン上の枠のキー
-static const char kAKButtonTopBar[] = "ButtonTopBar";
-/// ボタン左の枠のキー
-static const char kAKButtonLeftBar[] = "ButtonLeftBar";
-/// ボタン右の枠のキー
-static const char kAKButtonRightBar[] = "ButtonRightBar";
-/// ボタン下の枠のキー
-static const char kAKButtonBottomBar[] = "ButtonBottomBar";
-/// ボタンブランクのキー
-static const char kAKBlank[] = " ";
-
+/// ラベル枠テクスチャアトラス設定ファイル名
+static const char LabelFrameTextureDef[] = "LabelFrame.plist";
+/// ラベル枠テクスチャアトラス画像ファイル名
+static const char LabelFrameTextureImage[] = "LabelFrame.png";
+/// 左上の枠の画像ファイル名
+static const char TopLeft[] = "TopLeft.png";
+/// 右上の枠の画像ファイル名
+static const char TopRight[] = "TopRight.png";
+/// 左下の枠の画像ファイル名
+static const char BottomLeft[] = "BottomLeft.png";
+/// 右下の枠の画像ファイル名
+static const char BottomRight[] = "BottomRight.png";
+/// 上の枠の画像ファイル名
+static const char TopBar[] = "TopBar.png";
+/// 左の枠の画像ファイル名
+static const char LeftBar[] = "LeftBar.png";
+/// 右の枠の画像ファイル名
+static const char RightBar[] = "RightBar.png";
+/// 下の枠の画像ファイル名
+static const char BottomBar[] = "BottomBar.png";
+/// ボタン左上の枠の画像ファイル名
+static const char ButtonTopLeft[] = "ButtonTopLeft.png";
+/// ボタン右上の枠の画像ファイル名
+static const char ButtonTopRight[] = "ButtonTopRight.png";
+/// ボタン左下の枠の画像ファイル名
+static const char ButtonBottomLeft[] = "ButtonBottomLeft.png";
+/// ボタン右下の枠の画像ファイル名
+static const char ButtonBottomRight[] = "ButtonBottomRight.png";
+/// ボタン上の枠の画像ファイル名
+static const char ButtonTopBar[] = "ButtonTopBar.png";
+/// ボタン左の枠の画像ファイル名
+static const char ButtonLeftBar[] = "ButtonLeftBar.png";
+/// ボタン右の枠の画像ファイル名
+static const char ButtonRightBar[] = "ButtonRightBar.png";
+/// ボタン下の枠の画像ファイル名
+static const char ButtonBottomBar[] = "ButtonBottomBar.png";
+/// ボタンブランクの画像ファイル名
+static const char Blank[] = "Blank.png";
+/// 反転時の画像プレフィックス
+static const char Revesese[] = "Reverse";
+/// フォントサイズ
+static const int FontSize = 16;
 /// 1行の高さ(単位：文字)
 static const float kAKLabelLineHeight = 1.5f;
 
@@ -100,11 +111,11 @@ int AKLabel::getWidth(int length, bool hasFrame)
 {
     // 枠がある場合は枠の領域を2文字分プラスして返す
     if (hasFrame) {
-        return (length + 2) * AKFont::getFontSize();
+        return (length + 2) * FontSize;
     }
     // 枠がない場合は文字領域のサイズを返す
     else {
-        return length * AKFont::getFontSize();
+        return length * FontSize;
     }
 }
 
@@ -122,11 +133,11 @@ int AKLabel::getHeight(int line, bool hasFrame)
 {
     // 枠がある場合は枠の領域を2文字分プラスして返す
     if (hasFrame) {
-        return ((int)(line * kAKLabelLineHeight) + 2) * AKFont::getFontSize();
+        return ((int)(line * kAKLabelLineHeight) + 2) * FontSize;
     }
     // 枠がない場合は文字領域のサイズを返す
     else {
-        return (int)(line * kAKLabelLineHeight) * AKFont::getFontSize();
+        return (int)(line * kAKLabelLineHeight) * FontSize;
     }
 }
 
@@ -168,49 +179,20 @@ m_length(length), m_line(line), m_frame(frame), m_isReverse(false)
     AKAssert(length > 0, "文字数が0以下:length=%d", length);
     AKAssert(line > 0, "行数が0以下:line=%d", line);
     
-    // 文字表示用バッチノードを作成する
-    SpriteBatchNode *batchNode = AKFont::getInstance().createBatchNode(m_length * m_line);
-    this->addChild(batchNode, kAKLabelBatchPosZ, kAKLabelBatchPosZ);
+    // テクスチャアトラスを読み込む
+    SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();
+    spriteFrameCache->addSpriteFramesWithFile(LabelFrameTextureDef,
+                                              LabelFrameTextureImage);
     
-    // 枠付きの場合は枠の作成を行う
-    if (m_frame != kAKLabelFrameNone) {
-        
-        // 枠示用バッチノードを作成する
-        SpriteBatchNode *frameBatchNode = AKFont::getInstance().createBatchNode((m_length + 2) * (m_line * 1.5 + 2));
-        AKAssert(frameBatchNode != NULL, "枠表示用バッチノードの作成に失敗");
-        
-        this->addChild(frameBatchNode, kAKFrameBatchPosZ, kAKFrameBatchPosZ);
+    // 枠示用バッチノードを作成する
+    SpriteBatchNode *frameBatchNode = SpriteBatchNode::create(LabelFrameTextureImage, (m_length + 2) * (m_line * 1.5 + 2));
+    AKAssert(frameBatchNode != NULL, "枠表示用バッチノードの作成に失敗");
+    
+    // バッチノードを配置する
+    this->addChild(frameBatchNode, kAKFrameBatchPosZ, kAKFrameBatchPosZ);
 
-        // 枠を作成する
-        createFrame();
-    }
-    
-    // 各文字のスプライトを生成し、バッチノードへ登録する
-    for (int y = 0; y < m_line; y++) {
-        
-        for (int x = 0; x < m_length; x++) {
-                
-            // フォントクラスからスプライトフレームを生成する
-            SpriteFrame *charSpriteFrame = AKFont::getInstance().createSpriteFrame(" ", m_isReverse);
-            
-            // スプライトを生成する
-            Sprite *charSprite = Sprite::createWithSpriteFrame(charSpriteFrame);
-            
-            // 表示位置を設定する。
-            // テキスト領域の中央とバッチノードの中央を一致させるため、
-            // 左に1行の長さの半分、上方向に行数の半分移動する。
-            // 行間に0.5文字分の隙間を入れるため、高さは1.5倍する。
-            Vec2 position((x - (m_length - 1) / 2.0f) * AKFont::getFontSize(),
-                             (-y + (m_line - 1) / 2.0f) * AKFont::getFontSize() * kAKLabelLineHeight);
-            charSprite->setPosition(position);
-            
-            // バッチノードに登録する
-            getLabelBatch()->addChild(charSprite);
-            
-            // 先頭からの文字数をタグにする
-            charSprite->setTag(x + y * m_length);
-        }
-    }
+    // 枠を作成する
+    createFrame();
     
     // ラベル文字列を設定する
     setString(str.c_str());
@@ -359,89 +341,35 @@ SpriteBatchNode* AKLabel::getFrameBatch()
 }
 
 /*!
- @brief 文字表示用バッチノード取得
- 
- 文字表示用バッチノードを取得する
- @return 文字表示用バッチノード
- */
-SpriteBatchNode* AKLabel::getLabelBatch()
-{
-    SpriteBatchNode *labelBatch = static_cast<SpriteBatchNode*>(getChildByTag(kAKLabelBatchPosZ));
-    
-    AKAssert(labelBatch, "文字表示用バッチノードが作成されていない");
-
-    return labelBatch;
-}
-
-/*!
  @brief 表示更新
  
  表示内容を更新する。
  */
 void AKLabel::updateLabel()
 {
-    // 各文字のスプライトを変更する
-    bool isNewLine = false;
-    AKStringSplitter stringSplitter(m_labelString);
-    for (int y = 0; y < m_line; y++) {
-        
-        // 改行フラグを落とす
-        isNewLine = false;
-        
-        for (int x = 0; x < m_length; x++) {
-            
-            // バッチノードからスプライトを取り出す
-            Sprite *charSprite = dynamic_cast<Sprite*>(getLabelBatch()->getChildByTag(x + y * m_length));
-            if (charSprite == NULL) {
-                AKAssert(false, "スプライトの取り出しに失敗:x=%d, y=%d, m_length=%d", x, y, m_length);
-                continue;
-            }
-            
-            // 出力用文字列を用意する
-            char c[MB_LEN_MAX + 1] = " ";
-            
-            // 改行されていない場合は文字列を切り取る
-            if (!isNewLine) {
-                const char *splitChar = stringSplitter.split();
-                
-                AKLog(kAKLogLabel_1, "splitChar=%s", splitChar);
-                
-                // 文字が切り取れた場合は出力文字に設定する
-                if (splitChar != NULL) {
-                    
-                    // 改行文字の場合は改行フラグを立て、出力文字は変更しない
-                    if (splitChar[0] == '\n') {
-                        
-                        // 行頭の改行文字は無視する
-                        if (x == 0) {
-                            splitChar = stringSplitter.split();
-                        }
-                        
-                        isNewLine = true;
-                    }
-                    else {
-                        strncpy(c, splitChar, sizeof(c));
-                    }
-                }
-            }
-            
-            AKLog(kAKLogLabel_1, "x=%d y=%d c=%s", x, y, c);
-            
-            // フォントクラスからスプライトフレームを生成する
-            SpriteFrame *charSpriteFrame = AKFont::getInstance().createSpriteFrame(c, m_isReverse);
-            AKAssert(charSpriteFrame, "スプライトフレームの作成に失敗:%s", c);
-            
-            // スプライトを差し替える
-            if (charSpriteFrame != NULL) {
-                charSprite->setDisplayFrame(charSpriteFrame);
-            }
-        }
-        
-        // 行末の改行文字は飛ばす
-        if (stringSplitter.getCurrentByte() == '\n') {
-            stringSplitter.split();
-        }
-    }    
+    // ラベルを削除する
+    removeChildByTag(1);
+    
+    // フォント設定を作成する
+    TTFConfig config(MISAKI_FONT, 16);
+    
+    // ラベルを作成する
+    Label *text = Label::createWithTTF(config, convertHalfCharacter(m_labelString.c_str()));
+    
+    // ラベル高さを設定する
+    text->setHeight(getHeight(m_line, false));
+    
+    // ラベル幅を設定する
+    text->setWidth(getWidth(m_length, false));
+    
+    // 色を設定する
+    text->setColor(cocos2d::Color3B(kAKColor[kAKColorDark]));
+    
+    // タグを設定する
+    text->setTag(1);
+    
+    // ラベルを配置する
+    addChild(text, kAKLabelBatchPosZ);
 }
 
 /*!
@@ -460,48 +388,68 @@ void AKLabel::createFrame()
     std::string keyLeftBar;
     std::string keyRightBar;
     
+    // 反転時は反転画像プレフィックスを先頭につける
+    if (m_isReverse) {
+        keyTopLeft = Revesese;
+        keyTopRight = Revesese;
+        keyBottomLeft = Revesese;
+        keyBottomRight = Revesese;
+        keyTopBar = Revesese;
+        keyBottomBar = Revesese;
+        keyLeftBar = Revesese;
+        keyRightBar = Revesese;
+    }
+    
+    // 枠の幅
+    int framewidth = 0;
+    
     // 枠の種類に応じてキー文字列を切り替える
     switch (m_frame) {
             
         case kAKLabelFrameMessage:  // メッセージボックス
-            keyTopLeft = kAKTopLeft;
-            keyTopRight = kAKTopRight;
-            keyBottomLeft = kAKBottomLeft;
-            keyBottomRight = kAKBottomRight;
-            keyTopBar = kAKTopBar;
-            keyBottomBar = kAKBottomBar;
-            keyLeftBar = kAKLeftBar;
-            keyRightBar = kAKRightBar;
+            
+            keyTopLeft += TopLeft;
+            keyTopRight += TopRight;
+            keyBottomLeft += BottomLeft;
+            keyBottomRight += BottomRight;
+            keyTopBar += TopBar;
+            keyBottomBar += BottomBar;
+            keyLeftBar += LeftBar;
+            keyRightBar += RightBar;
+            framewidth = 1;
             
             break;
             
         case kAKLabelFrameButton:   // ボタン
-            keyTopLeft = kAKButtonTopLeft;
-            keyTopRight = kAKButtonTopRight;
-            keyBottomLeft = kAKButtonBottomLeft;
-            keyBottomRight = kAKButtonBottomRight;
-            keyTopBar = kAKButtonTopBar;
-            keyBottomBar = kAKButtonBottomBar;
-            keyLeftBar = kAKButtonLeftBar;
-            keyRightBar = kAKButtonRightBar;
+            keyTopLeft += ButtonTopLeft;
+            keyTopRight += ButtonTopRight;
+            keyBottomLeft += ButtonBottomLeft;
+            keyBottomRight += ButtonBottomRight;
+            keyTopBar += ButtonTopBar;
+            keyBottomBar += ButtonBottomBar;
+            keyLeftBar += ButtonLeftBar;
+            keyRightBar += ButtonRightBar;
+            framewidth = 1;
 
             break;
             
         default:
-            AKAssert(false, "枠の種類が異常:m_frame=%d", m_frame);
-            return;
+            break;
     }
+    
+    // スプライトフレームキャッシュを取得する
+    SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();
     
     // 行間に0.5文字分の隙間を空けるため、行数の1.5倍の高さを用意する。
     // 枠を入れるため、上下+-1個分用意する。
-    for (int y = -1; y < (int)(m_line * kAKLabelLineHeight) + 1; y++) {
+    for (int y = -framewidth; y < (int)(m_line * kAKLabelLineHeight) + framewidth; y++) {
         
-        AKLog(kAKLogLabel_1, "y=%d pos=%f", y, (-y + m_line * kAKLabelLineHeight / 2.0f) * AKFont::getFontSize());
+        AKLog(kAKLogLabel_1, "y=%d pos=%f", y, (-y + m_line * kAKLabelLineHeight / 2.0f) * FontSize);
         
         // 枠を入れるため、左右+-1個分用意する。
-        for (int x = -1; x < m_length + 1; x++) {
+        for (int x = -framewidth; x < m_length + framewidth; x++) {
             
-            AKLog(kAKLogLabel_1 && y == -1, "x=%d pos=%f", x, (x - m_length / 2.0f) * AKFont::getFontSize());
+            AKLog(kAKLogLabel_1 && y == -1, "x=%d pos=%f", x, (x - m_length / 2.0f) * FontSize);
             
             // キー文字列
             std::string key;
@@ -548,7 +496,15 @@ void AKLabel::createFrame()
             }
             // 文字の部分の場合
             else {
-                key = kAKBlank;
+                
+                key = "";
+
+                // 反転時はプレフィックスを付ける
+                if (m_isReverse) {
+                    key = Revesese;
+                }
+                
+                key += Blank;
             }
             
             // 先頭からの文字数をタグとする
@@ -556,8 +512,8 @@ void AKLabel::createFrame()
             int tag = (x + 1) + (y + 1) * (m_length + 1 + 1);
             AKLog(kAKLogLabel_1, "tag=%d", tag);
             
-            // フォントクラスからスプライトフレームを生成する
-            SpriteFrame *charSpriteFrame = AKFont::getInstance().createSpriteFrame(key, m_isReverse);
+            // スプライトフレームを生成する
+            SpriteFrame *charSpriteFrame = spriteFrameCache->getSpriteFrameByName(key);
             
             // バッチノードからスプライトを取り出す
             Sprite *charSprite = static_cast<Sprite*>(getFrameBatch()->getChildByTag(tag));
@@ -571,8 +527,8 @@ void AKLabel::createFrame()
                 // 表示位置を設定する。
                 // テキスト領域の中央とバッチノードの中央を一致させるため、
                 // 左に1行の長さの半分、上方向に行数の半分移動する。
-                charSprite->setPosition(Vec2((x - (m_length - 1) / 2.0f) * AKFont::getFontSize(),
-                                                (-y + (m_line - 1) * kAKLabelLineHeight / 2.0f) * AKFont::getFontSize()));
+                charSprite->setPosition(Vec2((x - (m_length - 1) / 2.0f) * FontSize,
+                                                (-y + (m_line - 1) * kAKLabelLineHeight / 2.0f) * FontSize));
                 
                 // バッチノードに登録する
                 getFrameBatch()->addChild(charSprite, 0, tag);
@@ -584,4 +540,207 @@ void AKLabel::createFrame()
             }
         }
     }
+}
+
+/*!
+ @brief 半角文字全角文字変換
+ 
+ 半角英数を全角英数に変換する。
+ \nを改行コードに変換する。
+ @param org 元になる文字列
+ @return 返還後の文字列
+ */
+std::string AKLabel::convertHalfCharacter(const char *org)
+{
+    int i = 0;
+    std::string ret;
+    
+    // 文字列長を取得する
+    size_t len = strlen(org);
+    
+    while (org[i] != '\0') {
+    
+        // 処理対象の文字のバイト数を取得する
+        int byte = AKStringSplitter::getByteOfCharacter(org[i]);
+        
+        // マルチバイト文字はそのままコピーする
+        if (byte > 1) {
+            
+            for (int j = i; j < i + byte; j++) {
+                ret += org[j];
+            }
+            i += byte;
+            continue;
+        }
+        
+        // "\n"は改行コードに変換する
+        if (i + 1 < len && org[i] == '\\' && org[i + 1] == 'n') {
+            ret += '\n';
+            i += 2;
+            continue;
+        }
+        
+        // 半角英数を全角英数に変換する
+        switch (org[i]) {
+            case '0':
+                ret += "０";
+                break;
+
+            case '1':
+                ret += "１";
+                break;
+                
+            case '2':
+                ret += "２";
+                break;
+                
+            case '3':
+                ret += "３";
+                break;
+                
+            case '4':
+                ret += "４";
+                break;
+                
+            case '5':
+                ret += "５";
+                break;
+                
+            case '6':
+                ret += "６";
+                break;
+                
+            case '7':
+                ret += "７";
+                break;
+                
+            case '8':
+                ret += "８";
+                break;
+                
+            case '9':
+                ret += "９";
+                break;
+                
+            case 'A':
+                ret += "Ａ";
+                break;
+                
+            case 'B':
+                ret += "Ｂ";
+                break;
+                
+            case 'C':
+                ret += "Ｃ";
+                break;
+                
+            case 'D':
+                ret += "Ｄ";
+                break;
+
+            case 'E':
+                ret += "Ｅ";
+                break;
+
+            case 'F':
+                ret += "Ｆ";
+                break;
+                
+            case 'G':
+                ret += "Ｇ";
+                break;
+                
+            case 'H':
+                ret += "Ｈ";
+                break;
+                
+            case 'I':
+                ret += "Ｉ";
+                break;
+                
+            case 'J':
+                ret += "Ｊ";
+                break;
+                
+            case 'K':
+                ret += "Ｋ";
+                break;
+                
+            case 'L':
+                ret += "Ｌ";
+                break;
+                
+            case 'M':
+                ret += "Ｍ";
+                break;
+                
+            case 'N':
+                ret += "Ｎ";
+                break;
+                
+            case 'O':
+                ret += "Ｏ";
+                break;
+                
+            case 'P':
+                ret += "Ｐ";
+                break;
+                
+            case 'Q':
+                ret += "Ｑ";
+                break;
+                
+            case 'R':
+                ret += "Ｒ";
+                break;
+                
+            case 'S':
+                ret += "Ｓ";
+                break;
+                
+            case 'T':
+                ret += "Ｔ";
+                break;
+                
+            case 'U':
+                ret += "Ｕ";
+                break;
+                
+            case 'V':
+                ret += "Ｖ";
+                break;
+                
+            case 'W':
+                ret += "Ｗ";
+                break;
+                
+            case 'X':
+                ret += "Ｘ";
+                break;
+                
+            case 'Y':
+                ret += "Ｙ";
+                break;
+                
+            case 'Z':
+                ret += "Ｚ";
+                break;
+                
+            case '.':
+                ret += "．";
+                break;
+                
+            case ' ':
+                ret += "　";
+                break;
+                
+            default:
+                ret += org[i];
+                break;
+        }
+        
+        i++;
+    }
+    
+    return ret;
 }
