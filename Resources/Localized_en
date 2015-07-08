@@ -1,7 +1,7 @@
 "HowToPlay_1" = "SLIDING THE SCREEN\nMOVES PLAYER\nCHARACTER.";
 "HowToPlay_2" = "AUTOMATICALLY SHOT\nIS FIRED.";
 "HowToPlay_3" = "GETTING NEAR AN\nENEMY SHOT INCREASE THE CHICKEN GAUGE.";
-"HowToPlay_4" = "HowToPlay_4";
+"HowToPlay_4" = "WHEN THE CHICKEN GAUGE IS CHARGED, CHICKS COME TO HELP.";
 "HowToPlay_5" = "HowToPlay_5";
 "Tweet1stLoop" = "Toritoma, Go on to stage %d. Earned %d points the score. #toritoma";
 "Tweet2ndLoop" = "Toritoma, Go on to stage %d in %d%s loop. Earned %d points the score. #toritoma";

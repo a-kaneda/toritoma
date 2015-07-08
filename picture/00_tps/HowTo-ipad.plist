@@ -7,17 +7,30 @@
             <key>HowTo_1.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{519,3},{364,216}}</string>
+                <string>{{3,523},{512,256}}</string>
                 <key>offset</key>
-                <string>{70,-12}</string>
+                <string>{0,0}</string>
                 <key>rotated</key>
                 <false/>
                 <key>sourceColorRect</key>
-                <string>{{144,32},{364,216}}</string>
+                <string>{{0,0},{512,256}}</string>
                 <key>sourceSize</key>
                 <string>{512,256}</string>
             </dict>
             <key>HowTo_2.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{519,519},{512,256}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <true/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{512,256}}</string>
+                <key>sourceSize</key>
+                <string>{512,256}</string>
+            </dict>
+            <key>HowTo_3.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{3,263},{512,256}}</string>
@@ -30,23 +43,10 @@
                 <key>sourceSize</key>
                 <string>{512,256}</string>
             </dict>
-            <key>HowTo_3.png</key>
-            <dict>
-                <key>frame</key>
-                <string>{{3,523},{512,200}}</string>
-                <key>offset</key>
-                <string>{0,-24}</string>
-                <key>rotated</key>
-                <false/>
-                <key>sourceColorRect</key>
-                <string>{{0,52},{512,200}}</string>
-                <key>sourceSize</key>
-                <string>{512,256}</string>
-            </dict>
             <key>HowTo_4.png</key>
             <dict>
                 <key>frame</key>
-                <string>{{519,223},{512,256}}</string>
+                <string>{{519,3},{512,256}}</string>
                 <key>offset</key>
                 <string>{0,0}</string>
                 <key>rotated</key>
@@ -77,9 +77,9 @@
             <key>realTextureFileName</key>
             <string>HowTo-ipad.png</string>
             <key>size</key>
-            <string>{1024,1024}</string>
+            <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:8e57d992aa734f9f07193299d1d7d5e0:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:ef4bc3f2c27d01d6086a0141a27b2331:1/1$</string>
             <key>textureFileName</key>
             <string>HowTo-ipad.png</string>
         </dict>
