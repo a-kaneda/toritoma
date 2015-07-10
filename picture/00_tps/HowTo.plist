@@ -69,6 +69,19 @@
                 <key>sourceSize</key>
                 <string>{256,128}</string>
             </dict>
+            <key>HowTo_6.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{3,3},{256,128}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{256,128}}</string>
+                <key>sourceSize</key>
+                <string>{256,128}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -79,7 +92,7 @@
             <key>size</key>
             <string>{512,1024}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:9f6a37271270881e7a6d5c67c42ee63b:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:f8f22b2eb4a9c3be9437c6a36b274101:1/1$</string>
             <key>textureFileName</key>
             <string>HowTo.png</string>
         </dict>

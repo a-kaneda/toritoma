@@ -275,9 +275,6 @@ const std::string& AKLabel::getString() const
  */
 void AKLabel::setString(const std::string &label)
 {
-    // 文字列が表示可能文字数を超えている場合はエラー
-    AKAssert(AKStringSplitter::getStringLength(label.c_str()) <= m_length * m_line, "文字列が表示可能文字数を超えている:str.size()=%d, length=%d, line=%d", AKStringSplitter::getStringLength(label.c_str()), m_length, m_line);
-    
     // パラメータをメンバに設定する
     if (m_labelString != label) {
         m_labelString = label;

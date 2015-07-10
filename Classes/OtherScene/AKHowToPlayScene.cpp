@@ -104,7 +104,7 @@ static const float kAKHowToMsgPosBottomPoint = 105.0f;
 static const float kAKHowToImagePosBottomPoint = 220.0f;
 
 /// ページ数
-static const int kAKHowToPageCount = 4;
+static const int kAKHowToPageCount = 6;
 
 /// 前ページボタンのタグ
 static const unsigned int kAKHowToPrevTag = 0x01;

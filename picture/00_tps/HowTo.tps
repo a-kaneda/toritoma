@@ -153,6 +153,7 @@
             <filename>../94_2times/HowTo/HowTo_3.png</filename>
             <filename>../94_2times/HowTo/HowTo_4.png</filename>
             <filename>../94_2times/HowTo/HowTo_5.png</filename>
+            <filename>../94_2times/HowTo/HowTo_6.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>

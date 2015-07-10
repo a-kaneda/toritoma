@@ -69,6 +69,19 @@
                 <key>sourceSize</key>
                 <string>{512,256}</string>
             </dict>
+            <key>HowTo_6.png</key>
+            <dict>
+                <key>frame</key>
+                <string>{{3,3},{512,256}}</string>
+                <key>offset</key>
+                <string>{0,0}</string>
+                <key>rotated</key>
+                <false/>
+                <key>sourceColorRect</key>
+                <string>{{0,0},{512,256}}</string>
+                <key>sourceSize</key>
+                <string>{512,256}</string>
+            </dict>
         </dict>
         <key>metadata</key>
         <dict>
@@ -79,7 +92,7 @@
             <key>size</key>
             <string>{1024,2048}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:ef4bc3f2c27d01d6086a0141a27b2331:1/1$</string>
+            <string>$TexturePacker:SmartUpdate:f9b6e89c0a19b11791d81a482405eeba:1/1$</string>
             <key>textureFileName</key>
             <string>HowTo-ipad.png</string>
         </dict>
