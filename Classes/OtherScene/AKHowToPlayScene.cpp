@@ -87,7 +87,7 @@ static const float kAKHowToPrevPosLeftPoint = 40.0f;
 /// 次ページボタンの位置、右からの位置
 static const float kAKHowToNextPosRightPoint = 40.0f;
 /// ページ番号の位置、上からの位置
-static const float kAKHowToPagePosTopPoint = 20.0f;
+static const float kAKHowToPagePosTopPoint = 60.0f;
 /// 戻るボタンの位置、右からの位置
 static const float kAKHowToBackPosRightPoint = 26.0f;
 /// 戻るボタンの位置、上からの位置
@@ -98,10 +98,10 @@ static const int kAKHowToMsgLength = 20;
 /// メッセージボックスの行数
 static const int kAKHowToMsgLineCount = 3;
 /// メッセージボックスの位置、下からの位置
-static const float kAKHowToMsgPosBottomPoint = 105.0f;
+static const float kAKHowToMsgPosBottomPoint = 65.0f;
 
 /// イメージ表示位置、下からの位置
-static const float kAKHowToImagePosBottomPoint = 220.0f;
+static const float kAKHowToImagePosBottomPoint = 180.0f;
 
 /// ページ数
 static const int kAKHowToPageCount = 6;
