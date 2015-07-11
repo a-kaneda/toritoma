@@ -162,6 +162,8 @@ public:
     int getAnimationFrame();
     // アニメーションフレーム設定
     void setAnimationFrame(int frame);
+    // キャラクターの削除
+    void removeCharacter();
     
     /*!
      @brief 衝突判定(動作なし)

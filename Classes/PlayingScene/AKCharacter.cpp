@@ -306,6 +306,21 @@ void AKCharacter::setAnimationFrame(int frame)
 }
 
 /*!
+ @brief キャラクターの削除
+ 
+ キャラクターを削除する。
+ */
+void AKCharacter::removeCharacter()
+{
+    // ステージ配置フラグを落とす
+    m_isStaged = false;
+    
+    // 画面から取り除く
+    m_image->removeFromParentAndCleanup(true);
+    m_image = NULL;
+}
+
+/*!
  @brief 画像名の設定
  
  画像名を設定し、スプライトの作成または切り替えを行う。

@@ -1156,6 +1156,13 @@ void AKPlayData::changeStage(int stage)
     AKGauge *gauge = m_scene->getBossLifeGauge();
     gauge->setVisible(false);
     
+    // 障害物を削除する
+    for (AKBlock *block : *m_blockPool.getPool()) {
+        if (block->isStaged()) {
+            block->removeCharacter();
+        }
+    }
+    
     // 次のステージのスクリプトを読み込む
     readScript(stage);
     
