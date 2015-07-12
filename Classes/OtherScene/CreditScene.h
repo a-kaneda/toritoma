@@ -96,6 +96,8 @@ private:
     static const int CreditLineLength;
     // クレジットラベルテキストのキー
     static const char *CreditTextKey;
+    /// クレジットURLテキストのキー
+    static const char *UrlTextKey;
     // リンクボタンのキャプション
     static const char *LinkCaption;
     // リンクボタンの位置、左からの比率

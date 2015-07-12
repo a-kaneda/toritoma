@@ -35,6 +35,7 @@
 
 #include "CreditScene.h"
 #include "AKTitleScene.h"
+#include "OpenUrl.h"
 
 using cocos2d::Vec2;
 using cocos2d::LayerColor;
@@ -42,6 +43,7 @@ using cocos2d::TransitionFade;
 using cocos2d::Director;
 using cocos2d::SpriteFrameCache;
 using CocosDenshion::SimpleAudioEngine;
+using aklib::OpenUrl;
 
 /// 前ページボタンの位置、左からの位置
 const float CreditScene::PrevPosLeftPoint = 40.0f;
@@ -71,6 +73,8 @@ const int CreditScene::CreditLineNum = 3;
 const int CreditScene::CreditLineLength = 14;
 /// クレジットラベルテキストのキー
 const char *CreditScene::CreditTextKey = "CreditName_%d";
+/// クレジットラベルテキストのキー
+const char *CreditScene::UrlTextKey = "CreditLink_%d";
 /// 最大ページ番号
 const int CreditScene::MaxPageNum = (LinkNum - 1) / LinkNumOfPage + 1;
 /// リンクボタンのキャプション
@@ -327,6 +331,12 @@ void CreditScene::openLink(int linkNumber)
     // メニュー選択時の効果音を鳴らす
     SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
     
+    // URL文字列のキーを生成する
+    char key[16] = "";
+    snprintf(key, sizeof(key), UrlTextKey, linkNumber + (m_pageNo - 1) * LinkNumOfPage);
+    
+    // URLを開く
+    OpenUrl::open(aklib::LocalizedResource::getInstance().getString(key).c_str());
 }
 
 /*!

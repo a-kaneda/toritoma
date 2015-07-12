@@ -13,6 +13,7 @@
 		0CDAB2421B49302E002683B6 /* LabelFrame.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0CDAB23E1B49302E002683B6 /* LabelFrame.plist */; };
 		0CDAB2431B49302E002683B6 /* LabelFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CDAB23F1B49302E002683B6 /* LabelFrame.png */; };
 		0CDAB2461B520AE4002683B6 /* CreditScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CDAB2441B520AE4002683B6 /* CreditScene.cpp */; };
+		0CDAB2491B5329C3002683B6 /* OpenUrl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CDAB2471B5329C3002683B6 /* OpenUrl.mm */; };
 		0CFB61571B3600F4003FB45D /* Advertisement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB613E1B3600F4003FB45D /* Advertisement.mm */; };
 		0CFB61581B3600F4003FB45D /* AKCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB613F1B3600F4003FB45D /* AKCommon.cpp */; };
 		0CFB615A1B3600F4003FB45D /* AKInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB61431B3600F4003FB45D /* AKInterface.cpp */; };
@@ -330,6 +331,8 @@
 		0CDAB23F1B49302E002683B6 /* LabelFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LabelFrame.png; sourceTree = "<group>"; };
 		0CDAB2441B520AE4002683B6 /* CreditScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CreditScene.cpp; sourceTree = "<group>"; };
 		0CDAB2451B520AE4002683B6 /* CreditScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditScene.h; sourceTree = "<group>"; };
+		0CDAB2471B5329C3002683B6 /* OpenUrl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenUrl.mm; path = ../Classes/AKLibrary/OpenUrl.mm; sourceTree = "<group>"; };
+		0CDAB2481B5329C3002683B6 /* OpenUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenUrl.h; path = ../Classes/AKLibrary/OpenUrl.h; sourceTree = "<group>"; };
 		0CFB613D1B3600F4003FB45D /* Advertisement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Advertisement.h; path = ../Classes/AKLibrary/Advertisement.h; sourceTree = "<group>"; };
 		0CFB613E1B3600F4003FB45D /* Advertisement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Advertisement.mm; path = ../Classes/AKLibrary/Advertisement.mm; sourceTree = "<group>"; };
 		0CFB613F1B3600F4003FB45D /* AKCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = AKCommon.cpp; path = ../Classes/AKLibrary/AKCommon.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
@@ -652,6 +655,8 @@
 				0CFB61541B3600F4003FB45D /* OnlineScore.mm */,
 				0CFB61551B3600F4003FB45D /* Twitter.h */,
 				0CFB61561B3600F4003FB45D /* Twitter.mm */,
+				0CDAB2471B5329C3002683B6 /* OpenUrl.mm */,
+				0CDAB2481B5329C3002683B6 /* OpenUrl.h */,
 			);
 			name = AKLibrary;
 			sourceTree = "<group>";
@@ -1222,6 +1227,7 @@
 				0CFB61581B3600F4003FB45D /* AKCommon.cpp in Sources */,
 				0CFB61A91B36014D003FB45D /* AKPlayer.cpp in Sources */,
 				0CFB61AE1B36014D003FB45D /* AKTileMapEventParameter.cpp in Sources */,
+				0CDAB2491B5329C3002683B6 /* OpenUrl.mm in Sources */,
 				0CFB61A11B36014D003FB45D /* AKEnemy.cpp in Sources */,
 				0CDAB2461B520AE4002683B6 /* CreditScene.cpp in Sources */,
 				0CFB61AA1B36014D003FB45D /* AKPlayerShot.cpp in Sources */,
