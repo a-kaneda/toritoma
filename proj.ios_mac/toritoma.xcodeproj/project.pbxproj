@@ -12,6 +12,7 @@
 		0CDAB2411B49302E002683B6 /* LabelFrame-ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CDAB23D1B49302E002683B6 /* LabelFrame-ipad.png */; };
 		0CDAB2421B49302E002683B6 /* LabelFrame.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0CDAB23E1B49302E002683B6 /* LabelFrame.plist */; };
 		0CDAB2431B49302E002683B6 /* LabelFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CDAB23F1B49302E002683B6 /* LabelFrame.png */; };
+		0CDAB2461B520AE4002683B6 /* CreditScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CDAB2441B520AE4002683B6 /* CreditScene.cpp */; };
 		0CFB61571B3600F4003FB45D /* Advertisement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB613E1B3600F4003FB45D /* Advertisement.mm */; };
 		0CFB61581B3600F4003FB45D /* AKCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB613F1B3600F4003FB45D /* AKCommon.cpp */; };
 		0CFB615A1B3600F4003FB45D /* AKInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB61431B3600F4003FB45D /* AKInterface.cpp */; };
@@ -327,6 +328,8 @@
 		0CDAB23D1B49302E002683B6 /* LabelFrame-ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LabelFrame-ipad.png"; sourceTree = "<group>"; };
 		0CDAB23E1B49302E002683B6 /* LabelFrame.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = LabelFrame.plist; sourceTree = "<group>"; };
 		0CDAB23F1B49302E002683B6 /* LabelFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LabelFrame.png; sourceTree = "<group>"; };
+		0CDAB2441B520AE4002683B6 /* CreditScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CreditScene.cpp; sourceTree = "<group>"; };
+		0CDAB2451B520AE4002683B6 /* CreditScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditScene.h; sourceTree = "<group>"; };
 		0CFB613D1B3600F4003FB45D /* Advertisement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Advertisement.h; path = ../Classes/AKLibrary/Advertisement.h; sourceTree = "<group>"; };
 		0CFB613E1B3600F4003FB45D /* Advertisement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Advertisement.mm; path = ../Classes/AKLibrary/Advertisement.mm; sourceTree = "<group>"; };
 		0CFB613F1B3600F4003FB45D /* AKCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = AKCommon.cpp; path = ../Classes/AKLibrary/AKCommon.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
@@ -676,6 +679,8 @@
 				0CFB61711B360143003FB45D /* AKOptionScene.h */,
 				0CFB61721B360143003FB45D /* AKTitleScene.cpp */,
 				0CFB61731B360143003FB45D /* AKTitleScene.h */,
+				0CDAB2441B520AE4002683B6 /* CreditScene.cpp */,
+				0CDAB2451B520AE4002683B6 /* CreditScene.h */,
 			);
 			name = OtherScene;
 			path = ../Classes/OtherScene;
@@ -764,9 +769,9 @@
 		15AA9C4015B7EC450033D6C2 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				0CFB613C1B3600AB003FB45D /* AKLibrary */,
 				1AFAF8B316D35DE700DB1158 /* AppDelegate.cpp */,
 				1AFAF8B416D35DE700DB1158 /* AppDelegate.h */,
+				0CFB613C1B3600AB003FB45D /* AKLibrary */,
 				0CFB61631B36011F003FB45D /* Common */,
 				0CFB616D1B360143003FB45D /* OtherScene */,
 				0CFB61771B36014D003FB45D /* PlayingScene */,
@@ -804,12 +809,12 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
-				0CFB623A1B360C27003FB45D /* NendAd */,
 				1AC6FAE5180E9839004C840B /* cocos2d_libs.xcodeproj */,
 				15AA9C4015B7EC450033D6C2 /* Classes */,
 				29B97323FDCFA39411CA2CEA /* Frameworks */,
 				080E96DDFE201D6D7F000001 /* ios */,
 				503AE10617EB990700D1A890 /* mac */,
+				0CFB623A1B360C27003FB45D /* NendAd */,
 				19C28FACFE9D520D11CA2CBB /* Products */,
 				78C7DDAA14EBA5050085D0C2 /* Resources */,
 			);
@@ -1218,6 +1223,7 @@
 				0CFB61A91B36014D003FB45D /* AKPlayer.cpp in Sources */,
 				0CFB61AE1B36014D003FB45D /* AKTileMapEventParameter.cpp in Sources */,
 				0CFB61A11B36014D003FB45D /* AKEnemy.cpp in Sources */,
+				0CDAB2461B520AE4002683B6 /* CreditScene.cpp in Sources */,
 				0CFB61AA1B36014D003FB45D /* AKPlayerShot.cpp in Sources */,
 				0CFB615F1B3600F4003FB45D /* GameCenterHelper.m in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,

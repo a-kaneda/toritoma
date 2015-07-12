@@ -37,6 +37,7 @@
 #include "AKPlayingScene.h"
 #include "AKHowToPlayScene.h"
 #include "AKOptionScene.h"
+#include "CreditScene.h"
 #include "Advertisement.h"
 
 using cocos2d::Vec2;
@@ -352,11 +353,11 @@ void AKTitleScene::touchCreditButton()
     // ボタン選択エフェクトを発生させる
     selectButton(kAKTitleMenuCredit);
     
-    // TODO:クレジット画面シーンへの遷移を作成する
-//    CCTransitionFade *transition = CCTransitionFade::create(0.5f, AKCreditScene::create());
+    // クレジット画面シーンへの遷移を作成する
+    TransitionFade *transition = TransitionFade::create(0.5f, CreditScene::create());
     
-    // TODO:クレジット画面シーンへ遷移する
-//    CCDirector::sharedDirector()->replaceScene(transition);
+    // クレジット画面シーンへ遷移する
+    Director::getInstance()->replaceScene(transition);
 }
 
 /*!

@@ -6,5 +6,15 @@
 "HowToPlay_6" = "シールドボタンを おしているあいだは\nチキンゲージが へっていきます。";
 "Tweet1stLoop" = "とりとま、ステージ%dまで進めてスコアを%d点獲得しました。 #toritoma";
 "Tweet2ndLoop" = "とりとま、%d周目ステージ%dまで進めてスコアを%d点獲得しました。 #toritoma";
+"CreditName_1" = "せいさく\n  かねだ";
+"CreditName_2" = "BGM\n  まおうだましい";
+"CreditName_3" = "ジングル\n  ユーフルカ";
+"CreditName_4" = "こうかおん\n  スキップモア";
+"CreditName_5" = "フォント\n  みさきフォント";
+"CreditLink_1" = "http://blog.monochrome-soft.com/";
+"CreditLink_2" = "http://maoudamashii.jokersounds.com/";
+"CreditLink_3" = "http://wingless-seraph.net/";
+"CreditLink_4" = "http://www.skipmore.com/app/";
+"CreditLink_5" = "http://www.geocities.jp/littlimi/misaki.htm";
 "StoreMessage" = "StoreMessage";
 "StorePurchased" = "StorePurchased";
