@@ -23,6 +23,10 @@ bool AppDelegate::applicationDidFinishLaunching() {
         glview = GLView::create("My Game");
         director->setOpenGLView(glview);
     }
+    
+    // タイルマップの隙間が表示される問題の対策
+    director->getInstance()->setProjection(Director::Projection::_2D);
+    director->getInstance()->setDepthTest(false);
 
     // turn on display FPS
     director->setDisplayStats(true);
