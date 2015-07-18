@@ -44,6 +44,16 @@
 extern const char *kAKControlTextureAtlasDefFile;
 // コントロールテクスチャアトラスファイル名
 extern const char *kAKControlTextureAtlasFile;
+// カーソル画像のファイル名
+extern const char *CursorImageFileName;
+// Bボタン画像のファイル名
+extern const char *BButtonImageFileName;
+// Lボタン画像のファイル名
+extern const char *LButtonImageFileName;
+// Rボタン画像のファイル名
+extern const char *RButtonImageFileName;
+// コントローラー操作のしきい値
+extern const float kAKControllerAxisThreshold;
 
 // ステージBGMの種類数
 extern const int kAKStageBGMCount;

@@ -99,6 +99,10 @@ private:
     float m_scrollSpeedX;
     /// y軸方向のスクロールスピード
     float m_scrollSpeedY;
+    /// x軸方向の自機スピード
+    float m_playerSpeedX;
+    /// y軸方向の自機スピード
+    float m_playerSpeedY;
     /// ボスキャラ
     AKEnemy *m_boss;
     /// ボスキャラの初期HP
@@ -159,6 +163,10 @@ public:
     void update();
     // 自機の移動
     void movePlayer(float dx, float dy);
+    // 自機のx方向速度設定
+    void setPlayerSpeedX(float speedX);
+    // 自機のy方向速度設定
+    void setPlayerSpeedY(float speedY);
     // ポーズ
     void pause();
     // ハイスコアファイル書込

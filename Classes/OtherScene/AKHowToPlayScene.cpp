@@ -35,6 +35,7 @@
 
 #include "AKHowToPlayScene.h"
 #include "AKTitleScene.h"
+#include "base/CCEventListenerController.h"
 
 using cocos2d::Vec2;
 using cocos2d::Node;
@@ -43,6 +44,9 @@ using cocos2d::SpriteFrameCache;
 using cocos2d::LayerColor;
 using cocos2d::TransitionFade;
 using cocos2d::Director;
+using cocos2d::EventListenerController;
+using cocos2d::Controller;
+using cocos2d::Event;
 using CocosDenshion::SimpleAudioEngine;
 
 // シーンに配置するノードのz座標
@@ -92,6 +96,18 @@ static const float kAKHowToPagePosTopPoint = 60.0f;
 static const float kAKHowToBackPosRightPoint = 26.0f;
 /// 戻るボタンの位置、上からの位置
 static const float kAKHowToBackPosTopPoint = 26.0f;
+/// Lボタンの位置、左からの位置
+static const float LButtonPosLeftPoint = kAKHowToPrevPosLeftPoint;
+/// Lボタンの位置、中心からの縦方向の位置
+static const float LButtonPosVerticalCenterPoint = 28.0f;
+/// Rボタンの位置、右からの位置
+static const float RButtonPosRightPoint = kAKHowToNextPosRightPoint;
+/// Rボタンの位置、中心からの縦方向の位置
+static const float RButtonPosVerticalCenterPoint = 28.0f;
+/// Bボタンの位置、右からの位置
+static const float BButtonPosRightPoint =kAKHowToBackPosRightPoint;
+/// Bボタンの位置、上からの位置
+static const float BButtonPosTopPoint = kAKHowToBackPosTopPoint + 32.0f;
 
 /// メッセージボックスの1行の文字数
 static const int kAKHowToMsgLength = 20;
@@ -145,6 +161,15 @@ AKHowToPlayScene::~AKHowToPlayScene()
     // 画像を解放する
     if (m_image != NULL) {
         removeChild(m_image, true);
+    }
+    if (m_bButton != NULL) {
+        removeChild(m_bButton, true);
+    }
+    if (m_lButton != NULL) {
+        removeChild(m_lButton, true);
+    }
+    if (m_rButton != NULL) {
+        removeChild(m_rButton, true);
     }
     
     // 未使用のスプライトフレームを解放する
@@ -240,6 +265,52 @@ bool AKHowToPlayScene::init()
                              kAKHowToBackTag,
                              kAKMenuTypeButton);
                              
+    // ゲームコントローラ関連イベントハンドラを登録する。
+    EventListenerController* controllerListener = EventListenerController::create();
+    
+    controllerListener->onConnected = CC_CALLBACK_2(AKHowToPlayScene::onConnectedController, this );
+    controllerListener->onDisconnected = CC_CALLBACK_2(AKHowToPlayScene::onDisconnectedController, this );
+    controllerListener->onKeyDown = CC_CALLBACK_3(AKHowToPlayScene::onKeyDown, this);
+    controllerListener->onKeyUp = CC_CALLBACK_3(AKHowToPlayScene::onKeyUp, this);
+    controllerListener->onAxisEvent = CC_CALLBACK_3(AKHowToPlayScene::onAxisEvent, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(controllerListener, this);
+    
+    // コントローラの検出を開始する。
+    Controller::startDiscoveryController();
+    
+    // Bボタン画像を読み込む
+    m_bButton = Sprite::createWithSpriteFrameName(BButtonImageFileName);
+    
+    // Bボタン画像の位置を設定する
+    x = AKScreenSize::positionFromRightPoint(BButtonPosRightPoint);
+    y = AKScreenSize::positionFromTopPoint(BButtonPosTopPoint);
+    m_bButton->setPosition(x, y);
+    
+    // Bボタン画像を配置する
+    this->addChild(m_bButton, kAKHowToItemPosZ);
+    
+    // Lボタン画像を読み込む
+    m_lButton = Sprite::createWithSpriteFrameName(LButtonImageFileName);
+    
+    // Lボタン画像の位置を設定する
+    x = AKScreenSize::positionFromLeftPoint(LButtonPosLeftPoint);
+    y = AKScreenSize::positionFromVerticalCenterPoint(LButtonPosVerticalCenterPoint);
+    m_lButton->setPosition(x, y);
+    
+    // Lボタン画像を配置する
+    this->addChild(m_lButton, kAKHowToItemPosZ);
+
+    // Rボタン画像を読み込む
+    m_rButton = Sprite::createWithSpriteFrameName(RButtonImageFileName);
+    
+    // Rボタン画像の位置を設定する
+    x = AKScreenSize::positionFromRightPoint(RButtonPosRightPoint);
+    y = AKScreenSize::positionFromVerticalCenterPoint(RButtonPosVerticalCenterPoint);
+    m_rButton->setPosition(x, y);
+    
+    // Rボタン画像を配置する
+    this->addChild(m_rButton, kAKHowToItemPosZ);
+    
     // 初期ページ番号を設定する
     setPageNo(1);
     
@@ -272,6 +343,91 @@ void AKHowToPlayScene::execEvent(const AKMenuItem *item)
             AKAssert(false, "不正なイベント番号:%d", item->getEventNo());
             break;
     }
+}
+
+/*!
+ @brief コントローラー接続時処理
+ 
+ コントローラーが接続された時の処理を行う。
+ @param controller コントローラー
+ @param event イベント
+ */
+void AKHowToPlayScene::onConnectedController(Controller* controller, Event* event)
+{
+}
+
+/*!
+ @brief コントローラー切断時処理
+ 
+ コントローラーが切断された時の処理を行う。
+ @param controller コントローラー
+ @param event イベント
+ */
+void AKHowToPlayScene::onDisconnectedController(Controller* controller, Event* event)
+{
+}
+
+/*!
+ @brief コントローラーのボタンを押した時の処理
+ 
+ コントローラーがボタンを押した時の処理を行う。
+ @param controller コントローラー
+ @param keyCode キーの種類
+ @param event イベント
+ */
+void AKHowToPlayScene::onKeyDown(Controller* controller, int keyCode, Event* event)
+{
+    // キーの種類に応じて処理を分岐する
+    switch (keyCode) {
+        case Controller::BUTTON_B:
+            
+            // タイトルへ戻る
+            backToTitle();
+            break;
+            
+        case Controller::BUTTON_LEFT_SHOULDER:
+            
+            // 前ページへ移動する
+            if (m_pageNo > 1) {
+                goPrevPage();
+            }
+            break;
+            
+        case Controller::BUTTON_RIGHT_SHOULDER:
+            
+            // 次ページへ移動する
+            if (m_pageNo < kAKHowToPageCount) {
+                goNextPage();
+            }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+/*!
+ @brief コントローラーのボタンを離した時の処理
+ 
+ コントローラーがボタンを離した時の処理を行う。
+ @param controller コントローラー
+ @param keyCode キーの種類
+ @param event イベント
+ */
+void AKHowToPlayScene::onKeyUp(Controller* controller, int keyCode, Event* event)
+{
+}
+
+/*!
+ @brief コントローラーの方向キー入力処理
+ 
+ コントローラーが方向キーを入力した時の処理を行う。
+ @param controller コントローラー
+ @param keyCode キーの種類
+ @param event イベント
+ */
+void AKHowToPlayScene::onAxisEvent(Controller* controller, int keyCode, Event* event)
+{
 }
 
 /*!

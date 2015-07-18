@@ -39,6 +39,7 @@
 #include "AKOptionScene.h"
 #include "CreditScene.h"
 #include "Advertisement.h"
+#include "base/CCEventListenerController.h"
 
 using cocos2d::Vec2;
 using cocos2d::TransitionFade;
@@ -46,6 +47,10 @@ using cocos2d::Director;
 using cocos2d::Blink;
 using cocos2d::Node;
 using cocos2d::Sprite;
+using cocos2d::SpriteFrameCache;
+using cocos2d::EventListenerController;
+using cocos2d::Controller;
+using cocos2d::Event;
 using CocosDenshion::SimpleAudioEngine;
 
 // メニュー項目のタグ
@@ -98,12 +103,15 @@ static const float kAKHowToPlayMenuPosTopRatio = 0.45f;
 static const float kAKOptionMenuPosTopRatio = 0.65f;
 /// クレジット画面メニューのキャプションの表示位置、上からの比率
 static const float kAKCreditMenuPosTopRatio = 0.85f;
+/// カーソル画像の位置、右からの位置
+static const float CursorPosRightPoint = 240.0f;
 
 /// 各ノードのz座標
 enum {
     kAKTitleBackPosZ = 0,   ///< 背景のz座標
     kAKTitleLogoPosZ,       ///< タイトルロゴのz座標
-    kAKTitleMenuPosZ        ///< メニュー項目のz座標
+    kAKTitleMenuPosZ,       ///< メニュー項目のz座標
+    kAKTitleCursorPosZ      ///< カーソルのz座標
 };
 
 /*!
@@ -176,6 +184,157 @@ void AKTitleScene::execEvent(const AKMenuItem *item)
 void AKTitleScene::viewInterstitial()
 {
     m_isViewInterstitial = true;
+}
+
+/*!
+ @brief コントローラー接続時処理
+ 
+ コントローラーが接続された時の処理を行う。
+ @param controller コントローラー
+ @param event イベント
+ */
+void AKTitleScene::onConnectedController(Controller* controller, Event* event)
+{
+    AKLog(kAKLogTitleScene_1, "Controller is connected.");
+    
+    // ゲーム開始を選択状態とする
+    selectMenuItem(MenuStartGame);
+}
+
+/*!
+ @brief コントローラー切断時処理
+ 
+ コントローラーが切断された時の処理を行う。
+ @param controller コントローラー
+ @param event イベント
+ */
+void AKTitleScene::onDisconnectedController(Controller* controller, Event* event)
+{
+    AKLog(kAKLogTitleScene_1, "Controller is disconnected.");
+    
+    // メニュー項目未選択にする
+    selectMenuItem(MenuNone);
+}
+
+/*!
+ @brief コントローラーのボタンを押した時の処理
+ 
+ コントローラーがボタンを押した時の処理を行う。
+ @param controller コントローラー
+ @param keyCode キーの種類
+ @param event イベント
+ */
+void AKTitleScene::onKeyDown(Controller* controller, int keyCode, Event* event)
+{
+    AKLog(kAKLogTitleScene_1, "KeyDown : keyCode=%d", keyCode);
+    
+    // Aボタン押下時は処理を行う
+    if (keyCode == Controller::BUTTON_A) {
+        
+        // 選択中の項目に応じて処理を行う
+        switch (m_selectMenu) {
+            case MenuStartGame:
+                touchGameStartButton();
+                break;
+                
+            case MenuHowToPlay:
+                touchHowToButton();
+                break;
+                
+            case MenuOption:
+                touchOptionButton();
+                break;
+                
+            case MenuCredit:
+                touchCreditButton();
+                break;
+                
+            default:
+                break;
+        }
+    }
+}
+
+/*!
+ @brief コントローラーのボタンを離した時の処理
+ 
+ コントローラーがボタンを離した時の処理を行う。
+ @param controller コントローラー
+ @param keyCode キーの種類
+ @param event イベント
+ */
+void AKTitleScene::onKeyUp(Controller* controller, int keyCode, Event* event)
+{
+    AKLog(kAKLogTitleScene_1, "KeyUp : keyCode=%d", keyCode);
+}
+
+/*!
+ @brief コントローラーの方向キー入力処理
+ 
+ コントローラーが方向キーを入力した時の処理を行う。
+ @param controller コントローラー
+ @param keyCode キーの種類
+ @param event イベント
+ */
+void AKTitleScene::onAxisEvent(Controller* controller, int keyCode, Event* event)
+{
+    const auto& keyStatus = controller->getKeyStatus(keyCode);
+    AKLog(kAKLogTitleScene_1, "KeyAxis : keyCode=%d value=%f", keyCode, keyStatus.value);
+    
+    // 連続入力禁止用に前回入力内容を持つ
+    static int prevInput = 0;
+    
+    // y軸方向の操作の場合は処理を行う
+    if (keyCode == Controller::JOYSTICK_LEFT_Y) {
+        
+        // しきい値よりも小さい場合は上方向に選択項目を移動する
+        if (keyStatus.value < -kAKControllerAxisThreshold) {
+            
+            // 前回入力値が上方向以外の場合は処理する
+            if (prevInput != -1) {
+
+                // メニュー項目を一旦整数にしてデクリメントする
+                int menuNumber = m_selectMenu;
+                menuNumber--;
+                
+                // 下限以下になった場合は末尾へ移動する
+                if (menuNumber <= MenuNone) {
+                    menuNumber = MenuSentinel - 1;
+                }
+                
+                // メニュー項目を選択する
+                selectMenuItem((MenuItem)menuNumber);
+                
+                // 連続入力を防止するために今回入力内容を記憶する
+                prevInput = -1;
+            }
+        }
+        // しきい値よりも大きい場合は下方向に選択項目を移動する
+        else if (keyStatus.value > kAKControllerAxisThreshold) {
+            
+            // 前回入力値が下方向以外の場合は処理する
+            if (prevInput != 1) {
+                
+                // メニュー項目を一旦整数にしてインクリメントする
+                int menuNumber = m_selectMenu;
+                menuNumber++;
+                
+                // 上限以上になった場合は末尾へ移動する
+                if (menuNumber >= MenuSentinel) {
+                    menuNumber = MenuNone + 1;
+                }
+                
+                // メニュー項目を選択する
+                selectMenuItem((MenuItem)menuNumber);
+                
+                prevInput = 1;
+            }
+        }
+        // しきい値以内の場合は無処理
+        else {
+            prevInput = 0;
+        }
+    }
 }
 
 /*!
@@ -262,10 +421,54 @@ AKTitleScene::AKTitleScene()
                               kAKTitleMenuCredit,
                               true);
     
+    // テクスチャアトラスを読み込む
+    SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();
+    spriteFrameCache->addSpriteFramesWithFile(kAKControlTextureAtlasDefFile, kAKControlTextureAtlasFile);
+    
+    // カーソル画像を読み込む。
+    m_cursor = Sprite::createWithSpriteFrameName(CursorImageFileName);
+    
+    // カーソル画像をシーンに配置する
+    this->addChild(m_cursor, kAKTitleCursorPosZ);
+    
     // すべてのメニュー項目を有効とする
     m_interface->setEnableTag(0xFFFFFFFFUL);
     
     AKLog(kAKLogTitleScene_1, "end");
+}
+
+
+/*!
+ @brief 初期化処理
+ 
+ 初期化処理を行う。
+ @retval true 初期化成功
+ @retval false 初期化失敗
+ */
+bool AKTitleScene::init()
+{
+    // スーパークラスの初期化処理を行う。
+    if (!Scene::init()) {
+        return false;
+    }
+ 
+    // ゲームコントローラ関連イベントハンドラを登録する。
+    EventListenerController* controllerListener = EventListenerController::create();
+    
+    controllerListener->onConnected = CC_CALLBACK_2(AKTitleScene::onConnectedController, this );
+    controllerListener->onDisconnected = CC_CALLBACK_2(AKTitleScene::onDisconnectedController, this );
+    controllerListener->onKeyDown = CC_CALLBACK_3(AKTitleScene::onKeyDown, this);
+    controllerListener->onKeyUp = CC_CALLBACK_3(AKTitleScene::onKeyUp, this);
+    controllerListener->onAxisEvent = CC_CALLBACK_3(AKTitleScene::onAxisEvent, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(controllerListener, this);
+    
+    // コントローラの検出を開始する。
+    Controller::startDiscoveryController();
+    
+    // 更新処理開始
+    scheduleUpdate();
+    
+    return true;
 }
 
 /*!
@@ -282,6 +485,26 @@ void AKTitleScene::onEnterTransitionDidFinish()
     if (m_isViewInterstitial) {
         aklib::Advertisement::viewInterstatial();
     }
+}
+
+/*!
+ @brief 更新処理
+ 
+ コントローラ接続をチェックする
+ @param delta フレーム更新間隔
+ */
+void AKTitleScene::update(float delta)
+{
+    // コントローラーが接続されている場合はゲーム開始を初期選択位置とする
+    if (Controller::getAllController().size() > 0) {
+        selectMenuItem(MenuStartGame);
+        unscheduleUpdate();
+    }
+    // 接続されていない場合は選択なしとする
+    else {
+        selectMenuItem(MenuNone);
+    }
+    
 }
 
 /*!
@@ -380,4 +603,48 @@ void AKTitleScene::selectButton(int tag)
     
     // ブリンクアクションを開始する
     button->runAction(action);
+}
+
+/*!
+ @brief メニュー項目選択
+ 
+ メニュー項目を選択する。
+ @param item 選択項目
+ */
+void AKTitleScene::selectMenuItem(MenuItem item)
+{
+    float y = 0.0f;
+    
+    // 選択項目に応じてカーソルのy座標を決定する
+    switch (item) {
+        case MenuStartGame:
+            y = AKScreenSize::positionFromTopRatio(kAKGameStartMenuPosTopRatio);
+            break;
+            
+        case MenuHowToPlay:
+            y = AKScreenSize::positionFromTopRatio(kAKHowToPlayMenuPosTopRatio);
+            break;
+            
+        case MenuOption:
+            y = AKScreenSize::positionFromTopRatio(kAKOptionMenuPosTopRatio);
+            break;
+            
+        case MenuCredit:
+            y = AKScreenSize::positionFromTopRatio(kAKCreditMenuPosTopRatio);
+            break;
+            
+        default:
+            // その他の場合はカーソル非表示とする
+            m_cursor->setVisible(false);
+            return;
+    }
+    
+    // カーソルの位置を設定する
+    m_cursor->setPosition(AKScreenSize::positionFromRightPoint(CursorPosRightPoint), y);
+    
+    // カーソルを表示する
+    m_cursor->setVisible(true);
+    
+    // 選択中の項目を変更する
+    m_selectMenu = item;
 }

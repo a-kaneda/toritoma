@@ -38,6 +38,7 @@
 
 #include "AKToritoma.h"
 #include "AKMenuEventHandler.h"
+#include "base/CCController.h"
 
 /*!
  @brief クレジットシーンクラス
@@ -132,6 +133,16 @@ public:
     virtual bool init();
     // イベント実行
     virtual void execEvent(const AKMenuItem *item);
+    // コントローラー接続時処理
+    void onConnectedController(cocos2d::Controller* controller, cocos2d::Event* event);
+    // コントローラー切断時処理
+    void onDisconnectedController(cocos2d::Controller* controller, cocos2d::Event* event);
+    // コントローラーのボタンを押した時の処理
+    void onKeyDown(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
+    // コントローラーのボタンを離した時の処理
+    void onKeyUp(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
+    // コントローラーの方向キー入力処理
+    void onAxisEvent(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
     
 private:
     // タイトルへ戻る

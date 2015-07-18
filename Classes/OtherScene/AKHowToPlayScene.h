@@ -37,6 +37,7 @@
 #define AKHOWTOPLAYSCENE_H
 
 #include "AKToritoma.h"
+#include "base/CCController.h"
 
 /*!
  @brief プレイ方法画面シーン
@@ -53,6 +54,14 @@ private:
     int m_pageNo;
     /// 説明画像
     cocos2d::Sprite *m_image;
+    /// Bボタン画像
+    cocos2d::Sprite *m_bButton;
+    /// Lボタン画像
+    cocos2d::Sprite *m_lButton;
+    /// Rボタン画像
+    cocos2d::Sprite *m_rButton;
+    /// コントローラが接続されているかどうか
+    bool m_isConnectController;
 
 public:
     // デストラクタ
@@ -61,7 +70,17 @@ public:
     virtual bool init();
     // イベント実行
     virtual void execEvent(const AKMenuItem *item);
-
+    // コントローラー接続時処理
+    void onConnectedController(cocos2d::Controller* controller, cocos2d::Event* event);
+    // コントローラー切断時処理
+    void onDisconnectedController(cocos2d::Controller* controller, cocos2d::Event* event);
+    // コントローラーのボタンを押した時の処理
+    void onKeyDown(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
+    // コントローラーのボタンを離した時の処理
+    void onKeyUp(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
+    // コントローラーの方向キー入力処理
+    void onAxisEvent(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
+    
 private:
     // インターフェース取得
     AKInterface* getInterface();

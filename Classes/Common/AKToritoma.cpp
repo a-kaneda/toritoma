@@ -52,6 +52,16 @@ const char *kAKSpotID = "40141";
 const char *kAKControlTextureAtlasDefFile = "Control.plist";
 /// コントロールテクスチャアトラスファイル名
 const char *kAKControlTextureAtlasFile = "Control.png";
+/// カーソル画像のファイル名
+const char *CursorImageFileName = "Cursor.png";
+/// Bボタン画像のファイル名
+const char *BButtonImageFileName = "BButton.png";
+/// Lボタン画像のファイル名
+const char *LButtonImageFileName = "LButton.png";
+/// Rボタン画像のファイル名
+const char *RButtonImageFileName = "RButton.png";
+// コントローラー操作のしきい値
+const float kAKControllerAxisThreshold = 0.2f;
 
 /// ステージBGMの種類数
 const int kAKStageBGMCount = 8;

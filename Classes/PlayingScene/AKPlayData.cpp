@@ -126,7 +126,7 @@ m_scene(scene), m_playerShotPool(kAKMaxPlayerShotCount),
 m_reflectShotPool(kAKMaxEnemyShotCount), m_enemyPool(kAKMaxEnemyCount),
 m_enemyShotPool(kAKMaxEnemyShotCount), m_effectPool(kAKMaxEffectCount),
 m_blockPool(kAKMaxBlockCount), m_tileMap(NULL), m_player(NULL), m_boss(NULL),
-m_loopCount(0), m_hiScore(0)
+m_loopCount(0), m_hiScore(0), m_playerSpeedX(0.0f), m_playerSpeedY(0.0f)
 {
     // シーンを確保する
     m_scene->retain();
@@ -506,6 +506,11 @@ void AKPlayData::update()
         }
     }
     
+    // コントローラー操作による自機の移動を行う
+    if (!AKIsEqualFloat(m_playerSpeedX, 0.0f) || !AKIsEqualFloat(m_playerSpeedY, 0.0f)) {
+        movePlayer(m_playerSpeedX, m_playerSpeedY);
+    }
+    
     // 自機を更新する
     m_player->move(this);
     
@@ -656,6 +661,28 @@ void AKPlayData::movePlayer(float dx, float dy)
                             0.0f,
                             AKScreenSize::stageSize().height);
     m_player->setPosition(Vec2(x, y), m_hold, this);
+}
+
+/*!
+ @brief 自機のx方向速度設定
+ 
+ 自機のx方向の速度を設定する。
+ @param speedX x方向の速度
+ */
+void AKPlayData::setPlayerSpeedX(float speedX)
+{
+    m_playerSpeedX = speedX;
+}
+
+/*!
+ @brief 自機のy方向速度設定
+ 
+ 自機のy方向の速度を設定する。
+ @param speedY y方向の速度
+ */
+void AKPlayData::setPlayerSpeedY(float speedY)
+{
+    m_playerSpeedY = speedY;
 }
 
 /*!

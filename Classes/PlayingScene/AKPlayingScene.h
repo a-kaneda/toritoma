@@ -102,6 +102,8 @@ private:
 public:
     // デストラクタ
     ~AKPlayingScene();
+    // 初期化処理
+    virtual bool init();
     // バックグラウンド移行処理
     void onWillEnterForeground();
     // ゲームプレイの状態設定
@@ -146,6 +148,16 @@ public:
     void viewGameClearedMenu();
     // スコアラベル更新
     void setScoreLabel(int score);
+    // コントローラー接続時処理
+    void onConnectedController(cocos2d::Controller* controller, cocos2d::Event* event);
+    // コントローラー切断時処理
+    void onDisconnectedController(cocos2d::Controller* controller, cocos2d::Event* event);
+    // コントローラーのボタンを押した時の処理
+    void onKeyDown(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
+    // コントローラーのボタンを離した時の処理
+    void onKeyUp(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
+    // コントローラーの方向キー入力処理
+    void onAxisEvent(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
     
 private:
     // 自機の移動

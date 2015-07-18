@@ -38,6 +38,7 @@
 
 #include "AKToritoma.h"
 #include "AKMenuEventHandler.h"
+#include "base/CCController.h"
 
 /*!
  @brief タイトルシーンクラス
@@ -45,6 +46,18 @@
  タイトルシーンを管理する。
  */
 class AKTitleScene : public cocos2d::Scene, AKMenuEventHandler {
+private:
+    
+    /// メニュー項目
+    enum MenuItem {
+        MenuNone = 0,       ///< メニュー未選択（コントローラー未接続）
+        MenuStartGame,      ///< ゲーム開始
+        MenuHowToPlay,      ///< 遊び方
+        MenuOption,         ///< オプション
+        MenuCredit,         ///< クレジット
+        MenuSentinel        ///< メニュー項目終端
+    };
+    
 public:
     // コンビニエンスコンストラクタ
     static AKTitleScene* create();
@@ -54,16 +67,34 @@ private:
     AKInterface *m_interface;
     /// インタースティシャル広告を表示するかどうか
     bool m_isViewInterstitial;
+    /// カーソル位置
+    MenuItem m_selectMenu;
+    /// カーソル画像
+    cocos2d::Sprite *m_cursor;
 
 public:
     // イベント実行
     virtual void execEvent(const AKMenuItem *item);
     // デストラクタ
     ~AKTitleScene();
+    // 初期化処理
+    virtual bool init();
     // 画面遷移終了時処理
     virtual void onEnterTransitionDidFinish();
+    // 更新処理
+    virtual void update(float delta);
     // インタースティシャル広告表示を行う
     void viewInterstitial();
+    // コントローラー接続時処理
+    void onConnectedController(cocos2d::Controller* controller, cocos2d::Event* event);
+    // コントローラー切断時処理
+    void onDisconnectedController(cocos2d::Controller* controller, cocos2d::Event* event);
+    // コントローラーのボタンを押した時の処理
+    void onKeyDown(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
+    // コントローラーのボタンを離した時の処理
+    void onKeyUp(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
+    // コントローラーの方向キー入力処理
+    void onAxisEvent(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
     
 private:
     // コンストラクタ
@@ -78,6 +109,8 @@ private:
     void touchCreditButton();
     // ボタン選択エフェクト
     void selectButton(int tag);
+    // メニュー項目選択
+    void selectMenuItem(MenuItem item);
 };
 
 #endif

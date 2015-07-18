@@ -37,6 +37,7 @@
 #include "AppDelegate.h"
 #include "Advertisement.h"
 #include "Twitter.h"
+#include "base/CCEventListenerController.h"
 
 using std::mem_fun;
 using cocos2d::SpriteFrameCache;
@@ -53,6 +54,9 @@ using cocos2d::Rect;
 using cocos2d::Sprite;
 using cocos2d::RenderTexture;
 using cocos2d::FileUtils;
+using cocos2d::EventListenerController;
+using cocos2d::Controller;
+using cocos2d::Event;
 using CocosDenshion::SimpleAudioEngine;
 using aklib::Twitter;
 
@@ -87,6 +91,8 @@ static const int kAKStartStage = DEBUG_MODE_START_STAGE;
 static const int kAKSecondStartStage = DEBUG_MODE_2ND_START_STAGE;
 /// ゲームオーバー時の待機フレーム数
 static const int kAKGameOverWaitFrame = 60;
+/// コントローラー移動時の速度
+static const float kAKPlayerMoveByController = 3.0f;
 
 //======================================================================
 // コントロールの表示に関する定数
@@ -259,6 +265,36 @@ AKPlayingScene::~AKPlayingScene()
     
     // 未使用のスプライトフレームを解放する
     SpriteFrameCache::getInstance()->removeUnusedSpriteFrames();
+}
+
+/*!
+ @brief 初期化処理
+ 
+ 初期化処理を行う。
+ @retval true 初期化成功
+ @retval false 初期化失敗
+ */
+bool AKPlayingScene::init()
+{
+    // スーパークラスの初期化処理を行う。
+    if (!Scene::init()) {
+        return false;
+    }
+    
+    // ゲームコントローラ関連イベントハンドラを登録する。
+    EventListenerController* controllerListener = EventListenerController::create();
+    
+    controllerListener->onConnected = CC_CALLBACK_2(AKPlayingScene::onConnectedController, this );
+    controllerListener->onDisconnected = CC_CALLBACK_2(AKPlayingScene::onDisconnectedController, this );
+    controllerListener->onKeyDown = CC_CALLBACK_3(AKPlayingScene::onKeyDown, this);
+    controllerListener->onKeyUp = CC_CALLBACK_3(AKPlayingScene::onKeyUp, this);
+    controllerListener->onAxisEvent = CC_CALLBACK_3(AKPlayingScene::onAxisEvent, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(controllerListener, this);
+    
+    // コントローラの検出を開始する。
+    Controller::startDiscoveryController();
+    
+    return true;
 }
 
 #pragma mark アクセサ
@@ -692,7 +728,7 @@ void AKPlayingScene::touchTweetButton()
  @brief 更新処理
  
  ゲームの状態によって、更新処理を行う。
- @param dt フレーム更新間隔
+ @param delta フレーム更新間隔
  */
 void AKPlayingScene::update(float delta)
 {
@@ -839,6 +875,130 @@ void AKPlayingScene::setScoreLabel(int score)
 
     // ラベルの文字列を変更する
     m_score->setString(scoreString);
+}
+
+/*!
+ @brief コントローラー接続時処理
+ 
+ コントローラーが接続された時の処理を行う。
+ @param controller コントローラー
+ @param event イベント
+ */
+void AKPlayingScene::onConnectedController(Controller* controller, Event* event)
+{
+    AKLog(1, "Controller is connected.");
+}
+
+/*!
+ @brief コントローラー切断時処理
+ 
+ コントローラーが切断された時の処理を行う。
+ @param controller コントローラー
+ @param event イベント
+ */
+void AKPlayingScene::onDisconnectedController(Controller* controller, Event* event)
+{
+    AKLog(1, "Controller is disconnected.");
+}
+
+/*!
+ @brief コントローラーのボタンを押した時の処理
+ 
+ コントローラーがボタンを押した時の処理を行う。
+ @param controller コントローラー
+ @param keyCode キーの種類
+ @param event イベント
+ */
+void AKPlayingScene::onKeyDown(Controller* controller, int keyCode, Event* event)
+{
+    AKLog(1, "KeyDown : keyCode=%d", keyCode);
+    
+    // プレイ中以外の場合は無処理
+    if (m_state != kAKGameStatePlaying) {
+        return;
+    }
+    
+    // キーの種類によって処理を分ける
+    switch (keyCode) {
+        case Controller::BUTTON_A:
+            
+            // シールドモードを有効にする
+            m_data->setShield(true);
+            break;
+            
+        case Controller::BUTTON_PAUSE:
+            
+            // ポーズボタン押下時の処理を行う
+            touchPauseButton();
+            break;
+
+        default:
+            break;
+    }
+}
+
+/*!
+ @brief コントローラーのボタンを離した時の処理
+ 
+ コントローラーがボタンを離した時の処理を行う。
+ @param controller コントローラー
+ @param keyCode キーの種類
+ @param event イベント
+ */
+void AKPlayingScene::onKeyUp(Controller* controller, int keyCode, Event* event)
+{
+    AKLog(1, "KeyUp : keyCode=%d", keyCode);
+
+    // プレイ中以外の場合は無処理
+    if (m_state != kAKGameStatePlaying) {
+        return;
+    }
+    
+    // キーの種類によって処理を分ける
+    switch (keyCode) {
+        case Controller::BUTTON_A:
+            
+            // シールドモードを無効にする
+            m_data->setShield(false);
+            break;
+            
+        default:
+            break;
+    }
+}
+
+/*!
+ @brief コントローラーの方向キー入力処理
+ 
+ コントローラーが方向キーを入力した時の処理を行う。
+ @param controller コントローラー
+ @param keyCode キーの種類
+ @param event イベント
+ */
+void AKPlayingScene::onAxisEvent(Controller* controller, int keyCode, Event* event)
+{
+    const auto& keyStatus = controller->getKeyStatus(keyCode);
+    AKLog(1, "KeyAxis : keyCode=%d value=%f", keyCode, keyStatus.value);
+    
+    float speed = 0.0f;
+    // 入力がしきい値を超えている場合は速度計算を行う
+    if (keyStatus.value > kAKControllerAxisThreshold || keyStatus.value < -kAKControllerAxisThreshold) {
+        speed = keyStatus.value * kAKPlayerMoveByController;
+    }
+    
+    // キー種類によって設定する方向を変える
+    switch (keyCode) {
+        case Controller::JOYSTICK_LEFT_X:
+            m_data->setPlayerSpeedX(speed);
+            break;
+            
+        case Controller::JOYSTICK_LEFT_Y:
+            m_data->setPlayerSpeedY(-speed);
+            break;
+            
+        default:
+            break;
+    }
 }
 
 /*!

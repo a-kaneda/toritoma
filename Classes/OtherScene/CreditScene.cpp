@@ -36,12 +36,16 @@
 #include "CreditScene.h"
 #include "AKTitleScene.h"
 #include "OpenUrl.h"
+#include "base/CCEventListenerController.h"
 
 using cocos2d::Vec2;
 using cocos2d::LayerColor;
 using cocos2d::TransitionFade;
 using cocos2d::Director;
 using cocos2d::SpriteFrameCache;
+using cocos2d::EventListenerController;
+using cocos2d::Controller;
+using cocos2d::Event;
 using CocosDenshion::SimpleAudioEngine;
 using aklib::OpenUrl;
 
@@ -232,6 +236,19 @@ bool CreditScene::init()
     // 初期ページ番号を設定する
     setPageNo(1);
     
+    // ゲームコントローラ関連イベントハンドラを登録する。
+    EventListenerController* controllerListener = EventListenerController::create();
+    
+    controllerListener->onConnected = CC_CALLBACK_2(CreditScene::onConnectedController, this );
+    controllerListener->onDisconnected = CC_CALLBACK_2(CreditScene::onDisconnectedController, this );
+    controllerListener->onKeyDown = CC_CALLBACK_3(CreditScene::onKeyDown, this);
+    controllerListener->onKeyUp = CC_CALLBACK_3(CreditScene::onKeyUp, this);
+    controllerListener->onAxisEvent = CC_CALLBACK_3(CreditScene::onAxisEvent, this);
+    _eventDispatcher->addEventListenerWithSceneGraphPriority(controllerListener, this);
+    
+    // コントローラの検出を開始する。
+    Controller::startDiscoveryController();
+    
     return true;
 }
 
@@ -273,6 +290,92 @@ void CreditScene::execEvent(const AKMenuItem *item)
             AKAssert(false, "不正なイベント番号:%d", item->getEventNo());
             break;
     }
+}
+
+
+/*!
+ @brief コントローラー接続時処理
+ 
+ コントローラーが接続された時の処理を行う。
+ @param controller コントローラー
+ @param event イベント
+ */
+void CreditScene::onConnectedController(Controller* controller, Event* event)
+{
+}
+
+/*!
+ @brief コントローラー切断時処理
+ 
+ コントローラーが切断された時の処理を行う。
+ @param controller コントローラー
+ @param event イベント
+ */
+void CreditScene::onDisconnectedController(Controller* controller, Event* event)
+{
+}
+
+/*!
+ @brief コントローラーのボタンを押した時の処理
+ 
+ コントローラーがボタンを押した時の処理を行う。
+ @param controller コントローラー
+ @param keyCode キーの種類
+ @param event イベント
+ */
+void CreditScene::onKeyDown(Controller* controller, int keyCode, Event* event)
+{
+    // キーの種類に応じて処理を分岐する
+    switch (keyCode) {
+        case Controller::BUTTON_B:
+            
+            // タイトルへ戻る
+            backToTitle();
+            break;
+            
+        case Controller::BUTTON_LEFT_SHOULDER:
+            
+            // 前ページへ移動する
+            if (m_pageNo > 1) {
+                goPrevPage();
+            }
+            break;
+            
+        case Controller::BUTTON_RIGHT_SHOULDER:
+            
+            // 次ページへ移動する
+            if (m_pageNo < MaxPageNum) {
+                goNextPage();
+            }
+            break;
+            
+        default:
+            break;
+    }
+}
+
+/*!
+ @brief コントローラーのボタンを離した時の処理
+ 
+ コントローラーがボタンを離した時の処理を行う。
+ @param controller コントローラー
+ @param keyCode キーの種類
+ @param event イベント
+ */
+void CreditScene::onKeyUp(Controller* controller, int keyCode, Event* event)
+{
+}
+
+/*!
+ @brief コントローラーの方向キー入力処理
+ 
+ コントローラーが方向キーを入力した時の処理を行う。
+ @param controller コントローラー
+ @param keyCode キーの種類
+ @param event イベント
+ */
+void CreditScene::onAxisEvent(Controller* controller, int keyCode, Event* event)
+{
 }
 
 /*!

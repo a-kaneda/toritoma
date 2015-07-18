@@ -167,6 +167,10 @@
             <filename>../95_4times/Control/TwitterButton.png</filename>
             <filename>../95_4times/Control/HoldButton_01.png</filename>
             <filename>../95_4times/Control/HoldButton_02.png</filename>
+            <filename>../95_4times/Control/Cursor.png</filename>
+            <filename>../95_4times/Control/BButton.png</filename>
+            <filename>../95_4times/Control/LButton.png</filename>
+            <filename>../95_4times/Control/RButton.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
