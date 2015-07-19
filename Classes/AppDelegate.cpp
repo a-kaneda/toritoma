@@ -111,6 +111,8 @@ void AppDelegate::preloadSound()
     SimpleAudioEngine::getInstance()->preloadEffect(kAKMissSEFileName);
     // 1Up時の効果音のファイルを読み込む
     SimpleAudioEngine::getInstance()->preloadEffect(kAK1UpSEFileName);
+    // カーソル移動時の効果音のファイルを読み込む
+    SimpleAudioEngine::getInstance()->preloadEffect(kAKCursorSEFileName);
     
     // 音量を調整する
     SimpleAudioEngine::getInstance()->setBackgroundMusicVolume(0.2f);

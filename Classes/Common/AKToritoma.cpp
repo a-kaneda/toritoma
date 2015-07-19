@@ -85,6 +85,8 @@ const char *kAKHitSEFileName = "hit.mp3";
 const char *kAKMissSEFileName = "miss.mp3";
 /// 1UP時の効果音
 const char *kAK1UpSEFileName = "1up.mp3";
+/// カーソル移動時の効果音
+const char *kAKCursorSEFileName = "cursor.mp3";
 
 /// ユーザーデフォルトキー、ハイスコア
 const char *kAKUDKeyHighScore = "HighScore";

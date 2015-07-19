@@ -77,6 +77,8 @@ extern const char *kAKHitSEFileName;
 extern const char *kAKMissSEFileName;
 // 1UP時の効果音
 extern const char *kAK1UpSEFileName;
+// カーソル移動時の効果音
+extern const char *kAKCursorSEFileName;
 
 // ユーザーデフォルトキー、ハイスコア
 extern const char *kAKUDKeyHighScore;

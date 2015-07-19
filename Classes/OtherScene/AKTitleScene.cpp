@@ -302,6 +302,9 @@ void AKTitleScene::onAxisEvent(Controller* controller, int keyCode, Event* event
                     menuNumber = MenuSentinel - 1;
                 }
                 
+                // カーソル移動時の効果音を鳴らす
+                SimpleAudioEngine::getInstance()->playEffect(kAKCursorSEFileName);
+
                 // メニュー項目を選択する
                 selectMenuItem((MenuItem)menuNumber);
                 
@@ -324,6 +327,9 @@ void AKTitleScene::onAxisEvent(Controller* controller, int keyCode, Event* event
                     menuNumber = MenuNone + 1;
                 }
                 
+                // カーソル移動時の効果音を鳴らす
+                SimpleAudioEngine::getInstance()->playEffect(kAKCursorSEFileName);
+
                 // メニュー項目を選択する
                 selectMenuItem((MenuItem)menuNumber);
                 
