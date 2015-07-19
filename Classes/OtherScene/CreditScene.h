@@ -61,8 +61,9 @@ private:
     /// シーンに配置するノードのz座標
     enum PosZ {
         PosZBackGround = 0, ///< 背景のz座標
-        PosZItems,          ///< 背景以外のz座標
-        PosZInterface       ///< インターフェースのz座標
+        PosZItems,          ///< ボタンのz座標
+        PosZInterface,      ///< インターフェースのz座標
+        PosZCursor          ///< カーソルのz座標
     };
     
     // 前ページボタンの位置、左からの位置
@@ -87,6 +88,8 @@ private:
     static const float BButtonPosRightPoint;
     // Bボタンの位置、上からの位置
     static const float BButtonPosTopPoint;
+    // カーソル画像の位置のボタンとの重なりの幅
+    static const float CursorPosOverlap;
     // 前ページボタンの画像ファイル名
     static const char *PrevImage;
     // 次ページボタンの画像ファイル名
@@ -133,6 +136,8 @@ private:
     AKLabel *m_pageLabel;
     /// クレジットラベル
     AKLabel *m_creditLabel[LinkNumOfPage];
+    /// リンクボタン
+    AKLabel *m_link[LinkNumOfPage];
     /// ページ番号
     int m_pageNo;
     /// Bボタン画像
@@ -141,6 +146,10 @@ private:
     cocos2d::Sprite *m_lButton;
     /// Rボタン画像
     cocos2d::Sprite *m_rButton;
+    /// カーソル位置
+    int m_selectMenu;
+    /// カーソル画像
+    cocos2d::Sprite *m_cursor;
     
 public:
     // コンビニエンスコンストラクタ
@@ -179,6 +188,8 @@ private:
     void updatePageLabel();
     // クレジットラベル表示更新
     void updateCreditLabel();
+    // メニュー項目選択
+    void selectMenuItem(int item);
 };
 
 #endif /* defined(__toritoma__CreditScene__) */

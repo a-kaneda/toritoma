@@ -72,6 +72,8 @@ const float CreditScene::RButtonPosVerticalCenterPoint = 28.0f;
 const float CreditScene::BButtonPosRightPoint = BackPosRightPoint;
 /// Bボタンの位置、上からの位置
 const float CreditScene::BButtonPosTopPoint = BackPosTopPoint + 32.0f;
+/// カーソル画像の位置のボタンとの重なりの幅
+const float CreditScene::CursorPosOverlap = 8.0f;
 /// 前ページボタンの画像ファイル名
 const char *CreditScene::PrevImage = "PrevButton.png";
 /// 次ページボタンの画像ファイル名
@@ -237,12 +239,12 @@ bool CreditScene::init()
         
         x = AKScreenSize::positionFromLeftRatio(LinkPosLeftRatio);
         y = AKScreenSize::positionFromTopRatio(LinkPosTopRatio[i]);
-        m_interface->addLabelMenu(LinkCaption,
-                                  Vec2(x, y),
-                                  PosZItems,
-                                  MenuLink1 + i,
-                                  LinkTag[i],
-                                  true);
+        m_link[i] = m_interface->addLabelMenu(LinkCaption,
+                                              Vec2(x, y),
+                                              PosZItems,
+                                              MenuLink1 + i,
+                                              LinkTag[i],
+                                              true);
     }
     
     // クレジットラベルをインターフェースに配置する
@@ -303,8 +305,17 @@ bool CreditScene::init()
     // Rボタン画像を配置する
     this->addChild(m_rButton, PosZItems);
     
+    // カーソル画像を読み込む。
+    m_cursor = Sprite::createWithSpriteFrameName(CursorImageFileName);
+    
+    // カーソル画像をシーンに配置する
+    this->addChild(m_cursor, PosZCursor);
+    
     // 初期ページ番号を設定する
     setPageNo(1);
+    
+    // 1個目のリンクを選択する
+    selectMenuItem(0);
     
     return true;
 }
@@ -644,3 +655,34 @@ void CreditScene::updateCreditLabel()
         }
     }
 }
+
+/*!
+ @brief メニュー項目選択
+ 
+ メニュー項目を選択する。
+ @param item 選択項目
+ */
+void CreditScene::selectMenuItem(int item)
+{
+    // 選択項目が範囲外の場合はカーソル非表示とする
+    if (item < 0 || item >= LinkNumOfPage) {
+        m_cursor->setVisible(false);
+        return;
+    }
+ 
+    // x座標を決める
+    float x = m_link[item]->getPosition().x - m_link[item]->getWidth() / 2 - m_cursor->getContentSize().width / 2 + CursorPosOverlap;
+    
+    // 選択項目に応じてカーソルのy座標を決定する
+    float y = m_link[item]->getPosition().y;
+    
+    // カーソルの位置を設定する
+    m_cursor->setPosition(x, y);
+    
+    // カーソルを表示する
+    m_cursor->setVisible(true);
+    
+    // 選択中の項目を変更する
+    m_selectMenu = item;
+}
+
