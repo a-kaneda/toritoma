@@ -354,6 +354,8 @@ void AKHowToPlayScene::execEvent(const AKMenuItem *item)
  */
 void AKHowToPlayScene::onConnectedController(Controller* controller, Event* event)
 {
+    // ボタン表示の更新を行う
+    updatePageButton();
 }
 
 /*!
@@ -365,6 +367,10 @@ void AKHowToPlayScene::onConnectedController(Controller* controller, Event* even
  */
 void AKHowToPlayScene::onDisconnectedController(Controller* controller, Event* event)
 {
+    // コントローラのボタンを非表示にする
+    m_bButton->setVisible(false);
+    m_lButton->setVisible(false);
+    m_rButton->setVisible(false);
 }
 
 /*!
@@ -582,6 +588,34 @@ void AKHowToPlayScene::updatePageButton()
     
     // 有効タグをインターフェースに反映する
     getInterface()->setEnableTag(enableTag);
+    
+    // コントローラが接続されている場合はコントローラボタンガイドを表示する
+    if (Controller::getAllController().size() > 0) {
+        
+        // Bボタンを表示する
+        m_bButton->setVisible(true);
+        
+        // 最初のページ以外の場合はLボタンを表示する
+        if (m_pageNo > 1) {
+            m_lButton->setVisible(true);
+        }
+        else {
+            m_lButton->setVisible(false);
+        }
+        
+        // 最後のページ以外の場合はRボタンを表示する
+        if (m_pageNo < kAKHowToPageCount) {
+            m_rButton->setVisible(true);
+        }
+        else {
+            m_rButton->setVisible(false);
+        }
+    }
+    else {
+        m_bButton->setVisible(false);
+        m_lButton->setVisible(false);
+        m_rButton->setVisible(false);
+    }
 }
 
 /*!
