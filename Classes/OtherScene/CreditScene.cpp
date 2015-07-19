@@ -257,9 +257,6 @@ bool CreditScene::init()
         addChild(m_creditLabel[i], PosZItems);
     }
     
-    // 初期ページ番号を設定する
-    setPageNo(1);
-    
     // ゲームコントローラ関連イベントハンドラを登録する。
     EventListenerController* controllerListener = EventListenerController::create();
     
@@ -305,6 +302,9 @@ bool CreditScene::init()
     
     // Rボタン画像を配置する
     this->addChild(m_rButton, PosZItems);
+    
+    // 初期ページ番号を設定する
+    setPageNo(1);
     
     return true;
 }
@@ -359,6 +359,8 @@ void CreditScene::execEvent(const AKMenuItem *item)
  */
 void CreditScene::onConnectedController(Controller* controller, Event* event)
 {
+    // ボタン表示の更新を行う
+    updateButton();
 }
 
 /*!
@@ -370,6 +372,10 @@ void CreditScene::onConnectedController(Controller* controller, Event* event)
  */
 void CreditScene::onDisconnectedController(Controller* controller, Event* event)
 {
+    // コントローラのボタンを非表示にする
+    m_bButton->setVisible(false);
+    m_lButton->setVisible(false);
+    m_rButton->setVisible(false);
 }
 
 /*!
@@ -566,6 +572,34 @@ void CreditScene::updateButton()
     
     // 有効タグをインターフェースに反映する
     m_interface->setEnableTag(enableTag);
+    
+    // コントローラが接続されている場合はコントローラボタンガイドを表示する
+    if (Controller::getAllController().size() > 0) {
+        
+        // Bボタンを表示する
+        m_bButton->setVisible(true);
+        
+        // 最初のページ以外の場合はLボタンを表示する
+        if (m_pageNo > 1) {
+            m_lButton->setVisible(true);
+        }
+        else {
+            m_lButton->setVisible(false);
+        }
+        
+        // 最後のページ以外の場合はRボタンを表示する
+        if (m_pageNo < MaxPageNum) {
+            m_rButton->setVisible(true);
+        }
+        else {
+            m_rButton->setVisible(false);
+        }
+    }
+    else {
+        m_bButton->setVisible(false);
+        m_lButton->setVisible(false);
+        m_rButton->setVisible(false);
+    }
 }
 
 /*!
