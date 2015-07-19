@@ -450,6 +450,68 @@ void CreditScene::onKeyUp(Controller* controller, int keyCode, Event* event)
  */
 void CreditScene::onAxisEvent(Controller* controller, int keyCode, Event* event)
 {
+    const auto& keyStatus = controller->getKeyStatus(keyCode);
+    
+    // 連続入力禁止用に前回入力内容を持つ
+    static int prevInput = 0;
+    
+    // y軸方向の操作の場合は処理を行う
+    if (keyCode == Controller::JOYSTICK_LEFT_Y) {
+        
+        const int MaxMenu = MIN(LinkNum - (m_pageNo - 1) * LinkNumOfPage, LinkNumOfPage);
+        
+        // しきい値よりも小さい場合は上方向に選択項目を移動する
+        if (keyStatus.value < -kAKControllerAxisThreshold) {
+            
+            // 前回入力値が上方向以外の場合は処理する
+            if (prevInput != -1) {
+                
+                // メニュー項目をデクリメントする
+                m_selectMenu--;
+                
+                // 下限以下になった場合は末尾へ移動する
+                if (m_selectMenu < 0) {
+                    m_selectMenu = MaxMenu - 1;
+                }
+                
+                // カーソル移動時の効果音を鳴らす
+                SimpleAudioEngine::getInstance()->playEffect(kAKCursorSEFileName);
+                
+                // メニュー項目を選択する
+                selectMenuItem(m_selectMenu);
+                
+                // 連続入力を防止するために今回入力内容を記憶する
+                prevInput = -1;
+            }
+        }
+        // しきい値よりも大きい場合は下方向に選択項目を移動する
+        else if (keyStatus.value > kAKControllerAxisThreshold) {
+            
+            // 前回入力値が下方向以外の場合は処理する
+            if (prevInput != 1) {
+                
+                // メニュー項目をインクリメントする
+                m_selectMenu++;
+                
+                // 上限以上になった場合は末尾へ移動する
+                if (m_selectMenu >= MaxMenu) {
+                    m_selectMenu = 0;
+                }
+                
+                // カーソル移動時の効果音を鳴らす
+                SimpleAudioEngine::getInstance()->playEffect(kAKCursorSEFileName);
+                
+                // メニュー項目を選択する
+                selectMenuItem(m_selectMenu);
+                
+                prevInput = 1;
+            }
+        }
+        // しきい値以内の場合は無処理
+        else {
+            prevInput = 0;
+        }
+    }
 }
 
 /*!
@@ -638,7 +700,7 @@ void CreditScene::updateCreditLabel()
     // 1ページの各項目のラベルを更新する
     for (int i = 0; i < LinkNumOfPage; i++) {
 
-        // 表示個数の範囲ないならば、リソースからテキストを取得してラベルに設定する
+        // 表示個数の範囲内ならば、リソースからテキストを取得してラベルに設定する
         if (i + (m_pageNo - 1) * LinkNumOfPage + 1 <= LinkNum) {
             
             // 表示文字列のキーを生成する
