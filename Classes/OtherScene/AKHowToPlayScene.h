@@ -60,8 +60,6 @@ private:
     cocos2d::Sprite *m_lButton;
     /// Rボタン画像
     cocos2d::Sprite *m_rButton;
-    /// コントローラが接続されているかどうか
-    bool m_isConnectController;
 
 public:
     // デストラクタ

@@ -75,6 +75,18 @@ private:
     static const float BackPosRightPoint;
     // 戻るボタンの位置、上からの位置
     static const float BackPosTopPoint;
+    // Lボタンの位置、左からの位置
+    static const float LButtonPosLeftPoint;
+    // Lボタンの位置、中心からの縦方向の位置
+    static const float LButtonPosVerticalCenterPoint;
+    // Rボタンの位置、右からの位置
+    static const float RButtonPosRightPoint;
+    // Rボタンの位置、中心からの縦方向の位置
+    static const float RButtonPosVerticalCenterPoint;
+    // Bボタンの位置、右からの位置
+    static const float BButtonPosRightPoint;
+    // Bボタンの位置、上からの位置
+    static const float BButtonPosTopPoint;
     // 前ページボタンの画像ファイル名
     static const char *PrevImage;
     // 次ページボタンの画像ファイル名
@@ -123,6 +135,12 @@ private:
     AKLabel *m_creditLabel[LinkNumOfPage];
     /// ページ番号
     int m_pageNo;
+    /// Bボタン画像
+    cocos2d::Sprite *m_bButton;
+    /// Lボタン画像
+    cocos2d::Sprite *m_lButton;
+    /// Rボタン画像
+    cocos2d::Sprite *m_rButton;
     
 public:
     // コンビニエンスコンストラクタ

@@ -46,6 +46,7 @@ using cocos2d::SpriteFrameCache;
 using cocos2d::EventListenerController;
 using cocos2d::Controller;
 using cocos2d::Event;
+using cocos2d::Sprite;
 using CocosDenshion::SimpleAudioEngine;
 using aklib::OpenUrl;
 
@@ -59,6 +60,18 @@ const float CreditScene::PagePosTopPoint = 60.0f;
 const float CreditScene::BackPosRightPoint = 26.0f;
 /// 戻るボタンの位置、上からの位置
 const float CreditScene::BackPosTopPoint = 26.0f;
+/// Lボタンの位置、左からの位置
+const float CreditScene::LButtonPosLeftPoint = PrevPosLeftPoint;
+/// Lボタンの位置、中心からの縦方向の位置
+const float CreditScene::LButtonPosVerticalCenterPoint = 28.0f;
+/// Rボタンの位置、右からの位置
+const float CreditScene::RButtonPosRightPoint = NextPosRightPoint;
+/// Rボタンの位置、中心からの縦方向の位置
+const float CreditScene::RButtonPosVerticalCenterPoint = 28.0f;
+/// Bボタンの位置、右からの位置
+const float CreditScene::BButtonPosRightPoint = BackPosRightPoint;
+/// Bボタンの位置、上からの位置
+const float CreditScene::BButtonPosTopPoint = BackPosTopPoint + 32.0f;
 /// 前ページボタンの画像ファイル名
 const char *CreditScene::PrevImage = "PrevButton.png";
 /// 次ページボタンの画像ファイル名
@@ -125,6 +138,17 @@ CreditScene::~CreditScene()
     // メンバを解放する
     if (m_interface != NULL) {
         m_interface->release();
+    }
+    
+    // 画像を解放する
+    if (m_bButton != NULL) {
+        removeChild(m_bButton, true);
+    }
+    if (m_lButton != NULL) {
+        removeChild(m_lButton, true);
+    }
+    if (m_rButton != NULL) {
+        removeChild(m_rButton, true);
     }
     
     // 未使用のスプライトフレームを解放する
@@ -248,6 +272,39 @@ bool CreditScene::init()
     
     // コントローラの検出を開始する。
     Controller::startDiscoveryController();
+    
+    // Bボタン画像を読み込む
+    m_bButton = Sprite::createWithSpriteFrameName(BButtonImageFileName);
+    
+    // Bボタン画像の位置を設定する
+    x = AKScreenSize::positionFromRightPoint(BButtonPosRightPoint);
+    y = AKScreenSize::positionFromTopPoint(BButtonPosTopPoint);
+    m_bButton->setPosition(x, y);
+    
+    // Bボタン画像を配置する
+    this->addChild(m_bButton, PosZItems);
+    
+    // Lボタン画像を読み込む
+    m_lButton = Sprite::createWithSpriteFrameName(LButtonImageFileName);
+    
+    // Lボタン画像の位置を設定する
+    x = AKScreenSize::positionFromLeftPoint(LButtonPosLeftPoint);
+    y = AKScreenSize::positionFromVerticalCenterPoint(LButtonPosVerticalCenterPoint);
+    m_lButton->setPosition(x, y);
+    
+    // Lボタン画像を配置する
+    this->addChild(m_lButton, PosZItems);
+    
+    // Rボタン画像を読み込む
+    m_rButton = Sprite::createWithSpriteFrameName(RButtonImageFileName);
+    
+    // Rボタン画像の位置を設定する
+    x = AKScreenSize::positionFromRightPoint(RButtonPosRightPoint);
+    y = AKScreenSize::positionFromVerticalCenterPoint(RButtonPosVerticalCenterPoint);
+    m_rButton->setPosition(x, y);
+    
+    // Rボタン画像を配置する
+    this->addChild(m_rButton, PosZItems);
     
     return true;
 }
