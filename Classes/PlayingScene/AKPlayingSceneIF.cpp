@@ -39,6 +39,7 @@ using cocos2d::Node;
 using cocos2d::Vec2;
 using cocos2d::SpriteFrameCache;
 using cocos2d::Rect;
+using cocos2d::Sprite;
 
 /// プレイ中メニュー項目のタグ
 const unsigned int kAKMenuTagPlaying = 0x01;
@@ -85,19 +86,21 @@ static const char *kAKPauseButtonImage = "PauseButton.png";
 // ポーズ時のメニュー項目
 //======================================================================
 /// 一時停止中の表示文字列
-const char *kAKPauseString = "  PAUSE  ";
+static const char *kAKPauseString = "  PAUSE  ";
 /// 一時停止解除のボタンの文字列
-const char *kAKResumeString = "RESUME";
+static const char *kAKResumeString = "RESUME";
 /// 終了ボタンの文字列
-const char *kAKQuitButtonString = " QUIT ";
+static const char *kAKQuitButtonString = " QUIT ";
 /// 一時停止メッセージの表示位置、下からの比率
-const float kAKPauseMessagePosBottomRatio = 0.6f;
+static const float kAKPauseMessagePosBottomRatio = 0.6f;
 /// 一時停止メニュー項目の表示位置、下からの比率
-const float kAKPauseMenuPosBottomRatio = 0.4f;
+static const float kAKPauseMenuPosBottomRatio = 0.4f;
 /// レジュームボタンの表示位置、左からの比率
-const float kAKResumeButtonPosLeftRatio = 0.3f;
+static const float kAKResumeButtonPosLeftRatio = 0.3f;
 /// 終了ボタンの表示位置、右からの比率
-const float kAKQuitButtonPosRightRatio = 0.3f;
+static const float kAKQuitButtonPosRightRatio = 0.3f;
+/// カーソル画像の位置のボタンとの重なりの幅
+static const float CursorPosOverlap = 8.0f;
 
 //======================================================================
 // 終了メニューのメニュー項目
@@ -140,7 +143,6 @@ static const float kAKTwitterButtonPosBottomRatio = 0.6f;
 //======================================================================
 /// ステージクリア時のメッセージ
 static const char *kAKStageClearString = "STAGE CLEAR";
-
 
 //======================================================================
 // 全ステージクリア時のメニュー項目
@@ -351,6 +353,17 @@ void AKPlayingSceneIF::createPauseMenu()
                                 kAKMenuTagPause,
                                 true);
     m_quitButton->retain();
+    
+    // ポーズ時のカーソルを作成する
+    m_pauseCursor = Sprite::createWithSpriteFrameName(CursorImageFileName);
+
+    // ポーズ解除ボタンの左側に配置する
+    x = m_resumeButton->getPosition().x - m_resumeButton->getWidth() / 2 - m_pauseCursor->getContentSize().width / 2 + CursorPosOverlap;
+    y = m_resumeButton->getPosition().y;
+    m_pauseCursor->setPosition(x, y);
+
+    // レイヤーに配置する
+    addChild(m_pauseCursor, 1, kAKMenuTagPause);
 }
 
 /*!
@@ -394,6 +407,17 @@ void AKPlayingSceneIF::createQuitMenu()
                                   kAKMenuTagQuit,
                                   true);
     m_quitButton->retain();
+
+    // 終了メニューのカーソルを作成する
+    m_quitCursor = Sprite::createWithSpriteFrameName(CursorImageFileName);
+    
+    // NOボタンの左側に配置する
+    x = m_quitNoButton->getPosition().x - m_quitNoButton->getWidth() / 2 - m_quitCursor->getContentSize().width / 2 + CursorPosOverlap;
+    y = m_quitNoButton->getPosition().y;
+    m_quitCursor->setPosition(x, y);
+    
+    // レイヤーに配置する
+    addChild(m_quitCursor, 1, kAKMenuTagQuit);
 }
 
 /*!
@@ -484,12 +508,23 @@ void AKPlayingSceneIF::createAllStageClear()
     // 2周目続行ボタンを作成する
     x = AKScreenSize::center().x;
     y = AKScreenSize::positionFromBottomRatio(kAKContinuePlayingButtonPosBottomRatio);
-    addLabelMenu(kAKContinuePlayingButtonString,
-                 Vec2(x, y),
-                 0,
-                 kAKEventTouchContinuePlayingButton,
-                 kAKMenuTagAllStageClear,
-                 true);
+    m_continuePlayingButton = addLabelMenu(kAKContinuePlayingButtonString,
+                                           Vec2(x, y),
+                                           0,
+                                           kAKEventTouchContinuePlayingButton,
+                                           kAKMenuTagAllStageClear,
+                                           true);
+
+    // ゲームクリアメニューのカーソルを作成する
+    m_clearCursor = Sprite::createWithSpriteFrameName(CursorImageFileName);
+    
+    // 2周目続行ボタンの左側に配置する
+    x = m_continuePlayingButton->getPosition().x - m_continuePlayingButton->getWidth() / 2 - m_clearCursor->getContentSize().width / 2 + CursorPosOverlap;
+    y = m_continuePlayingButton->getPosition().y;
+    m_clearCursor->setPosition(x, y);
+    
+    // レイヤーに配置する
+    addChild(m_clearCursor, 1, kAKMenuTagAllStageClear);
 }
 
 /*!

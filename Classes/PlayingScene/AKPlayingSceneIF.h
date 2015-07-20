@@ -89,6 +89,14 @@ private:
     AKLabel *m_quitButton;
     /// 終了メニューNoボタン
     AKLabel *m_quitNoButton;
+    /// 2周目続行ボタン
+    AKLabel *m_continuePlayingButton;
+    /// ポーズメニューのカーソル
+    cocos2d::Sprite *m_pauseCursor;
+    /// 終了メニューのカーソル
+    cocos2d::Sprite *m_quitCursor;
+    /// ゲームクリアメニューのカーソル
+    cocos2d::Sprite *m_clearCursor;
     
 private:
     //デフォルトコンストラクタは使用禁止にする

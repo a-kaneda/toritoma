@@ -733,6 +733,11 @@ std::string AKLabel::convertHalfCharacter(const char *org)
                 
             case '-':
                 ret += "−";
+                break;
+                
+            case '?':
+                ret += "？";
+                break;
                 
             default:
                 ret += org[i];
