@@ -311,11 +311,16 @@ bool CreditScene::init()
     // カーソル画像をシーンに配置する
     this->addChild(m_cursor, PosZCursor);
     
+    // コントローラが接続されている場合はカーソルは1個目のリンクを選択した状態にする
+    if (Controller::getAllController().size() > 0) {
+        selectMenuItem(0);
+    }
+    else {
+        m_cursor->setVisible(false);
+    }
+    
     // 初期ページ番号を設定する
     setPageNo(1);
-    
-    // 1個目のリンクを選択する
-    selectMenuItem(0);
     
     return true;
 }
@@ -372,6 +377,12 @@ void CreditScene::onConnectedController(Controller* controller, Event* event)
 {
     // ボタン表示の更新を行う
     updateButton();
+    
+    // カーソルを表示する
+    m_cursor->setVisible(true);
+    
+    // カーソルは1個目のリンクを選択した状態にする
+    selectMenuItem(0);
 }
 
 /*!
@@ -387,6 +398,7 @@ void CreditScene::onDisconnectedController(Controller* controller, Event* event)
     m_bButton->setVisible(false);
     m_lButton->setVisible(false);
     m_rButton->setVisible(false);
+    m_cursor->setVisible(false);
 }
 
 /*!
@@ -458,27 +470,17 @@ void CreditScene::onAxisEvent(Controller* controller, int keyCode, Event* event)
     // y軸方向の操作の場合は処理を行う
     if (keyCode == Controller::JOYSTICK_LEFT_Y) {
         
-        const int MaxMenu = MIN(LinkNum - (m_pageNo - 1) * LinkNumOfPage, LinkNumOfPage);
-        
         // しきい値よりも小さい場合は上方向に選択項目を移動する
         if (keyStatus.value < -kAKControllerAxisThreshold) {
             
             // 前回入力値が上方向以外の場合は処理する
             if (prevInput != -1) {
                 
-                // メニュー項目をデクリメントする
-                m_selectMenu--;
-                
-                // 下限以下になった場合は末尾へ移動する
-                if (m_selectMenu < 0) {
-                    m_selectMenu = MaxMenu - 1;
-                }
-                
                 // カーソル移動時の効果音を鳴らす
                 SimpleAudioEngine::getInstance()->playEffect(kAKCursorSEFileName);
                 
-                // メニュー項目を選択する
-                selectMenuItem(m_selectMenu);
+                // 選択項目の番号を1つ減らす
+                selectMenuItem(m_selectMenu - 1);
                 
                 // 連続入力を防止するために今回入力内容を記憶する
                 prevInput = -1;
@@ -490,19 +492,11 @@ void CreditScene::onAxisEvent(Controller* controller, int keyCode, Event* event)
             // 前回入力値が下方向以外の場合は処理する
             if (prevInput != 1) {
                 
-                // メニュー項目をインクリメントする
-                m_selectMenu++;
-                
-                // 上限以上になった場合は末尾へ移動する
-                if (m_selectMenu >= MaxMenu) {
-                    m_selectMenu = 0;
-                }
-                
                 // カーソル移動時の効果音を鳴らす
                 SimpleAudioEngine::getInstance()->playEffect(kAKCursorSEFileName);
                 
-                // メニュー項目を選択する
-                selectMenuItem(m_selectMenu);
+                // 選択項目の番号を1つ増やす
+                selectMenuItem(m_selectMenu + 1);
                 
                 prevInput = 1;
             }
@@ -599,6 +593,9 @@ void CreditScene::setPageNo(int pageNo)
     
     // クレジットラベルを更新する
     updateCreditLabel();
+    
+    // カーソル選択を行い、最大値チェックをやり直す
+    selectMenuItem(m_selectMenu);
 }
 
 /*!
@@ -726,12 +723,18 @@ void CreditScene::updateCreditLabel()
  */
 void CreditScene::selectMenuItem(int item)
 {
-    // 選択項目が範囲外の場合はカーソル非表示とする
-    if (item < 0 || item >= LinkNumOfPage) {
-        m_cursor->setVisible(false);
-        return;
+    const int MaxMenu = MIN(LinkNum - (m_pageNo - 1) * LinkNumOfPage, LinkNumOfPage);
+
+    // 下限以下になった場合は末尾へ移動する
+    if (item < 0) {
+        item = MaxMenu - 1;
     }
  
+    // 上限以上になった場合は末尾へ移動する
+    if (item >= MaxMenu) {
+        item = 0;
+    }
+
     // x座標を決める
     float x = m_link[item]->getPosition().x - m_link[item]->getWidth() / 2 - m_cursor->getContentSize().width / 2 + CursorPosOverlap;
     
@@ -740,9 +743,6 @@ void CreditScene::selectMenuItem(int item)
     
     // カーソルの位置を設定する
     m_cursor->setPosition(x, y);
-    
-    // カーソルを表示する
-    m_cursor->setVisible(true);
     
     // 選択中の項目を変更する
     m_selectMenu = item;
