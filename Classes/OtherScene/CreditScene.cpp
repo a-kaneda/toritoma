@@ -413,6 +413,12 @@ void CreditScene::onKeyDown(Controller* controller, int keyCode, Event* event)
 {
     // キーの種類に応じて処理を分岐する
     switch (keyCode) {
+        case Controller::BUTTON_A:
+            
+            // リンクを開く
+            openLink(m_selectMenu + 1);
+            break;
+            
         case Controller::BUTTON_B:
             
             // タイトルへ戻る
