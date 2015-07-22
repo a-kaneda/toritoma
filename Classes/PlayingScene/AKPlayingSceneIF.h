@@ -89,14 +89,16 @@ private:
     AKLabel *m_quitButton;
     /// 終了メニューNoボタン
     AKLabel *m_quitNoButton;
-    /// 2周目続行ボタン
-    AKLabel *m_continuePlayingButton;
     /// ポーズメニューのカーソル
     cocos2d::Sprite *m_pauseCursor;
     /// 終了メニューのカーソル
     cocos2d::Sprite *m_quitCursor;
+    /// ゲームオーバーメニューのカーソル
+    cocos2d::Sprite *m_gameOverCursor;
     /// ゲームクリアメニューのカーソル
     cocos2d::Sprite *m_clearCursor;
+    /// カーソルを表示するかどうか
+    bool m_visibleCursor;
     
 private:
     //デフォルトコンストラクタは使用禁止にする
@@ -115,6 +117,8 @@ public:
     void setShieldButtonSelected(bool selected);
     // ホールドボタン表示切替
     void setHoldButtonSelected(bool selected);
+    // カーソル表示設定
+    void setVisibleCursor(bool isVisible);
     
 protected:
     // 項目数を指定したコンストラクタ
@@ -134,7 +138,7 @@ private:
     // 全ステージクリア時のメニュー項目作成
     void createAllStageClear();
     // メニュー項目個別表示設定
-    virtual void updateVisibleItem(cocos2d::Node *item);
+    virtual void updateVisible(cocos2d::Node *item);
 };
 
 #endif

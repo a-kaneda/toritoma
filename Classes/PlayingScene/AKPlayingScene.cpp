@@ -294,6 +294,11 @@ bool AKPlayingScene::init()
     // コントローラの検出を開始する。
     Controller::startDiscoveryController();
     
+    // コントローラが接続されている場合はカーソルを表示するようにする
+    if (Controller::getAllController().size() > 0) {
+        m_interfaceLayer->setVisibleCursor(true);
+    }
+    
     return true;
 }
 
@@ -886,7 +891,8 @@ void AKPlayingScene::setScoreLabel(int score)
  */
 void AKPlayingScene::onConnectedController(Controller* controller, Event* event)
 {
-    AKLog(1, "Controller is connected.");
+    // カーソルを表示する
+    m_interfaceLayer->setVisibleCursor(true);
 }
 
 /*!
@@ -898,7 +904,8 @@ void AKPlayingScene::onConnectedController(Controller* controller, Event* event)
  */
 void AKPlayingScene::onDisconnectedController(Controller* controller, Event* event)
 {
-    AKLog(1, "Controller is disconnected.");
+    // カーソルを非表示にする
+    m_interfaceLayer->setVisibleCursor(false);
 }
 
 /*!
@@ -911,8 +918,6 @@ void AKPlayingScene::onDisconnectedController(Controller* controller, Event* eve
  */
 void AKPlayingScene::onKeyDown(Controller* controller, int keyCode, Event* event)
 {
-    AKLog(1, "KeyDown : keyCode=%d", keyCode);
-    
     // プレイ中以外の場合は無処理
     if (m_state != kAKGameStatePlaying) {
         return;
@@ -947,8 +952,6 @@ void AKPlayingScene::onKeyDown(Controller* controller, int keyCode, Event* event
  */
 void AKPlayingScene::onKeyUp(Controller* controller, int keyCode, Event* event)
 {
-    AKLog(1, "KeyUp : keyCode=%d", keyCode);
-
     // プレイ中以外の場合は無処理
     if (m_state != kAKGameStatePlaying) {
         return;

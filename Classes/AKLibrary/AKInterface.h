@@ -89,10 +89,10 @@ public:
 protected:
     // イベントハンドラを指定したコンストラクタ
     AKInterface(AKMenuEventHandler * const eventHandler);
-    
-private:
     // メニュー項目表示非表示設定
     void updateVisible();
+    
+private:
     // メニュー項目個別表示設定
     virtual void updateVisible(cocos2d::Node *item);
 };

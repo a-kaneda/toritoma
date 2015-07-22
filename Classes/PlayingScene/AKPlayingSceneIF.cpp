@@ -55,6 +55,8 @@ const unsigned int kAKMenuTagStageClear = 0x10;
 const unsigned int kAKMenuTagAllStageWaitClear = 0x20;
 /// 全ステージクリア時メニュー項目のタグ
 const unsigned int kAKMenuTagAllStageClear = 0x40;
+/// カーソルのタグ
+const unsigned int kAKMenuTagCursor = 0x80;
 
 //======================================================================
 // プレイ中のメニュー項目
@@ -239,7 +241,8 @@ AKLabel* AKPlayingSceneIF::getQuitNoButton()
  @param capacity メニュー項目数
  */
 AKPlayingSceneIF::AKPlayingSceneIF(AKMenuEventHandler * const eventHandler) :
-AKInterface(eventHandler)
+AKInterface(eventHandler),
+m_visibleCursor(false)
 {
     // プレイ中のメニュー項目を作成する
     createPlayingMenu();
@@ -363,7 +366,7 @@ void AKPlayingSceneIF::createPauseMenu()
     m_pauseCursor->setPosition(x, y);
 
     // レイヤーに配置する
-    addChild(m_pauseCursor, 1, kAKMenuTagPause);
+    addChild(m_pauseCursor, 1, kAKMenuTagPause | kAKMenuTagCursor);
 }
 
 /*!
@@ -417,7 +420,7 @@ void AKPlayingSceneIF::createQuitMenu()
     m_quitCursor->setPosition(x, y);
     
     // レイヤーに配置する
-    addChild(m_quitCursor, 1, kAKMenuTagQuit);
+    addChild(m_quitCursor, 1, kAKMenuTagQuit | kAKMenuTagCursor);
 }
 
 /*!
@@ -444,12 +447,12 @@ void AKPlayingSceneIF::createGameOverMenu()
     // タイトルへ戻るボタンを作成する
     x = AKScreenSize::center().x;
     y = AKScreenSize::positionFromBottomRatio(kAKGameOverQuitButtonPosBottomRatio);
-    addLabelMenu(kAKGameOverQuitButtonCaption,
-                 Vec2(x, y),
-                 0,
-                 kAKEventTouchQuitYesButton,
-                 kAKMenuTagGameOver,
-                 true);
+    AKLabel *backToTitleButton = addLabelMenu(kAKGameOverQuitButtonCaption,
+                                              Vec2(x, y),
+                                              0,
+                                              kAKEventTouchQuitYesButton,
+                                              kAKMenuTagGameOver,
+                                              true);
     
     // Twitterボタンを作成する
     x = AKScreenSize::positionFromHorizontalCenterPoint(kAKTwitterButtonPosHorizontalCenterPoint);
@@ -460,6 +463,17 @@ void AKPlayingSceneIF::createGameOverMenu()
                   kAKEventTouchTwitterButton,
                   kAKMenuTagGameOver,
                   kAKMenuTypeButton);
+
+    // ゲームオーバー時のカーソルを作成する
+    m_gameOverCursor = Sprite::createWithSpriteFrameName(CursorImageFileName);
+    
+    // タイトルへ戻るボタンの左側に配置する
+    x = backToTitleButton->getPosition().x - backToTitleButton->getWidth() / 2 - m_gameOverCursor->getContentSize().width / 2 + CursorPosOverlap;
+    y = backToTitleButton->getPosition().y;
+    m_gameOverCursor->setPosition(x, y);
+    
+    // レイヤーに配置する
+    addChild(m_gameOverCursor, 1, kAKMenuTagGameOver | kAKMenuTagCursor);
 }
 
 /*!
@@ -508,23 +522,23 @@ void AKPlayingSceneIF::createAllStageClear()
     // 2周目続行ボタンを作成する
     x = AKScreenSize::center().x;
     y = AKScreenSize::positionFromBottomRatio(kAKContinuePlayingButtonPosBottomRatio);
-    m_continuePlayingButton = addLabelMenu(kAKContinuePlayingButtonString,
-                                           Vec2(x, y),
-                                           0,
-                                           kAKEventTouchContinuePlayingButton,
-                                           kAKMenuTagAllStageClear,
-                                           true);
+    AKLabel *continuePlayingButton = addLabelMenu(kAKContinuePlayingButtonString,
+                                                  Vec2(x, y),
+                                                  0,
+                                                  kAKEventTouchContinuePlayingButton,
+                                                  kAKMenuTagAllStageClear,
+                                                  true);
 
     // ゲームクリアメニューのカーソルを作成する
     m_clearCursor = Sprite::createWithSpriteFrameName(CursorImageFileName);
     
     // 2周目続行ボタンの左側に配置する
-    x = m_continuePlayingButton->getPosition().x - m_continuePlayingButton->getWidth() / 2 - m_clearCursor->getContentSize().width / 2 + CursorPosOverlap;
-    y = m_continuePlayingButton->getPosition().y;
+    x = continuePlayingButton->getPosition().x - continuePlayingButton->getWidth() / 2 - m_clearCursor->getContentSize().width / 2 + CursorPosOverlap;
+    y = continuePlayingButton->getPosition().y;
     m_clearCursor->setPosition(x, y);
     
     // レイヤーに配置する
-    addChild(m_clearCursor, 1, kAKMenuTagAllStageClear);
+    addChild(m_clearCursor, 1, kAKMenuTagAllStageClear | kAKMenuTagCursor);
 }
 
 /*!
@@ -568,16 +582,35 @@ void AKPlayingSceneIF::setHoldButtonSelected(bool selected)
 }
 
 /*!
+ @brief カーソル表示設定
+ 
+ カーソルの表示・非表示を設定する。
+ @param isVisible 表示するかどうか
+ */
+void AKPlayingSceneIF::setVisibleCursor(bool isVisible)
+{
+    // メンバに設定する
+    m_visibleCursor = isVisible;
+    
+    // 項目の表示非表示を更新する
+    AKInterface::updateVisible();
+}
+
+/*!
  @brief メニュー項目個別表示設定
  
  メニュー項目の表示非表示を有効タグとは別に設定したい場合に個別に設定を行う。
- プレイ中の項目は常に表示する。
+ カーソルの表示非表示を切り替える。
  @param item 設定するメニュー項目
  */
-void AKPlayingSceneIF::updateVisibleItem(Node *item)
+void AKPlayingSceneIF::updateVisible(Node *item)
 {
-    // プレイ中の項目は常に表示する
-    if (item->getTag() == kAKMenuTagPlaying) {
-        item->setVisible(true);
+    // カーソルの場合、カーソル非表示となっている場合は表示しない
+    if ((item->getTag() & kAKMenuTagCursor) && !m_visibleCursor) {
+        item->setVisible(false);
+    }
+    // その他の場合はそのままとする
+    else {
+        // No operation.
     }
 }
