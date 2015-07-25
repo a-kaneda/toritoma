@@ -213,10 +213,16 @@ private:
     void viewQuitMenu();
     // 一時停止メニュー表示
     void viewPauseMenu();
+    // 2周目開始
+    void start2ndLoop();
     // プレイ中のコントローラーアナログキー入力処理
     void onAxisEventOnPlaying(int keyCode, float value);
     // メニュー表示中のコントローラーアナログキー入力処理
     void onAxisEventOnMenu(int keyCode, float value);
+    // プレイ中のコントローラーボタンを押した時の処理
+    void onKeyDownOnPlaying(int keyCode);
+    // メニュー表示中のコントローラーボタンを押した時の処理
+    void onKeyDownOnMenu(int keyCode);
 };
 
 #endif

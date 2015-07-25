@@ -226,11 +226,22 @@ AKLabel* AKPlayingSceneIF::getQuitButton()
  @brief 終了メニューNoボタン取得
  
  終了メニューのNoボタンを取得する。
- @return 終了メニューNoボタン取得
+ @return 終了メニューNoボタン
  */
 AKLabel* AKPlayingSceneIF::getQuitNoButton()
 {
     return m_quitNoButton;
+}
+
+/*!
+ @brief 2周目続行ボタン取得
+ 
+ ゲームクリアメニューの2周目続行ボタンを取得する。
+ @return 2周目続行ボタン
+ */
+AKLabel* AKPlayingSceneIF::getContinuePlayingButton()
+{
+    return m_continuePlayingButton;
 }
 
 /*!
@@ -522,7 +533,7 @@ void AKPlayingSceneIF::createAllStageClear()
     // 2周目続行ボタンを作成する
     x = AKScreenSize::center().x;
     y = AKScreenSize::positionFromBottomRatio(kAKContinuePlayingButtonPosBottomRatio);
-    AKLabel *continuePlayingButton = addLabelMenu(kAKContinuePlayingButtonString,
+    m_continuePlayingButton = addLabelMenu(kAKContinuePlayingButtonString,
                                                   Vec2(x, y),
                                                   0,
                                                   kAKEventTouchContinuePlayingButton,
@@ -533,8 +544,8 @@ void AKPlayingSceneIF::createAllStageClear()
     m_clearCursor = Sprite::createWithSpriteFrameName(CursorImageFileName);
     
     // 2周目続行ボタンの左側に配置する
-    x = continuePlayingButton->getPosition().x - continuePlayingButton->getWidth() / 2 - m_clearCursor->getContentSize().width / 2 + CursorPosOverlap;
-    y = continuePlayingButton->getPosition().y;
+    x = m_continuePlayingButton->getPosition().x - m_continuePlayingButton->getWidth() / 2 - m_clearCursor->getContentSize().width / 2 + CursorPosOverlap;
+    y = m_continuePlayingButton->getPosition().y;
     m_clearCursor->setPosition(x, y);
     
     // レイヤーに配置する

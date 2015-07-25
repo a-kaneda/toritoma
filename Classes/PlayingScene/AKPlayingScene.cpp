@@ -92,7 +92,7 @@ static const int kAKSecondStartStage = DEBUG_MODE_2ND_START_STAGE;
 /// ゲームオーバー時の待機フレーム数
 static const int kAKGameOverWaitFrame = 60;
 /// コントローラー移動時の速度
-static const float kAKPlayerMoveByController = 3.0f;
+static const float kAKPlayerMoveByController = 4.0f;
 
 //======================================================================
 // コントロールの表示に関する定数
@@ -704,8 +704,22 @@ void AKPlayingScene::touchQuitNoButton()
  */
 void AKPlayingScene::touchContinueButton()
 {
-    // 2周目開始ステージからやり直す
-    m_data->restartStage(kAKSecondStartStage);
+    // 他の処理が動作しないように待機状態にする
+    setState(kAKGameStateWait);
+    
+    // ボタンのブリンクアクションを作成する
+    Blink *blink = Blink::create(0.2f, 2);
+    CallFunc *callFunc = CallFunc::create(std::bind(std::mem_fun(&AKPlayingScene::start2ndLoop), this));
+    Sequence *action = Sequence::create(blink, callFunc, NULL);
+    
+    // ボタンを取得する
+    Node *button = m_interfaceLayer->getContinuePlayingButton();
+    
+    // ブリンクアクションを開始する
+    button->runAction(action);
+    
+    // ボタン選択効果音を鳴らす
+    SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
 }
 
 /*!
@@ -920,25 +934,19 @@ void AKPlayingScene::onDisconnectedController(Controller* controller, Event* eve
  */
 void AKPlayingScene::onKeyDown(Controller* controller, int keyCode, Event* event)
 {
-    // プレイ中以外の場合は無処理
-    if (m_state != kAKGameStatePlaying) {
-        return;
-    }
-    
-    // キーの種類によって処理を分ける
-    switch (keyCode) {
-        case Controller::BUTTON_A:
-            
-            // シールドモードを有効にする
-            m_data->setShield(true);
+    // ゲームプレイ状態に応じて処理を分岐する
+    switch (m_state) {
+        case kAKGameStatePlaying:
+            onKeyDownOnPlaying(keyCode);
             break;
             
-        case Controller::BUTTON_PAUSE:
-            
-            // ポーズボタン押下時の処理を行う
-            touchPauseButton();
+        case kAKGameStatePause:
+        case kAKGameStateQuitMenu:
+        case kAKGameStateGameOver:
+        case kAKGameStateGameClear:
+            onKeyDownOnMenu(keyCode);
             break;
-
+            
         default:
             break;
     }
@@ -986,6 +994,7 @@ void AKPlayingScene::onAxisEvent(Controller* controller, int keyCode, Event* eve
     switch (m_state) {
         case kAKGameStatePlaying:
         case kAKGameStateGameClear:
+        case kAKGameStateGameClearWait:
             onAxisEventOnPlaying(keyCode, controller->getKeyStatus(keyCode).value);
             break;
             
@@ -1068,7 +1077,7 @@ void AKPlayingScene::stageClear()
 void AKPlayingScene::nextStage()
 {
     // ステージクリア状態でない場合はエラー
-    AKAssert(m_state == kAKGameStateStageClear || m_state == kAKGameStateGameClear, "ステージクリア状態でないときに次のステージへの処理が行われた");
+    AKAssert(m_state == kAKGameStateStageClear || m_state == kAKGameStateGameClear || m_state == kAKGameStateWait, "ステージクリア状態でないときに次のステージへの処理が行われた");
 
     // 状態をプレイ中状態に遷移する
     setState(kAKGameStatePlaying);
@@ -1551,6 +1560,17 @@ void AKPlayingScene::viewPauseMenu()
 }
 
 /*!
+ @brief 2周目開始
+ 
+ 2周目を開始する。
+ */
+void AKPlayingScene::start2ndLoop()
+{
+    // 2周目開始ステージからやり直す
+    m_data->restartStage(kAKSecondStartStage);
+}
+
+/*!
  @brief プレイ中のコントローラーアナログキー入力処理
  
  プレイ中にコントローラーがアナログキーを入力した時の処理を行う。
@@ -1635,3 +1655,112 @@ void AKPlayingScene::onAxisEventOnMenu(int keyCode, float value)
     
 }
 
+/*!
+ @brief プレイ中のコントローラーボタンを押した時の処理
+ 
+ プレイ中のコントローラーボタンを押した時の処理を行う。
+ Aボタン:シールドを有効にする。
+ Pauseボタン:ポーズボタンタップ処理を行う。
+ @param keyCode キーの種類
+ */
+void AKPlayingScene::onKeyDownOnPlaying(int keyCode)
+{
+    // キーの種類によって処理を分ける
+    switch (keyCode) {
+        case Controller::BUTTON_A:
+            
+            // シールドモードを有効にする
+            m_data->setShield(true);
+            break;
+            
+        case Controller::BUTTON_PAUSE:
+            
+            // ポーズボタン押下時の処理を行う
+            touchPauseButton();
+            break;
+            
+        default:
+            break;
+    }
+}
+
+/*!
+ @brief メニュー表示中のコントローラーボタンを押した時の処理
+ 
+ メニュー表示中のボタン入力処理を行う。各メニューで選択中のボタンをタップした時の処理を実行する。
+ @param keyCode キーの種類
+ */
+void AKPlayingScene::onKeyDownOnMenu(int keyCode)
+{
+    // Aボタンを押した時は選択中のボタンの処理を実行する
+    if (keyCode == Controller::BUTTON_A) {
+        
+        // ゲームの状態に応じて処理を分岐する
+        switch (m_state) {
+            case kAKGameStatePause:
+                
+                // カーソル位置が左の場合は再開ボタンの処理を行う
+                if (m_interfaceLayer->getCursorPosition() == 0) {
+                    touchResumeButton();
+                }
+                // カーソル位置が右の場合は終了ボタンの処理を行う
+                else {
+                    touchQuitButton();
+                }
+                
+                break;
+                
+            case kAKGameStateQuitMenu:
+                
+                // カーソル位置が左の場合は終了メニューYESボタンの処理を行う
+                if (m_interfaceLayer->getCursorPosition() == 0) {
+                    touchQuitYesButton();
+                }
+                // カーソル位置が右の場合は終了メニューNOボタンの処理を行う
+                else {
+                    touchQuitNoButton();
+                }
+
+                break;
+                
+            case kAKGameStateGameOver:
+                
+                // タイトルへ戻るボタンの処理を行う
+                touchQuitYesButton();
+                
+                break;
+                
+            case kAKGameStateGameClear:
+                
+                // 2周目続行ボタンの処理を行う
+                touchContinueButton();
+                
+                break;
+                
+            default:
+                break;
+        }
+    }
+    // Pauseボタンを押した時はポーズ再開またはゲーム終了Noボタンの処理を行う
+    else if (keyCode == Controller::BUTTON_PAUSE) {
+        
+        // ゲームの状態に応じて処理を分岐する
+        switch (m_state) {
+            case kAKGameStatePause:
+                
+                touchResumeButton();
+                break;
+                
+            case kAKGameStateQuitMenu:
+
+                touchQuitNoButton();
+                break;
+                
+            default:
+                break;
+        }
+    }
+    else {
+        // その他のボタンは無処理とする
+    }
+}

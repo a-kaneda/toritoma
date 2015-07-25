@@ -91,6 +91,8 @@ private:
     AKLabel *m_quitYesButton;
     /// 終了メニューNoボタン
     AKLabel *m_quitNoButton;
+    /// 2周目続行ボタン
+    AKLabel *m_continuePlayingButton;
     /// ポーズメニューのカーソル
     cocos2d::Sprite *m_pauseCursor;
     /// 終了メニューのカーソル
@@ -117,6 +119,8 @@ public:
     AKLabel* getQuitButton();
     // 終了メニューNoボタン取得
     AKLabel* getQuitNoButton();
+    // 2周目続行ボタン取得
+    AKLabel* getContinuePlayingButton();
     // シールドボタン表示切替
     void setShieldButtonSelected(bool selected);
     // ホールドボタン表示切替
