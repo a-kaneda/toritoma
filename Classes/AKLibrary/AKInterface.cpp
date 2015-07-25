@@ -78,6 +78,17 @@ AKInterface::~AKInterface()
 }
 
 /*!
+ @brief 有効化タグ取得
+ 
+ 有効化タグを取得する。
+ @return 有効化タグ
+ */
+unsigned int AKInterface::getEnableTag()
+{
+    return m_enableTag;
+}
+
+/*!
  @brief 有効タグの設定
  
  有効化するアイテムのタグを設定する。

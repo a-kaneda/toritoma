@@ -393,12 +393,12 @@ void AKPlayingSceneIF::createQuitMenu()
     // YESボタンを作成する
     x = AKScreenSize::positionFromLeftRatio(kAKQuitYesButtonPosLeftRatio);
     y = AKScreenSize::positionFromBottomRatio(kAKQuitButtonPosBottomRatio);
-    addLabelMenu(kAKQuitYesString,
-                 Vec2(x, y),
-                 0,
-                 kAKEventTouchQuitYesButton,
-                 kAKMenuTagQuit,
-                 true);
+    m_quitYesButton = addLabelMenu(kAKQuitYesString,
+                                   Vec2(x, y),
+                                   0,
+                                   kAKEventTouchQuitYesButton,
+                                   kAKMenuTagQuit,
+                                   true);
     
     // NOボタンを作成する
     x = AKScreenSize::positionFromRightRatio(kAKQuitNoButtonPosRightRatio);
@@ -594,6 +594,90 @@ void AKPlayingSceneIF::setVisibleCursor(bool isVisible)
     
     // 項目の表示非表示を更新する
     AKInterface::updateVisible();
+}
+
+/*!
+ @brief カーソル位置取得
+ 
+ カーソル位置を取得する。
+ @return カーソル位置
+ */
+int AKPlayingSceneIF::getCursorPosition()
+{
+    return m_cursorPosition;
+}
+
+/*!
+ @brief カーソル位置設定
+ 
+ カーソル位置を設定する。
+ @param pos カーソル位置
+ */
+void AKPlayingSceneIF::setCursorPosition(int pos)
+{
+    // 表示状態に応じて処理を分ける
+    switch (getEnableTag()) {
+        case kAKMenuTagPause:           // ポーズメニュー
+            
+            // 0以下は0とする
+            if (pos <= 0) {
+                
+                // カーソル位置は0とする
+                m_cursorPosition = 0;
+                
+                // ポーズ解除ボタンの左側に配置する
+                float x = m_resumeButton->getPosition().x - m_resumeButton->getWidth() / 2 - m_pauseCursor->getContentSize().width / 2 + CursorPosOverlap;
+                float y = m_resumeButton->getPosition().y;
+                m_pauseCursor->setPosition(x, y);
+            }
+            // 1以上は1とする
+            else {
+                
+                // カーソル位置は1とする
+                m_cursorPosition = 1;
+                
+                // 終了ボタンの左側に配置する
+                float x = m_quitButton->getPosition().x - m_quitButton->getWidth() / 2 - m_pauseCursor->getContentSize().width / 2 + CursorPosOverlap;
+                float y = m_quitButton->getPosition().y;
+                m_pauseCursor->setPosition(x, y);
+            }
+            
+            break;
+            
+        case kAKMenuTagQuit:            // ゲーム終了メニュー
+
+            // 0以下は0とする
+            if (pos <= 0) {
+                
+                // カーソル位置は0とする
+                m_cursorPosition = 0;
+                
+                // YESボタンの左側に配置する
+                float x = m_quitYesButton->getPosition().x - m_quitYesButton->getWidth() / 2 - m_quitCursor->getContentSize().width / 2 + CursorPosOverlap;
+                float y = m_quitYesButton->getPosition().y;
+                m_quitCursor->setPosition(x, y);
+            }
+            // 1以上は1とする
+            else {
+                
+                // カーソル位置は1とする
+                m_cursorPosition = 1;
+                
+                // NOボタンの左側に配置する
+                float x = m_quitNoButton->getPosition().x - m_quitNoButton->getWidth() / 2 - m_quitCursor->getContentSize().width / 2 + CursorPosOverlap;
+                float y = m_quitNoButton->getPosition().y;
+                m_quitCursor->setPosition(x, y);
+            }
+            
+            break;
+            
+        default:
+            
+            // その他の場合はカーソル位置は0固定とする
+            m_cursorPosition = 0;
+            
+            break;
+    }
 }
 
 /*!

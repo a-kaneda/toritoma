@@ -87,6 +87,8 @@ private:
     AKLabel *m_resumeButton;
     /// 終了ボタン
     AKLabel *m_quitButton;
+    /// 終了メニューYesボタン
+    AKLabel *m_quitYesButton;
     /// 終了メニューNoボタン
     AKLabel *m_quitNoButton;
     /// ポーズメニューのカーソル
@@ -99,6 +101,8 @@ private:
     cocos2d::Sprite *m_clearCursor;
     /// カーソルを表示するかどうか
     bool m_visibleCursor;
+    /// カーソル位置
+    int m_cursorPosition;
     
 private:
     //デフォルトコンストラクタは使用禁止にする
@@ -119,6 +123,10 @@ public:
     void setHoldButtonSelected(bool selected);
     // カーソル表示設定
     void setVisibleCursor(bool isVisible);
+    // カーソル位置取得
+    int getCursorPosition();
+    // カーソル位置設定
+    void setCursorPosition(int pos);
     
 protected:
     // 項目数を指定したコンストラクタ

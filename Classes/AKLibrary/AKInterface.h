@@ -67,6 +67,8 @@ private:
 public:
     // デストラクタ
     ~AKInterface();
+    // 有効化タグ取得
+    unsigned int getEnableTag();
     // 有効化タグ設定
     void setEnableTag(unsigned int enableTag);
     // タッチ開始処理

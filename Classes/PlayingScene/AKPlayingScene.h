@@ -94,6 +94,8 @@ private:
     AKGauge *m_chickenGauge;
     /// ボス体力ゲージ
     AKGauge *m_bossLifeGauge;
+    /// Lスティックの前回入力値
+    float m_prevLStickInput;
 
 private:
     // コンストラクタ
@@ -156,7 +158,7 @@ public:
     void onKeyDown(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
     // コントローラーのボタンを離した時の処理
     void onKeyUp(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
-    // コントローラーの方向キー入力処理
+    // コントローラーのアナログキー入力処理
     void onAxisEvent(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
     
 private:
@@ -211,6 +213,10 @@ private:
     void viewQuitMenu();
     // 一時停止メニュー表示
     void viewPauseMenu();
+    // プレイ中のコントローラーアナログキー入力処理
+    void onAxisEventOnPlaying(int keyCode, float value);
+    // メニュー表示中のコントローラーアナログキー入力処理
+    void onAxisEventOnMenu(int keyCode, float value);
 };
 
 #endif

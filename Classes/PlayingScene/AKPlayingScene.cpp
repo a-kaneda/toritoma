@@ -328,10 +328,12 @@ void AKPlayingScene::setState(enum AKGameState state)
             
         case kAKGameStatePause:     // 一時停止中
             m_interfaceLayer->setEnableTag(kAKMenuTagPause);
+            m_interfaceLayer->setCursorPosition(0);
             break;
             
         case kAKGameStateQuitMenu:  // 終了メニュー
             m_interfaceLayer->setEnableTag(kAKMenuTagQuit);
+            m_interfaceLayer->setCursorPosition(1);
             break;
             
         case kAKGameStateGameOver:  // ゲームオーバー
@@ -971,32 +973,25 @@ void AKPlayingScene::onKeyUp(Controller* controller, int keyCode, Event* event)
 }
 
 /*!
- @brief コントローラーの方向キー入力処理
+ @brief コントローラーのアナログキー入力処理
  
- コントローラーが方向キーを入力した時の処理を行う。
+ コントローラーがアナログキーを入力した時の処理を行う。
  @param controller コントローラー
  @param keyCode キーの種類
  @param event イベント
  */
 void AKPlayingScene::onAxisEvent(Controller* controller, int keyCode, Event* event)
 {
-    const auto& keyStatus = controller->getKeyStatus(keyCode);
-    AKLog(1, "KeyAxis : keyCode=%d value=%f", keyCode, keyStatus.value);
-    
-    float speed = 0.0f;
-    // 入力がしきい値を超えている場合は速度計算を行う
-    if (keyStatus.value > kAKControllerAxisThreshold || keyStatus.value < -kAKControllerAxisThreshold) {
-        speed = keyStatus.value * kAKPlayerMoveByController;
-    }
-    
-    // キー種類によって設定する方向を変える
-    switch (keyCode) {
-        case Controller::JOYSTICK_LEFT_X:
-            m_data->setPlayerSpeedX(speed);
+    // ゲームプレイ状態に応じて処理を分岐する
+    switch (m_state) {
+        case kAKGameStatePlaying:
+        case kAKGameStateGameClear:
+            onAxisEventOnPlaying(keyCode, controller->getKeyStatus(keyCode).value);
             break;
             
-        case Controller::JOYSTICK_LEFT_Y:
-            m_data->setPlayerSpeedY(-speed);
+        case kAKGameStatePause:
+        case kAKGameStateQuitMenu:
+            onAxisEventOnMenu(keyCode, controller->getKeyStatus(keyCode).value);
             break;
             
         default:
@@ -1554,3 +1549,89 @@ void AKPlayingScene::viewPauseMenu()
     // ゲーム状態を一時停止中に遷移する
     setState(kAKGameStatePause);
 }
+
+/*!
+ @brief プレイ中のコントローラーアナログキー入力処理
+ 
+ プレイ中にコントローラーがアナログキーを入力した時の処理を行う。
+ 入力に応じて自機を移動する。
+ @param keyCode キーの種類
+ @param value 入力値
+ */
+void AKPlayingScene::onAxisEventOnPlaying(int keyCode, float value)
+{
+    float speed = 0.0f;
+    
+    // 入力がしきい値を超えている場合は速度計算を行う
+    if (value > kAKControllerAxisThreshold || value < -kAKControllerAxisThreshold) {
+        speed = value * kAKPlayerMoveByController;
+    }
+    
+    // キー種類によって設定する方向を変える
+    switch (keyCode) {
+        case Controller::JOYSTICK_LEFT_X:
+            m_data->setPlayerSpeedX(speed);
+            break;
+            
+        case Controller::JOYSTICK_LEFT_Y:
+            m_data->setPlayerSpeedY(-speed);
+            break;
+            
+        default:
+            break;
+    }
+}
+
+/*!
+ @brief メニュー表示中のコントローラーアナログキー入力処理
+ 
+ メニュー表示中にコントローラーがアナログキーを入力した時の処理を行う。
+ 入力に応じてカーソルを移動する。
+ @param keyCode キーの種類
+ @param value 入力値
+ */
+void AKPlayingScene::onAxisEventOnMenu(int keyCode, float value)
+{
+    // x軸方向の操作の場合は処理を行う
+    if (keyCode == Controller::JOYSTICK_LEFT_X) {
+        
+        // しきい値よりも小さい場合は左方向に選択項目を移動する
+        if (value < -kAKControllerAxisThreshold) {
+            
+            // 前回入力値が左方向以外の場合は処理する
+            if (m_prevLStickInput != -1) {
+                
+                // カーソル位置をひとつ減らす
+                m_interfaceLayer->setCursorPosition(m_interfaceLayer->getCursorPosition() - 1);
+                
+                // カーソル移動時の効果音を鳴らす
+                SimpleAudioEngine::getInstance()->playEffect(kAKCursorSEFileName);
+                
+                // 連続入力を防止するために今回入力内容を記憶する
+                m_prevLStickInput = -1;
+            }
+        }
+        // しきい値よりも大きい場合は右方向に選択項目を移動する
+        else if (value > kAKControllerAxisThreshold) {
+            
+            // 前回入力値が右方向以外の場合は処理する
+            if (m_prevLStickInput != 1) {
+                
+                // カーソル位置をひとつ増やす
+                m_interfaceLayer->setCursorPosition(m_interfaceLayer->getCursorPosition() + 1);
+                
+                // カーソル移動時の効果音を鳴らす
+                SimpleAudioEngine::getInstance()->playEffect(kAKCursorSEFileName);
+                
+                // 連続入力を防止するために今回入力内容を記憶する
+                m_prevLStickInput = 1;
+            }
+        }
+        // しきい値以内の場合は無処理
+        else {
+            m_prevLStickInput = 0;
+        }
+    }
+    
+}
+
