@@ -4,6 +4,12 @@
 "HowToPlay_4" = "チキンゲージが たまると ヒヨコが\nたすけにきます。";
 "HowToPlay_5" = "シールドボタンを おすと ヒヨコが\nたまごを かぶって てきの たまを\nはねかえします。";
 "HowToPlay_6" = "シールドボタンを おしているあいだは\nチキンゲージが へっていきます。";
+"HowToPlay_Controller_1" = "ひだりスティックを かたむけると\nじきが いどうします。";
+"HowToPlay_Controller_2" = "じどうてきに ショットが はっしゃされます。";
+"HowToPlay_Controller_3" = "てきの たまに ちかづくと チキンゲージが たまります。";
+"HowToPlay_Controller_4" = "チキンゲージが たまると ヒヨコが\nたすけにきます。";
+"HowToPlay_Controller_5" = "Aボタンを おすと ヒヨコが\nたまごを かぶって てきの たまを\nはねかえします。";
+"HowToPlay_Controller_6" = "Aボタンを おしているあいだは\nチキンゲージが へっていきます。";
 "Tweet1stLoop" = "とりとま、ステージ%dまで進めてスコアを%d点獲得しました。 #toritoma";
 "Tweet2ndLoop" = "とりとま、%d周目ステージ%dまで進めてスコアを%d点獲得しました。 #toritoma";
 "CreditName_1" = "せいさく\n  かねだ";

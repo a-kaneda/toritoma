@@ -4,6 +4,12 @@
 "HowToPlay_4" = "WHEN THE CHICKEN GAUGE IS CHARGED, CHICKS COME TO HELP.";
 "HowToPlay_5" = "WHEN PUSH THE SHILED BUTTON, CHICKS WEAR AN EGG AND REFLECT ENEMY SHOT.";
 "HowToPlay_6" = "WHILE PUSH THE SHILED BUTTON, THE CHIKEN GAUGE IS DECREASED.";
+"HowToPlay_Controller_1" = "USING THE LEFT ANALOG STHICK\nMOVES PLAYER\nCHARACTER.";
+"HowToPlay_Controller_2" = "AUTOMATICALLY SHOT\nIS FIRED.";
+"HowToPlay_Controller_3" = "GETTING NEAR AN\nENEMY SHOT INCREASE THE CHICKEN GAUGE.";
+"HowToPlay_Controller_4" = "WHEN THE CHICKEN GAUGE IS CHARGED, CHICKS COME TO HELP.";
+"HowToPlay_Controller_5" = "WHEN PUSH A BUTTON, CHICKS WEAR AN EGG AND REFLECT ENEMY SHOT.";
+"HowToPlay_Controller_6" = "WHILE PUSH A BUTTON, THE CHIKEN GAUGE IS DECREASED.";
 "Tweet1stLoop" = "Toritoma, Go on to stage %d. Earned %d points the score. #toritoma";
 "Tweet2ndLoop" = "Toritoma, Go on to stage %d in %d%s loop. Earned %d points the score. #toritoma";
 "CreditName_1" = "PRODUCTION\n  KANEDA";

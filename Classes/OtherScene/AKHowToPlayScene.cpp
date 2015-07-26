@@ -531,8 +531,15 @@ void AKHowToPlayScene::setPageNo(int pageNo)
     updatePageLabel();
     
     // 表示文字列のキーを生成する
-    char key[16] = "";
-    snprintf(key, sizeof(key), "HowToPlay_%d", m_pageNo);
+    char key[32] = "";
+    
+    // コントローラが接続されている場合はメッセージを切り替える
+    if (Controller::getAllController().size() > 0) {
+        snprintf(key, sizeof(key), "HowToPlay_Controller_%d", m_pageNo);
+    }
+    else {
+        snprintf(key, sizeof(key), "HowToPlay_%d", m_pageNo);
+    }
     
     // 表示文字列を変更する
     getMessageLabel()->setString(aklib::LocalizedResource::getInstance().getString(key));
