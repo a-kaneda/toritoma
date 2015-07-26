@@ -993,6 +993,7 @@ void AKPlayingScene::onAxisEvent(Controller* controller, int keyCode, Event* eve
     // ゲームプレイ状態に応じて処理を分岐する
     switch (m_state) {
         case kAKGameStatePlaying:
+        case kAKGameStateStageClear:
         case kAKGameStateGameClear:
         case kAKGameStateGameClearWait:
             onAxisEventOnPlaying(keyCode, controller->getKeyStatus(keyCode).value);

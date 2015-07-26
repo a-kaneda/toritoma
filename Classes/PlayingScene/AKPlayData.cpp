@@ -1147,6 +1147,9 @@ void AKPlayData::clearEnemyShot()
  */
 void AKPlayData::updateBossLifeGage()
 {
+    // ボス体力ゲージを取得する
+    AKGauge *gauge = m_scene->getBossLifeGauge();
+    
     // ボスがステージに配置されていない場合はポインタをクリアする
     if (m_boss != NULL && !m_boss->isStaged()) {
         
@@ -1158,17 +1161,20 @@ void AKPlayData::updateBossLifeGage()
         return;
     }
     
-    // ボス体力ゲージを取得する
-    AKGauge *gauge = m_scene->getBossLifeGauge();
-    
     // ゲージの比率を計算する
-    // 単純に計算するとHPが0になる前にゲージの表示がなくなるので、若干補正する。
-    float percent = (100.0f - kAKBossLifeMin) * m_boss->getHitPoint() / m_bossHP + kAKBossLifeMin;
-    if (percent > 100.0f) {
-        percent = 100.0f;
+    // ボスのHPが0の場合はゲージも0にする
+    if (m_boss->getHitPoint() <= 0) {
+        gauge->setPercent(0.0f);
     }
-    AKLog(kAKLogPlayData_3, "nowhp=%d maxhp=%d percent=%f", m_boss->getHitPoint(), m_bossHP, percent);
-    gauge->setPercent(percent);
+    else {
+        // 単純に計算するとHPが0になる前にゲージの表示がなくなるので、若干補正する。
+        float percent = (100.0f - kAKBossLifeMin) * m_boss->getHitPoint() / m_bossHP + kAKBossLifeMin;
+        if (percent > 100.0f) {
+            percent = 100.0f;
+        }
+        AKLog(kAKLogPlayData_3, "nowhp=%d maxhp=%d percent=%f", m_boss->getHitPoint(), m_bossHP, percent);
+        gauge->setPercent(percent);
+    }
 }
 
 /*!
