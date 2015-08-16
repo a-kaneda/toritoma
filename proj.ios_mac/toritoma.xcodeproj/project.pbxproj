@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C6B03DB1B7164D700FEA915 /* Payment.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C6B03D91B7164D700FEA915 /* Payment.mm */; };
+		0C6B03DD1B762ECB00FEA915 /* Payment_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0C6B03DC1B762ECB00FEA915 /* Payment_objc.mm */; };
+		0C8EE2D41B80795C007C4856 /* ID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C8EE2D31B80795C007C4856 /* ID.cpp */; };
 		0CC04BB71B5B796800985F74 /* 1up.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CC04BA61B5B796800985F74 /* 1up.mp3 */; };
 		0CC04BB81B5B796800985F74 /* bomb_big.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CC04BA71B5B796800985F74 /* bomb_big.mp3 */; };
 		0CC04BB91B5B796800985F74 /* bomb_min.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CC04BA81B5B796800985F74 /* bomb_min.mp3 */; };
@@ -342,6 +345,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C6B03D91B7164D700FEA915 /* Payment.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Payment.mm; path = ../Classes/AKLibrary/Payment.mm; sourceTree = "<group>"; };
+		0C6B03DA1B7164D700FEA915 /* Payment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Payment.h; path = ../Classes/AKLibrary/Payment.h; sourceTree = "<group>"; };
+		0C6B03DC1B762ECB00FEA915 /* Payment_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Payment_objc.mm; path = ../Classes/AKLibrary/Payment_objc.mm; sourceTree = "<group>"; };
+		0C6B03DE1B76302F00FEA915 /* Payment_objc.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = Payment_objc.h; path = ../Classes/AKLibrary/Payment_objc.h; sourceTree = "<group>"; };
+		0C8EE2D21B807889007C4856 /* ID.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ID.h; sourceTree = "<group>"; };
+		0C8EE2D31B80795C007C4856 /* ID.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ID.cpp; sourceTree = "<group>"; };
+		0C8EE2D51B809362007C4856 /* PaymentDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PaymentDelegate.h; path = ../Classes/AKLibrary/PaymentDelegate.h; sourceTree = "<group>"; };
 		0CC04BA61B5B796800985F74 /* 1up.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1up.mp3; sourceTree = "<group>"; };
 		0CC04BA71B5B796800985F74 /* bomb_big.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bomb_big.mp3; sourceTree = "<group>"; };
 		0CC04BA81B5B796800985F74 /* bomb_min.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bomb_min.mp3; sourceTree = "<group>"; };
@@ -714,10 +724,15 @@
 				0CFB61521B3600F4003FB45D /* LocalizedResource.h */,
 				0CFB61531B3600F4003FB45D /* OnlineScore.h */,
 				0CFB61541B3600F4003FB45D /* OnlineScore.mm */,
+				0CDAB2481B5329C3002683B6 /* OpenUrl.h */,
+				0CDAB2471B5329C3002683B6 /* OpenUrl.mm */,
+				0C6B03DE1B76302F00FEA915 /* Payment_objc.h */,
+				0C6B03DC1B762ECB00FEA915 /* Payment_objc.mm */,
+				0C8EE2D51B809362007C4856 /* PaymentDelegate.h */,
+				0C6B03DA1B7164D700FEA915 /* Payment.h */,
+				0C6B03D91B7164D700FEA915 /* Payment.mm */,
 				0CFB61551B3600F4003FB45D /* Twitter.h */,
 				0CFB61561B3600F4003FB45D /* Twitter.mm */,
-				0CDAB2471B5329C3002683B6 /* OpenUrl.mm */,
-				0CDAB2481B5329C3002683B6 /* OpenUrl.h */,
 			);
 			name = AKLibrary;
 			sourceTree = "<group>";
@@ -731,6 +746,8 @@
 				0CFB61671B36011F003FB45D /* AKLogNoDef.h */,
 				0CFB61681B36011F003FB45D /* AKToritoma.cpp */,
 				0CFB61691B36011F003FB45D /* AKToritoma.h */,
+				0C8EE2D21B807889007C4856 /* ID.h */,
+				0C8EE2D31B80795C007C4856 /* ID.cpp */,
 			);
 			name = Common;
 			path = ../Classes/Common;
@@ -1082,7 +1099,7 @@
 				LastUpgradeCheck = 0630;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = MDDB52YB8L;
+						DevelopmentTeam = 27J5FXSH3X;
 					};
 				};
 			};
@@ -1299,9 +1316,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0C8EE2D41B80795C007C4856 /* ID.cpp in Sources */,
 				0CFB61A51B36014D003FB45D /* AKLife.cpp in Sources */,
 				0CFB61A21B36014D003FB45D /* AKEnemyShot.cpp in Sources */,
 				0CFB61AB1B36014D003FB45D /* AKPlayingScene.cpp in Sources */,
+				0C6B03DD1B762ECB00FEA915 /* Payment_objc.mm in Sources */,
 				0CFB61A71B36014D003FB45D /* AKOption.cpp in Sources */,
 				0CFB615D1B3600F4003FB45D /* AKScreenSize.cpp in Sources */,
 				0CFB61581B3600F4003FB45D /* AKCommon.cpp in Sources */,
@@ -1309,6 +1328,7 @@
 				0CFB61AE1B36014D003FB45D /* AKTileMapEventParameter.cpp in Sources */,
 				0CDAB2491B5329C3002683B6 /* OpenUrl.mm in Sources */,
 				0CFB61A11B36014D003FB45D /* AKEnemy.cpp in Sources */,
+				0C6B03DB1B7164D700FEA915 /* Payment.mm in Sources */,
 				0CDAB2461B520AE4002683B6 /* CreditScene.cpp in Sources */,
 				0CFB61AA1B36014D003FB45D /* AKPlayerShot.cpp in Sources */,
 				0CFB615F1B3600F4003FB45D /* GameCenterHelper.m in Sources */,

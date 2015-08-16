@@ -22,14 +22,19 @@
  THE SOFTWARE.
  ****************************************************************************/
 
+#import <StoreKit/StoreKit.h>
 #import "AppController.h"
 #import "CCEAGLView.h"
 #import "cocos2d.h"
 #import "AppDelegate.h"
 #import "RootViewController.h"
 #import "audio/ios/CDAudioManager.h"
+#include "Payment.h"
+#include "ID.h"
 
 @implementation AppController
+
+using aklib::Payment;
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -79,6 +84,12 @@ static AppDelegate s_sharedApplication;
 
     // 他のアプリのBGMを止めて自分のBGMを鳴らすようにする
     [CDAudioManager configure:kAMM_FxPlusMusic];
+
+    // 課金処理の接続を行う
+    Payment::Open();
+    
+    // プロダクト情報を取得する
+    Payment::AddProduct(ProductIDRemoveAd);
     
     // インタースティシャル広告表示の準備を行う
     [_viewController createAdInterstitial];
@@ -130,6 +141,9 @@ static AppDelegate s_sharedApplication;
      Called when the application is about to terminate.
      See also applicationDidEnterBackground:.
      */
+
+    // 課金処理の切断を行う
+    Payment::Close();
 }
 
 
