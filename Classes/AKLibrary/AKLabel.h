@@ -74,6 +74,8 @@ private:
     enum AKLabelFrame m_frame;
     /// 色反転するかどうか
     bool m_isReverse;
+    /// テキストラベル
+    cocos2d::Label *m_text;
     
 private:
     // デフォルトコンストラクタは使用禁止にする

@@ -179,6 +179,9 @@ m_length(length), m_line(line), m_frame(frame), m_isReverse(false)
     AKAssert(length > 0, "文字数が0以下:length=%d", length);
     AKAssert(line > 0, "行数が0以下:line=%d", line);
     
+    // メンバ変数を初期化する
+    m_text = NULL;
+    
     // テクスチャアトラスを読み込む
     SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();
     spriteFrameCache->addSpriteFramesWithFile(LabelFrameTextureDef,
@@ -345,28 +348,31 @@ SpriteBatchNode* AKLabel::getFrameBatch()
 void AKLabel::updateLabel()
 {
     // ラベルを削除する
-    removeChildByTag(1);
+    if (m_text != NULL) {
+        removeChild(m_text);
+        m_text = NULL;
+    }
     
     // フォント設定を作成する
     TTFConfig config(MISAKI_FONT, 16);
     
     // ラベルを作成する
-    Label *text = Label::createWithTTF(config, convertHalfCharacter(m_labelString.c_str()));
+    m_text = Label::createWithTTF(config, convertHalfCharacter(m_labelString.c_str()));
     
     // ラベル高さを設定する
-    text->setHeight(getHeight(m_line, false));
+    m_text->setHeight(getHeight(m_line, false));
     
     // ラベル幅を設定する
-    text->setWidth(getWidth(m_length, false));
+    m_text->setWidth(getWidth(m_length, false));
     
     // 色を設定する
-    text->setColor(cocos2d::Color3B(kAKColor[kAKColorDark]));
+    m_text->setColor(cocos2d::Color3B(kAKColor[kAKColorDark]));
     
     // タグを設定する
-    text->setTag(1);
+    m_text->setTag(1);
     
     // ラベルを配置する
-    addChild(text, kAKLabelBatchPosZ);
+    addChild(m_text, kAKLabelBatchPosZ);
 }
 
 /*!
