@@ -35,7 +35,7 @@
 
 #include "AKOptionScene.h"
 #include "AKTitleScene.h"
-//#include "AKInAppPurchaseHelper.h"
+#include "Payment.h"
 #include "OnlineScore.h"
 
 using cocos2d::SpriteFrameCache;
@@ -47,6 +47,7 @@ using cocos2d::Sequence;
 using cocos2d::TransitionFade;
 using cocos2d::Director;
 using CocosDenshion::SimpleAudioEngine;
+using aklib::Payment;
 
 // オプション画面シーンに配置するノードのタグ
 enum {
@@ -216,34 +217,34 @@ AKOptionScene::AKOptionScene()
     LayerColor *backColor = AKCreateBackColorLayer();
     
     // シーンへ配置する
-    addChild(backColor, kAKOptionSceneBackColor, kAKOptionSceneBackColor);
+    this->addChild(backColor, kAKOptionSceneBackColor, kAKOptionSceneBackColor);
     
     // インターフェースを作成する
-    AKInterface *interface = AKInterface::create(this);
+    m_interface = AKInterface::create(this);
     
     // シーンへ配置する
-    addChild(interface, kAKOptionSceneInterface, kAKOptionSceneInterface);
+    this->addChild(m_interface, kAKOptionSceneInterface, kAKOptionSceneInterface);
     
     // 通信中フラグはオフにする
     m_isConnecting = false;
     
-    // TODO:アプリ課金が有効な場合は全ページを表示できるようにする
-//    if ([[AKInAppPurchaseHelper sharedHelper] canMakePayments]) {
-//        m_maxPage = kAKMenuPageCount;
-//    }
+    // アプリ課金が有効な場合は全ページを表示できるようにする
+    if (Payment::CanMakePayments()) {
+        m_maxPage = kAKMenuPageCount;
+    }
     // アプリ課金が禁止されている場合はページをひとつ減らす
-//    else {
+    else {
         m_maxPage = kAKMenuPageCount - 1;
-//    }
+    }
     
     // 全ページ共通の項目を作成する
-    initCommonItem(interface);
+    initCommonItem(m_interface);
     
     // Game Centerページの項目を作成する
-    initGameCenterPage(interface);
+    initGameCenterPage(m_interface);
     
     // Storeページの項目を作成する
-    initStorePage(interface);
+    initStorePage(m_interface);
 
     // 初期ページを1ページ目とする
     setPageNo(1);
@@ -310,7 +311,7 @@ void AKOptionScene::initGameCenterPage(AKInterface *interface)
     gameCenterLabel->setPosition(Vec2(x, y));
     
     // Game Centerのラベルを配置する
-    addChild(gameCenterLabel, 0, kAKMenuGameCenter);
+    interface->addChild(gameCenterLabel, 0, kAKMenuGameCenter);
     
     // Leaderboardのメニューを作成する
     x = AKScreenSize::center().x;
@@ -354,7 +355,7 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     storeLabel->setPosition(Vec2(x, y));
     
     // Storeのラベルを配置する
-    addChild(storeLabel, 0, kAKMenuStore);
+    interface->addChild(storeLabel, 0, kAKMenuStore);
     
     // 購入ボタンを作成する
     x = AKScreenSize::positionFromLeftRatio(kAKBuyButtonPosLeftRatio);
@@ -434,11 +435,8 @@ void AKOptionScene::setPageNo(int pageNo)
         m_pageNo = pageNo;
     }
     
-    // インターフェースを取得する
-    AKInterface *interface = static_cast<AKInterface*>(getChildByTag(kAKOptionSceneInterface));
-    
     // ページ番号によってインターフェースのタグを変更する
-    interface->setEnableTag(getInterfaceTag(m_pageNo));
+    m_interface->setEnableTag(getInterfaceTag(m_pageNo));
 }
 
 /*!

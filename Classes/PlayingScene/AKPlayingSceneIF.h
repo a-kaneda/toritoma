@@ -112,7 +112,7 @@ private:
     
 public:
     // デストラクタ
-    ~AKPlayingSceneIF();
+    virtual ~AKPlayingSceneIF();
     // ポーズ解除ボタン取得
     AKLabel* getResumeButton();
     // 終了ボタン取得

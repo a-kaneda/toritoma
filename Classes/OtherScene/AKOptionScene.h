@@ -58,6 +58,8 @@ private:
     AKLabel *m_buyButton;
     /// リストアボタン
     AKLabel *m_restoreButton;
+    /// インターフェース
+    AKInterface *m_interface;
     /// ページ番号
     int m_pageNo;
     /// 最大ページ番号

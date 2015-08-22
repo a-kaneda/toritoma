@@ -134,17 +134,6 @@ AKTitleScene* AKTitleScene::create()
 }
 
 /*!
- @brief デストラクタ
-
- メンバを解放する。
- */
-AKTitleScene::~AKTitleScene()
-{
-    // メンバを解放する
-    m_interface->release();
-}
-
-/*!
  @brief イベント実行
  
  イベントを実行する。
@@ -360,7 +349,6 @@ AKTitleScene::AKTitleScene()
     
     // インターフェースを作成する
     m_interface = AKInterface::create(this);
-    m_interface->retain();
     
     // インターフェースをシーンに配置する
     addChild(m_interface, kAKTitleInterface, kAKTitleInterface);

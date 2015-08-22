@@ -75,8 +75,6 @@ private:
 public:
     // イベント実行
     virtual void execEvent(const AKMenuItem *item);
-    // デストラクタ
-    ~AKTitleScene();
     // 初期化処理
     virtual bool init();
     // 画面遷移終了時処理

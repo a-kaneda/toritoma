@@ -66,7 +66,7 @@ private:
     
 public:
     // デストラクタ
-    ~AKInterface();
+    virtual ~AKInterface();
     // 有効化タグ取得
     unsigned int getEnableTag();
     // 有効化タグ設定
