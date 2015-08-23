@@ -383,8 +383,8 @@ void AKPlayData::readScript(int stage)
 void AKPlayData::readHiScore()
 {
     // 設定データからハイスコアを取得する
-    SettingFileIO setting;
-    m_hiScore = setting.ReadHighScore();
+    SettingFileIO &setting = SettingFileIO::GetInstance();
+    m_hiScore = setting.GetHighScore();
 
     AKLog(kAKLogPlayData_1, "hiScore=%d", m_hiScore);
 }
@@ -399,7 +399,7 @@ void AKPlayData::writeHiScore()
     AKLog(kAKLogPlayData_1, "hiScore=%d", m_hiScore);
     
     // 設定データにハイスコアを書き込む
-    SettingFileIO setting;
+    SettingFileIO &setting = SettingFileIO::GetInstance();
     setting.WriteHighScore(m_hiScore);
     
     // Game Centerにスコアを送信する

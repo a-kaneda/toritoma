@@ -42,21 +42,33 @@
  設定データをファイル入出力する。
  */
 class SettingFileIO {
-public:
-    // 課金済みかどうかをファイルに書き込む
-    void WriteIsPurchased(bool isPurchased);
-    // 課金済みかどうかをファイルから読み込む
-    bool ReadIsPurchased();
-    // ハイスコアをファイルに書き込む
-    void WriteHighScore(int hiScore);
-    // ハイスコアをファイルから読み込む
-    int ReadHighScore();
-    
 private:
     // UserDefaultの課金済みかどうかのキー
     static const char *UDKeyIsPurchased;
     // UserDefaultのハイスコアのキー
     static const char *UDKeyHighScore;
+    // 課金済みかどうか
+    bool _isPurchased;
+    // ハイスコア
+    int _highScore;
+
+public:
+    // インスタンス取得
+    static SettingFileIO& GetInstance();
+    // ファイルを読み込む
+    void ReadFile();
+    // 課金済みかどうかをファイルに書き込む
+    void WriteIsPurchased(bool isPurchased);
+    // 課金済みかどうかを取得する
+    bool IsPurchased();
+    // ハイスコアをファイルに書き込む
+    void WriteHighScore(int hiScore);
+    // ハイスコアを取得する
+    int GetHighScore();
+    
+private:
+    // コンストラクタ
+    SettingFileIO();
 };
 
 #endif /* defined(__toritoma__SettingFileIO__) */

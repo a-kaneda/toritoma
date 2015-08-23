@@ -44,6 +44,40 @@ const char *SettingFileIO::UDKeyIsPurchased = ProductIDRemoveAd;
 /// UserDefaultのハイスコアのキー
 const char *SettingFileIO::UDKeyHighScore = "HighScore";
 
+// スレッドセーフにするため、グローバル変数初期化処理でインスタンスの生成を行う
+static SettingFileIO &_instance = SettingFileIO::GetInstance();
+
+/*!
+ @brief インスタンス取得
+ 
+ シングルトンインスタンスを取得する。
+ @return インスタンス
+ */
+SettingFileIO& SettingFileIO::GetInstance()
+{
+    // シングルトンインスタンス
+    static SettingFileIO instance;
+    
+    return instance;
+}
+
+/*!
+ @brief ファイルを読み込む
+ 
+ ファイルを読み込んでメンバ変数に取り込む。
+ */
+void SettingFileIO::ReadFile()
+{
+    // UserDefaultインスタンスを取得する
+    UserDefault *ud = UserDefault::getInstance();
+
+    // 課金済みかどうかを読み込む
+    _isPurchased = ud->getBoolForKey(UDKeyIsPurchased, false);
+    
+    // ハイスコアを読み込む
+    _highScore = ud->getIntegerForKey(UDKeyHighScore, 0);
+}
+
 /*!
  @brief 課金済みかどうかをファイルに書き込む
  
@@ -57,23 +91,20 @@ void SettingFileIO::WriteIsPurchased(bool isPurchased)
     
     // 課金済みかどうかを書き込む
     ud->setBoolForKey(UDKeyIsPurchased, isPurchased);
+    
+    // メンバ変数の内容を変更する
+    _isPurchased = isPurchased;
 }
 
 /*!
- @brief 課金済みかどうかをファイルから読み込む
+ @brief 課金済みかどうかを取得する
  
- 課金済みかどうかをファイルから読み込む。
+ 課金済みかどうかを取得する。
  @return 課金済みかどうか
  */
-bool SettingFileIO::ReadIsPurchased()
+bool SettingFileIO::IsPurchased()
 {
-    // UserDefaultインスタンスを取得する
-    UserDefault *ud = UserDefault::getInstance();
-    
-    // 課金済みかどうかを取得する
-    bool isPurchased = ud->getBoolForKey(UDKeyIsPurchased, false);
-    
-    return isPurchased;
+    return _isPurchased;
 }
 
 /*!
@@ -82,28 +113,37 @@ bool SettingFileIO::ReadIsPurchased()
  ハイスコアをファイルに書き込む。
  @param hiScore ハイスコア
  */
-void SettingFileIO::WriteHighScore(int hiScore)
+void SettingFileIO::WriteHighScore(int highScore)
 {
     // UserDefaultインスタンスを取得する
     UserDefault *ud = UserDefault::getInstance();
     
     // ハイスコアを書き込む
-    ud->setIntegerForKey(UDKeyHighScore, hiScore);
+    ud->setIntegerForKey(UDKeyHighScore, highScore);
+
+    // メンバ変数の内容を変更する
+    _highScore = highScore;
 }
 
 /*!
- @brief ハイスコアをファイルから読み込む
+ @brief ハイスコアを取得する
 
- ハイスコアをファイルから読み込む。
+ ハイスコアを取得する。
  @return ハイスコア
  */
-int SettingFileIO::ReadHighScore()
+int SettingFileIO::GetHighScore()
 {
-    // UserDefaultインスタンスを取得する
-    UserDefault *ud = UserDefault::getInstance();
-    
-    // ハイスコアを取得する
-    int hiScore = ud->getIntegerForKey(UDKeyHighScore, 0);
-    
-    return hiScore;
+    return _highScore;
+}
+
+/*!
+ @brief コンストラクタ
+ 
+ メンバ変数を初期化する。
+ */
+SettingFileIO::SettingFileIO()
+{
+    // メンバ変数を初期化する
+    _isPurchased = false;
+    _highScore = 0;
 }

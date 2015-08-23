@@ -31,6 +31,7 @@
 #import "audio/ios/CDAudioManager.h"
 #include "Payment.h"
 #include "ID.h"
+#include "SettingFileIO.h"
 
 @implementation AppController
 
@@ -90,6 +91,10 @@ static AppDelegate s_sharedApplication;
     
     // プロダクト情報を取得する
     Payment::AddProduct(ProductIDRemoveAd);
+    
+    // 設定ファイルの読込を行う
+    SettingFileIO &setting = SettingFileIO::GetInstance();
+    setting.ReadFile();
     
     // インタースティシャル広告表示の準備を行う
     [_viewController createAdInterstitial];
