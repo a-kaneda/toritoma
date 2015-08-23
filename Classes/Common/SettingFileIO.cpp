@@ -35,11 +35,12 @@
 
 #include "SettingFileIO.h"
 #include "cocos2d.h"
+#include "ID.h"
 
 using cocos2d::UserDefault;
 
 /// UserDefaultの課金済みかどうかのキー
-const char *SettingFileIO::UDKeyIsPurchased = "IsPurchased";
+const char *SettingFileIO::UDKeyIsPurchased = ProductIDRemoveAd;
 /// UserDefaultのハイスコアのキー
 const char *SettingFileIO::UDKeyHighScore = "HighScore";
 

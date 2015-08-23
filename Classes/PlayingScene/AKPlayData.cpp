@@ -39,16 +39,15 @@
 #include "AKEnemy.h"
 #include "AKEffect.h"
 #include "AKBlock.h"
-#include "AKHiScoreFile.h"
 #include "AKNWayAngle.h"
 #include "OnlineScore.h"
+#include "SettingFileIO.h"
 #include "string.h"
 
 using cocos2d::Node;
 using cocos2d::Vec2;
 using cocos2d::SpriteFrameCache;
 using cocos2d::SpriteBatchNode;
-using cocos2d::UserDefault;
 using cocos2d::Application;
 using cocos2d::LanguageType;
 using CocosDenshion::SimpleAudioEngine;
@@ -383,11 +382,9 @@ void AKPlayData::readScript(int stage)
  */
 void AKPlayData::readHiScore()
 {
-    // UserDefaultインスタンスを取得する
-    UserDefault *ud = UserDefault::getInstance();
-    
-    // ハイスコアを取得する
-    m_hiScore = ud->getIntegerForKey(kAKUDKeyHighScore, 0);
+    // 設定データからハイスコアを取得する
+    SettingFileIO setting;
+    m_hiScore = setting.ReadHighScore();
 
     AKLog(kAKLogPlayData_1, "hiScore=%d", m_hiScore);
 }
@@ -401,11 +398,9 @@ void AKPlayData::writeHiScore()
 {
     AKLog(kAKLogPlayData_1, "hiScore=%d", m_hiScore);
     
-    // UserDefaultインスタンスを取得する
-    UserDefault *ud = UserDefault::getInstance();
-    
-    // ハイスコアを書き込む
-    ud->setIntegerForKey(kAKUDKeyHighScore, m_hiScore);
+    // 設定データにハイスコアを書き込む
+    SettingFileIO setting;
+    setting.WriteHighScore(m_hiScore);
     
     // Game Centerにスコアを送信する
     aklib::OnlineScore::postHighScore(m_hiScore);
