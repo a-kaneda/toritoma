@@ -129,7 +129,7 @@ namespace aklib
      @brief 支払処理
      
      指定したプロダクトIDの支払いを行う。
-     支払処理終了を通知するためのデリゲートを設定し、
+     支払処理終了を通知するためのデリゲートを設定する。
      @param productID プロダクトID
      @param delegate 支払処理終了受信デリゲート
      @return 正常終了時true、異常終了時false
@@ -147,6 +147,26 @@ namespace aklib
         
         // 支払処理を実行し、結果を返す
         return [naitiveInstance pay:productIDString];
+    }
+    
+    /*!
+     @brief リストア処理
+     
+     リストア処理を行う。
+     支払処理終了を通知するためのデリゲートを設定する。
+     @param delegate 支払処理終了受信デリゲート
+     @return 正常終了時true、異常終了時false
+     */
+    bool Payment::Restore(PaymentDelegate *delegate)
+    {
+        // ネイティブ呼び出し用クラスのインスタンスを作成する
+        Payment_objc *naitiveInstance = [Payment_objc sharedInstance];
+        
+        // デリゲートを設定する
+        naitiveInstance.delegate = delegate;
+        
+        // リストア処理を行い、結果を返す
+        return [naitiveInstance restore];
     }
     
     /*!

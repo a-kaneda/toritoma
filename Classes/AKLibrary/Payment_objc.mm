@@ -232,6 +232,20 @@ static Payment_objc *sharedInstance_ = nil;
 }
 
 /*!
+ @brief リストア処理
+ 
+ リストア要求を行う。
+ @return 正常終了時true、異常終了時false
+ */
+- (bool)restore
+{
+    // リストア要求を行う
+    [[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+    
+    return true;
+}
+
+/*!
  @brief 支払いキュー状態変更受信処理
  
  支払いキューの状態変化を受信し、トランザクション終了処理を行う。

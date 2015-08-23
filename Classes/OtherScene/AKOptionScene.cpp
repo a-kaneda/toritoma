@@ -640,8 +640,8 @@ void AKOptionScene::selectRestore()
         return;
     }
     
-    // TODO:メニュー選択時の効果音を鳴らす
-//    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
+    // メニュー選択時の効果音を鳴らす
+    SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
     
     // ボタンのブリンクアクションを作成する
     Blink *action = Blink::create(0.2f, 2);
@@ -649,11 +649,12 @@ void AKOptionScene::selectRestore()
     // ブリンクアクションを開始する
     m_restoreButton->runAction(action);
     
-    // 通信ビューを表示する
-    startConnect();
-
-    // TODO:リストア処理を行う
-//    [[AKInAppPurchaseHelper sharedHelper] restore];
+    // リストア処理を行う
+    if (Payment::Restore(this)) {
+        
+        // 通信ビューを表示する
+        startConnect();
+    }
 }
 
 /*!

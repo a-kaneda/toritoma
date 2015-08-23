@@ -57,6 +57,8 @@
 - (NSString *)getPriceString:(NSString *)productID;
 // 支払いを行う
 - (bool)pay:(NSString *)productID;
+// リストアを行う
+- (bool)restore;
 // トランザクション終了処理
 - (void)completeTransaction:(SKPaymentTransaction *)transaction;
 // トランザクション失敗処理

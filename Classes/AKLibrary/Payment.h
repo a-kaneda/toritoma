@@ -59,6 +59,8 @@ namespace aklib {
         static const char *GetPriceString(const char *productID);
         // 支払いを行う
         static bool Pay(const char *productID, PaymentDelegate *delegate);
+        // リストアを行う
+        static bool Restore(PaymentDelegate *delegate);
         // 支払い終了処理
         static void Finish();
     };
