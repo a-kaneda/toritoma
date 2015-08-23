@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012-2013 Akihiro Kaneda.
+ * Copyright (c) 2015 Akihiro Kaneda.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,29 +27,36 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 /*!
- @file AKHiScoreFile.h
- @brief ハイスコアファイル管理クラス
+ @file SettingFileIO.h
+ @brief 設定データファイル入出力
  
- ハイスコアのファイル入出力を管理するクラスを定義する。
+ 設定データをファイル入出力するクラスを定義する。
  */
 
-#ifndef AKHISCOREFILE_H
-#define AKHISCOREFILE_H
-
-#import "AKToritoma.h"
+#ifndef __toritoma__SettingFileIO__
+#define __toritoma__SettingFileIO__
 
 /*!
- @brief ハイスコアファイル管理クラス
+ @brief 設定データファイル入出力
  
- ハイスコアのファイル入出力を管理する。
+ 設定データをファイル入出力する。
  */
-class AKHiScoreFile {
-private:
-    /// ハイスコア
-    int m_hiScore;
+class SettingFileIO {
 public:
-    // コンストラクタ
-    AKHiScoreFile();
+    // 課金済みかどうかをファイルに書き込む
+    void WriteIsPurchased(bool isPurchased);
+    // 課金済みかどうかをファイルから読み込む
+    bool ReadIsPurchased();
+    // ハイスコアをファイルに書き込む
+    void WriteHighScore(int hiScore);
+    // ハイスコアをファイルから読み込む
+    int ReadHighScore();
+    
+private:
+    // UserDefaultの課金済みかどうかのキー
+    static const char *UDKeyIsPurchased;
+    // UserDefaultのハイスコアのキー
+    static const char *UDKeyHighScore;
 };
 
-#endif
+#endif /* defined(__toritoma__SettingFileIO__) */

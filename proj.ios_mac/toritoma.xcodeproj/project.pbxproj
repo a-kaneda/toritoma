@@ -35,6 +35,7 @@
 		0CDAB2431B49302E002683B6 /* LabelFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = 0CDAB23F1B49302E002683B6 /* LabelFrame.png */; };
 		0CDAB2461B520AE4002683B6 /* CreditScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CDAB2441B520AE4002683B6 /* CreditScene.cpp */; };
 		0CDAB2491B5329C3002683B6 /* OpenUrl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CDAB2471B5329C3002683B6 /* OpenUrl.mm */; };
+		0CFA6A561B8954C6001920DC /* SettingFileIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFA6A541B8954C6001920DC /* SettingFileIO.cpp */; };
 		0CFB61571B3600F4003FB45D /* Advertisement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB613E1B3600F4003FB45D /* Advertisement.mm */; };
 		0CFB61581B3600F4003FB45D /* AKCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB613F1B3600F4003FB45D /* AKCommon.cpp */; };
 		0CFB615A1B3600F4003FB45D /* AKInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB61431B3600F4003FB45D /* AKInterface.cpp */; };
@@ -59,7 +60,6 @@
 		0CFB61A11B36014D003FB45D /* AKEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB61801B36014D003FB45D /* AKEnemy.cpp */; };
 		0CFB61A21B36014D003FB45D /* AKEnemyShot.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB61821B36014D003FB45D /* AKEnemyShot.cpp */; };
 		0CFB61A31B36014D003FB45D /* AKGauge.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB61841B36014D003FB45D /* AKGauge.cpp */; };
-		0CFB61A41B36014D003FB45D /* AKHiScoreFile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB61861B36014D003FB45D /* AKHiScoreFile.cpp */; };
 		0CFB61A51B36014D003FB45D /* AKLife.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB61881B36014D003FB45D /* AKLife.cpp */; };
 		0CFB61A61B36014D003FB45D /* AKNWayAngle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB618A1B36014D003FB45D /* AKNWayAngle.cpp */; };
 		0CFB61A71B36014D003FB45D /* AKOption.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB618C1B36014D003FB45D /* AKOption.cpp */; };
@@ -379,6 +379,8 @@
 		0CDAB2451B520AE4002683B6 /* CreditScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CreditScene.h; sourceTree = "<group>"; };
 		0CDAB2471B5329C3002683B6 /* OpenUrl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = OpenUrl.mm; path = ../Classes/AKLibrary/OpenUrl.mm; sourceTree = "<group>"; };
 		0CDAB2481B5329C3002683B6 /* OpenUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenUrl.h; path = ../Classes/AKLibrary/OpenUrl.h; sourceTree = "<group>"; };
+		0CFA6A541B8954C6001920DC /* SettingFileIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SettingFileIO.cpp; sourceTree = "<group>"; };
+		0CFA6A551B8954C6001920DC /* SettingFileIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingFileIO.h; sourceTree = "<group>"; };
 		0CFB613D1B3600F4003FB45D /* Advertisement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Advertisement.h; path = ../Classes/AKLibrary/Advertisement.h; sourceTree = "<group>"; };
 		0CFB613E1B3600F4003FB45D /* Advertisement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Advertisement.mm; path = ../Classes/AKLibrary/Advertisement.mm; sourceTree = "<group>"; };
 		0CFB613F1B3600F4003FB45D /* AKCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = AKCommon.cpp; path = ../Classes/AKLibrary/AKCommon.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
@@ -429,8 +431,6 @@
 		0CFB61831B36014D003FB45D /* AKEnemyShot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = AKEnemyShot.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		0CFB61841B36014D003FB45D /* AKGauge.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = AKGauge.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		0CFB61851B36014D003FB45D /* AKGauge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKGauge.h; sourceTree = "<group>"; };
-		0CFB61861B36014D003FB45D /* AKHiScoreFile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKHiScoreFile.cpp; sourceTree = "<group>"; };
-		0CFB61871B36014D003FB45D /* AKHiScoreFile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHiScoreFile.h; sourceTree = "<group>"; };
 		0CFB61881B36014D003FB45D /* AKLife.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = AKLife.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		0CFB61891B36014D003FB45D /* AKLife.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKLife.h; sourceTree = "<group>"; };
 		0CFB618A1B36014D003FB45D /* AKNWayAngle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; path = AKNWayAngle.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
@@ -748,6 +748,8 @@
 				0CFB61691B36011F003FB45D /* AKToritoma.h */,
 				0C8EE2D21B807889007C4856 /* ID.h */,
 				0C8EE2D31B80795C007C4856 /* ID.cpp */,
+				0CFA6A541B8954C6001920DC /* SettingFileIO.cpp */,
+				0CFA6A551B8954C6001920DC /* SettingFileIO.h */,
 			);
 			name = Common;
 			path = ../Classes/Common;
@@ -786,8 +788,6 @@
 				0CFB61831B36014D003FB45D /* AKEnemyShot.h */,
 				0CFB61841B36014D003FB45D /* AKGauge.cpp */,
 				0CFB61851B36014D003FB45D /* AKGauge.h */,
-				0CFB61861B36014D003FB45D /* AKHiScoreFile.cpp */,
-				0CFB61871B36014D003FB45D /* AKHiScoreFile.h */,
 				0CFB61881B36014D003FB45D /* AKLife.cpp */,
 				0CFB61891B36014D003FB45D /* AKLife.h */,
 				0CFB618A1B36014D003FB45D /* AKNWayAngle.cpp */,
@@ -1329,12 +1329,12 @@
 				0CDAB2491B5329C3002683B6 /* OpenUrl.mm in Sources */,
 				0CFB61A11B36014D003FB45D /* AKEnemy.cpp in Sources */,
 				0C6B03DB1B7164D700FEA915 /* Payment.mm in Sources */,
+				0CFA6A561B8954C6001920DC /* SettingFileIO.cpp in Sources */,
 				0CDAB2461B520AE4002683B6 /* CreditScene.cpp in Sources */,
 				0CFB61AA1B36014D003FB45D /* AKPlayerShot.cpp in Sources */,
 				0CFB615F1B3600F4003FB45D /* GameCenterHelper.m in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				0CFB61AC1B36014D003FB45D /* AKPlayingSceneIF.cpp in Sources */,
-				0CFB61A41B36014D003FB45D /* AKHiScoreFile.cpp in Sources */,
 				0CFB619F1B36014D003FB45D /* AKCharacterPool.cpp in Sources */,
 				0CFB61621B3600F4003FB45D /* Twitter.mm in Sources */,
 				0CFB61751B360143003FB45D /* AKOptionScene.cpp in Sources */,
