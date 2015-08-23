@@ -37,6 +37,8 @@
 #include "AKTitleScene.h"
 #include "Payment.h"
 #include "OnlineScore.h"
+#include "SettingFileIO.h"
+#include "ID.h"
 
 using cocos2d::SpriteFrameCache;
 using cocos2d::LayerColor;
@@ -199,6 +201,25 @@ void AKOptionScene::execEvent(const AKMenuItem *item)
             AKAssert(false, "不正なイベント番号:%d", item->getEventNo());
             break;
     }
+}
+
+/*!
+ @brief 課金完了
+ 
+ 課金処理完了時の処理を行う。
+ 通信中状態を終了し、操作可能にする。
+ */
+void AKOptionScene::completePayment()
+{
+    /* TODO:通信中の処理を作成する
+     // 通信中ビューを削除する
+     [self.connectingView removeFromSuperview];
+     self.connectingView = nil;
+     
+     */
+    
+    // 画面入力を有効化する
+    m_isConnecting = false;
 }
 
 /*!
@@ -588,8 +609,8 @@ void AKOptionScene::selectBuy()
         return;
     }
     
-    // TODO:メニュー選択時の効果音を鳴らす
-//    [[SimpleAudioEngine sharedEngine] playEffect:kAKMenuSelectSE];
+    // メニュー選択時の効果音を鳴らす
+    SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
     
     // ボタンのブリンクアクションを作成する
     Blink *action = Blink::create(0.2f, 2);
@@ -597,11 +618,12 @@ void AKOptionScene::selectBuy()
     // ブリンクアクションを開始する
     m_buyButton->runAction(action);
     
-    // 通信ビューを表示する
-    startConnect();
-    
-    // TODO:購入処理を行う
-//    [[AKInAppPurchaseHelper sharedHelper] buy];
+    // 購入処理を行う
+    if (Payment::Pay(ProductIDRemoveAd, this)) {
+        
+        // 通信ビューを表示する
+        startConnect();
+    }
 }
 
 /*!
@@ -680,26 +702,6 @@ void AKOptionScene::startConnect()
 }
 
 /*!
- @brief 通信終了
- 
- 通信終了時の処理を行う。
- 通信中のビューを削除し、画面入力を有効にする。
- */
-void AKOptionScene::endConnect()
-{
-    AKLog(kAKLogOptionScene_1, "start");
-    
-    /* TODO:通信中の処理を作成する
-    // 通信中ビューを削除する
-    [self.connectingView removeFromSuperview];
-    self.connectingView = nil;
-
-    // 画面入力を有効化する
-    isConnecting_ = NO;
-     */
-}
-
-/*!
  @brief インターフェース有効タグ取得
  
  インターフェースの有効タグをページ番号から作成する。
@@ -715,16 +717,16 @@ unsigned int AKOptionScene::getInterfaceTag(int page)
             
         case kAKPageStore:          // Storeのページ
             
-            // TODO:購入済みかどうかで有効化する項目を変える
-            /*
-            if ([AKInAppPurchaseHelper sharedHelper].isEnableContinue) {
+        {
+            // 購入済みかどうかで有効化する項目を変える
+            SettingFileIO &setting = SettingFileIO::GetInstance();
+            if (setting.IsPurchased()) {
                 return kAKMenuStore | kAKMenuStoreAfterPurcase;
             }
             else {
                 return kAKMenuStore | kAKMenuStoreBeforePurchase;
             }
-             */
-            return kAKMenuStore;
+        }
             
         default:                    // その他のページは存在しない
             AKAssert(false, "不正なページ番号:%d", page);

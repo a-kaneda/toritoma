@@ -38,13 +38,14 @@
 
 #include "AKToritoma.h"
 #include "AKMenuEventHandler.h"
+#include "PaymentDelegate.h"
 
 /*!
  @brief オプション画面シーン
  
  オプション画面のシーン。
  */
-class AKOptionScene : public cocos2d::Scene, AKMenuEventHandler {
+class AKOptionScene : public cocos2d::Scene, AKMenuEventHandler, aklib::PaymentDelegate {
 public:
     // コンビニエンスコンストラクタ
     static AKOptionScene* create();
@@ -72,6 +73,8 @@ private:
 public:
     // イベント実行
     virtual void execEvent(const AKMenuItem *item);
+    // 課金完了
+    virtual void completePayment();
 
 private:
     // コンストラクタ
@@ -104,8 +107,6 @@ private:
     void selectRestore();
     // 通信開始
     void startConnect();
-    // 通信終了
-    void endConnect();
     // インターフェース有効タグ取得
     unsigned int getInterfaceTag(int page);
 };
