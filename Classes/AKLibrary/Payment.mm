@@ -36,6 +36,8 @@
 #include "Payment.h"
 #import "Payment_objc.h"
 
+using std::string;
+
 namespace aklib
 {
     /*!
@@ -113,7 +115,7 @@ namespace aklib
      @param productID プロダクトID
      @return 価格文字列
      */
-    const char *Payment::GetPriceString(const char *productID)
+    string Payment::GetPriceString(const char *productID)
     {
         // ネイティブ呼び出し用クラスのインスタンスを作成する
         Payment_objc *naitiveInstance = [Payment_objc sharedInstance];
@@ -121,8 +123,18 @@ namespace aklib
         // char配列をNSStringに変換する
         NSString *productIDString = [NSString stringWithUTF8String:productID];
         
-        // 価格文字列を取得して返す
-        return [[naitiveInstance getPriceString:productIDString] UTF8String];
+        // 価格文字列を取得する
+        NSString *priceString = [naitiveInstance getPriceString:productIDString];
+        
+        // 戻り値を作成する
+        if (priceString == nil) {
+            string ret = "";
+            return ret;
+        }
+        else {
+            string ret = [priceString UTF8String];
+            return ret;
+        }
     }
     
     /*!

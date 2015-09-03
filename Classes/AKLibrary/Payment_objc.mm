@@ -157,7 +157,7 @@ static Payment_objc *sharedInstance_ = nil;
     for (SKProduct *product in response.products) {
         
         // メンバ変数に格納する
-        self.products[product.productIdentifier] = products;
+        self.products[product.productIdentifier] = product;
     }
 }
 
@@ -183,7 +183,7 @@ static Payment_objc *sharedInstance_ = nil;
     }
     
     // NSNumberFormatterのインスタンスを作成する
-    NSNumberFormatter *numberFormatter = [[NSNumberFormatter alloc] init];
+    NSNumberFormatter *numberFormatter = [[[NSNumberFormatter alloc] init] autorelease];
     
     // 動作をOS X 10.4以降にする
     [numberFormatter setFormatterBehavior:NSNumberFormatterBehavior10_4];

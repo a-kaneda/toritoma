@@ -40,6 +40,7 @@
 #include "SettingFileIO.h"
 #include "ID.h"
 
+using std::string;
 using cocos2d::SpriteFrameCache;
 using cocos2d::LayerColor;
 using cocos2d::Vec2;
@@ -50,6 +51,7 @@ using cocos2d::TransitionFade;
 using cocos2d::Director;
 using CocosDenshion::SimpleAudioEngine;
 using aklib::Payment;
+using aklib::LocalizedResource;
 
 // オプション画面シーンに配置するノードのタグ
 enum {
@@ -410,13 +412,22 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     message->setPosition(Vec2(x, y));
     
     // 表示文字列を設定する
-    message->setString(aklib::LocalizedResource::getInstance().getString(kAKStoreMessageKey));
+    string storeMessage = LocalizedResource::getInstance().getString(kAKStoreMessageKey);
+    
+    // 価格を付加する
+    string priceString = Payment::GetPriceString(ProductIDRemoveAd);
+    if (priceString.length() > 0) {
+        storeMessage.append("\n・");
+        storeMessage.append(priceString);
+    }
+    
+    message->setString(storeMessage);
     
     // レイヤーに配置する
     interface->addChild(message, 0, kAKMenuStore);
     
     // 購入済みの文字列を取得する
-    std::string purchasedMessage = aklib::LocalizedResource::getInstance().getString(kAKStorePurchasedKey);
+    string purchasedMessage = LocalizedResource::getInstance().getString(kAKStorePurchasedKey);
     
     // 購入済みのラベルを作成する
     AKLabel *purchasedLabel = AKLabel::createLabel(purchasedMessage,

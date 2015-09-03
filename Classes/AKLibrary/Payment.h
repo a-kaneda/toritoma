@@ -36,6 +36,7 @@
 #ifndef __toritoma__Payment__
 #define __toritoma__Payment__
 
+#include <string>
 #include "PaymentDelegate.h"
 
 namespace aklib {
@@ -56,7 +57,7 @@ namespace aklib {
         // 課金処理が可能か確認する
         static bool CanMakePayments();
         // 金額の文字列を取得する
-        static const char *GetPriceString(const char *productID);
+        static std::string GetPriceString(const char *productID);
         // 支払いを行う
         static bool Pay(const char *productID, PaymentDelegate *delegate);
         // リストアを行う
