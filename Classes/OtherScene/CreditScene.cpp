@@ -187,7 +187,7 @@ bool CreditScene::init()
     snprintf(pageString, sizeof(pageString), PageFormat, 1, MaxPageNum);
     
     // ページ番号のラベルを作成する
-    m_pageLabel = AKLabel::createLabel(pageString, (int)strlen(pageString), 1, kAKLabelFrameNone);
+    m_pageLabel = AKLabel::createLabel(pageString, (int)strlen(pageString), 1, kAKLabelFrameNone, AKLabel::ControlFont);
     
     // ページ番号の位置を設定する
     float x = AKScreenSize::center().x;
@@ -250,7 +250,7 @@ bool CreditScene::init()
     // クレジットラベルをインターフェースに配置する
     for (int i = 0; i < LinkNumOfPage; i++) {
         
-        m_creditLabel[i] = AKLabel::createLabel("", CreditLineLength, CreditLineNum, kAKLabelFrameNone);
+        m_creditLabel[i] = AKLabel::createLabel("", CreditLineLength, CreditLineNum, kAKLabelFrameNone, AKLabel::ControlFont);
         
         x = AKScreenSize::positionFromLeftRatio(CreditPosLeftRatio);
         y = AKScreenSize::positionFromTopRatio(LinkPosTopRatio[i]);

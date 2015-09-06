@@ -169,8 +169,8 @@ Rect AKLabel::getRect(Vec2 position, int length, int line, bool hasFrame)
  @param line 表示行数
  @param frame 枠の種類
  */
-AKLabel::AKLabel(const std::string &str, int length, int line, enum AKLabelFrame frame) :
-m_length(length), m_line(line), m_frame(frame), m_isReverse(false)
+AKLabel::AKLabel(const std::string &str, int length, int line, enum AKLabelFrame frame, enum FontType font) :
+m_length(length), m_line(line), m_frame(frame), m_isReverse(false), m_font(font)
 {
     // 文字列が表示可能文字数を超えている場合はエラー
     AKAssert(AKStringSplitter::getStringLength(str.c_str()) <= length * line, "文字列が表示可能文字数を超えている:str.size()=%d, length=%d, line=%d", AKStringSplitter::getStringLength(str.c_str()), length, line);
@@ -221,9 +221,9 @@ AKLabel::~AKLabel()
  @param frame 枠の種類
  @return 生成したインスタンス
  */
-AKLabel* AKLabel::createLabel(const std::string &str, int length, int line, enum AKLabelFrame frame)
+AKLabel* AKLabel::createLabel(const std::string &str, int length, int line, enum AKLabelFrame frame, enum FontType font)
 {
-    AKLabel *instance = new AKLabel(str, length, line, frame);
+    AKLabel *instance = new AKLabel(str, length, line, frame, font);
     if (instance->init()) {
         instance->autorelease();
         return instance;
@@ -353,23 +353,34 @@ void AKLabel::updateLabel()
         m_text = NULL;
     }
     
+    // フォントタイプに応じて使用するフォントを切り替える
+    const char *font = NULL;
+    if (m_font == ControlFont) {
+        font = CONTROL_FONT;
+    }
+    else {
+        font = JAPANESE_FONT;
+    }
+    
     // フォント設定を作成する
-    TTFConfig config(MISAKI_FONT, 16);
+    TTFConfig config(font, FontSize);
     
     // ラベルを作成する
     m_text = Label::createWithTTF(config, convertHalfCharacter(m_labelString.c_str()));
     
     // ラベル高さを設定する
-    m_text->setHeight(getHeight(m_line, false));
+    if (m_font == ControlFont) {
+        m_text->setHeight((int)(m_line  * kAKLabelLineHeight) * FontSize);
+    }
+    else {
+        m_text->setHeight(m_line * FontSize * kAKLabelLineHeight);
+    }
     
     // ラベル幅を設定する
     m_text->setWidth(getWidth(m_length, false));
     
     // 色を設定する
     m_text->setColor(cocos2d::Color3B(kAKColor[kAKColorDark]));
-    
-    // タグを設定する
-    m_text->setTag(1);
     
     // ラベルを配置する
     addChild(m_text, kAKLabelBatchPosZ);
@@ -583,6 +594,13 @@ std::string AKLabel::convertHalfCharacter(const char *org)
             continue;
         }
         
+        // コントロール用フォント以外の場合は半角全角変換をしない
+        if (m_font != ControlFont) {
+            ret += org[i];
+            i++;
+            continue;
+        }
+                
         // 半角英数を全角英数に変換する
         switch (org[i]) {
             case '0':

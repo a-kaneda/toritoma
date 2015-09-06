@@ -205,7 +205,7 @@ bool AKHowToPlayScene::init()
     addChild(backColor, kAKHowToBackPosZ);
     
     // メッセージボックスを作成する
-    AKLabel *message = AKLabel::createLabel("", kAKHowToMsgLength, kAKHowToMsgLineCount, kAKLabelFrameMessage);
+    AKLabel *message = AKLabel::createLabel("", kAKHowToMsgLength, kAKHowToMsgLineCount, kAKLabelFrameMessage, AKLabel::MessageFont);
     
     // 配置位置を設定する
     message->setPosition(Vec2(AKScreenSize::center().x,
@@ -219,7 +219,7 @@ bool AKHowToPlayScene::init()
     snprintf(pageString, sizeof(pageString), kAKHowToPageFormat, 1, kAKHowToPageCount);
     
     // ページ番号のラベルを作成する
-    AKLabel *pageLabel = AKLabel::createLabel(pageString, (int)strlen(pageString), 1, kAKLabelFrameNone);
+    AKLabel *pageLabel = AKLabel::createLabel(pageString, (int)strlen(pageString), 1, kAKLabelFrameNone, AKLabel::ControlFont);
     
     // ページ番号の位置を設定する
     float x = AKScreenSize::center().x;

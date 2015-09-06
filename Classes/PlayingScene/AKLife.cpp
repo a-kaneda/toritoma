@@ -158,7 +158,7 @@ void AKLife::setLifeCount(int lifeCount)
         AKLog(kAKLogLife_1, "ラベル作成:\"%s\"", labelStr);
         
         // 残機数ラベルを作成する
-        m_numberLabel = AKLabel::createLabel(labelStr, (int)strlen(labelStr), 1, kAKLabelFrameNone);
+        m_numberLabel = AKLabel::createLabel(labelStr, (int)strlen(labelStr), 1, kAKLabelFrameNone, AKLabel::ControlFont);
     }
     // ラベルが作成されている場合
     else {

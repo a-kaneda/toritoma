@@ -402,7 +402,7 @@ AKLabel* AKInterface::addLabelMenu(const std::string menuString,
                                    bool withFrame)
 {
     // ラベルを作成する
-    AKLabel *label = AKLabel::createLabel(menuString, (int)menuString.length(), 1, (withFrame ? kAKLabelFrameButton : kAKLabelFrameNone));
+    AKLabel *label = AKLabel::createLabel(menuString, (int)menuString.length(), 1, (withFrame ? kAKLabelFrameButton : kAKLabelFrameNone), AKLabel::ControlFont);
     
     // ラベルの位置を設定する
     label->setPosition(position);

@@ -52,10 +52,14 @@ enum AKLabelFrame {
  */
 class AKLabel : public cocos2d::Node, cocos2d::LabelProtocol {
 public:
+    /// フォントタイプ
+    enum FontType {
+        ControlFont = 0,    ///< コントロール用フォント
+        MessageFont         ///< メッセージ用フォント
+    };
+    
     // コンビニエンスコンストラクタ
-    static AKLabel* createLabel(const std::string &str, int length, int line, enum AKLabelFrame frame);
-
-public:
+    static AKLabel* createLabel(const std::string &str, int length, int line, enum AKLabelFrame frame, enum FontType font);
     // 指定文字数の幅取得
     static int getWidth(int length, bool hasFrame);
     // 指定行数の高さ取得
@@ -63,27 +67,6 @@ public:
     // 指定文字数、指定行数の指定位置の矩形範囲取得
     static cocos2d::Rect getRect(cocos2d::Vec2 position, int length, int line, bool hasFrame);
     
-private:
-    /// 表示文字列
-    std::string m_labelString;
-    /// １行の表示文字数
-    int m_length;
-    /// 表示行数
-    int m_line;
-    /// 枠のタイプ
-    enum AKLabelFrame m_frame;
-    /// 色反転するかどうか
-    bool m_isReverse;
-    /// テキストラベル
-    cocos2d::Label *m_text;
-    
-private:
-    // デフォルトコンストラクタは使用禁止にする
-    AKLabel();
-    // 初期文字列を指定したコンストラクタ
-    AKLabel(const std::string &str, int length, int line, enum AKLabelFrame frame);
-    
-public:
     // デストラクタ
     virtual ~AKLabel();
     // 色反転するかどうかの設定
@@ -100,6 +83,25 @@ public:
     cocos2d::Rect getRect();
     
 private:
+    /// 表示文字列
+    std::string m_labelString;
+    /// １行の表示文字数
+    int m_length;
+    /// 表示行数
+    int m_line;
+    /// 枠のタイプ
+    enum AKLabelFrame m_frame;
+    /// 色反転するかどうか
+    bool m_isReverse;
+    /// テキストラベル
+    cocos2d::Label *m_text;
+    /// フォントタイプ
+    enum FontType m_font;
+    
+    // デフォルトコンストラクタは使用禁止にする
+    AKLabel();
+    // 初期文字列を指定したコンストラクタ
+    AKLabel(const std::string &str, int length, int line, enum AKLabelFrame frame, enum FontType font);
     // 枠表示用バッチノード取得
     cocos2d::SpriteBatchNode* getFrameBatch();
     // 表示更新

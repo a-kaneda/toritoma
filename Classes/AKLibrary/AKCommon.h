@@ -146,11 +146,18 @@ extern bool kAKLogTwitterHelper_1;
 
 #endif
 
-// 美咲フォント（MISAKI_FONT）
+// 日本語フォント
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
-#define MISAKI_FONT "fonts/misaki_gothic.ttf"
+#define JAPANESE_FONT "fonts/NotoSansCJKjp-Regular.ttf"
 #else
-#define MISAKI_FONT "misaki_gothic.ttf"
+#define JAPANESE_FONT "NotoSansCJKjp-Regular.ttf"
+#endif
+
+// コントロール用フォント
+#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
+#define CONTROL_FONT "fonts/misaki_gothic.ttf"
+#else
+#define CONTROL_FONT "misaki_gothic.ttf"
 #endif
 
 // 範囲チェック

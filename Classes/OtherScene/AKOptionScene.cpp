@@ -136,7 +136,7 @@ static const float kAKRestoreButtonPosLeftRatio = 0.7f;
 /// メッセージボックスの1行の文字数
 static const int kAKMsgLength = 20;
 /// メッセージボックスの行数
-static const int kAKMsgLineCount = 3;
+static const int kAKMsgLineCount = 4;
 /// メッセージボックスの位置、下からの位置
 static const float kAKMsgPosBottomPoint = 120.0f;
 /// 購入済みのキャプションの位置、上からの比率
@@ -326,7 +326,8 @@ void AKOptionScene::initGameCenterPage(AKInterface *interface)
     AKLabel *gameCenterLabel = AKLabel::createLabel(kAKGameCenterCaption,
                                                     (int)strlen(kAKGameCenterCaption),
                                                     1,
-                                                    kAKLabelFrameNone);
+                                                    kAKLabelFrameNone,
+                                                    AKLabel::ControlFont);
     
     // Game Centerのラベルの位置を設定する
     float x = AKScreenSize::center().x;
@@ -370,7 +371,8 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     AKLabel *storeLabel = AKLabel::createLabel(kAKStoreCaption,
                                                (int)strlen(kAKStoreCaption),
                                                1,
-                                               kAKLabelFrameNone);
+                                               kAKLabelFrameNone,
+                                               AKLabel::ControlFont);
     
     // Storeのラベルの位置を設定する
     float x = AKScreenSize::center().x;
@@ -404,7 +406,8 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     AKLabel *message = AKLabel::createLabel("",
                                             kAKMsgLength,
                                             kAKMsgLineCount,
-                                            kAKLabelFrameMessage);
+                                            kAKLabelFrameMessage,
+                                            AKLabel::MessageFont);
     
     // 配置位置を設定する
     x = AKScreenSize::center().x;
@@ -433,7 +436,8 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     AKLabel *purchasedLabel = AKLabel::createLabel(purchasedMessage,
                                                    (int)purchasedMessage.length(),
                                                    1,
-                                                   kAKLabelFrameNone);
+                                                   kAKLabelFrameNone,
+                                                   AKLabel::ControlFont);
     
     // 購入済みのラベルの位置を設定する
     x = AKScreenSize::center().x;

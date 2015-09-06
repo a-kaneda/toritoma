@@ -43,4 +43,5 @@ tags
 NendAd
 # ID定義
 Classes/Common/ID.cpp
-
+# フォントファイル
+*.ttf

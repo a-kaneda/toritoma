@@ -336,7 +336,8 @@ void AKPlayingSceneIF::createPauseMenu()
     AKLabel *label = AKLabel::createLabel(kAKPauseString,
                                           (int)strlen(kAKPauseString),
                                           1,
-                                          kAKLabelFrameMessage);
+                                          kAKLabelFrameMessage,
+                                          AKLabel::ControlFont);
     
     // ポーズラベルの位置を設定する
     float x = AKScreenSize::center().x;
@@ -391,7 +392,8 @@ void AKPlayingSceneIF::createQuitMenu()
     AKLabel *label = AKLabel::createLabel(kAKQuitMessageString,
                                           (int)strlen(kAKQuitMessageString),
                                           1,
-                                          kAKLabelFrameMessage);
+                                          kAKLabelFrameMessage,
+                                          AKLabel::ControlFont);
     
     // 終了確認メッセージラベルの位置を設定する
     float x = AKScreenSize::center().x;
@@ -445,7 +447,8 @@ void AKPlayingSceneIF::createGameOverMenu()
     AKLabel *label = AKLabel::createLabel(kAKGameOverString,
                                           (int)strlen(kAKGameOverString),
                                           1,
-                                          kAKLabelFrameMessage);
+                                          kAKLabelFrameMessage,
+                                          AKLabel::ControlFont);
     
     // ゲームオーバーラベルの位置を設定する
     float x = AKScreenSize::center().x;
@@ -498,7 +501,8 @@ void AKPlayingSceneIF::createStageClear()
     AKLabel *label = AKLabel::createLabel(kAKStageClearString,
                                           (int)strlen(kAKStageClearString),
                                           1,
-                                          kAKLabelFrameNone);
+                                          kAKLabelFrameNone,
+                                          AKLabel::ControlFont);
     
     // ステージクリアラベルの位置を設定する
     float x = AKScreenSize::center().x;
@@ -520,7 +524,8 @@ void AKPlayingSceneIF::createAllStageClear()
     AKLabel *label = AKLabel::createLabel(kAKAllStageClearString,
                                           (int)strlen(kAKAllStageClearString),
                                           1,
-                                          kAKLabelFrameNone);
+                                          kAKLabelFrameNone,
+                                          AKLabel::ControlFont);
     
     // ステージクリアラベルの位置を設定する
     float x = AKScreenSize::center().x;

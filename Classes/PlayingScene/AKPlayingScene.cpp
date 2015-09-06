@@ -1215,7 +1215,7 @@ void AKPlayingScene::createInfoLayer()
     snprintf(scoreString, sizeof(scoreString), kAKScoreFormat, 0);
     
     // スコア表示を作成する
-    m_score = AKLabel::createLabel(scoreString, (int)strlen(scoreString), 1, kAKLabelFrameNone);
+    m_score = AKLabel::createLabel(scoreString, (int)strlen(scoreString), 1, kAKLabelFrameNone, AKLabel::ControlFont);
     
     // スコア表示を情報レイヤーに配置する
     m_infoLayer->addChild(m_score, 0, kAKInfoTagScore);

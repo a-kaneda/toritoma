@@ -36,6 +36,7 @@
 		0CDAB2461B520AE4002683B6 /* CreditScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CDAB2441B520AE4002683B6 /* CreditScene.cpp */; };
 		0CDAB2491B5329C3002683B6 /* OpenUrl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CDAB2471B5329C3002683B6 /* OpenUrl.mm */; };
 		0CFA6A561B8954C6001920DC /* SettingFileIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFA6A541B8954C6001920DC /* SettingFileIO.cpp */; };
+		0CFA6A5A1B98E64B001920DC /* NotoSansCJKjp-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CFA6A591B98E54F001920DC /* NotoSansCJKjp-Regular.ttf */; };
 		0CFB61571B3600F4003FB45D /* Advertisement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB613E1B3600F4003FB45D /* Advertisement.mm */; };
 		0CFB61581B3600F4003FB45D /* AKCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB613F1B3600F4003FB45D /* AKCommon.cpp */; };
 		0CFB615A1B3600F4003FB45D /* AKInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CFB61431B3600F4003FB45D /* AKInterface.cpp */; };
@@ -381,6 +382,7 @@
 		0CDAB2481B5329C3002683B6 /* OpenUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = OpenUrl.h; path = ../Classes/AKLibrary/OpenUrl.h; sourceTree = "<group>"; };
 		0CFA6A541B8954C6001920DC /* SettingFileIO.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SettingFileIO.cpp; sourceTree = "<group>"; };
 		0CFA6A551B8954C6001920DC /* SettingFileIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingFileIO.h; sourceTree = "<group>"; };
+		0CFA6A591B98E54F001920DC /* NotoSansCJKjp-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansCJKjp-Regular.ttf"; sourceTree = "<group>"; };
 		0CFB613D1B3600F4003FB45D /* Advertisement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Advertisement.h; path = ../Classes/AKLibrary/Advertisement.h; sourceTree = "<group>"; };
 		0CFB613E1B3600F4003FB45D /* Advertisement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Advertisement.mm; path = ../Classes/AKLibrary/Advertisement.mm; sourceTree = "<group>"; };
 		0CFB613F1B3600F4003FB45D /* AKCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; lineEnding = 0; name = AKCommon.cpp; path = ../Classes/AKLibrary/AKCommon.cpp; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
@@ -694,6 +696,7 @@
 		0CDAB2371B49185E002683B6 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
+				0CFA6A591B98E54F001920DC /* NotoSansCJKjp-Regular.ttf */,
 				0CDAB2381B49185E002683B6 /* misaki_gothic.ttf */,
 			);
 			path = fonts;
@@ -1294,6 +1297,7 @@
 				0CC04BBB1B5B796800985F74 /* gameclear.mp3 in Resources */,
 				0CFB620D1B36022C003FB45D /* Stage_01.tmx in Resources */,
 				0CFB62091B36022C003FB45D /* Icon.png in Resources */,
+				0CFA6A5A1B98E64B001920DC /* NotoSansCJKjp-Regular.ttf in Resources */,
 				0CC04BC01B5B796800985F74 /* stage1.mp3 in Resources */,
 				0CFB61FC1B36022C003FB45D /* HowTo.png in Resources */,
 			);
