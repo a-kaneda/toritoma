@@ -109,11 +109,11 @@ static const char *kAKLeaderboardCaption = "LEADERBOARD";
 /// Achievementsボタンのキャプション
 static const char *kAKAchievementsCaption = "ACHIEVEMENTS";
 /// Game Centerのキャプション位置、上からの比率
-static const float kAKGameCenterCaptionPosTopRatio = 0.1f;
+static const float kAKGameCenterCaptionPosTopRatio = 0.2f;
 /// Leaderboardボタンの位置、上からの比率
-static const float kAKLeaderboardPosTopRatio = 0.3f;
+static const float kAKLeaderboardPosTopRatio = 0.4f;
 //: Achievementsボタンの位置、上からの比率
-static const float kAKAchievemetnsPosTopRatio = 0.5f;
+static const float kAKAchievemetnsPosTopRatio = 0.6f;
 
 /// Storeのキャプション
 static const char *kAKStoreCaption = "STORE";
@@ -126,9 +126,9 @@ static const char *kAKStoreMessageKey = "StoreMessage";
 /// 購入済みのキャプションのキー
 static const char *kAKStorePurchasedKey = "StorePurchased";
 /// Storeのキャプション位置、上からの比率
-static const float kAKStoreCaptionPosTopRatio = 0.1f;
+static const float kAKStoreCaptionPosTopRatio = 0.2f;
 /// ボタンの位置、上からの比率
-static const float kAKButtonPosTopRatio = 0.3f;
+static const float kAKButtonPosTopRatio = 0.4f;
 /// 購入ボタンの位置、左からの比率
 static const float kAKBuyButtonPosLeftRatio = 0.3f;
 /// リストアボタンの位置、左からの比率
@@ -138,9 +138,9 @@ static const int kAKMsgLength = 20;
 /// メッセージボックスの行数
 static const int kAKMsgLineCount = 4;
 /// メッセージボックスの位置、下からの位置
-static const float kAKMsgPosBottomPoint = 120.0f;
+static const float kAKMsgPosBottomPoint = 80.0f;
 /// 購入済みのキャプションの位置、上からの比率
-static const float kAKPurchasedCaptionPosTopRatio = 0.3f;
+static const float kAKPurchasedCaptionPosTopRatio = 0.4f;
 
 /*!
  @brief コンビニエンスコンストラクタ
