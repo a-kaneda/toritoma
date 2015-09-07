@@ -83,7 +83,7 @@ const char *CreditScene::BackImage = "BackButton.png";
 /// ページ数表示のフォーマット
 const char *CreditScene::PageFormat = "%d / %d";
 /// リンクの個数
-const int CreditScene::LinkNum = 5;
+const int CreditScene::LinkNum = 6;
 /// クレジットラベルの位置
 const float CreditScene::CreditPosLeftRatio = 0.35f;
 /// クレジットラベルの行数

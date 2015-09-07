@@ -17,10 +17,12 @@
 "CreditName_3" = "ジングル\n  ユーフルカ";
 "CreditName_4" = "こうかおん\n  スキップモア";
 "CreditName_5" = "フォント\n  みさきフォント";
+"CreditName_6" = "フォント\n  NOTO FONTS";
 "CreditLink_1" = "http://blog.monochrome-soft.com/";
 "CreditLink_2" = "http://maoudamashii.jokersounds.com/";
 "CreditLink_3" = "http://wingless-seraph.net/";
 "CreditLink_4" = "http://www.skipmore.com/app/";
 "CreditLink_5" = "http://www.geocities.jp/littlimi/misaki.htm";
+"CreditLink_6" = "https://www.google.com/get/noto/";
 "StoreMessage" = "・広告の削除\n・2周目モードの解除";
 "StorePurchased" = "こうにゅうずみ";
