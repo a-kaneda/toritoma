@@ -79,6 +79,8 @@ public:
 private:
     // コンストラクタ
     AKOptionScene();
+    // 初期化処理
+    virtual bool init();
     // ページ共通の項目作成
     void initCommonItem(AKInterface *interface);
     // Game Centerページの項目作成

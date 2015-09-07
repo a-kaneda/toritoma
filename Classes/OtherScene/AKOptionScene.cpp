@@ -228,10 +228,27 @@ void AKOptionScene::completePayment()
  @brief インスタンス初期化処理
  
  インスタンスの初期化を行う。
- @return 初期化したインスタンス。失敗時はnilを返す。
  */
 AKOptionScene::AKOptionScene()
 {
+    // 通信中フラグはオフにする
+    m_isConnecting = false;
+}
+
+/*!
+ @brief 初期化処理
+ 
+ 初期化処理を行う。
+ @retval true 初期化成功
+ @retval false 初期化失敗
+ */
+bool AKOptionScene::init()
+{
+    // スーパークラスの初期化処理を行う。
+    if (!Scene::init()) {
+        return false;
+    }
+    
     // テクスチャアトラスを読み込む
     SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();
     spriteFrameCache->addSpriteFramesWithFile(kAKControlTextureAtlasDefFile, kAKControlTextureAtlasFile);
@@ -247,9 +264,6 @@ AKOptionScene::AKOptionScene()
     
     // シーンへ配置する
     this->addChild(m_interface, kAKOptionSceneInterface, kAKOptionSceneInterface);
-    
-    // 通信中フラグはオフにする
-    m_isConnecting = false;
     
     // アプリ課金が有効な場合は全ページを表示できるようにする
     if (Payment::CanMakePayments()) {
@@ -271,6 +285,8 @@ AKOptionScene::AKOptionScene()
 
     // 初期ページを1ページ目とする
     setPageNo(1);
+    
+    return true;
 }
 
 /*!
