@@ -37,6 +37,7 @@
 #define AKHOWTOPLAYSCENE_H
 
 #include "AKToritoma.h"
+#include "PageScene.h"
 #include "base/CCController.h"
 
 /*!
@@ -44,64 +45,47 @@
  
  プレイ方法画面のシーンを実現する。
  */
-class AKHowToPlayScene : public cocos2d::Scene, AKMenuEventHandler {
+class AKHowToPlayScene : public PageScene {
 public:
-    // コンビニエンスコンストラクタ
+    
+    /*!
+     @brief コンビニエンスコンストラクタ
+     
+     インスタンスを生成し、初期化処理を行い、autoreleaseを行う。
+     @return 生成したインスタンス
+     */
     static AKHowToPlayScene* create();
+    
+    /*!
+     @brief コンストラクタ
+     
+     初期化処理を行う。
+     */
+    AKHowToPlayScene();
+
+protected:
+
+    /*!
+     @brief 派生クラスの初期化処理
+     
+     派生クラスの初期化処理を行う。
+     */
+    virtual bool initSub();
+    
+    /*!
+     @brief ページ表示内容更新
+     
+     ページ番号に合わせて、ページ表示内容を更新する。
+     @param pageNo ページ番号
+     */
+    virtual void updatePageContents(int pageNo);
 
 private:
-    /// ページ番号
-    int m_pageNo;
+    
     /// 説明画像
     cocos2d::Sprite *m_image;
-    /// Bボタン画像
-    cocos2d::Sprite *m_bButton;
-    /// Lボタン画像
-    cocos2d::Sprite *m_lButton;
-    /// Rボタン画像
-    cocos2d::Sprite *m_rButton;
-
-public:
-    // デストラクタ
-    ~AKHowToPlayScene();
-    // 初期化処理
-    virtual bool init();
-    // イベント実行
-    virtual void execEvent(const AKMenuItem *item);
-    // コントローラー接続時処理
-    void onConnectedController(cocos2d::Controller* controller, cocos2d::Event* event);
-    // コントローラー切断時処理
-    void onDisconnectedController(cocos2d::Controller* controller, cocos2d::Event* event);
-    // コントローラーのボタンを押した時の処理
-    void onKeyDown(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
-    // コントローラーのボタンを離した時の処理
-    void onKeyUp(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
-    // コントローラーの方向キー入力処理
-    void onAxisEvent(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
-    
-private:
-    // インターフェース取得
-    AKInterface* getInterface();
-    // 前ページボタン取得
-    cocos2d::Node* getPrevButton();
-    // 次ページボタン取得
-    cocos2d::Node* getNextButton();
-    // ページ番号ラベル取得
-    AKLabel* getPageLabel();
-    // メッセージラベルの取得
-    AKLabel* getMessageLabel();
-    // ページ番号設定
-    void setPageNo(int pageNo);
-    // 前ページ次ページボタン表示非表示更新
-    void updatePageButton();
-    // ページ番号表示更新
-    void updatePageLabel();
-    // 前ページ表示
-    void goPrevPage();
-    // 次ページ表示
-    void goNextPage();
-    // タイトルへ戻る
-    void backToTitle();
+    /// メッセージラベル
+    AKLabel *_messageLabel;
 };
 
 #endif
