@@ -84,6 +84,8 @@ const float PageScene::RButtonPosVerticalCenterPoint = 28.0f;
 const float PageScene::BButtonPosRightPoint = BackPositionRightPoint;
 // Bボタンの位置、上からの位置
 const float PageScene::BButtonPosTopPoint = BackPositionTopPoint + 32.0f;
+// カーソル画像の位置のボタンとの重なりの幅
+const float PageScene::CursorPosOverlap = 8.0f;
 
 // デストラクタ
 PageScene::~PageScene()
@@ -125,6 +127,9 @@ bool PageScene::init()
     // Rボタン画像を作成する
     createRButtonImage();
     
+    // カーソル画像を作成する
+    createCursorImage();
+    
     // 派生クラスの初期化処理を行う
     if (!initSub()) {
         return false;
@@ -154,7 +159,7 @@ void PageScene::execEvent(const AKMenuItem *item)
             break;
             
         default:                    // その他の項目は派生クラスで処理する
-            execSubEvent(item);
+            execSubEvent(_pageNo, item);
             break;
     }
 }
@@ -162,8 +167,11 @@ void PageScene::execEvent(const AKMenuItem *item)
 // コントローラー接続時処理
 void PageScene::onConnectedController(Controller* controller, Event* event)
 {
-    // ボタン表示の更新を行う
-    updatePageButton();
+    // カーソル位置を初期化する
+    setCursorPosition(0);
+    
+    // コントローラ用画像の表示を更新する
+    updateControllerImage();
 }
 
 // コントローラー切断時処理
@@ -173,6 +181,9 @@ void PageScene::onDisconnectedController(Controller* controller, Event* event)
     _bButton->setVisible(false);
     _lButton->setVisible(false);
     _rButton->setVisible(false);
+    
+    // カーソルを非表示にする
+    _cursorImage->setVisible(false);
 }
 
 // コントローラーのボタンを押した時の処理
@@ -208,7 +219,7 @@ void PageScene::onKeyDown(Controller* controller, int keyCode, Event* event)
         case cocos2d::Controller::BUTTON_A:
             
             // Aボタンを押した時の処理を行う
-            onKeyDownAButton();
+            onKeyDownAButton(_pageNo, _cursorPosition);
             
             break;
             
@@ -238,7 +249,7 @@ void PageScene::onAxisEvent(cocos2d::Controller *controller, int keyCode, cocos2
             if (!_isInputUp) {
                 
                 // 上方向入力時の処理を行う
-                onLStickUp();
+                setCursorPosition(onLStickUp(_pageNo, _cursorPosition));
             }
             
             // 上方向入力中を記憶する
@@ -254,7 +265,7 @@ void PageScene::onAxisEvent(cocos2d::Controller *controller, int keyCode, cocos2
             if (!_isInputDown) {
                 
                 // 下方向入力時の処理を行う
-                onLStickDown();
+                setCursorPosition(onLStickDown(_pageNo, _cursorPosition));
             }
 
             // 上方向の入力はなしとする
@@ -280,7 +291,7 @@ void PageScene::onAxisEvent(cocos2d::Controller *controller, int keyCode, cocos2
             if (!_isInputLeft) {
                 
                 // 左方向入力時の処理を行う
-                onLStickLeft();
+                setCursorPosition(onLStickLeft(_pageNo, _cursorPosition));
             }
             
             // 左方向入力中を記憶する
@@ -296,7 +307,7 @@ void PageScene::onAxisEvent(cocos2d::Controller *controller, int keyCode, cocos2
             if (!_isInputRight) {
                 
                 // 右方向入力時の処理を行う
-                onLStickRight();
+                setCursorPosition(onLStickRight(_pageNo, _cursorPosition));
             }
             
             // 左方向の入力はなしとする
@@ -329,6 +340,9 @@ PageScene::PageScene(int maxPage)
     _isInputDown = false;
     _isInputLeft = false;
     _isInputRight = false;
+    
+    // カーソル位置を初期化する
+    _cursorPosition = 0;
 }
 
 // 派生クラスの初期化処理
@@ -340,45 +354,83 @@ bool PageScene::initSub()
 }
 
 // 派生クラスのイベント処理
-void PageScene::execSubEvent(const AKMenuItem *item)
+void PageScene::execSubEvent(int pageNo, const AKMenuItem *item)
 {
     // 継承先で処理を実装する
 }
 
 // コントローラのAボタンを押した時の処理
-void PageScene::onKeyDownAButton()
+void PageScene::onKeyDownAButton(int pageNo, int cursorPosition)
 {
     // 継承先で処理を実装する
 }
 
 // コントローラのLスティックを上に倒した時の処理
-void PageScene::onLStickUp()
+int PageScene::onLStickUp(int pageNo, int cursorPosition)
 {
     // 継承先で処理を実装する
+    
+    return 0;
 }
 
 // コントローラのLスティックを下に倒した時の処理
-void PageScene::onLStickDown()
+int PageScene::onLStickDown(int pageNo, int cursorPosition)
 {
     // 継承先で処理を実装する
+    
+    return 0;
 }
 
 // コントローラのLスティックを左に倒した時の処理
-void PageScene::onLStickLeft()
+int PageScene::onLStickLeft(int pageNo, int cursorPosition)
 {
     // 継承先で処理を実装する
+    
+    return 0;
 }
 
 // コントローラのLスティックを右に倒した時の処理
-void PageScene::onLStickRight()
+int PageScene::onLStickRight(int pageNo, int cursorPosition)
 {
     // 継承先で処理を実装する
+    
+    return 0;
 }
 
 // ページ表示内容更新
-void PageScene::updatePageContents(int pageNo)
+unsigned int PageScene::updatePageContents(int pageNo)
 {
     // 継承先で処理を実装する
+    
+    return 0;
+}
+
+// カーソル表示有無取得
+bool PageScene::isVisibleCursor(int pageNo)
+{
+    // 継承先で処理を実装する
+
+    return false;
+}
+
+// カーソル位置取得
+Vec2 PageScene::getCursorPosition(int pageNo, int positionID)
+{
+    // 継承先で処理を実装する
+    
+    return Vec2(0, 0);
+}
+
+// インタフェース取得
+AKInterface* PageScene::getInterface()
+{
+    return _interface;
+}
+
+// カーソル画像の位置のマージン取得
+float PageScene::getCursorPositionMargin()
+{
+    return CursorPosOverlap - _cursorImage->getContentSize().width / 2;
 }
 
 // デフォルトコンストラクタ
@@ -423,7 +475,7 @@ void PageScene::createInterface()
     _interface = AKInterface::create(this);
     
     // シーンへ配置する
-    addChild(_interface, ZPositionItem);
+    addChild(_interface, ZPositionInterface);
     
     // 前ページボタンを作成する
     createPrevPageButton();
@@ -551,6 +603,16 @@ void PageScene::createRButtonImage()
     addChild(_rButton, ZPositionItem);
 }
 
+// カーソル画像作成
+void PageScene::createCursorImage()
+{
+    // カーソル画像を読み込む。
+    _cursorImage = Sprite::createWithSpriteFrameName(CursorImageFileName);
+    
+    // カーソル画像をシーンに配置する
+    this->addChild(_cursorImage, ZPositionItem);
+}
+
 // ページ番号設定
 void PageScene::setPageNo(int pageNo)
 {
@@ -559,18 +621,42 @@ void PageScene::setPageNo(int pageNo)
     // ページ番号を変更する
     _pageNo = pageNo;
     
-    // 前ページ次ページボタンの表示を更新する
-    updatePageButton();
+    // カーソル位置を初期化する
+    setCursorPosition(0);
     
+    // コントローラ用画像の表示を更新する
+    updateControllerImage();
+
     // ページ番号のラベルを更新する
     updatePageLabel();
     
+    // 有効タグの初期値を0(すべて無効)とする
+    unsigned int enableTag = 0;
+
+    // 前ページ次ページボタンの表示を更新する
+    enableTag |= updatePageButton();
+    
     // ページ表示内容を更新する
-    updatePageContents(_pageNo);
+    enableTag |= updatePageContents(_pageNo);
+    
+    // 有効タグをインターフェースに反映する
+    _interface->setEnableTag(enableTag);
+}
+
+// カーソル位置設定
+void PageScene::setCursorPosition(int cursorPosition)
+{
+    // カーソル位置を変更する
+    _cursorPosition = cursorPosition;
+
+    // カーソル画像の位置を設定する
+    if (isVisibleCursor(_pageNo)) {
+        _cursorImage->setPosition(getCursorPosition(_pageNo, _cursorPosition));
+    }
 }
 
 // 前ページ次ページボタン表示非表示更新
-void PageScene::updatePageButton()
+unsigned int PageScene::updatePageButton()
 {
     // 有効タグの初期値を0(すべて無効)とする
     unsigned int enableTag = 0;
@@ -589,9 +675,27 @@ void PageScene::updatePageButton()
         enableTag |= MenuTagNext;
     }
     
-    // 有効タグをインターフェースに反映する
-    _interface->setEnableTag(enableTag);
+    return enableTag;
+}
+
+/*!
+ @brief ページ番号表示更新
+ 
+ ページ番号のラベルを更新する。
+ */
+void PageScene::updatePageLabel()
+{
+    // ページ番号の文字列を作成する
+    char pageString[16] = "";
+    snprintf(pageString, sizeof(pageString), PageFormat, _pageNo, _maxPage);
     
+    // ページ番号のラベルを更新する
+    _pageLabel->setString(pageString);
+}
+
+// コントローラ用画像表示更新
+void PageScene::updateControllerImage()
+{
     // コントローラが接続されている場合はコントローラボタンガイドを表示する
     if (Controller::getAllController().size() > 0) {
         
@@ -613,27 +717,16 @@ void PageScene::updatePageButton()
         else {
             _rButton->setVisible(false);
         }
+        
+        // カーソルを表示する
+        _cursorImage->setVisible(isVisibleCursor(_pageNo));
     }
     else {
         _bButton->setVisible(false);
         _lButton->setVisible(false);
         _rButton->setVisible(false);
+        _cursorImage->setVisible(false);
     }
-}
-
-/*!
- @brief ページ番号表示更新
- 
- ページ番号のラベルを更新する。
- */
-void PageScene::updatePageLabel()
-{
-    // ページ番号の文字列を作成する
-    char pageString[16] = "";
-    snprintf(pageString, sizeof(pageString), PageFormat, _pageNo, _maxPage);
-    
-    // ページ番号のラベルを更新する
-    _pageLabel->setString(pageString);
 }
 
 // 前ページ表示

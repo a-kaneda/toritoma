@@ -106,7 +106,7 @@ bool AKHowToPlayScene::initSub()
 }
 
 // ページ表示内容更新
-void AKHowToPlayScene::updatePageContents(int pageNo)
+unsigned int AKHowToPlayScene::updatePageContents(int pageNo)
 {
     // 表示文字列のキーを生成する
     char key[32] = "";
@@ -143,4 +143,6 @@ void AKHowToPlayScene::updatePageContents(int pageNo)
     
     // シーンに追加する
     addChild(m_image, ZPositionItem);
+    
+    return 0;
 }

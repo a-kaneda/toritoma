@@ -37,7 +37,7 @@
 #define __toritoma__CreditScene__
 
 #include "AKToritoma.h"
-#include "AKMenuEventHandler.h"
+#include "PageScene.h"
 #include "base/CCController.h"
 
 /*!
@@ -45,7 +45,99 @@
  
  クレジットシーンを表示する。
  */
-class CreditScene : public cocos2d::Scene, AKMenuEventHandler {
+class CreditScene : public PageScene {
+public:
+    
+    /*!
+     @brief コンビニエンスコンストラクタ
+     
+     インスタンスを生成し、初期化処理を行い、autoreleaseを行う。
+     @return 生成したインスタンス
+     */
+    static CreditScene* create();
+
+    /*!
+     @brief コンストラクタ
+     
+     初期化処理を行う。
+     */
+    CreditScene();
+    
+protected:
+    
+    /*!
+     @brief 派生クラスの初期化処理
+     
+     派生クラスの初期化処理を行う。
+     */
+    virtual bool initSub();
+
+    /*!
+     @brief 派生クラスのイベント処理
+     
+     派生クラスのイベント処理を行う。
+     @param pageNo ページ番号
+     @param item 選択されたメニュー項目
+     */
+    virtual void execSubEvent(int pageNo, const AKMenuItem *item);
+    
+    /*!
+     @brief コントローラのAボタンを押した時の処理
+     
+     コントローラのAボタンを押した時の処理を行う。
+     @param pageNo ページ番号
+     @param cursorPosition カーソル位置
+     */
+    virtual void onKeyDownAButton(int pageNo, int cursorPosition);
+    
+    /*!
+     @brief コントローラのLスティックを上に倒した時の処理
+     
+     コントローラのLスティックを上に倒した時の処理を行う。
+     @param pageNo ページ番号
+     @param cursorPosition 入力前のカーソル位置
+     @return 入力後のカーソル位置
+     */
+    virtual int onLStickUp(int pageNo, int cursorPosition);
+    
+    /*!
+     @brief コントローラのLスティックを下に倒した時の処理
+     
+     コントローラのLスティックを下に倒した時の処理を行う。
+     @param pageNo ページ番号
+     @param cursorPosition 入力前のカーソル位置
+     @return 入力後のカーソル位置
+     */
+    virtual int onLStickDown(int pageNo, int cursorPosition);
+
+    /*!
+     @brief ページ表示内容更新
+     
+     ページ番号に合わせて、ページ表示内容を更新する。
+     @param pageNo ページ番号
+     @return 有効にするインターフェースタグ
+     */
+    virtual unsigned int updatePageContents(int pageNo);
+
+    /*!
+     @brief カーソル表示有無取得
+     
+     カーソル表示を行うかどうかを取得する。
+     @param pageNo ページ番号
+     @return 表示する場合true、表示しない場合false
+     */
+    virtual bool isVisibleCursor(int pageNo);
+    
+    /*!
+     @brief カーソル位置取得
+     
+     カーソル位置を取得する。
+     @param pageNo ページ番号
+     @param positionID カーソル位置ID
+     @return カーソル位置座標
+     */
+    virtual cocos2d::Vec2 getCursorPosition(int pageNo, int positionID);
+    
 private:
     
     /// メニューイベント番号
@@ -66,38 +158,8 @@ private:
         PosZCursor          ///< カーソルのz座標
     };
     
-    // 前ページボタンの位置、左からの位置
-    static const float PrevPosLeftPoint;
-    // 次ページボタンの位置、右からの位置
-    static const float NextPosRightPoint;
-    // ページ番号の位置、上からの位置
-    static const float PagePosTopPoint;
-    // 戻るボタンの位置、右からの位置
-    static const float BackPosRightPoint;
-    // 戻るボタンの位置、上からの位置
-    static const float BackPosTopPoint;
-    // Lボタンの位置、左からの位置
-    static const float LButtonPosLeftPoint;
-    // Lボタンの位置、中心からの縦方向の位置
-    static const float LButtonPosVerticalCenterPoint;
-    // Rボタンの位置、右からの位置
-    static const float RButtonPosRightPoint;
-    // Rボタンの位置、中心からの縦方向の位置
-    static const float RButtonPosVerticalCenterPoint;
-    // Bボタンの位置、右からの位置
-    static const float BButtonPosRightPoint;
-    // Bボタンの位置、上からの位置
-    static const float BButtonPosTopPoint;
     // カーソル画像の位置のボタンとの重なりの幅
     static const float CursorPosOverlap;
-    // 前ページボタンの画像ファイル名
-    static const char *PrevImage;
-    // 次ページボタンの画像ファイル名
-    static const char *NextImage;
-    // 戻るボタンの画像ファイル名
-    static const char *BackImage;
-    // ページ数表示のフォーマット
-    static const char *PageFormat;
     // リンクの個数
     static const int LinkNum;
     // 1ページあたりのリンクの個数
@@ -120,74 +182,48 @@ private:
     static const float LinkPosLeftRatio;
     // リンクボタンの位置、上からの比率
     static const float LinkPosTopRatio[];
-    // 前ページボタンのタグ
-    static const unsigned int PrevTag;
-    // 次ページボタンのタグ
-    static const unsigned int NextTag;
-    // 戻るボタンのタグ
-    static const unsigned int BackTag;
     // リンクボタンのタグ
     static const unsigned int LinkTag[];
     
-private:
-    /// インターフェースレイヤー
-    AKInterface *m_interface;
-    /// ページ番号ラベル
-    AKLabel *m_pageLabel;
     /// クレジットラベル
     AKLabel *m_creditLabel[LinkNumOfPage];
     /// リンクボタン
     AKLabel *m_link[LinkNumOfPage];
-    /// ページ番号
-    int m_pageNo;
-    /// Bボタン画像
-    cocos2d::Sprite *m_bButton;
-    /// Lボタン画像
-    cocos2d::Sprite *m_lButton;
-    /// Rボタン画像
-    cocos2d::Sprite *m_rButton;
-    /// カーソル位置
-    int m_selectMenu;
-    /// カーソル画像
-    cocos2d::Sprite *m_cursor;
     
-public:
-    // コンビニエンスコンストラクタ
-    static CreditScene* create();
-    // デストラクタ
-    ~CreditScene();
-    // 初期化処理
-    virtual bool init();
-    // イベント実行
-    virtual void execEvent(const AKMenuItem *item);
-    // コントローラー接続時処理
-    void onConnectedController(cocos2d::Controller* controller, cocos2d::Event* event);
-    // コントローラー切断時処理
-    void onDisconnectedController(cocos2d::Controller* controller, cocos2d::Event* event);
-    // コントローラーのボタンを押した時の処理
-    void onKeyDown(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
-    // コントローラーのボタンを離した時の処理
-    void onKeyUp(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
-    // コントローラーの方向キー入力処理
-    void onAxisEvent(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
+    /*!
+     @brief リンクボタン押下
+     
+     選択したリンクを開く。
+     @param pageNo ページ番号
+     @param linkNumber リンクボタンの番号
+     */
+    void openLink(int pageNo, int linkNumber);
     
-private:
-    // タイトルへ戻る
-    void backToTitle();
-    // 前ページ表示
-    void goPrevPage();
-    // 次ページ表示
-    void goNextPage();
-    // リンクボタン押下
-    void openLink(int linkNumber);
-    // ページ番号設定
-    void setPageNo(int pageNo);
-    // ボタン表示非表示更新
-    void updateButton();
-    // ページ番号表示更新
-    void updatePageLabel();
-    // クレジットラベル表示更新
-    void updateCreditLabel();
+    /*!
+     @brief リンクボタン表示更新
+     
+     ページ番号に応じてリンクボタンの表示を更新する。
+     @param pageNo ページ番号
+     @return 有効にするインターフェースタグ
+     */
+    unsigned int updateLinkButton(int pageNo);
+    
+    /*!
+     @brief クレジットラベル表示更新
+     
+     表示しているページに合わせてクレジットラベルの表示内容を更新する。
+     @param pageNo ページ番号
+     */
+    void updateCreditLabel(int pageNo);
+    
+    /*!
+     @brief ページ内項目数計算
+     
+     指定ページのリンク項目数を計算する。
+     @return ページ内項目数
+     */
+    int getLinkNum(int pageNo);
+    
     // メニュー項目選択
     void selectMenuItem(int item);
 };

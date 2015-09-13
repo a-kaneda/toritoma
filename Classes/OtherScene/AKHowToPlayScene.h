@@ -77,8 +77,9 @@ protected:
      
      ページ番号に合わせて、ページ表示内容を更新する。
      @param pageNo ページ番号
+     @return 有効にするインターフェースタグ
      */
-    virtual void updatePageContents(int pageNo);
+    virtual unsigned int updatePageContents(int pageNo);
 
 private:
     

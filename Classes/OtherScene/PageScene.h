@@ -72,7 +72,7 @@ public:
      @param controller コントローラー
      @param event イベント
      */
-    void onConnectedController(cocos2d::Controller* controller, cocos2d::Event* event);
+     void onConnectedController(cocos2d::Controller* controller, cocos2d::Event* event);
     
     /*!
      @brief コントローラー切断時処理
@@ -124,8 +124,9 @@ protected:
     };
     /// z座標
     enum ItemZPosition {
-        ZPositionBack = 0,  //< 背景のz座標
-        ZPositionItem       //< 表示項目のz座標
+        ZPositionBack = 0,  ///< 背景のz座標
+        ZPositionInterface, ///< インターフェースのz座標
+        ZPositionItem       ///< 表示項目のz座標
     };
     
     /// 前ページボタンのタグ
@@ -154,54 +155,106 @@ protected:
      @brief 派生クラスのイベント処理
      
      派生クラスのイベント処理を行う。
+     @param pageNo ページ番号
      @param item 選択されたメニュー項目
      */
-    virtual void execSubEvent(const AKMenuItem *item);
+    virtual void execSubEvent(int pageNo, const AKMenuItem *item);
     
     /*!
      @brief コントローラのAボタンを押した時の処理
      
      コントローラのAボタンを押した時の処理を行う。
+     @param pageNo ページ番号
+     @param cursorPosition カーソル位置
      */
-    virtual void onKeyDownAButton();
+    virtual void onKeyDownAButton(int pageNo, int cursorPosition);
 
     /*!
      @brief コントローラのLスティックを上に倒した時の処理
      
      コントローラのLスティックを上に倒した時の処理を行う。
+     @param pageNo ページ番号
+     @param cursorPosition 入力前のカーソル位置
+     @return 入力後のカーソル位置
      */
-    virtual void onLStickUp();
+    virtual int onLStickUp(int pageNo, int cursorPosition);
 
     /*!
      @brief コントローラのLスティックを下に倒した時の処理
      
      コントローラのLスティックを下に倒した時の処理を行う。
+     @param pageNo ページ番号
+     @param cursorPosition 入力前のカーソル位置
+     @return 入力後のカーソル位置
      */
-    virtual void onLStickDown();
+    virtual int onLStickDown(int pageNo, int cursorPosition);
     
     /*!
      @brief コントローラのLスティックを左に倒した時の処理
      
      コントローラのLスティックを左に倒した時の処理を行う。
+     @param pageNo ページ番号
+     @param cursorPosition 入力前のカーソル位置
+     @return 入力後のカーソル位置
      */
-    virtual void onLStickLeft();
+    virtual int onLStickLeft(int pageNo, int cursorPosition);
 
     /*!
      @brief コントローラのLスティックを右に倒した時の処理
      
      コントローラのLスティックを右に倒した時の処理を行う。
+     @param pageNo ページ番号
+     @param cursorPosition 入力前のカーソル位置
+     @return 入力後のカーソル位置
      */
-    virtual void onLStickRight();
+    virtual int onLStickRight(int pageNo, int cursorPosition);
     
     /*!
      @brief ページ表示内容更新
      
      ページ番号に合わせて、ページ表示内容を更新する。
      @param pageNo ページ番号
+     @return 有効にするインターフェースタグ
      */
-    virtual void updatePageContents(int pageNo);
+    virtual unsigned int updatePageContents(int pageNo);
+    
+    /*!
+     @brief カーソル表示有無取得
+     
+     カーソル表示を行うかどうかを取得する。
+     @param pageNo ページ番号
+     @return 表示する場合true、表示しない場合false
+     */
+    virtual bool isVisibleCursor(int pageNo);
+    
+    /*!
+     @brief カーソル位置取得
+     
+     カーソル位置を取得する。
+     @param pageNo ページ番号
+     @param positionID カーソル位置ID
+     @return カーソル位置座標
+     */
+    virtual cocos2d::Vec2 getCursorPosition(int pageNo, int positionID);
+    
+    /*!
+     @brief インタフェース取得
+     
+     インタフェースを取得する。
+     @return インタフェース
+     */
+    AKInterface* getInterface();
+    
+    /*!
+     @brief カーソル画像の位置のマージン取得
+     
+     カーソル画像の位置のマージンを取得する。
+     @return カーソル画像の位置のマージン
+     */
+    float getCursorPositionMargin();
     
 private:
+    
     
     /// ページ表示のフォーマット
     static const char *PageFormat;
@@ -233,6 +286,8 @@ private:
     static const float BButtonPosRightPoint;
     /// Bボタンの位置、上からの位置
     static const float BButtonPosTopPoint;
+    /// カーソル画像の位置のボタンとの重なりの幅
+    static const float CursorPosOverlap;
     
     /// ページ数
     int _maxPage;
@@ -256,6 +311,10 @@ private:
     bool _isInputLeft;
     /// Lスティックが右に入力されているか
     bool _isInputRight;
+    /// カーソル位置
+    int _cursorPosition;
+    /// カーソル画像
+    cocos2d::Sprite *_cursorImage;
     
     /*!
      @brief デフォルトコンストラクタ
@@ -335,6 +394,13 @@ private:
     void createRButtonImage();
     
     /*!
+     @brief カーソル画像作成
+     
+     カーソル画像を作成し、シーンに追加する。
+     */
+    void createCursorImage();
+    
+    /*!
      @brief ページ番号設定
      
      ページ番号を設定する。
@@ -343,13 +409,22 @@ private:
     void setPageNo(int pageNo);
     
     /*!
+     @brief カーソル位置設定
+     
+     カーソル位置を設定する。
+     @param cursorPosition カーソル位置
+     */
+    void setCursorPosition(int cursorPosition);
+    
+    /*!
      @brief 前ページ次ページボタン表示非表示更新
      
      前ページ、次ページボタンの表示非表示を現在のページ番号に応じて更新する。
      最初のページの場合は前ページボタンを無効にする。
      最後のページの場合は次ページボタンを無効にする。
+     @return 有効にするインターフェースタグ
      */
-    void updatePageButton();
+    unsigned int updatePageButton();
     
     /*!
      @brief ページ番号表示更新
@@ -357,6 +432,13 @@ private:
      ページ番号のラベルを更新する。
      */
     void updatePageLabel();
+    
+    /*!
+     @brief コントローラ用画像表示更新
+     
+     コントローラ用画像の表示を更新する。
+     */
+    void updateControllerImage();
 
     /*!
      @brief 前ページ表示
