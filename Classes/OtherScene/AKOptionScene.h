@@ -37,7 +37,7 @@
 #define AKOPTIONSCENE_H
 
 #include "AKToritoma.h"
-#include "AKMenuEventHandler.h"
+#include "PageScene.h"
 #include "PaymentDelegate.h"
 
 /*!
@@ -45,12 +45,142 @@
  
  オプション画面のシーン。
  */
-class AKOptionScene : public cocos2d::Scene, AKMenuEventHandler, aklib::PaymentDelegate {
+class AKOptionScene : public PageScene, aklib::PaymentDelegate {
 public:
-    // コンビニエンスコンストラクタ
+    
+    /*!
+     @brief コンビニエンスコンストラクタ
+     
+     インスタンスを生成し、初期化処理を行い、autoreleaseを行う。
+     @return 生成したインスタンス
+     */
     static AKOptionScene* create();
     
+    /*!
+     @brief コンストラクタ
+     
+     初期化処理を行う。
+     */
+    AKOptionScene();
+    
+    /*!
+     @brief 課金完了
+     
+     課金処理完了時の処理を行う。
+     通信中状態を終了し、操作可能にする。
+     */
+    virtual void completePayment();
+    
+protected:
+    
+    /*!
+     @brief 派生クラスの初期化処理
+     
+     派生クラスの初期化処理を行う。
+     */
+    virtual bool initSub();
+
+    /*!
+     @brief 派生クラスのイベント処理
+     
+     派生クラスのイベント処理を行う。
+     @param pageNo ページ番号
+     @param item 選択されたメニュー項目
+     */
+    virtual void execSubEvent(int pageNo, const AKMenuItem *item);
+    
+    /*!
+     @brief コントローラのAボタンを押した時の処理
+     
+     コントローラのAボタンを押した時の処理を行う。
+     @param pageNo ページ番号
+     @param cursorPosition カーソル位置
+     */
+    virtual void onKeyDownAButton(int pageNo, int cursorPosition);
+
+    
+    /*!
+     @brief コントローラのLスティックを上に倒した時の処理
+     
+     コントローラのLスティックを上に倒した時の処理を行う。
+     @param pageNo ページ番号
+     @param cursorPosition 入力前のカーソル位置
+     @return 入力後のカーソル位置
+     */
+    virtual int onLStickUp(int pageNo, int cursorPosition);
+    
+    /*!
+     @brief コントローラのLスティックを下に倒した時の処理
+     
+     コントローラのLスティックを下に倒した時の処理を行う。
+     @param pageNo ページ番号
+     @param cursorPosition 入力前のカーソル位置
+     @return 入力後のカーソル位置
+     */
+    virtual int onLStickDown(int pageNo, int cursorPosition);
+    
+    /*!
+     @brief コントローラのLスティックを左に倒した時の処理
+     
+     コントローラのLスティックを左に倒した時の処理を行う。
+     @param pageNo ページ番号
+     @param cursorPosition 入力前のカーソル位置
+     @return 入力後のカーソル位置
+     */
+    virtual int onLStickLeft(int pageNo, int cursorPosition);
+    
+    /*!
+     @brief コントローラのLスティックを右に倒した時の処理
+     
+     コントローラのLスティックを右に倒した時の処理を行う。
+     @param pageNo ページ番号
+     @param cursorPosition 入力前のカーソル位置
+     @return 入力後のカーソル位置
+     */
+    virtual int onLStickRight(int pageNo, int cursorPosition);
+    
+    /*!
+     @brief ページ表示内容更新
+     
+     ページ番号に合わせて、ページ表示内容を更新する。
+     @param pageNo ページ番号
+     @return 有効にするインターフェースタグ
+     */
+    virtual unsigned int updatePageContents(int pageNo);
+    
+    /*!
+     @brief カーソル表示有無取得
+     
+     カーソル表示を行うかどうかを取得する。
+     @param pageNo ページ番号
+     @return 表示する場合true、表示しない場合false
+     */
+    virtual bool isVisibleCursor(int pageNo);
+
+    /*!
+     @brief カーソル位置取得
+     
+     カーソル位置を取得する。
+     @param pageNo ページ番号
+     @param positionID カーソル位置ID
+     @return カーソル位置座標
+     */
+    virtual cocos2d::Vec2 getCursorPosition(int pageNo, int positionID);
+
 private:
+    
+    /// Game Centerページのカーソル位置
+    enum CursorPositionAtGameCenterPage {
+        CursorPositionLeaderboard = 0,  ///< Leaderboardボタンのカーソル位置
+        CursorPositionAchievements      ///< Achievementsボタンのカーソル位置
+    };
+    
+    /// Storeページのカーソル位置
+    enum CursorPositionAtStorePage {
+        CursorPositionBuy = 0,          ///< 購入ボタンのカーソル位置
+        CursorPositionRestore           ///< リストアボタンのカーソル位置
+    };
+    
     /// Leaderboardボタン
     AKLabel *m_leaderboardButton;
     /// Achievementsボタン
@@ -59,58 +189,120 @@ private:
     AKLabel *m_buyButton;
     /// リストアボタン
     AKLabel *m_restoreButton;
-    /// インターフェース
-    AKInterface *m_interface;
-    /// ページ番号
-    int m_pageNo;
-    /// 最大ページ番号
-    int m_maxPage;
     /// 通信中かどうか
     bool m_isConnecting;
     /// 通信中ビュー
 //    UIView *connectingView_;
     
-public:
-    // イベント実行
-    virtual void execEvent(const AKMenuItem *item);
-    // 課金完了
-    virtual void completePayment();
-
-private:
-    // コンストラクタ
-    AKOptionScene();
-    // 初期化処理
-    virtual bool init();
-    // ページ共通の項目作成
-    void initCommonItem(AKInterface *interface);
-    // Game Centerページの項目作成
+    /*!
+     @brief Game Centerページの項目作成
+     
+     Game Centerページの項目を作成する。
+     Game Centerのラベル、Leaderboardボタン、Achievementsボタンを作成する。
+     @param interface インターフェースレイヤー
+     */
     void initGameCenterPage(AKInterface *interface);
-    // Storeページの項目作成
+    
+    /*!
+     @brief Storeページの項目作成
+     
+     Storeページの項目を作成する。
+     Storeラベル、説明ラベル、購入ボタンを作成する。
+     @param interface インターフェースレイヤー
+     */
     void initStorePage(AKInterface *interface);
-    // ページ番号設定
-    void setPageNo(int pageNo);
-    // Leaderboardボタン選択時の処理
+    
+    /*!
+     @brief Game CenterページでコントローラのAボタンを押した時の処理
+     
+     Game CenterページでコントローラのAボタンを押した時の処理を行う。
+     @param cursorPosition カーソル位置
+     */
+    void onKeyDownAButtonAtGameCenterPage(int cursorPosition);
+    
+    /*!
+     @brief StoreページでコントローラのAボタンを押した時の処理
+     
+     StoreページでコントローラのAボタンを押した時の処理を行う。
+     @param cursorPosition カーソル位置
+     */
+    void onKeyDownAButtonAtStorePage(int cursorPosition);
+    
+    /*!
+     @brief Game Centerページでのカーソル位置取得
+     
+     Game Centerページでのカーソル位置を取得する。
+     @param positionID カーソル位置ID
+     @return カーソル位置座標
+     */
+    cocos2d::Vec2 getCursorPositionAtGameCenterPage(int positionID);
+    
+    /*!
+     @brief Storeページでのカーソル位置取得
+     
+     Storeページでのカーソル位置を取得する。
+     @param positionID カーソル位置ID
+     @return カーソル位置座標
+     */
+    cocos2d::Vec2 getCursorPositionAtStorePage(int positionID);
+
+    /*!
+     @brief Leaderboardボタン選択時の処理
+     
+     Leaderboardボタン選択時の処理。
+     Leaderboardを表示する。
+     */
     void selectLeaderboard();
-    // Achievementsボタン選択時の処理
+    
+    /*!
+     @brief Achievementsボタン選択時の処理
+     
+     Achievementsボタン選択時の処理
+     Achievementsを表示する。
+     */
     void selectAchievements();
-    // 前ページ表示
-    void selectPrevPage();
-    // 次ページ表示
-    void selectNextPage();
-    // 戻るボタン選択時の処理
-    void selectBack();
-    // Leaderboard表示
+    
+    /*!
+     @brief Leaderboard表示
+     
+     Leaderboardを表示する。
+     ボタンのブリンクアクション終了時に呼ばれるので、Leaderboard表示前にボタンのvisibleを表示に変更する。
+     */
     void showLeaderboard();
-    // Achievements表示
+    
+    /*!
+     @brief Achievements表示
+     
+     Achievementsを表示する。
+     ボタンのブリンクアクション終了時に呼ばれるので、Achievements表示前にボタンのvisibleを表示に変更する。
+     */
     void showAchievements();
-    // 購入ボタン選択時の処理
+    
+    /*!
+     @brief 購入ボタン選択時の処理
+     
+     購入ボタン選択時の処理を行う。
+     ボタン選択時の効果音とエフェクトを発生させる。
+     In App Purchaseの購入処理を行う。
+     */
     void selectBuy();
-    // リストアボタン選択時の処理
+    
+    /*!
+     @brief リストアボタン選択時の処理
+     
+     リストアボタン選択時の処理を行う。
+     ボタン選択時の効果音とエフェクトを発生させる。
+     In App Purchaseのリストア処理を行う。
+     */
     void selectRestore();
-    // 通信開始
+    
+    /*!
+     @brief 通信開始
+     
+     通信開始時の処理を行う。
+     通信中のビューを表示し、画面入力を無視するようにする。
+     */
     void startConnect();
-    // インターフェース有効タグ取得
-    unsigned int getInterfaceTag(int page);
 };
 
 #endif

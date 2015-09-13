@@ -144,6 +144,8 @@ bool PageScene::init()
 // イベント処理
 void PageScene::execEvent(const AKMenuItem *item)
 {
+    // TODO: 操作を無効化する処理を追加する
+    
     // 選択された項目に応じて処理を行う
     switch (item->getEventNo()) {
         case EventTouchPrevButton:  // 前ページボタン
@@ -370,7 +372,7 @@ int PageScene::onLStickUp(int pageNo, int cursorPosition)
 {
     // 継承先で処理を実装する
     
-    return 0;
+    return cursorPosition;
 }
 
 // コントローラのLスティックを下に倒した時の処理
@@ -378,7 +380,7 @@ int PageScene::onLStickDown(int pageNo, int cursorPosition)
 {
     // 継承先で処理を実装する
     
-    return 0;
+    return cursorPosition;
 }
 
 // コントローラのLスティックを左に倒した時の処理
@@ -386,7 +388,7 @@ int PageScene::onLStickLeft(int pageNo, int cursorPosition)
 {
     // 継承先で処理を実装する
     
-    return 0;
+    return cursorPosition;
 }
 
 // コントローラのLスティックを右に倒した時の処理
@@ -394,7 +396,7 @@ int PageScene::onLStickRight(int pageNo, int cursorPosition)
 {
     // 継承先で処理を実装する
     
-    return 0;
+    return cursorPosition;
 }
 
 // ページ表示内容更新
@@ -431,6 +433,12 @@ AKInterface* PageScene::getInterface()
 float PageScene::getCursorPositionMargin()
 {
     return CursorPosOverlap - _cursorImage->getContentSize().width / 2;
+}
+
+// ページ数設定
+void PageScene::setMaxPage(int maxPage)
+{
+    _maxPage = maxPage;
 }
 
 // デフォルトコンストラクタ

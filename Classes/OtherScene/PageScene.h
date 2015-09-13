@@ -253,8 +253,15 @@ protected:
      */
     float getCursorPositionMargin();
     
-private:
+    /*!
+     @brief ページ数設定
+     
+     ページ数を設定する。
+     @param maxPage ページ数
+     */
+    void setMaxPage(int maxPage);
     
+private:
     
     /// ページ表示のフォーマット
     static const char *PageFormat;

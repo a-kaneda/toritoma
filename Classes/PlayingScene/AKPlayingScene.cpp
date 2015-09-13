@@ -922,6 +922,8 @@ void AKPlayingScene::onDisconnectedController(Controller* controller, Event* eve
 {
     // カーソルを非表示にする
     m_interfaceLayer->setVisibleCursor(false);
+    
+    // TODO: プレイ中の場合はポーズする処理を追加する
 }
 
 /*!
