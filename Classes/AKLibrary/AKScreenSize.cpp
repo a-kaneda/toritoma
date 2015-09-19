@@ -37,10 +37,9 @@
 #include "AKLogNoDef.h"
 
 using cocos2d::Size;
-using cocos2d::CCDirector;
 using cocos2d::Vec2;
 using cocos2d::Rect;
-using cocos2d::CCDirector;
+using cocos2d::Director;
 using cocos2d::GLView;
 
 /// 解像度調整のベースサイズ
@@ -65,7 +64,7 @@ void AKScreenSize::init(GLView *view)
                                   ResolutionPolicy::NO_BORDER);
 
     // デバイスの解像度を取得する
-    m_screenSize = CCDirector::getInstance()->getVisibleSize();
+    m_screenSize = Director::getInstance()->getVisibleSize();
 
     // 左下の座標を計算する
     m_screenOffset.x = (kAKBaseSize.width - m_screenSize.width) / 2;

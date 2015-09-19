@@ -77,7 +77,7 @@ m_lifeCount(0), m_numberLabel(NULL), m_mark(NULL)
     AKLog(kAKLogLife_1, "start");
     
     // 残機マークを読み込む
-    m_mark = cocos2d::CCSprite::createWithSpriteFrameName(kAKLifeMarkImageName);
+    m_mark = cocos2d::Sprite::createWithSpriteFrameName(kAKLifeMarkImageName);
     
     // 残機数の設定と残機ラベルの作成を行う
     setLifeCount(0);
