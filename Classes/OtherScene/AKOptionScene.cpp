@@ -142,8 +142,6 @@ AKOptionScene* AKOptionScene::create()
 // コンストラクタ
 AKOptionScene::AKOptionScene() : PageScene(kAKMenuPageCount)
 {
-    // 通信中フラグはオフにする
-    m_isConnecting = false;
 }
 
 // 課金完了
@@ -157,7 +155,7 @@ void AKOptionScene::completePayment()
      */
     
     // 画面入力を有効化する
-    m_isConnecting = false;
+    enableOperation();
 }
 
 // 派生クラスの初期化処理
@@ -662,11 +660,6 @@ void AKOptionScene::showAchievements()
 // 購入ボタン選択時の処理
 void AKOptionScene::selectBuy()
 {
-    // 通信中の場合は処理を行わない
-    if (m_isConnecting) {
-        return;
-    }
-    
     // メニュー選択時の効果音を鳴らす
     SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
     
@@ -687,11 +680,6 @@ void AKOptionScene::selectBuy()
 // リストアボタン選択時の処理
 void AKOptionScene::selectRestore()
 {
-    // 通信中の場合は処理を行わない
-    if (m_isConnecting) {
-        return;
-    }
-    
     // メニュー選択時の効果音を鳴らす
     SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
     
@@ -713,11 +701,11 @@ void AKOptionScene::selectRestore()
 void AKOptionScene::startConnect()
 {
     AKLog(kAKLogOptionScene_1, "start");
+
+    // 画面入力を無効化する
+    disableOperation();
     
     /* TODO:通信中の処理を作成する
-    // 画面入力を無効化する
-    m_isConnecting = true;
-    
     // ルートビューを取得する
     UIView *rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
     

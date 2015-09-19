@@ -261,6 +261,20 @@ protected:
      */
     void setMaxPage(int maxPage);
     
+    /*!
+     @brief 操作を無効化する
+     
+     コントローラ入力とタッチ入力を無効化する。
+     */
+    void disableOperation();
+
+    /*!
+     @brief 操作を有効化する
+     
+     コントローラ入力とタッチ入力を有効化する。
+     */
+    void enableOperation();
+    
 private:
     
     /// ページ表示のフォーマット
@@ -322,6 +336,8 @@ private:
     int _cursorPosition;
     /// カーソル画像
     cocos2d::Sprite *_cursorImage;
+    /// 操作が無効かどうか
+    bool _isDisabled;
     
     /*!
      @brief デフォルトコンストラクタ

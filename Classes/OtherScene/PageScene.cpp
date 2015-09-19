@@ -144,7 +144,10 @@ bool PageScene::init()
 // イベント処理
 void PageScene::execEvent(const AKMenuItem *item)
 {
-    // TODO: 操作を無効化する処理を追加する
+    // 操作が無効化されている場合は処理をしない
+    if (_isDisabled) {
+        return;
+    }
     
     // 選択された項目に応じて処理を行う
     switch (item->getEventNo()) {
@@ -191,6 +194,11 @@ void PageScene::onDisconnectedController(Controller* controller, Event* event)
 // コントローラーのボタンを押した時の処理
 void PageScene::onKeyDown(Controller* controller, int keyCode, Event* event)
 {
+    // 操作が無効化されている場合は処理をしない
+    if (_isDisabled) {
+        return;
+    }
+
     // キーの種類に応じて処理を分岐する
     switch (keyCode) {
         case Controller::BUTTON_B:
@@ -239,6 +247,11 @@ void PageScene::onKeyUp(cocos2d::Controller *controller, int keyCode, cocos2d::E
 // コントローラーの方向キー入力処理
 void PageScene::onAxisEvent(cocos2d::Controller *controller, int keyCode, cocos2d::Event *event)
 {
+    // 操作が無効化されている場合は処理をしない
+    if (_isDisabled) {
+        return;
+    }
+
     const auto& keyStatus = controller->getKeyStatus(keyCode);
     
     // x軸方向とy軸方向の操作で処理を分ける
@@ -345,6 +358,9 @@ PageScene::PageScene(int maxPage)
     
     // カーソル位置を初期化する
     _cursorPosition = 0;
+    
+    // 操作が無効かどうかを初期化する
+    _isDisabled = false;
 }
 
 // 派生クラスの初期化処理
@@ -439,6 +455,18 @@ float PageScene::getCursorPositionMargin()
 void PageScene::setMaxPage(int maxPage)
 {
     _maxPage = maxPage;
+}
+
+// 操作を無効化する
+void PageScene::disableOperation()
+{
+    _isDisabled = true;
+}
+
+// 操作を有効化する
+void PageScene::enableOperation()
+{
+    _isDisabled = false;
 }
 
 // デフォルトコンストラクタ

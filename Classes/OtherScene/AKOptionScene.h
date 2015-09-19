@@ -189,8 +189,6 @@ private:
     AKLabel *m_buyButton;
     /// リストアボタン
     AKLabel *m_restoreButton;
-    /// 通信中かどうか
-    bool m_isConnecting;
     /// 通信中ビュー
 //    UIView *connectingView_;
     
