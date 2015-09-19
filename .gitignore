@@ -39,8 +39,12 @@ tags
 # 音声ファイル
 *.mp3
 *.caf
+# Admobメディエーション
+GoogleMobileAds.framework
+libAdapterNend*
+libAdapterIAd*
 # Nendライブラリ
-NendAd
+Nend
 # ID定義
 Classes/Common/ID.cpp
 # フォントファイル
