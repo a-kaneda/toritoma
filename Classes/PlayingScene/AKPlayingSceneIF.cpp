@@ -108,7 +108,7 @@ static const float CursorPosOverlap = 8.0f;
 // 終了メニューのメニュー項目
 //======================================================================
 /// 終了確認メッセージ
-static const char *kAKQuitMessageString = "QUIT GAME?";
+static const char *kAKQuitMessageString = " QUIT GAME? ";
 /// YESボタンの文字列
 static const char *kAKQuitYesString = " YES ";
 /// NOボタンの文字列

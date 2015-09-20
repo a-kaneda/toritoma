@@ -26,7 +26,7 @@
 #import <Social/Social.h>
 #import "RootViewController.h"
 #import "cocos2d.h"
-#import "CCEAGLView.h"
+#import "platform/ios/CCEAGLView-ios.h"
 
 /// AdMobパブリッシャーID
 static NSString *kAKAdMobID = @"ca-app-pub-8055460627535570/8664101241";
@@ -79,7 +79,7 @@ static NSString *kAKTestDeviceID2 = @"59d89c955b8adbe31a45ec3f07ad5ea813b11c24";
 - (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
     [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
 
-    cocos2d::GLView *glview = cocos2d::Director::getInstance()->getOpenGLView();
+    auto glview = cocos2d::Director::getInstance()->getOpenGLView();
 
     if (glview)
     {

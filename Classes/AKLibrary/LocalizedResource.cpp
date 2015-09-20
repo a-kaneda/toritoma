@@ -53,15 +53,7 @@ namespace aklib {
     
     LocalizedResource::LocalizedResource()
     {
-        string fileName = getStringFileName();
-//        AKLog(1, "fileName=%s", fileName.c_str());
-        
-        string filePath = FileUtils::getInstance()->fullPathForFilename(fileName);
-//        AKLog(1, "filePath=%s", filePath.c_str());
-        
-        string fileData = FileUtils::getInstance()->getStringFromFile(filePath);
-        
-        readStringData(fileData, _localizedStrings);
+        _isInitialized = false;
     }
     
     LocalizedResource& LocalizedResource::getInstance()
@@ -70,10 +62,26 @@ namespace aklib {
         return singleton;
     }
     
-    const string& LocalizedResource::getString(const string &key) const
+    const string& LocalizedResource::getString(const string &key)
     {
-//        AKLog(1, "key=%s, value=%s", key.c_str(), _localizedStrings.at(key).c_str());
+        if (!_isInitialized) {
+            init();
+        }
         return _localizedStrings.at(key);
+    }
+    
+    // 初期化処理
+    void LocalizedResource::init()
+    {
+        string fileName = getStringFileName();
+        string filePath = FileUtils::getInstance()->fullPathForFilename(fileName);
+        string fileData = FileUtils::getInstance()->getStringFromFile(filePath);
+        
+        // ファイルを読み込む
+        readStringData(fileData, _localizedStrings);
+        
+        // 初期化フラグを立てる
+        _isInitialized = true;
     }
     
     string LocalizedResource::getStringFileName() const

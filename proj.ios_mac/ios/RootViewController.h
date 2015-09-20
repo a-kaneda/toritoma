@@ -41,7 +41,6 @@
 /// AdMobインタースティシャル広告
 @property (nonatomic, retain)GADInterstitial *interstitialView;
 
-
 - (BOOL) prefersStatusBarHidden;
 
 // バナー広告を作成

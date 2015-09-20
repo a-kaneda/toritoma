@@ -10,7 +10,7 @@
         <key>autoSDSettings</key>
         <array/>
         <key>allowRotation</key>
-        <true/>
+        <false/>
         <key>quiet</key>
         <false/>
         <key>premultiplyAlpha</key>
@@ -142,7 +142,7 @@
             <key>trimThreshold</key>
             <uint>1</uint>
             <key>trimMode</key>
-            <enum type="SpriteSettings::TrimMode">Trim</enum>
+            <enum type="SpriteSettings::TrimMode">None</enum>
             <key>heuristicMask</key>
             <false/>
         </struct>

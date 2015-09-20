@@ -161,6 +161,7 @@ public:
     // コントローラーのアナログキー入力処理
     void onAxisEvent(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
     
+    
 private:
     // 自機の移動
     void movePlayer(const AKMenuItem *item);
@@ -208,7 +209,7 @@ private:
     // スリープ処理中の更新処理
     void updateSleep();
     // ゲーム再開
-    void resume();
+    void resumePlaying();
     // 終了メニュー表示
     void viewQuitMenu();
     // 一時停止メニュー表示

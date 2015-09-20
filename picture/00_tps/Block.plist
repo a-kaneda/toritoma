@@ -4,7 +4,7 @@
     <dict>
         <key>frames</key>
         <dict>
-            <key>Block_01.png</key>
+            <key>Block_01_01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1,1},{32,32}}</string>
@@ -17,7 +17,7 @@
                 <key>sourceSize</key>
                 <string>{32,32}</string>
             </dict>
-            <key>Block_02.png</key>
+            <key>Block_02_01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{34,1},{32,32}}</string>
@@ -30,7 +30,7 @@
                 <key>sourceSize</key>
                 <string>{32,32}</string>
             </dict>
-            <key>Block_03.png</key>
+            <key>Block_03_01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{67,1},{32,32}}</string>
@@ -43,7 +43,7 @@
                 <key>sourceSize</key>
                 <string>{32,32}</string>
             </dict>
-            <key>Block_04.png</key>
+            <key>Block_04_01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{1,34},{32,32}}</string>
@@ -56,7 +56,7 @@
                 <key>sourceSize</key>
                 <string>{32,32}</string>
             </dict>
-            <key>Block_05.png</key>
+            <key>Block_05_01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{34,34},{32,32}}</string>
@@ -69,7 +69,7 @@
                 <key>sourceSize</key>
                 <string>{32,32}</string>
             </dict>
-            <key>Block_06.png</key>
+            <key>Block_06_01.png</key>
             <dict>
                 <key>frame</key>
                 <string>{{67,34},{32,32}}</string>
@@ -92,7 +92,7 @@
             <key>size</key>
             <string>{128,128}</string>
             <key>smartupdate</key>
-            <string>$TexturePacker:SmartUpdate:41ac32a35690c65a44d975352104b656$</string>
+            <string>$TexturePacker:SmartUpdate:f422cc3052053e21fa308e3328cac622:1/1$</string>
             <key>textureFileName</key>
             <string>Block.png</string>
         </dict>

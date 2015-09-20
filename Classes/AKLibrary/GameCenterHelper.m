@@ -93,7 +93,7 @@ static NSString* const LEADERBORD_ID = @"toritoma_score";
             gameCenterController.gameCenterDelegate = rootViewController;
             gameCenterController.viewState = GKGameCenterViewControllerStateLeaderboards;
             gameCenterController.leaderboardTimeScope = GKLeaderboardTimeScopeToday;
-            gameCenterController.leaderboardCategory = LEADERBORD_ID;
+            gameCenterController.leaderboardIdentifier = LEADERBORD_ID;
             
             // Game Centerビューをモーダル表示する
             [rootViewController presentViewController: gameCenterController animated: YES completion:nil];

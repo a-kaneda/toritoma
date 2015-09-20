@@ -222,9 +222,6 @@ m_bossLifeGauge(NULL)
     // 状態をシーン読み込み前に設定する
     setState(kAKGameStatePreLoad);
 
-    // 更新処理開始
-    scheduleUpdate();
-
     // ゲームデータを作成する
     m_data = new AKPlayData(this);
 }
@@ -298,6 +295,9 @@ bool AKPlayingScene::init()
     if (Controller::getAllController().size() > 0) {
         m_interfaceLayer->setVisibleCursor(true);
     }
+    
+    // 更新処理開始
+    scheduleUpdate();
     
     return true;
 }
@@ -602,7 +602,7 @@ void AKPlayingScene::touchResumeButton()
     
     // ボタンのブリンクアクションを作成する
     Blink *blink = Blink::create(0.2f, 2);
-    CallFunc *callFunc = CallFunc::create(std::bind(mem_fun(&AKPlayingScene::resume), this));
+    CallFunc *callFunc = CallFunc::create(std::bind(mem_fun(&AKPlayingScene::resumePlaying), this));
     Sequence *action = Sequence::create(blink, callFunc, NULL);
     
     // ボタンを取得する
@@ -1525,7 +1525,7 @@ void AKPlayingScene::updateSleep()
  
  一時停止中の状態からゲームを再会する。
  */
-void AKPlayingScene::resume()
+void AKPlayingScene::resumePlaying()
 {
     // 一時停止中から以外の変更の場合はエラー
     AKAssert(m_state == kAKGameStateWait, "状態遷移異常");

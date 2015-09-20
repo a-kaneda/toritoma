@@ -41,11 +41,32 @@
 namespace aklib {
     
     class LocalizedResource {
+    public:
+        /*!
+         @brief インスタンス取得
+         
+         シングルトンオブジェクトを取得する。
+         @return シングルトンオブジェクト
+         */
+        static LocalizedResource& getInstance();
+        
+        /*!
+         @brief ローカライズ文字列取得
+         
+         キーを指定して、ローカライズされた文字列を取得する。
+         @param key キー
+         @return ローカライズされた文字列
+         */
+        const std::string& getString(const std::string &key);
+        
     private:
+
         /// ローカライズ文字列マップ
         std::map<std::string, std::string> _localizedStrings;
         
-    private:
+        /// 初期化済みかどうか
+        bool _isInitialized;
+        
         /*!
          @brief コンストラクタ
          
@@ -70,25 +91,13 @@ namespace aklib {
          */
         LocalizedResource& operator=(const LocalizedResource &other){ return *this; }
         
-    public:
         /*!
-         @brief インスタンス取得
+         @brief 初期化処理
          
-         シングルトンオブジェクトを取得する。
-         @return シングルトンオブジェクト
+         ローカライズ文字列ファイルを読み込む。
          */
-        static LocalizedResource& getInstance();
+        void init();
         
-        /*!
-         @brief ローカライズ文字列取得
-         
-         キーを指定して、ローカライズされた文字列を取得する。
-         @param key キー
-         @return ローカライズされた文字列
-         */
-        const std::string& getString(const std::string &key) const;
-        
-    private:
         /*!
          @brief ローカライズ文字列ファイル名取得
          

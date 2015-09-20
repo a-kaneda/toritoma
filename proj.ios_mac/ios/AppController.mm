@@ -22,9 +22,8 @@
  THE SOFTWARE.
  ****************************************************************************/
 
-#import <StoreKit/StoreKit.h>
 #import "AppController.h"
-#import "CCEAGLView.h"
+#import "platform/ios/CCEAGLView-ios.h"
 #import "cocos2d.h"
 #import "AppDelegate.h"
 #import "RootViewController.h"
@@ -45,6 +44,10 @@ static AppDelegate s_sharedApplication;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 
+    cocos2d::Application *app = cocos2d::Application::getInstance();
+    app->initGLContextAttrs();
+    cocos2d::GLViewImpl::convertAttrs();
+
     // Override point for customization after application launch.
 
     // Add the view controller's view to the window and display.
@@ -52,19 +55,19 @@ static AppDelegate s_sharedApplication;
 
     // Init the CCEAGLView
     CCEAGLView *eaglView = [CCEAGLView viewWithFrame: [window bounds]
-                                     pixelFormat: kEAGLColorFormatRGBA8
-                                     depthFormat: GL_DEPTH24_STENCIL8_OES
-                              preserveBackbuffer: NO
-                                      sharegroup: nil
-                                   multiSampling: NO
-                                 numberOfSamples: 0];
-
-    // マルチタッチを有効にする
+                                         pixelFormat: (NSString*)cocos2d::GLViewImpl::_pixelFormat
+                                         depthFormat: cocos2d::GLViewImpl::_depthFormat
+                                  preserveBackbuffer: NO
+                                          sharegroup: nil
+                                       multiSampling: NO
+                                     numberOfSamples: 0 ];
+    
+    // Enable or disable multiple touches
     [eaglView setMultipleTouchEnabled:YES];
 
     // Use RootViewController manage CCEAGLView 
     _viewController = [[RootViewController alloc] initWithNibName:nil bundle:nil];
-    _viewController.wantsFullScreenLayout = YES;
+//    _viewController.wantsFullScreenLayout = YES;
     _viewController.view = eaglView;
 
     // Set RootViewController to window
@@ -100,10 +103,10 @@ static AppDelegate s_sharedApplication;
     [_viewController createAdInterstitial];
     
     // IMPORTANT: Setting the GLView should be done after creating the RootViewController
-    cocos2d::GLView *glview = cocos2d::GLView::createWithEAGLView(eaglView);
+    cocos2d::GLView *glview = cocos2d::GLViewImpl::createWithEAGLView(eaglView);
     cocos2d::Director::getInstance()->setOpenGLView(glview);
 
-    cocos2d::Application::getInstance()->run();
+    app->run();
 
     return YES;
 }
