@@ -282,7 +282,7 @@ private:
     /// ページ表示のフォーマット
     static const char *PageFormat;
     /// ページ表示位置、上からの位置
-    static const float PagePositionTopPoint;
+    static const float PagePositionBottomPoint;
     /// 前ページボタンの位置、左からの位置
     static const float PrevPositionLeftPoint;
     /// 次ページボタンの位置、右からの位置

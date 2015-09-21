@@ -88,7 +88,7 @@ static const unsigned int kAKMenuStoreAfterPurcase = 0x20;
 static const int kAKMenuPageCount = 2;
 
 /// Game Centerのキャプション
-static const char *kAKGameCenterCaption = "GAME CENTER";
+static const char *kAKGameCenterCaption = " GAME CENTER ";
 /// Leaderboardボタンのキャプション
 static const char *kAKLeaderboardCaption = "LEADERBOARD";
 /// Achievementsボタンのキャプション
@@ -123,7 +123,7 @@ static const int kAKMsgLength = 20;
 /// メッセージボックスの行数
 static const int kAKMsgLineCount = 4;
 /// メッセージボックスの位置、下からの位置
-static const float kAKMsgPosBottomPoint = 80.0f;
+static const float kAKMsgPosBottomPoint = 100.0f;
 /// 購入済みのキャプションの位置、上からの比率
 static const float kAKPurchasedCaptionPosTopRatio = 0.4f;
 

@@ -53,10 +53,10 @@ static const int kAKHowToMsgLength = 20;
 /// メッセージボックスの行数
 static const int kAKHowToMsgLineCount = 3;
 /// メッセージボックスの位置、下からの位置
-static const float kAKHowToMsgPosBottomPoint = 65.0f;
+static const float kAKHowToMsgPosBottomPoint = 85.0f;
 
 /// イメージ表示位置、下からの位置
-static const float kAKHowToImagePosBottomPoint = 180.0f;
+static const float kAKHowToImagePosBottomPoint = 200.0f;
 
 /// ページ数
 static const int kAKHowToPageCount = 6;

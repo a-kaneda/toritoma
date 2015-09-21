@@ -50,8 +50,8 @@ using CocosDenshion::SimpleAudioEngine;
 
 // ページ表示のフォーマット
 const char *PageScene::PageFormat = "%d / %d";
-// ページ表示位置、上からの位置
-const float PageScene::PagePositionTopPoint = 60.0f;
+// ページ表示位置、下からの位置
+const float PageScene::PagePositionBottomPoint = 20.0f;
 // 前ページボタンの位置、左からの位置
 const float PageScene::PrevPositionLeftPoint = 40.0f;
 // 次ページボタンの位置、右からの位置
@@ -497,7 +497,7 @@ void PageScene::createPageLabel()
     
     // ページ番号の位置を設定する
     float x = AKScreenSize::center().x;
-    float y = AKScreenSize::positionFromTopPoint(PagePositionTopPoint);
+    float y = AKScreenSize::positionFromBottomPoint(PagePositionBottomPoint);
     _pageLabel->setPosition(x, y);
     
     // シーンに追加する

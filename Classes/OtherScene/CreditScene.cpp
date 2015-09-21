@@ -71,7 +71,7 @@ const char *CreditScene::LinkCaption = "WEB SITE";
 /// リンクボタンの位置、左からの比率
 const float CreditScene::LinkPosLeftRatio = 0.7f;
 /// リンクボタンの位置、上からの比率
-const float CreditScene::LinkPosTopRatio[] = {0.35f, 0.6f, 0.85f};
+const float CreditScene::LinkPosTopRatio[] = {0.30f, 0.55f, 0.8f};
 /// リンクボタンのタグ
 const unsigned int CreditScene::LinkTag[] = {0x04, 0x08, 0x10};
 
