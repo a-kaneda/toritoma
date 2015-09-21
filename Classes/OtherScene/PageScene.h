@@ -122,11 +122,13 @@ protected:
         EventTouchBackButton,       ///< 戻るボタン
         EventTouchCount             ///< イベントの個数
     };
+    
     /// z座標
     enum ItemZPosition {
         ZPositionBack = 0,  ///< 背景のz座標
         ZPositionInterface, ///< インターフェースのz座標
-        ZPositionItem       ///< 表示項目のz座標
+        ZPositionItem,      ///< 表示項目のz座標
+        ZPositionCount      ///< z座標の種類の数
     };
     
     /// 前ページボタンのタグ

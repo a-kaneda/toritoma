@@ -39,6 +39,7 @@
 #include "AKToritoma.h"
 #include "PageScene.h"
 #include "PaymentDelegate.h"
+#include "ActivityIndicator.h"
 
 /*!
  @brief オプション画面シーン
@@ -181,6 +182,12 @@ private:
         CursorPositionRestore           ///< リストアボタンのカーソル位置
     };
     
+    /// z座標
+    enum ItemZPositionEx {
+        ZPositionConnectionLayer = ZPositionCount,  ///< 通信中レイヤー
+        ZPositionIndicator                          ///< 通信中インジケータ
+    };
+
     /// Leaderboardボタン
     AKLabel *m_leaderboardButton;
     /// Achievementsボタン
@@ -189,8 +196,10 @@ private:
     AKLabel *m_buyButton;
     /// リストアボタン
     AKLabel *m_restoreButton;
-    /// 通信中ビュー
-//    UIView *connectingView_;
+    /// 通信中レイヤー
+    cocos2d::LayerColor *m_connectingLayer;
+    /// 通信中インジケータ
+    ActivityIndicator *m_indicator;
     
     /*!
      @brief Game Centerページの項目作成
@@ -301,6 +310,20 @@ private:
      通信中のビューを表示し、画面入力を無視するようにする。
      */
     void startConnect();
+    
+    /*!
+     @brief 通信中レイヤー作成
+     
+     通信中に画面全体を暗くするためのレイヤーを作成し、シーンに配置する。
+     */
+    void createConnectingLayer();
+    
+    /*!
+     @brief 通信中インジケータ作成
+     
+     通信中に回転するインジケータを作成し、シーンに配置する。
+     */
+    void createConnectingIndicator();
 };
 
 #endif

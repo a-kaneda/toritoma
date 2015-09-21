@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0C71038A1BAF97380087F0EF /* Indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C7103891BAF97380087F0EF /* Indicator.png */; settings = {ASSET_TAGS = (); }; };
+		0C71038D1BAF975F0087F0EF /* ActivityIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C71038B1BAF975F0087F0EF /* ActivityIndicator.cpp */; settings = {ASSET_TAGS = (); }; };
 		0CCFF91C1BACFE5500D2A868 /* Advertisement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF8FE1BACFE5500D2A868 /* Advertisement.mm */; settings = {ASSET_TAGS = (); }; };
 		0CCFF91D1BACFE5500D2A868 /* AKCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF8FF1BACFE5500D2A868 /* AKCommon.cpp */; settings = {ASSET_TAGS = (); }; };
 		0CCFF91E1BACFE5500D2A868 /* AKInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF9011BACFE5500D2A868 /* AKInterface.cpp */; settings = {ASSET_TAGS = (); }; };
@@ -224,6 +226,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0C7103891BAF97380087F0EF /* Indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Indicator.png; sourceTree = "<group>"; };
+		0C71038B1BAF975F0087F0EF /* ActivityIndicator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActivityIndicator.cpp; sourceTree = "<group>"; };
+		0C71038C1BAF975F0087F0EF /* ActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicator.h; sourceTree = "<group>"; };
 		0CCFF8FD1BACFE5500D2A868 /* Advertisement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Advertisement.h; sourceTree = "<group>"; };
 		0CCFF8FE1BACFE5500D2A868 /* Advertisement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Advertisement.mm; sourceTree = "<group>"; };
 		0CCFF8FF1BACFE5500D2A868 /* AKCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKCommon.cpp; sourceTree = "<group>"; };
@@ -596,6 +601,8 @@
 		0CCFF93A1BACFE7400D2A868 /* OtherScene */ = {
 			isa = PBXGroup;
 			children = (
+				0C71038B1BAF975F0087F0EF /* ActivityIndicator.cpp */,
+				0C71038C1BAF975F0087F0EF /* ActivityIndicator.h */,
 				0CCFF93B1BACFE7400D2A868 /* AKHowToPlayScene.cpp */,
 				0CCFF93C1BACFE7400D2A868 /* AKHowToPlayScene.h */,
 				0CCFF93D1BACFE7400D2A868 /* AKOptionScene.cpp */,
@@ -664,6 +671,7 @@
 		0CCFF9921BACFF9A00D2A868 /* pictures */ = {
 			isa = PBXGroup;
 			children = (
+				0C7103891BAF97380087F0EF /* Indicator.png */,
 				0CCFF9951BACFF9A00D2A868 /* BossLifeGauge_01-ipad.png */,
 				0CCFF9961BACFF9A00D2A868 /* BossLifeGauge_01.png */,
 				0CCFF9971BACFF9A00D2A868 /* BossLifeGauge_02-iadp.png */,
@@ -1100,6 +1108,7 @@
 				0CCFF9E31BACFF9A00D2A868 /* BossLifeGauge_02-iadp.png in Resources */,
 				0CCFFA3B1BAD032200D2A868 /* Default-568h@2x.png in Resources */,
 				0CCFF9F01BACFF9A00D2A868 /* Control-ipad.png in Resources */,
+				0C71038A1BAF97380087F0EF /* Indicator.png in Resources */,
 				0CCFFA3E1BAD032200D2A868 /* Default-LandscapeLeft.png in Resources */,
 				0CCFFA471BAD032200D2A868 /* Icon-50.png in Resources */,
 				0CCFF9EA1BACFF9A00D2A868 /* ChickenGauge_01.png in Resources */,
@@ -1168,6 +1177,7 @@
 				0CCFF97B1BACFE7E00D2A868 /* AKPlayerShot.cpp in Sources */,
 				0CCFF91C1BACFE5500D2A868 /* Advertisement.mm in Sources */,
 				0CCFF9261BACFE5500D2A868 /* OpenUrl.mm in Sources */,
+				0C71038D1BAF975F0087F0EF /* ActivityIndicator.cpp in Sources */,
 				0CCFF9471BACFE7400D2A868 /* AKTitleScene.cpp in Sources */,
 				0CCFF9711BACFE7E00D2A868 /* AKCharacterPool.cpp in Sources */,
 				0CCFF9701BACFE7E00D2A868 /* AKCharacter.cpp in Sources */,

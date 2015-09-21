@@ -41,14 +41,16 @@
 #include "ID.h"
 
 using std::string;
-using cocos2d::SpriteFrameCache;
-using cocos2d::LayerColor;
-using cocos2d::Vec2;
 using cocos2d::Blink;
 using cocos2d::CallFunc;
-using cocos2d::Sequence;
-using cocos2d::TransitionFade;
+using cocos2d::Color4B;
 using cocos2d::Director;
+using cocos2d::LayerColor;
+using cocos2d::Sequence;
+using cocos2d::Size;
+using cocos2d::SpriteFrameCache;
+using cocos2d::TransitionFade;
+using cocos2d::Vec2;
 using CocosDenshion::SimpleAudioEngine;
 using aklib::Payment;
 using aklib::LocalizedResource;
@@ -147,12 +149,13 @@ AKOptionScene::AKOptionScene() : PageScene(kAKMenuPageCount)
 // 課金完了
 void AKOptionScene::completePayment()
 {
-    /* TODO:通信中の処理を作成する
-     // 通信中ビューを削除する
-     [self.connectingView removeFromSuperview];
-     self.connectingView = nil;
-     
-     */
+    // 通信中レイヤーを削除する
+    removeChild(m_connectingLayer);
+    m_connectingLayer = NULL;
+    
+    // 通信中インジケータを削除する
+    removeChild(m_indicator);
+    m_indicator = NULL;
     
     // 画面入力を有効化する
     enableOperation();
@@ -705,6 +708,12 @@ void AKOptionScene::startConnect()
     // 画面入力を無効化する
     disableOperation();
     
+    // 通信中レイヤーを作成する
+    createConnectingLayer();
+    
+    // 通信中インジケータを作成する
+    createConnectingIndicator();
+    
     /* TODO:通信中の処理を作成する
     // ルートビューを取得する
     UIView *rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
@@ -737,3 +746,33 @@ void AKOptionScene::startConnect()
      */
 }
 
+// 通信中レイヤー作成
+void AKOptionScene::createConnectingLayer()
+{
+    // 画面サイズを取得する
+    Size winSize = Director::getInstance()->getVisibleSize();
+    
+    // 半透明、黒色のレイヤーを作成する
+    m_connectingLayer = LayerColor::create(Color4B(0, 0, 0, 128),
+                                           winSize.width,
+                                           winSize.height);
+    
+    // シーンに追加する
+    addChild(m_connectingLayer, ZPositionConnectionLayer);
+}
+
+// 通信中インジケータ作成
+void AKOptionScene::createConnectingIndicator()
+{
+    // 通信中インジケータを作成する
+    m_indicator = ActivityIndicator::create();
+    
+    // 画面サイズを取得する
+    Size winSize = Director::getInstance()->getVisibleSize();
+    
+    // 画面中央に配置する
+    m_indicator->setPosition(winSize.width / 2, winSize.height / 2);
+    
+    // シーンに追加する
+    addChild(m_indicator, ZPositionIndicator);
+}
