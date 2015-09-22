@@ -38,6 +38,9 @@
 
 namespace aklib {
 
+    // 広告が無効化されているかどうか
+    bool Advertisement::_isDisabled = false;
+    
     /*!
      @brief バナー広告表示
      
@@ -45,6 +48,11 @@ namespace aklib {
      */
     void Advertisement::viewBanner()
     {
+        // 広告無効化フラグが立っている場合は無処理とする
+        if (_isDisabled) {
+            return;
+        }
+        
         // RootViewControllerを取得する
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         if (window == nil) {
@@ -67,7 +75,7 @@ namespace aklib {
      
      ネイティブコードのバナー広告消去処理を呼び出す。
      */
-    void Advertisement::hideBaaner()
+    void Advertisement::hideBanner()
     {
         // RootViewControllerを取得する
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -93,6 +101,11 @@ namespace aklib {
      */
     void Advertisement::viewInterstatial()
     {
+        // 広告無効化フラグが立っている場合は無処理とする
+        if (_isDisabled) {
+            return;
+        }
+        
         // RootViewControllerを取得する
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
         if (window == nil) {
@@ -108,5 +121,15 @@ namespace aklib {
             // ネイティブコードのインタースティシャル広告表示処理を呼び出す
             [rootViewController viewAdInterstitial];
         }
+    }
+    
+    // 広告無効化
+    void Advertisement::disableAds()
+    {
+        // 広告無効化フラグを立てる
+        _isDisabled = true;
+        
+        // 広告を削除する
+        hideBanner();
     }
 }

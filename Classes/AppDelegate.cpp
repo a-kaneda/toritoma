@@ -4,6 +4,7 @@
 #include "AKScreenSize.h"
 #include "OnlineScore.h"
 #include "SettingFileIO.h"
+#include "Advertisement.h"
 
 USING_NS_CC;
 using CocosDenshion::SimpleAudioEngine;
@@ -69,6 +70,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
     
     // UserDefaultsを読み込む
     SettingFileIO::GetInstance().ReadFile();
+    
+    // 課金済みの場合は広告を無効化する
+    if (SettingFileIO::GetInstance().IsPurchased()) {
+        aklib::Advertisement::disableAds();
+    }
 
     // Set the design resolution
 //    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);

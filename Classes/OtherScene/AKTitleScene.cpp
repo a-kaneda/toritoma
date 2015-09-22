@@ -473,17 +473,12 @@ bool AKTitleScene::init()
  */
 void AKTitleScene::onEnterTransitionDidFinish()
 {
-    // 課金済でない場合は広告を表示する
-    if (!SettingFileIO::GetInstance().IsPurchased()) {
-
-        // バナー広告を表示する
-        aklib::Advertisement::viewBanner();
+    // バナー広告を表示する
+    aklib::Advertisement::viewBanner();
         
-        // インタースティシャル広告を表示する
-        if (m_isViewInterstitial) {
-            aklib::Advertisement::viewInterstatial();
-        }
-
+    // インタースティシャル広告を表示する
+    if (m_isViewInterstitial) {
+        aklib::Advertisement::viewInterstatial();
     }
 }
 

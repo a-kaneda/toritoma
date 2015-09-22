@@ -360,7 +360,7 @@ void AKPlayingScene::setState(enum AKGameState state)
         case kAKGameStateStageClear:    // ステージクリア後
             
             // プレイ中は広告バナーを非表示にする
-            aklib::Advertisement::hideBaaner();
+            aklib::Advertisement::hideBanner();
             
             break;
             

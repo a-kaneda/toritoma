@@ -48,9 +48,20 @@ namespace aklib {
         // バナー広告表示
         static void viewBanner();
         // バナー広告消去
-        static void hideBaaner();
+        static void hideBanner();
         // インタースティシャル広告表示
         static void viewInterstatial();
-    };    
+        
+        /*!
+         @brief 広告無効化
+         
+         広告を無効化する。
+         */
+        static void disableAds();
+        
+    private:
+        /// 広告が無効化されているかどうか
+        static bool _isDisabled;
+    };
 }
 #endif

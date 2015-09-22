@@ -39,6 +39,7 @@
 #include "OnlineScore.h"
 #include "SettingFileIO.h"
 #include "ID.h"
+#include "Advertisement.h"
 
 using std::string;
 using cocos2d::Blink;
@@ -54,6 +55,7 @@ using cocos2d::Vec2;
 using CocosDenshion::SimpleAudioEngine;
 using aklib::Payment;
 using aklib::LocalizedResource;
+using aklib::Advertisement;
 
 // オプション画面シーンに配置するノードのタグ
 enum {
@@ -149,6 +151,11 @@ AKOptionScene::AKOptionScene() : PageScene(kAKMenuPageCount)
 // 課金完了
 void AKOptionScene::completePayment()
 {
+    // 課金済みの場合は広告を無効化する
+    if (SettingFileIO::GetInstance().IsPurchased()) {
+        Advertisement::disableAds();
+    }
+
     // 通信中レイヤーを削除する
     removeChild(m_connectingLayer);
     m_connectingLayer = NULL;
