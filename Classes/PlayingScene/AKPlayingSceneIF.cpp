@@ -34,6 +34,7 @@
  */
 
 #include "AKPlayingSceneIF.h"
+#include "SettingFileIO.h"
 
 using cocos2d::Node;
 using cocos2d::Vec2;
@@ -126,7 +127,7 @@ static const float kAKQuitNoButtonPosRightRatio = 0.3f;
 // ゲームオーバー時のメニュー項目
 //======================================================================
 /// ゲームオーバー時の表示文字列
-static const char *kAKGameOverString = "GAME OVER";
+static const char *kAKGameOverString = " GAME OVER ";
 /// タイトルへ戻るボタンのキャプション
 static const char *kAKGameOverQuitButtonCaption = "QUIT";
 /// Twitterボタンの画像ファイル名
@@ -144,15 +145,17 @@ static const float kAKTwitterButtonPosBottomRatio = 0.6f;
 // ステージクリア時のメニュー項目
 //======================================================================
 /// ステージクリア時のメッセージ
-static const char *kAKStageClearString = "STAGE CLEAR";
+static const char *kAKStageClearString = " STAGE CLEAR ";
 
 //======================================================================
 // 全ステージクリア時のメニュー項目
 //======================================================================
 /// 全ステージクリア時のメッセージ
-static const char *kAKAllStageClearString = "ALL STAGE CLEAR";
+static const char *kAKAllStageClearString = " ALL STAGE CLEAR ";
 /// 2周目続行ボタンのキャプション
 static const char *kAKContinuePlayingButtonString = "CONTINUE";
+/// ゲーム終了ボタンのキャプション
+static const char *kAKGameOverOfAllStageClearString = " GAME OVER ";
 /// ステージクリアキャプションの表示位置、下からの比率
 static const float kAKAllStageClearCaptionPosBottomRatio = 0.6f;
 /// 2周目続行ボタンの位置、下からの比率
@@ -538,12 +541,24 @@ void AKPlayingSceneIF::createAllStageClear()
     // 2周目続行ボタンを作成する
     x = AKScreenSize::center().x;
     y = AKScreenSize::positionFromBottomRatio(kAKContinuePlayingButtonPosBottomRatio);
-    m_continuePlayingButton = addLabelMenu(kAKContinuePlayingButtonString,
-                                                  Vec2(x, y),
-                                                  0,
-                                                  kAKEventTouchContinuePlayingButton,
-                                                  kAKMenuTagAllStageClear,
-                                                  true);
+    
+    // 課金済みの場合は2周目続行ボタン、課金前の場合はタイトルへ戻るボタンを作成する
+    if (SettingFileIO::GetInstance().IsPurchased()) {
+        m_continuePlayingButton = addLabelMenu(kAKContinuePlayingButtonString,
+                                               Vec2(x, y),
+                                               0,
+                                               kAKEventTouchContinuePlayingButton,
+                                               kAKMenuTagAllStageClear,
+                                               true);
+    }
+    else {
+        m_continuePlayingButton = addLabelMenu(kAKGameOverOfAllStageClearString,
+                                               Vec2(x, y),
+                                               0,
+                                               kAKEventTouchQuitYesButton,
+                                               kAKMenuTagAllStageClear,
+                                               true);
+    }
 
     // ゲームクリアメニューのカーソルを作成する
     m_clearCursor = Sprite::createWithSpriteFrameName(CursorImageFileName);

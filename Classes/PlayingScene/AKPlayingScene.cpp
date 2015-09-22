@@ -38,6 +38,7 @@
 #include "Advertisement.h"
 #include "Twitter.h"
 #include "base/CCEventListenerController.h"
+#include "SettingFileIO.h"
 
 using std::mem_fun;
 using cocos2d::SpriteFrameCache;
@@ -1738,8 +1739,14 @@ void AKPlayingScene::onKeyDownOnMenu(int keyCode)
                 
             case kAKGameStateGameClear:
                 
-                // 2周目続行ボタンの処理を行う
-                touchContinueButton();
+                // 課金済みの場合は2周目続行ボタンの処理を行う
+                // 課金していない場合はタイトルに戻る
+                if (SettingFileIO::GetInstance().IsPurchased()) {
+                    touchContinueButton();
+                }
+                else {
+                    touchQuitYesButton();
+                }
                 
                 break;
                 
