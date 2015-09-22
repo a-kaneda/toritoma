@@ -45,11 +45,15 @@ namespace aklib
      
      課金処理の接続処理を行う。
      オブザーバーの登録を行う。
+     @param 課金情報書き込みクラス
      */
-    void Payment::Open()
+    void Payment::Open(PurchaseInfoWriter *writer)
     {
         // ネイティブ呼び出し用クラスのインスタンスを作成する
         Payment_objc *naitiveInstance = [Payment_objc sharedInstance];
+        
+        // 課金情報書き込みクラスを設定する
+        naitiveInstance.writer = writer;
         
         // 課金処理のオブザーバーを登録する
         [[SKPaymentQueue defaultQueue] addTransactionObserver:naitiveInstance];

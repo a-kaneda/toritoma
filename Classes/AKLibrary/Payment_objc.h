@@ -35,6 +35,7 @@
 
 #import <StoreKit/StoreKit.h>
 #include "PaymentDelegate.h"
+#include "PurchaseInfoWriter.h"
 
 // 課金処理クラス（iOSネイティブコード）
 @interface Payment_objc : NSObject<SKProductsRequestDelegate, SKPaymentTransactionObserver> {
@@ -42,10 +43,13 @@
     NSMutableDictionary *products_;
     // デリゲート
     aklib::PaymentDelegate *delegate_;
+    // 課金情報書き込みクラス
+    PurchaseInfoWriter *writer_;
 }
 
 @property (nonatomic, retain)NSMutableDictionary *products;
 @property (nonatomic, assign)aklib::PaymentDelegate *delegate;
+@property (nonatomic, assign)PurchaseInfoWriter *writer;
 
 // シングルトンオブジェクトを取得する
 + (Payment_objc *)sharedInstance;

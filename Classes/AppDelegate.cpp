@@ -3,6 +3,7 @@
 #include "AKPlayingScene.h"
 #include "AKScreenSize.h"
 #include "OnlineScore.h"
+#include "SettingFileIO.h"
 
 USING_NS_CC;
 using CocosDenshion::SimpleAudioEngine;
@@ -65,6 +66,9 @@ bool AppDelegate::applicationDidFinishLaunching() {
 
     // サウンドファイルを読み込む
     preloadSound();
+    
+    // UserDefaultsを読み込む
+    SettingFileIO::GetInstance().ReadFile();
 
     // Set the design resolution
 //    glview->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, ResolutionPolicy::NO_BORDER);

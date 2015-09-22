@@ -35,6 +35,7 @@
 
 #import "Payment_objc.h"
 #include "cocos2d.h"
+#include "PurchaseInfoWriter.h"
 
 using cocos2d::UserDefault;
 
@@ -45,6 +46,7 @@ static Payment_objc *sharedInstance_ = nil;
 
 @synthesize products;
 @synthesize delegate;
+@synthesize writer;
 
 /*!
  @brief シングルトンオブジェクト取得
@@ -283,19 +285,15 @@ static Payment_objc *sharedInstance_ = nil;
  @brief トランザクション完了処理
  
  トランザクション完了時の処理を行う。
- UserDefaultに書き込みを行い、ペイメントキューとデリゲートに終了を通知する。
+ ファイルに書き込みを行い、ペイメントキューとデリゲートに終了を通知する。
  @param transaction トランザクション
  */
 - (void)completeTransaction:(SKPaymentTransaction *)transaction
 {
-    // プロダクト情報を持っている場合はUserDefaultに書き込む
+    // プロダクト情報を持っている場合はファイルに書き込む
     if (self.products[transaction.payment.productIdentifier] != nil) {
         
-        // UserDefaultを取得する
-        UserDefault *userdefault = UserDefault::getInstance();
-        
-        // UserDefaultに書き込む
-        userdefault->setBoolForKey([transaction.payment.productIdentifier UTF8String], true);
+        writer->writePurchase([transaction.payment.productIdentifier UTF8String]);
     }
 
     // デリゲートが設定されていれば終了を通知する

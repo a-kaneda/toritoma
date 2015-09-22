@@ -713,37 +713,6 @@ void AKOptionScene::startConnect()
     
     // 通信中インジケータを作成する
     createConnectingIndicator();
-    
-    /* TODO:通信中の処理を作成する
-    // ルートビューを取得する
-    UIView *rootView = [UIApplication sharedApplication].keyWindow.rootViewController.view;
-    
-    // 通信中ビューを作成する
-    self.connectingView = [[[UIView alloc] initWithFrame:rootView.bounds] autorelease];
-    
-    // 半透明の黒色とする
-    self.connectingView.backgroundColor = [UIColor blackColor];
-    self.connectingView.alpha = 0.5f;
-    
-    // インジケータを作成する
-    UIActivityIndicatorView *indicator = [[[UIActivityIndicatorView alloc] init] autorelease];
-    
-    // 白色の大きいアイコンを表示する
-    indicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleWhiteLarge;
-    
-    // 中心位置をルートビューと揃える
-    // Landscapeのため、x座標とy座標を入れ替える
-    indicator.center = ccp(rootView.center.y, rootView.center.x);
-    
-    // 通信中ビューにインジケータを配置する
-    [self.connectingView addSubview:indicator];
-    
-    // ルートビューに通信中ビューを配置する
-    [rootView addSubview:self.connectingView];
-    
-    // インジケータのアニメーションを開始する
-    [indicator startAnimating];
-     */
 }
 
 // 通信中レイヤー作成

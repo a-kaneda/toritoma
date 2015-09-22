@@ -89,15 +89,15 @@ static AppDelegate s_sharedApplication;
     // 他のアプリのBGMを止めて自分のBGMを鳴らすようにする
     [CDAudioManager configure:kAMM_FxPlusMusic];
 
-    // 課金処理の接続を行う
-    Payment::Open();
-    
-    // プロダクト情報を取得する
-    Payment::AddProduct(ProductIDRemoveAd);
-    
     // 設定ファイルの読込を行う
     SettingFileIO &setting = SettingFileIO::GetInstance();
     setting.ReadFile();
+    
+    // 課金処理の接続を行う
+    Payment::Open(&setting);
+    
+    // プロダクト情報を取得する
+    Payment::AddProduct(ProductIDRemoveAd);
     
     // インタースティシャル広告表示の準備を行う
     [_viewController createAdInterstitial];

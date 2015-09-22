@@ -40,7 +40,7 @@
 using cocos2d::UserDefault;
 
 /// UserDefaultの課金済みかどうかのキー
-const char *SettingFileIO::UDKeyIsPurchased = ProductIDRemoveAd;
+const char *SettingFileIO::UDKeyIsPurchased = "IsPurchased";
 /// UserDefaultのハイスコアのキー
 const char *SettingFileIO::UDKeyHighScore = "HighScore";
 
@@ -59,6 +59,20 @@ SettingFileIO& SettingFileIO::GetInstance()
     static SettingFileIO instance;
     
     return instance;
+}
+
+// 課金情報書き込み
+void SettingFileIO::writePurchase(const char *productID)
+{
+    assert(productID != NULL);
+    
+    // 広告解除の場合
+    if (strcmp(productID, ProductIDRemoveAd) == 0) {
+        WriteIsPurchased(true);
+    }
+    else {
+        assert(0);
+    }
 }
 
 /*!

@@ -40,6 +40,7 @@
 #include "CreditScene.h"
 #include "Advertisement.h"
 #include "base/CCEventListenerController.h"
+#include "SettingFileIO.h"
 
 using cocos2d::Vec2;
 using cocos2d::TransitionFade;
@@ -472,12 +473,17 @@ bool AKTitleScene::init()
  */
 void AKTitleScene::onEnterTransitionDidFinish()
 {
-    // バナー広告を表示する
-    aklib::Advertisement::viewBanner();
-    
-    // インタースティシャル広告を表示する
-    if (m_isViewInterstitial) {
-        aklib::Advertisement::viewInterstatial();
+    // 課金済でない場合は広告を表示する
+    if (!SettingFileIO::GetInstance().IsPurchased()) {
+
+        // バナー広告を表示する
+        aklib::Advertisement::viewBanner();
+        
+        // インタースティシャル広告を表示する
+        if (m_isViewInterstitial) {
+            aklib::Advertisement::viewInterstatial();
+        }
+
     }
 }
 

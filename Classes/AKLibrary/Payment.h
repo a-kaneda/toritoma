@@ -38,6 +38,7 @@
 
 #include <string>
 #include "PaymentDelegate.h"
+#include "PurchaseInfoWriter.h"
 
 namespace aklib {
     
@@ -49,7 +50,7 @@ namespace aklib {
     class Payment {
     public:
         // 接続処理
-        static void Open();
+        static void Open(PurchaseInfoWriter *writer);
         // 切断処理
         static void Close();
         // プロダクトID追加
