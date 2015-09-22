@@ -169,7 +169,7 @@ void AKPlayData::createMember()
     for (int i = 0; i < kAKCharaPosZCount; i++) {
 
         // バッチノードをファイルから作成する
-        SpriteBatchNode *batch = SpriteBatchNode::create(kAKTextureAtlasFile);
+        SpriteBatchNode *batch = SpriteBatchNode::create(kAKTextureAtlasFile, 1280);
         AKAssert(batch, "バッチノード作成に失敗:%s", kAKTextureAtlasFile);
 
         // 配列に保存する

@@ -1269,7 +1269,7 @@ void AKPlayingScene::createFrame()
 void AKPlayingScene::createFrameBack()
 {
     // 枠の背景用バッチノードを作成する
-    SpriteBatchNode *frameBackBatch = SpriteBatchNode::create(kAKControlTextureAtlasFile);
+    SpriteBatchNode *frameBackBatch = SpriteBatchNode::create(kAKControlTextureAtlasFile, 256);
     
     // ブロックサイズをデバイスに合わせて計算する
     int frameBackSize = AKScreenSize::deviceLength(kAKFrameBackSize);
@@ -1349,7 +1349,7 @@ void AKPlayingScene::createFrameBack()
 void AKPlayingScene::createFrameBar()
 {
     // 枠の棒用バッチノードを作成する
-    SpriteBatchNode *frameBarBatch = SpriteBatchNode::create(kAKControlTextureAtlasFile);
+    SpriteBatchNode *frameBarBatch = SpriteBatchNode::create(kAKControlTextureAtlasFile, 256);
     
     // ブロックサイズをデバイスに合わせて計算する
     int frameBarSize = AKScreenSize::deviceLength(kAKFrameBarSize);
