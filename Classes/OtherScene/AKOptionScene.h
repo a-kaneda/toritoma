@@ -172,8 +172,7 @@ private:
     
     /// Game Centerページのカーソル位置
     enum CursorPositionAtGameCenterPage {
-        CursorPositionLeaderboard = 0,  ///< Leaderboardボタンのカーソル位置
-        CursorPositionAchievements      ///< Achievementsボタンのカーソル位置
+        CursorPositionLeaderboard = 0   ///< Leaderboardボタンのカーソル位置
     };
     
     /// Storeページのカーソル位置
@@ -182,6 +181,13 @@ private:
         CursorPositionRestore           ///< リストアボタンのカーソル位置
     };
     
+    /// イベント番号
+    enum EventTouchNumberEx {
+        EventTouchLeaderboard = EventTouchCount,    ///< Leaderboardボタン
+        EventTouchBuy,                              ///< 購入ボタン
+        EventTouchRestore                           ///< リストアボタン
+    };
+
     /// z座標
     enum ItemZPositionEx {
         ZPositionConnectionLayer = ZPositionCount,  ///< 通信中レイヤー
@@ -190,8 +196,6 @@ private:
 
     /// Leaderboardボタン
     AKLabel *m_leaderboardButton;
-    /// Achievementsボタン
-    AKLabel *m_achievementsButton;
     /// 購入ボタン
     AKLabel *m_buyButton;
     /// リストアボタン
@@ -262,28 +266,12 @@ private:
     void selectLeaderboard();
     
     /*!
-     @brief Achievementsボタン選択時の処理
-     
-     Achievementsボタン選択時の処理
-     Achievementsを表示する。
-     */
-    void selectAchievements();
-    
-    /*!
      @brief Leaderboard表示
      
      Leaderboardを表示する。
      ボタンのブリンクアクション終了時に呼ばれるので、Leaderboard表示前にボタンのvisibleを表示に変更する。
      */
     void showLeaderboard();
-    
-    /*!
-     @brief Achievements表示
-     
-     Achievementsを表示する。
-     ボタンのブリンクアクション終了時に呼ばれるので、Achievements表示前にボタンのvisibleを表示に変更する。
-     */
-    void showAchievements();
     
     /*!
      @brief 購入ボタン選択時の処理

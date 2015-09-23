@@ -63,17 +63,6 @@ enum {
     kAKOptionSceneInterface         ///< インターフェースレイヤーのタグ
 };
 
-// メニューイベント番号
-enum {
-    kAKSelectLeaderboard = 0,   ///< Leaderboardボタン
-    kAKSelectAchievements,      ///< Achievementsボタン
-    kAKSelectPrevPage,          ///< 前ページボタン
-    kAKSelectNextPage,          ///< 次ページボタン
-    kAKSelectBack,              ///< 戻るボタン
-    kAKSelectBuy,               ///< 購入ボタン
-    kAKSelectRestore            ///< リストアボタン
-};
-
 /// Game Cetnerのページ
 static const int kAKPageGameCenter = 1;
 /// Storeのページ
@@ -93,14 +82,10 @@ static const int kAKMenuPageCount = 2;
 static const char *kAKGameCenterCaption = " GAME CENTER ";
 /// Leaderboardボタンのキャプション
 static const char *kAKLeaderboardCaption = "LEADERBOARD";
-/// Achievementsボタンのキャプション
-static const char *kAKAchievementsCaption = "ACHIEVEMENTS";
 /// Game Centerのキャプション位置、上からの比率
 static const float kAKGameCenterCaptionPosTopRatio = 0.2f;
 /// Leaderboardボタンの位置、上からの比率
 static const float kAKLeaderboardPosTopRatio = 0.4f;
-//: Achievementsボタンの位置、上からの比率
-static const float kAKAchievemetnsPosTopRatio = 0.6f;
 
 /// Storeのキャプション
 static const char *kAKStoreCaption = "STORE";
@@ -190,19 +175,15 @@ void AKOptionScene::execSubEvent(int pageNo, const AKMenuItem *item)
 {
     // 選択された項目に応じて処理を行う
     switch (item->getEventNo()) {
-        case kAKSelectLeaderboard:
+        case EventTouchLeaderboard:
             selectLeaderboard();
             break;
             
-        case kAKSelectAchievements:
-            selectAchievements();
-            break;
-            
-        case kAKSelectBuy:
+        case EventTouchBuy:
             selectBuy();
             break;
             
-        case kAKSelectRestore:
+        case EventTouchRestore:
             selectRestore();
             break;
             
@@ -239,16 +220,8 @@ int AKOptionScene::onLStickUp(int pageNo, int cursorPosition)
         return cursorPosition;
     }
     
-    // カーソル移動時の効果音を鳴らす
-    SimpleAudioEngine::getInstance()->playEffect(kAKCursorSEFileName);
-    
-    // ボタンは2つしかないので、逆側のボタンを選択する
-    if (cursorPosition == CursorPositionLeaderboard) {
-        return CursorPositionAchievements;
-    }
-    else {
-        return CursorPositionLeaderboard;
-    }
+    // ボタンは1つしかないので、常にLeaderboardの位置を返す
+    return CursorPositionLeaderboard;
 }
 
 // コントローラのLスティックを下に倒した時の処理
@@ -259,16 +232,8 @@ int AKOptionScene::onLStickDown(int pageNo, int cursorPosition)
         return cursorPosition;
     }
     
-    // カーソル移動時の効果音を鳴らす
-    SimpleAudioEngine::getInstance()->playEffect(kAKCursorSEFileName);
-    
-    // ボタンは2つしかないので、逆側のボタンを選択する
-    if (cursorPosition == CursorPositionLeaderboard) {
-        return CursorPositionAchievements;
-    }
-    else {
-        return CursorPositionLeaderboard;
-    }
+    // ボタンは1つしかないので、常にLeaderboardの位置を返す
+    return CursorPositionLeaderboard;
 }
 
 // コントローラのLスティックを左に倒した時の処理
@@ -418,17 +383,7 @@ void AKOptionScene::initGameCenterPage(AKInterface *interface)
     m_leaderboardButton = interface->addLabelMenu(kAKLeaderboardCaption,
                                                   Vec2(x, y),
                                                   0,
-                                                  kAKSelectLeaderboard,
-                                                  kAKMenuGameCenter,
-                                                  true);
-    
-    // Achievementsのメニューを作成する
-    x = AKScreenSize::center().x;
-    y = AKScreenSize::positionFromTopRatio(kAKAchievemetnsPosTopRatio);
-    m_achievementsButton = interface->addLabelMenu(kAKAchievementsCaption,
-                                                  Vec2(x, y),
-                                                  0,
-                                                  kAKSelectAchievements,
+                                                  EventTouchLeaderboard,
                                                   kAKMenuGameCenter,
                                                   true);
 }
@@ -457,7 +412,7 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     m_buyButton = interface->addLabelMenu(kAKBuyButtonCaption,
                                           Vec2(x, y),
                                           0,
-                                          kAKSelectBuy,
+                                          EventTouchBuy,
                                           kAKMenuStoreBeforePurchase,
                                           true);
 
@@ -467,7 +422,7 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     m_restoreButton = interface->addLabelMenu(kAKRestoreButtonCaption,
                                               Vec2(x, y),
                                               0,
-                                              kAKSelectRestore,
+                                              EventTouchRestore,
                                               kAKMenuStoreBeforePurchase,
                                               true);
 
@@ -526,10 +481,6 @@ void AKOptionScene::onKeyDownAButtonAtGameCenterPage(int cursorPosition)
             selectLeaderboard();
             break;
             
-        case CursorPositionAchievements:
-            selectAchievements();
-            break;
-            
         default:
             AKAssert(false, "cursorPosition is wrong : %d", cursorPosition);
             break;
@@ -572,11 +523,6 @@ Vec2 AKOptionScene::getCursorPositionAtGameCenterPage(int positionID)
         case CursorPositionLeaderboard:
             x = m_leaderboardButton->getPosition().x - m_leaderboardButton->getWidth() / 2 + getCursorPositionMargin();
             y = m_leaderboardButton->getPosition().y;
-            break;
-            
-        case CursorPositionAchievements:
-            x = m_achievementsButton->getPosition().x - m_achievementsButton->getWidth() / 2 + getCursorPositionMargin();
-            y = m_achievementsButton->getPosition().y;
             break;
             
         default:
@@ -630,23 +576,6 @@ void AKOptionScene::selectLeaderboard()
     m_leaderboardButton->runAction(action);
 }
 
-// Achievementsボタン選択時の処理
-void AKOptionScene::selectAchievements()
-{
-    // メニュー選択時の効果音を鳴らす
-    SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
-    
-    // ボタンのブリンクアクションを作成する
-    // ブリンクアクション終了後にAchievementsを表示する。
-    // ブリンクアクションの途中でViewを表示させると、消えた状態でアニメーションが止まることがあるため。
-    Blink *blink = Blink::create(0.2f, 2);
-    CallFunc *callFunc = CallFunc::create(std::bind(std::mem_fun(&AKOptionScene::showAchievements), this));
-    Sequence *action = Sequence::create(blink, callFunc, NULL);
-        
-    // ブリンクアクションを開始する
-    m_achievementsButton->runAction(action);
-}
-
 // Leaderboard表示
 void AKOptionScene::showLeaderboard()
 {
@@ -655,16 +584,6 @@ void AKOptionScene::showLeaderboard()
     
     // ランキング画面を表示する
     aklib::OnlineScore::openRanking();
-}
-
-// Achievements表示
-void AKOptionScene::showAchievements()
-{
-    // ブリンク終了直後はボタン非表示になっているため、表示を元に戻す
-    m_achievementsButton->setVisible(true);
-    
-    // TODO:Achievementsを表示する
-//    AKGameCenterHelper::sharedHelper()->showAchievements();
 }
 
 // 購入ボタン選択時の処理
