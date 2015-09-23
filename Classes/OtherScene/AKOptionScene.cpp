@@ -149,6 +149,9 @@ void AKOptionScene::completePayment()
     removeChild(m_indicator);
     m_indicator = NULL;
     
+    // 購入ボタン、リストアボタンの表示・非表示切替のため、表示更新を行う
+    updateView();
+    
     // 画面入力を有効化する
     enableOperation();
 }

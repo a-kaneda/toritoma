@@ -469,6 +469,13 @@ void PageScene::enableOperation()
     _isDisabled = false;
 }
 
+// 表示内容更新
+void PageScene::updateView()
+{
+    // 現在のページを表示し直す
+    setPageNo(_pageNo);    
+}
+
 // デフォルトコンストラクタ
 PageScene::PageScene()
 {

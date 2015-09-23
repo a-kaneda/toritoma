@@ -277,6 +277,13 @@ protected:
      */
     void enableOperation();
     
+    /*!
+     @brief 表示内容更新
+     
+     表示内容を更新する。
+     */
+    void updateView();
+    
 private:
     
     /// ページ表示のフォーマット
