@@ -595,6 +595,8 @@ void AKEnemy::createEnemy(int type,
     m_isDead = false;
     m_destroyframe = 0;
     setAnimationInitPattern(1);
+    m_isFlippedX = false;
+    m_isFlippedY = false;
     
     AKAssert(type > 0 && type <= kAKEnemyDefCount, "敵の種類の値が範囲外:%d", type);
     
@@ -869,7 +871,8 @@ void AKEnemy::actionOfAnt(AKPlayDataInterface *data)
             
             // スピードをマイナスにして、左右反転はなしにする
             m_speedX = -kAKMoveSpeed;
-            getImage()->setFlippedX(false);
+            m_isFlippedX = false;
+            setAnimationInitPattern(getInitPatternByIsFlipped(m_isFlippedX, m_isFlippedY));
             
             // 移動フレーム数が経過したら弾発射に遷移する
             if ((m_frame - m_work[0] + 1) % kAKMoveFrame == 0) {
@@ -886,7 +889,8 @@ void AKEnemy::actionOfAnt(AKPlayDataInterface *data)
             
             // スピードをプラスにして、左右反転はありにする
             m_speedX = kAKMoveSpeed;
-            getImage()->setFlippedX(true);
+            m_isFlippedX = true;
+            setAnimationInitPattern(getInitPatternByIsFlipped(m_isFlippedX, m_isFlippedY));
             
             // 移動フレーム数が経過したら弾発射に遷移する
             if ((m_frame - m_work[0] + 1) % kAKMoveFrame == 0) {
@@ -903,10 +907,12 @@ void AKEnemy::actionOfAnt(AKPlayDataInterface *data)
             
             // 自分より右側に自機がいれば左右反転する
             if (m_position.x < data->getPlayerPosition()->x) {
-                getImage()->setFlippedX(true);
+                m_isFlippedX = true;
+                setAnimationInitPattern(getInitPatternByIsFlipped(m_isFlippedX, m_isFlippedY));
             }
             else {
-                getImage()->setFlippedX(false);
+                m_isFlippedX = false;
+                setAnimationInitPattern(getInitPatternByIsFlipped(m_isFlippedX, m_isFlippedY));
             }
 
             // 待機する
@@ -942,7 +948,7 @@ void AKEnemy::actionOfAnt(AKPlayDataInterface *data)
     // 障害物との衝突判定を行う
     m_position = AKEnemy::checkBlockPosition(m_position,
                                              getImage()->getContentSize(),
-                                             getImage()->isFlippedY(),
+                                             m_isFlippedY,
                                              data);
     
     // 画像表示位置の更新を行う
@@ -1225,7 +1231,7 @@ void AKEnemy::actionOfGrasshopper(AKPlayDataInterface *data)
     if (m_state == kAKStateLeftMove) {
 
         // 重力加速度をかけて減速する
-        if (!getImage()->isFlippedY()) {
+        if (!m_isFlippedY) {
             m_speedY -= kAKGravitationAlacceleration;
         }
         else {
@@ -1247,11 +1253,14 @@ void AKEnemy::actionOfGrasshopper(AKPlayDataInterface *data)
     }
     
     // 落ちていく方向の障害物に接触している場合、着地したとしてスピードを0にする。
-    if ((!getImage()->isFlippedY() && (m_blockHitSide & kAKHitSideBottom)) ||
-        (getImage()->isFlippedY() && (m_blockHitSide & kAKHitSideTop))) {
+    if ((!m_isFlippedY && (m_blockHitSide & kAKHitSideBottom)) ||
+        (m_isFlippedY && (m_blockHitSide & kAKHitSideTop))) {
         
         m_speedX = 0.0f;
         m_speedY = 0.0f;
+        
+        // 着地時の画像に切替える
+        setAnimationInitPattern(getInitPatternByIsFlipped(m_isFlippedX, m_isFlippedY));
     }
     
     // 初期状態または待機中で待機時間が経過している場合
@@ -1263,7 +1272,7 @@ void AKEnemy::actionOfGrasshopper(AKPlayDataInterface *data)
         m_speedX = kAKMoveSpeed;
         
         // ジャンプする方向へ加速する
-        if (!getImage()->isFlippedY()) {
+        if (!m_isFlippedY) {
             m_speedY = kAKJumpSpeed;
         }
         else {
@@ -1275,6 +1284,9 @@ void AKEnemy::actionOfGrasshopper(AKPlayDataInterface *data)
         
         // 作業領域に状態遷移した時のフレーム数を保存する
         m_work[0] = m_frame;
+        
+        // ジャンプ時の画像に切替える
+        setAnimationInitPattern(getInitPatternByIsFlipped(m_isFlippedX, m_isFlippedY) + 1);
     }
 
     // 弾発射間隔経過で自機に向かって1-way弾を発射する
@@ -1507,7 +1519,7 @@ void AKEnemy::actionOfSnail(AKPlayDataInterface *data)
     // 障害物との衝突判定を行う
     m_position = AKEnemy::checkBlockPosition(m_position,
                                              getImage()->getContentSize(),
-                                             getImage()->isFlippedY(),
+                                             m_isFlippedY,
                                              data);
     
     // 画像表示位置の更新を行う
@@ -3725,10 +3737,28 @@ void AKEnemy::checkReverse(const std::vector<AKBlock*> &blocks)
     // 上方向の距離が小さい場合は上方向に移動して、逆さにする
     if (upDistance < downDistance) {
         m_position.y = upPosition;
-        getImage()->setFlippedY(true);
+        m_isFlippedY = true;
+        setAnimationInitPattern(getInitPatternByIsFlipped(m_isFlippedX, m_isFlippedY));
     }
     // 下方向の距離が小さい場合は下方向に移動する
     else {
         m_position.y = downPosition;
+    }
+}
+
+// 方向によるアニメーション初期パターン取得
+int AKEnemy::getInitPatternByIsFlipped(bool isFlippedX, bool isFlippedY)
+{
+    if (!isFlippedX && !isFlippedY) {
+        return 1;
+    }
+    else if (!isFlippedY) {
+        return 3;
+    }
+    else if (!isFlippedX) {
+        return 5;
+    }
+    else {
+        return 7;
     }
 }

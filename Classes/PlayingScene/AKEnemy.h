@@ -129,6 +129,10 @@ private:
     bool m_boss;
     /// 死亡しているかどうか
     bool m_isDead;
+    /// x方向に反転しているかどうか
+    bool m_isFlippedX;
+    /// y方向に反転しているかどうか
+    bool m_isFlippedY;
     
 public:
     // 生成処理
@@ -205,6 +209,16 @@ private:
     void destroyOfMaggot(AKPlayDataInterface *data);
     // 逆さま判定
     void checkReverse(const std::vector<AKBlock*> &blocks);
+
+    /*!
+     @brief 方向によるアニメーション初期パターン取得
+     
+     上下反転有無、左右反転有無によってアニメーション初期パターンを決定する。
+     @param isFlipeedX 左右反転有無
+     @param isFlipeedY 上下反転有無
+     @return 初期パターン
+     */
+    int getInitPatternByIsFlipped(bool isFlippedX, bool isFlippedY);
 };
 
 #endif

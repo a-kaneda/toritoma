@@ -376,6 +376,11 @@ void AKCharacter::setImageName(const std::string &imageName)
  */
 void AKCharacter::setAnimationInitPattern(int animationInitPattern)
 {
+    // 変化がない場合は無処理する
+    if (m_animationInitPattern == animationInitPattern) {
+        return;
+    }
+    
     // メンバに設定する
     m_animationInitPattern = animationInitPattern;
     
@@ -475,7 +480,7 @@ void AKCharacter::move(AKPlayDataInterface *data)
         // 経過時間からパターンを決定する
         pattern = m_animationFrame / m_animationInterval + m_animationInitPattern;
         
-        AKLog(kAKLogCharacter_2, "frame=%d interval=%d init=%d pattern=%d",
+        AKLog(false, "frame=%d interval=%d init=%d pattern=%d",
               m_animationFrame, m_animationInterval, m_animationInitPattern, pattern);
     
         // パターンがパターン数を超えた場合はアニメーション時間をリセットし、パターンを最初のものに戻す。
@@ -514,7 +519,7 @@ void AKCharacter::move(AKPlayDataInterface *data)
                  m_imageName.c_str(),
                  pattern);
         
-        AKLog(kAKLogCharacter_2, "imageFileName=%s", imageFileName);
+        AKLog(false, "imageFileName=%s", imageFileName);
         
         // 表示スプライトを変更する
         SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();

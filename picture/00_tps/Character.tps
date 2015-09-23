@@ -211,6 +211,24 @@
             <filename>../94_2times/Character/Player_01_01.png</filename>
             <filename>../94_2times/Character/Player_01_02.png</filename>
             <filename>../94_2times/Character/PlayerShot_01_01.png</filename>
+            <filename>../94_2times/Character/Enemy_02_03.png</filename>
+            <filename>../94_2times/Character/Enemy_02_04.png</filename>
+            <filename>../94_2times/Character/Enemy_02_05.png</filename>
+            <filename>../94_2times/Character/Enemy_02_06.png</filename>
+            <filename>../94_2times/Character/Enemy_02_07.png</filename>
+            <filename>../94_2times/Character/Enemy_02_08.png</filename>
+            <filename>../94_2times/Character/Enemy_13_03.png</filename>
+            <filename>../94_2times/Character/Enemy_13_04.png</filename>
+            <filename>../94_2times/Character/Enemy_13_05.png</filename>
+            <filename>../94_2times/Character/Enemy_13_06.png</filename>
+            <filename>../94_2times/Character/Enemy_13_07.png</filename>
+            <filename>../94_2times/Character/Enemy_13_08.png</filename>
+            <filename>../94_2times/Character/Enemy_22_03.png</filename>
+            <filename>../94_2times/Character/Enemy_22_04.png</filename>
+            <filename>../94_2times/Character/Enemy_22_05.png</filename>
+            <filename>../94_2times/Character/Enemy_22_06.png</filename>
+            <filename>../94_2times/Character/Enemy_22_07.png</filename>
+            <filename>../94_2times/Character/Enemy_22_08.png</filename>
         </array>
         <key>ignoreFileList</key>
         <array/>
