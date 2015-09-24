@@ -150,14 +150,6 @@ private:
         MenuLink3               ///< リンクボタン3
     };
     
-    /// シーンに配置するノードのz座標
-    enum PosZ {
-        PosZBackGround = 0, ///< 背景のz座標
-        PosZItems,          ///< ボタンのz座標
-        PosZInterface,      ///< インターフェースのz座標
-        PosZCursor          ///< カーソルのz座標
-    };
-    
     // カーソル画像の位置のボタンとの重なりの幅
     static const float CursorPosOverlap;
     // リンクの個数

@@ -105,7 +105,7 @@ bool CreditScene::initSub()
         float y = AKScreenSize::positionFromTopRatio(LinkPosTopRatio[i]);
         m_link[i] = getInterface()->addLabelMenu(LinkCaption,
                                                  Vec2(x, y),
-                                                 PosZItems,
+                                                 1,
                                                  MenuLink1 + i,
                                                  LinkTag[i],
                                                  true);
@@ -120,7 +120,7 @@ bool CreditScene::initSub()
         float y = AKScreenSize::positionFromTopRatio(LinkPosTopRatio[i]);
         m_creditLabel[i]->setPosition(Vec2(x, y));
         
-        addChild(m_creditLabel[i], PosZItems);
+        getInterface()->addChild(m_creditLabel[i], 0);
     }
 
     return true;

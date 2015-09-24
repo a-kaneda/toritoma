@@ -43,13 +43,11 @@ using cocos2d::Director;
 using cocos2d::GLView;
 
 /// 解像度調整のベースサイズ
-const Size AKScreenSize::kAKBaseSize(568, 320);
+const Size AKScreenSize::kAKBaseSize(480, 360);
 /// ゲーム画面のステージサイズ
 const Size AKScreenSize::kAKStageSize(384, 288);
 /// スクリーンサイズ
 Size AKScreenSize::m_screenSize;
-/// 画面に表示されている一番左下の座標
-Vec2 AKScreenSize::m_screenOffset;
 
 /*!
  @brief 解像度初期化処理
@@ -58,17 +56,20 @@ Vec2 AKScreenSize::m_screenOffset;
  */
 void AKScreenSize::init(GLView *view)
 {
-    // 解像度を調整する
-    view->setDesignResolutionSize(kAKBaseSize.width,
-                                  kAKBaseSize.height,
-                                  ResolutionPolicy::NO_BORDER);
-
     // デバイスの解像度を取得する
-    m_screenSize = Director::getInstance()->getVisibleSize();
+    Size frameSize = view->getFrameSize();
+    
+    // ベースサイズの拡大率を計算する
+    float scale = MIN(frameSize.width / kAKBaseSize.width, frameSize.height / kAKBaseSize.height);
+    
+    // 調整後のスクリーンサイズを計算する
+    m_screenSize.width = frameSize.width / scale;
+    m_screenSize.height = frameSize.height / scale;
 
-    // 左下の座標を計算する
-    m_screenOffset.x = (kAKBaseSize.width - m_screenSize.width) / 2;
-    m_screenOffset.y = (kAKBaseSize.height - m_screenSize.height) / 2;
+    // 解像度を調整する
+    view->setDesignResolutionSize(m_screenSize.width,
+                                  m_screenSize.height,
+                                  ResolutionPolicy::SHOW_ALL);
 }
 
 /*!
@@ -101,8 +102,8 @@ Size AKScreenSize::stageSize()
  */
 Vec2 AKScreenSize::center()
 {
-    Vec2 center(kAKBaseSize.width / 2,
-                   kAKBaseSize.height / 2);
+    Vec2 center(m_screenSize.width / 2,
+                   m_screenSize.height / 2);
 
     return center;
 }
@@ -115,7 +116,7 @@ Vec2 AKScreenSize::center()
  */
 int AKScreenSize::positionFromLeftRatio(float ratio)
 {
-    return AKScreenSize::screenSize().width * ratio + m_screenOffset.x;
+    return AKScreenSize::screenSize().width * ratio;
 }
 
 /*!
@@ -126,7 +127,7 @@ int AKScreenSize::positionFromLeftRatio(float ratio)
  */
 int AKScreenSize::positionFromRightRatio(float ratio)
 {
-    return AKScreenSize::screenSize().width * (1 - ratio) + m_screenOffset.x;
+    return AKScreenSize::screenSize().width * (1 - ratio);
 }
 
 /*!
@@ -137,7 +138,7 @@ int AKScreenSize::positionFromRightRatio(float ratio)
  */
 int AKScreenSize::positionFromTopRatio(float ratio)
 {
-    return AKScreenSize::screenSize().height * (1 - ratio) + m_screenOffset.y;
+    return AKScreenSize::screenSize().height * (1 - ratio);
 }
 
 /*!
@@ -148,7 +149,7 @@ int AKScreenSize::positionFromTopRatio(float ratio)
  */
 int AKScreenSize::positionFromBottomRatio(float ratio)
 {
-    return AKScreenSize::screenSize().height * ratio + m_screenOffset.y;
+    return AKScreenSize::screenSize().height * ratio;
 }
 
 /*!
@@ -160,7 +161,7 @@ int AKScreenSize::positionFromBottomRatio(float ratio)
  */
 int AKScreenSize::positionFromLeftPoint(float point)
 {
-    return point + m_screenOffset.x;
+    return point;
 }
 
 /*!
@@ -172,7 +173,7 @@ int AKScreenSize::positionFromLeftPoint(float point)
  */
 int AKScreenSize::positionFromRightPoint(float point)
 {
-    return AKScreenSize::screenSize().width - point + m_screenOffset.x;
+    return AKScreenSize::screenSize().width - point;
 }
 
 /*!
@@ -184,7 +185,7 @@ int AKScreenSize::positionFromRightPoint(float point)
  */
 int AKScreenSize::positionFromTopPoint(float point)
 {
-    return AKScreenSize::screenSize().height - point + m_screenOffset.y;
+    return AKScreenSize::screenSize().height - point;
 }
 
 /*!
@@ -196,7 +197,7 @@ int AKScreenSize::positionFromTopPoint(float point)
  */
 int AKScreenSize::positionFromBottomPoint(float point)
 {
-    return point + m_screenOffset.y;
+    return point;
 }
 
 /*!
@@ -233,8 +234,7 @@ int AKScreenSize::positionFromVerticalCenterPoint(float point)
 int AKScreenSize::xOfStage(float stageX)
 {
     return stageX +
-        (AKScreenSize::screenSize().width - AKScreenSize::stageSize().width) / 2 +
-        m_screenOffset.x;
+        ceilf((AKScreenSize::screenSize().width - AKScreenSize::stageSize().width) / 2);
 }
 
 /*!
@@ -247,8 +247,7 @@ int AKScreenSize::xOfStage(float stageX)
 int AKScreenSize::yOfStage(float stageY)
 {
     return stageY +
-        (AKScreenSize::screenSize().height - AKScreenSize::stageSize().height) +
-        m_screenOffset.y;
+        (AKScreenSize::screenSize().height - AKScreenSize::stageSize().height);
 }
 
 /*!
@@ -261,8 +260,7 @@ int AKScreenSize::yOfStage(float stageY)
 float AKScreenSize::xOfDevice(float deviceX)
 {
     return deviceX -
-        (AKScreenSize::screenSize().width - AKScreenSize::stageSize().width) / 2 -
-        m_screenOffset.x;
+        ceilf((AKScreenSize::screenSize().width - AKScreenSize::stageSize().width) / 2);
 }
 
 /*!
@@ -275,8 +273,7 @@ float AKScreenSize::xOfDevice(float deviceX)
 float AKScreenSize::yOfDevice(float deviceY)
 {
     return deviceY -
-        (AKScreenSize::screenSize().height - AKScreenSize::stageSize().height) - 
-        m_screenOffset.y;
+        (AKScreenSize::screenSize().height - AKScreenSize::stageSize().height);
 }
 
 /*! 

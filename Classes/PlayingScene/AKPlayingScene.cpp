@@ -1277,7 +1277,7 @@ void AKPlayingScene::createFrameBack()
     // 左側の枠の座標を作成する
     Rect rect(0.0f,
               0.0f,
-              (AKScreenSize::screenSize().width - AKScreenSize::stageSize().width) / 2.0f,
+              ceilf((AKScreenSize::screenSize().width - AKScreenSize::stageSize().width) / 2.0f),
               AKScreenSize::screenSize().height);
     
     // 右端揃えにするため、ブロックのはみ出している分だけ左にずらす
@@ -1296,7 +1296,7 @@ void AKPlayingScene::createFrameBack()
     createFrameBlock(frameBackBatch, kAKFrameBackName, frameBackSize, rect);
     
     // 右側の枠の座標を作成する
-    rect.origin.x = AKScreenSize::center().x + AKScreenSize::stageSize().width / 2;
+    rect.origin.x = ceilf(AKScreenSize::center().x + AKScreenSize::stageSize().width / 2);
     rect.origin.y = 0.0f;
     rect.size.width = AKScreenSize::screenSize().width - AKScreenSize::stageSize().width / 2;
     rect.size.height = AKScreenSize::screenSize().height;
@@ -1311,7 +1311,7 @@ void AKPlayingScene::createFrameBack()
     createFrameBlock(frameBackBatch, kAKFrameBackName, frameBackSize, rect);
     
     // 下側の枠の座標を作成する
-    rect.origin.x = (AKScreenSize::screenSize().width - AKScreenSize::stageSize().width) / 2.0f;
+    rect.origin.x = floorf((AKScreenSize::screenSize().width - AKScreenSize::stageSize().width) / 2.0f);
     rect.origin.y = 0.0f;
     rect.size.width = AKScreenSize::screenSize().width;
     rect.size.height = AKScreenSize::yOfStage(0.0f);
@@ -1326,7 +1326,7 @@ void AKPlayingScene::createFrameBack()
     createFrameBlock(frameBackBatch, kAKFrameBackName, frameBackSize, rect);
     
     // 上側の枠の座標を作成する
-    rect.origin.x = (AKScreenSize::screenSize().width - AKScreenSize::stageSize().width) / 2.0f;
+    rect.origin.x = ceilf((AKScreenSize::screenSize().width - AKScreenSize::stageSize().width) / 2.0f);
     rect.origin.y = AKScreenSize::yOfStage(0.0f) + AKScreenSize::stageSize().height;
     rect.size.width = AKScreenSize::screenSize().width;
     rect.size.height = AKScreenSize::screenSize().height - 

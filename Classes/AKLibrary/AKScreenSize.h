@@ -51,8 +51,6 @@ private:
     static const cocos2d::Size kAKStageSize;
     // スクリーンサイズ
     static cocos2d::Size m_screenSize;
-    // 画面に表示されている一番左下の座標
-    static cocos2d::Vec2 m_screenOffset;
 public:
     // 解像度初期化処理
     static void init(cocos2d::GLView *view);
