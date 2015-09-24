@@ -284,7 +284,7 @@ m_visibleCursor(false)
  */
 void AKPlayingSceneIF::createPlayingMenu()
 {
-    AKLog(true, "start createPlayingMenu()");
+    AKLog(false, "start createPlayingMenu()");
     
     // シールドボタンを作成する
     float x = AKScreenSize::positionFromRightPoint(kAKShieldButtonPosFromRightPoint);
@@ -325,7 +325,7 @@ void AKPlayingSceneIF::createPlayingMenu()
               AKScreenSize::screenSize().height);
     addSlideMenu(rect,kAKEventSlide, kAKMenuTagPlaying | kAKMenuTagStageClear | kAKMenuTagAllStageWaitClear);
 
-    AKLog(true, "end createPlayingMenu()");
+    AKLog(false, "end createPlayingMenu()");
 }
 
 /*!

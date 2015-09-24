@@ -27,12 +27,7 @@
 #import "RootViewController.h"
 #import "cocos2d.h"
 #import "platform/ios/CCEAGLView-ios.h"
-
-/// AdMobパブリッシャーID
-static NSString *kAKAdMobID = @"ca-app-pub-8055460627535570/8664101241";
-/// テストデバイスID
-static NSString *kAKTestDeviceID = @"ab81ab90de92aeeb1e4b20b4647be22883e80300";
-static NSString *kAKTestDeviceID2 = @"59d89c955b8adbe31a45ec3f07ad5ea813b11c24";
+#import "ID.h"
 
 @implementation RootViewController
 
@@ -146,7 +141,7 @@ static NSString *kAKTestDeviceID2 = @"59d89c955b8adbe31a45ec3f07ad5ea813b11c24";
     self.bannerView = [[[GADBannerView alloc] initWithAdSize:kGADAdSizeBanner] autorelease];
     
     // 広告の「ユニット ID」を指定する。これは AdMob パブリッシャー ID です。
-    self.bannerView.adUnitID = kAKAdMobID;
+    self.bannerView.adUnitID = [NSString stringWithUTF8String:AdMobID];
     
     // ユーザーに広告を表示した場所に後で復元する UIViewController をランタイムに知らせて
     // ビュー階層に追加する。
@@ -157,7 +152,9 @@ static NSString *kAKTestDeviceID2 = @"59d89c955b8adbe31a45ec3f07ad5ea813b11c24";
     GADRequest *request = [GADRequest request];
     
     // テスト広告のリクエストを行う。
-    request.testDevices = [NSArray arrayWithObjects:kAKTestDeviceID, kAKTestDeviceID2, nil];
+    request.testDevices = [NSArray arrayWithObjects:[NSString stringWithUTF8String:TestDeviceID],
+                                                    [NSString stringWithUTF8String:TestDeviceID2],
+                                                    nil];
     
     // リクエストを行って広告を読み込む
     [self.bannerView loadRequest:request];
@@ -185,7 +182,7 @@ static NSString *kAKTestDeviceID2 = @"59d89c955b8adbe31a45ec3f07ad5ea813b11c24";
 - (void)createAdInterstitial
 {
     // インタースティシャル広告を作成する
-    self.interstitialView = [[[GADInterstitial alloc] initWithAdUnitID:kAKAdMobID] autorelease];
+    self.interstitialView = [[[GADInterstitial alloc] initWithAdUnitID:[NSString stringWithUTF8String:AdMobID]] autorelease];
         
     // デリゲートを設定する
     self.interstitialView.delegate = self;
@@ -194,7 +191,9 @@ static NSString *kAKTestDeviceID2 = @"59d89c955b8adbe31a45ec3f07ad5ea813b11c24";
     GADRequest *request = [GADRequest request];
     
     // テスト広告のリクエストを行う。
-    request.testDevices = [NSArray arrayWithObjects:kAKTestDeviceID, kAKTestDeviceID2, nil];
+    request.testDevices = [NSArray arrayWithObjects:[NSString stringWithUTF8String:TestDeviceID],
+                                                    [NSString stringWithUTF8String:TestDeviceID2],
+                                                    nil];
     
     // リクエストを行って広告を読み込む
     [self.interstitialView loadRequest:request];

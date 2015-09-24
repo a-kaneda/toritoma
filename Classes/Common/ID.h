@@ -30,7 +30,7 @@
  @file ID.h
  @brief ID定義
  
- ID等を定義する。具体的な値はcppファイルに定義するが、githubには後悔しない。
+ ID等を定義する。具体的な値はcppファイルに定義するが、githubには公開しない。
  */
 
 #ifndef toritoma_ID_h
@@ -38,5 +38,11 @@
 
 /// 広告解除のプロダクトID
 extern const char *ProductIDRemoveAd;
+/// AdMobパブリッシャーID
+extern const char *AdMobID;
+/// テストデバイスID(iPhone 5)
+extern const char *TestDeviceID;
+/// テストデバイスID(iPhone 6 plus)
+extern const char *TestDeviceID2;
 
 #endif
