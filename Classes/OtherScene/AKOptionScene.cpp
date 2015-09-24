@@ -102,15 +102,15 @@ static const float kAKStoreCaptionPosTopRatio = 0.2f;
 /// ボタンの位置、上からの比率
 static const float kAKButtonPosTopRatio = 0.4f;
 /// 購入ボタンの位置、左からの比率
-static const float kAKBuyButtonPosLeftRatio = 0.3f;
+static const float kAKBuyButtonPosLeftRatio = 0.32f;
 /// リストアボタンの位置、左からの比率
-static const float kAKRestoreButtonPosLeftRatio = 0.7f;
+static const float kAKRestoreButtonPosLeftRatio = 0.68f;
 /// メッセージボックスの1行の文字数
 static const int kAKMsgLength = 20;
 /// メッセージボックスの行数
-static const int kAKMsgLineCount = 4;
+static const int kAKMsgLineCount = 3;
 /// メッセージボックスの位置、下からの位置
-static const float kAKMsgPosBottomPoint = 100.0f;
+static const float kAKMsgPosBottomPoint = 85.0f;
 /// 購入済みのキャプションの位置、上からの比率
 static const float kAKPurchasedCaptionPosTopRatio = 0.4f;
 
