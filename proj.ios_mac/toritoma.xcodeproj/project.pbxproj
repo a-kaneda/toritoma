@@ -26,6 +26,7 @@
 		0C3FD9711BB370AA0058035B /* Default-Landscape@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3FD96D1BB370AA0058035B /* Default-Landscape@2x.png */; settings = {ASSET_TAGS = (); }; };
 		0C3FD9721BB370AA0058035B /* Default-Portrait.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3FD96E1BB370AA0058035B /* Default-Portrait.png */; settings = {ASSET_TAGS = (); }; };
 		0C3FD9731BB370AA0058035B /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3FD96F1BB370AA0058035B /* Default-Portrait@2x.png */; settings = {ASSET_TAGS = (); }; };
+		0C3FD9751BB37D370058035B /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C3FD9741BB37D370058035B /* GoogleMobileAds.framework */; settings = {ASSET_TAGS = (); }; };
 		0C71038A1BAF97380087F0EF /* Indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C7103891BAF97380087F0EF /* Indicator.png */; settings = {ASSET_TAGS = (); }; };
 		0C71038D1BAF975F0087F0EF /* ActivityIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C71038B1BAF975F0087F0EF /* ActivityIndicator.cpp */; settings = {ASSET_TAGS = (); }; };
 		0C7103901BB28BDB0087F0EF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C71038F1BB28BDA0087F0EF /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
@@ -123,7 +124,6 @@
 		0CCFFA151BACFF9A00D2A868 /* stage8.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CCFF9CB1BACFF9A00D2A868 /* stage8.mp3 */; settings = {ASSET_TAGS = (); }; };
 		0CCFFA161BACFF9A00D2A868 /* Localized_en in Resources */ = {isa = PBXBuildFile; fileRef = 0CCFF9CD1BACFF9A00D2A868 /* Localized_en */; settings = {ASSET_TAGS = (); }; };
 		0CCFFA171BACFF9A00D2A868 /* Localized_ja in Resources */ = {isa = PBXBuildFile; fileRef = 0CCFF9CE1BACFF9A00D2A868 /* Localized_ja */; settings = {ASSET_TAGS = (); }; };
-		0CCFFA611BAD070200D2A868 /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CCFFA5E1BAD070200D2A868 /* GoogleMobileAds.framework */; settings = {ASSET_TAGS = (); }; };
 		0CCFFA621BAD070200D2A868 /* libAdapterIAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CCFFA5F1BAD070200D2A868 /* libAdapterIAd.a */; settings = {ASSET_TAGS = (); }; };
 		0CCFFA631BAD070200D2A868 /* libAdapterNend.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CCFFA601BAD070200D2A868 /* libAdapterNend.a */; settings = {ASSET_TAGS = (); }; };
 		0CCFFA651BAD070E00D2A868 /* libNendAd.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CCFFA641BAD070E00D2A868 /* libNendAd.a */; settings = {ASSET_TAGS = (); }; };
@@ -231,6 +231,7 @@
 		0C3FD96D1BB370AA0058035B /* Default-Landscape@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Landscape@2x.png"; path = "ios/Default-Landscape@2x.png"; sourceTree = SOURCE_ROOT; };
 		0C3FD96E1BB370AA0058035B /* Default-Portrait.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait.png"; path = "ios/Default-Portrait.png"; sourceTree = SOURCE_ROOT; };
 		0C3FD96F1BB370AA0058035B /* Default-Portrait@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait@2x.png"; path = "ios/Default-Portrait@2x.png"; sourceTree = SOURCE_ROOT; };
+		0C3FD9741BB37D370058035B /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		0C7103891BAF97380087F0EF /* Indicator.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Indicator.png; sourceTree = "<group>"; };
 		0C71038B1BAF975F0087F0EF /* ActivityIndicator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActivityIndicator.cpp; sourceTree = "<group>"; };
 		0C71038C1BAF975F0087F0EF /* ActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicator.h; sourceTree = "<group>"; };
@@ -375,7 +376,6 @@
 		0CCFF9CB1BACFF9A00D2A868 /* stage8.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = stage8.mp3; sourceTree = "<group>"; };
 		0CCFF9CD1BACFF9A00D2A868 /* Localized_en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Localized_en; sourceTree = "<group>"; };
 		0CCFF9CE1BACFF9A00D2A868 /* Localized_ja */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Localized_ja; sourceTree = "<group>"; };
-		0CCFFA5E1BAD070200D2A868 /* GoogleMobileAds.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = GoogleMobileAds.framework; sourceTree = "<group>"; };
 		0CCFFA5F1BAD070200D2A868 /* libAdapterIAd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdapterIAd.a; sourceTree = "<group>"; };
 		0CCFFA601BAD070200D2A868 /* libAdapterNend.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libAdapterNend.a; sourceTree = "<group>"; };
 		0CCFFA641BAD070E00D2A868 /* libNendAd.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libNendAd.a; path = Nend/NendAd/libNendAd.a; sourceTree = "<group>"; };
@@ -470,10 +470,10 @@
 				0CCFFA651BAD070E00D2A868 /* libNendAd.a in Frameworks */,
 				BF1C47F01293687400B63C5D /* QuartzCore.framework in Frameworks */,
 				0CCFFA621BAD070200D2A868 /* libAdapterIAd.a in Frameworks */,
+				0C3FD9751BB37D370058035B /* GoogleMobileAds.framework in Frameworks */,
 				D44C620C132DFF330009C878 /* OpenAL.framework in Frameworks */,
 				0CCFFA631BAD070200D2A868 /* libAdapterNend.a in Frameworks */,
 				D44C620E132DFF430009C878 /* AVFoundation.framework in Frameworks */,
-				0CCFFA611BAD070200D2A868 /* GoogleMobileAds.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -786,6 +786,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0C3FD9741BB37D370058035B /* GoogleMobileAds.framework */,
 				0CCFFA8B1BAD13B800D2A868 /* AdSupport.framework */,
 				0CCFFA891BAD138B00D2A868 /* CoreGraphics.framework */,
 				0CCFFA871BAD137900D2A868 /* CoreTelephony.framework */,
@@ -805,7 +806,6 @@
 				0CCFFA6B1BAD127400D2A868 /* GameKit.framework */,
 				0CCFFA691BAD123900D2A868 /* iAd.framework */,
 				0CCFFA671BAD122700D2A868 /* Social.framework */,
-				0CCFFA5E1BAD070200D2A868 /* GoogleMobileAds.framework */,
 				0CCFFA5F1BAD070200D2A868 /* libAdapterIAd.a */,
 				0CCFFA601BAD070200D2A868 /* libAdapterNend.a */,
 				ED545A7D1B68A1FA00C3958E /* libiconv.dylib */,
@@ -1188,6 +1188,7 @@
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
+					"-ObjC",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.monochrome-soft.toritoma2";
@@ -1234,6 +1235,7 @@
 				OTHER_LDFLAGS = (
 					"$(_COCOS_LIB_IOS_BEGIN)",
 					"$(_COCOS_LIB_IOS_END)",
+					"-ObjC",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.monochrome-soft.toritoma2";

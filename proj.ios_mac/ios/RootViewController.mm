@@ -185,11 +185,8 @@ static NSString *kAKTestDeviceID2 = @"59d89c955b8adbe31a45ec3f07ad5ea813b11c24";
 - (void)createAdInterstitial
 {
     // インタースティシャル広告を作成する
-    self.interstitialView = [[[GADInterstitial alloc] init] autorelease];
-    
-    // 広告のユニットIDを指定する。
-    self.interstitialView.adUnitID = kAKAdMobID;
-    
+    self.interstitialView = [[[GADInterstitial alloc] initWithAdUnitID:kAKAdMobID] autorelease];
+        
     // デリゲートを設定する
     self.interstitialView.delegate = self;
     
