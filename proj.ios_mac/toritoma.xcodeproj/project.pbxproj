@@ -30,6 +30,7 @@
 		0C71038A1BAF97380087F0EF /* Indicator.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C7103891BAF97380087F0EF /* Indicator.png */; settings = {ASSET_TAGS = (); }; };
 		0C71038D1BAF975F0087F0EF /* ActivityIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C71038B1BAF975F0087F0EF /* ActivityIndicator.cpp */; settings = {ASSET_TAGS = (); }; };
 		0C7103901BB28BDB0087F0EF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C71038F1BB28BDA0087F0EF /* Images.xcassets */; settings = {ASSET_TAGS = (); }; };
+		0CB491171BB512F30069177E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0CB491191BB512F30069177E /* InfoPlist.strings */; };
 		0CCFF91C1BACFE5500D2A868 /* Advertisement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF8FE1BACFE5500D2A868 /* Advertisement.mm */; settings = {ASSET_TAGS = (); }; };
 		0CCFF91D1BACFE5500D2A868 /* AKCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF8FF1BACFE5500D2A868 /* AKCommon.cpp */; settings = {ASSET_TAGS = (); }; };
 		0CCFF91E1BACFE5500D2A868 /* AKInterface.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF9011BACFE5500D2A868 /* AKInterface.cpp */; settings = {ASSET_TAGS = (); }; };
@@ -237,6 +238,8 @@
 		0C71038C1BAF975F0087F0EF /* ActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicator.h; sourceTree = "<group>"; };
 		0C71038E1BB0CB5E0087F0EF /* PurchaseInfoWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PurchaseInfoWriter.h; sourceTree = "<group>"; };
 		0C71038F1BB28BDA0087F0EF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "toritoma-mobile/Images.xcassets"; sourceTree = SOURCE_ROOT; };
+		0CB491181BB512F30069177E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		0CB4911A1BB512F60069177E /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0CCFF8FD1BACFE5500D2A868 /* Advertisement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Advertisement.h; sourceTree = "<group>"; };
 		0CCFF8FE1BACFE5500D2A868 /* Advertisement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Advertisement.mm; sourceTree = "<group>"; };
 		0CCFF8FF1BACFE5500D2A868 /* AKCommon.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKCommon.cpp; sourceTree = "<group>"; };
@@ -509,6 +512,7 @@
 				503AE0FD17EB989F00D1A890 /* Prefix.pch */,
 				503AE0FE17EB989F00D1A890 /* RootViewController.h */,
 				503AE0FF17EB989F00D1A890 /* RootViewController.mm */,
+				0CB491191BB512F30069177E /* InfoPlist.strings */,
 			);
 			name = ios;
 			path = Classes;
@@ -941,6 +945,7 @@
 				Japanese,
 				French,
 				German,
+				ja,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
@@ -993,6 +998,7 @@
 				0C3FD96B1BB3517A0058035B /* Icon-76@2x.png in Resources */,
 				0CCFFA0B1BACFF9A00D2A868 /* miss.mp3 in Resources */,
 				0CCFFA071BACFF9A00D2A868 /* clear.mp3 in Resources */,
+				0CB491171BB512F30069177E /* InfoPlist.strings in Resources */,
 				0CCFFA121BACFF9A00D2A868 /* stage5.mp3 in Resources */,
 				0C3FD9641BB3517A0058035B /* Icon-29@3x.png in Resources */,
 				0CCFF9F51BACFF9A00D2A868 /* HowTo-ipad.plist in Resources */,
@@ -1148,6 +1154,18 @@
 			targetProxy = 1AC6FB24180E99E1004C840B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		0CB491191BB512F30069177E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				0CB491181BB512F30069177E /* en */,
+				0CB4911A1BB512F60069177E /* ja */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = SOURCE_ROOT;
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
