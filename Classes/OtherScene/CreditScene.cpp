@@ -105,13 +105,13 @@ bool CreditScene::initSub()
         float y = AKScreenSize::positionFromTopRatio(LinkPosTopRatio[i]);
         m_link[i] = getInterface()->addLabelMenu(LinkCaption,
                                                  Vec2(x, y),
-                                                 1,
+                                                 0,
                                                  MenuLink1 + i,
                                                  LinkTag[i],
                                                  true);
     }
     
-    // クレジットラベルをインターフェースに配置する
+    // クレジットラベルをシーンに配置する
     for (int i = 0; i < LinkNumOfPage; i++) {
         
         m_creditLabel[i] = AKLabel::createLabel("", CreditLineLength, CreditLineNum, kAKLabelFrameNone, AKLabel::ControlFont);
@@ -120,7 +120,7 @@ bool CreditScene::initSub()
         float y = AKScreenSize::positionFromTopRatio(LinkPosTopRatio[i]);
         m_creditLabel[i]->setPosition(Vec2(x, y));
         
-        getInterface()->addChild(m_creditLabel[i], 0);
+        addChild(m_creditLabel[i], ZPositionBack);
     }
 
     return true;

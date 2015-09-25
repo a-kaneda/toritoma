@@ -108,9 +108,9 @@ static const float kAKRestoreButtonPosLeftRatio = 0.68f;
 /// メッセージボックスの1行の文字数
 static const int kAKMsgLength = 20;
 /// メッセージボックスの行数
-static const int kAKMsgLineCount = 3;
+static const int kAKMsgLineCount = 4;
 /// メッセージボックスの位置、下からの位置
-static const float kAKMsgPosBottomPoint = 85.0f;
+static const float kAKMsgPosBottomPoint = 100.0f;
 /// 購入済みのキャプションの位置、上からの比率
 static const float kAKPurchasedCaptionPosTopRatio = 0.4f;
 

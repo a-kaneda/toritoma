@@ -377,7 +377,8 @@ void AKLabel::updateLabel()
     }
     
     // ラベル幅を設定する
-    m_text->setWidth(getWidth(m_length, false));
+    // 丁度の文字数の時に改行されてしまうため、文字サイズに1ドットプラスする
+    m_text->setWidth(getWidth(m_length, false) + 1);
     
     // 色を設定する
     m_text->setColor(cocos2d::Color3B(kAKColor[kAKColorDark]));
