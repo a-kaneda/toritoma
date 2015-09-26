@@ -40,6 +40,7 @@
 #include "SettingFileIO.h"
 #include "ID.h"
 #include "Advertisement.h"
+#include "AKStringSplitter.h"
 
 using std::string;
 using cocos2d::Blink;
@@ -459,9 +460,12 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     // 購入済みの文字列を取得する
     string purchasedMessage = LocalizedResource::getInstance().getString(kAKStorePurchasedKey);
     
+    // 文字数を取得する。全角文字も1文字として扱う。
+    int purhcaseMessageLength = AKStringSplitter::getStringLength(purchasedMessage.c_str());
+    
     // 購入済みのラベルを作成する
     AKLabel *purchasedLabel = AKLabel::createLabel(purchasedMessage,
-                                                   (int)purchasedMessage.length(),
+                                                   purhcaseMessageLength,
                                                    1,
                                                    kAKLabelFrameNone,
                                                    AKLabel::ControlFont);
