@@ -91,7 +91,7 @@ enum AKEnemyType {
 
 /// 敵の定義
 const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
-    // 破壊,画像,フレーム数,フレーム間隔,幅,高さ,オフセットX,オフセットY,移動履歴,HP,防御力,スコア,ボスフラグ
+    // 動作,破壊,画像,フレーム数,フレーム間隔,幅,高さ,オフセットX,オフセットY,移動履歴,HP,防御力,スコア,ボスフラグ
     {&AKEnemy::actionOfDragonfly, &AKEnemy::destroyNormal, 1, 2, 30, 32, 32, 0, 0, 0, 3, 0, 100, 0},    // トンボ
     {&AKEnemy::actionOfAnt, &AKEnemy::destroyNormal, 2, 2, 30, 32, 16, 0, 0, 0, 7, 0, 200, 0},          // アリ
     {&AKEnemy::actionOfButterfly, &AKEnemy::destroyNormal, 3, 2, 30, 32, 32, 0, 0, 0, 10, 0, 200, 0},   // チョウ
@@ -128,7 +128,7 @@ const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
     {&AKEnemy::actionOfSpider, &AKEnemy::destroyOfBoss, 34, 2, 12, 64, 64, 0, 0, 0, 1600, 0, 3000, 1},              // クモ
     {&AKEnemy::actionOfCentipedeHead, &AKEnemy::destroyOfBoss, 35, 0, 0, 32, 32, 0, 16, 11, 19, 99, 3000, 1},       // ムカデ（頭）
     {&AKEnemy::actionOfCentipedeBody, &AKEnemy::destroyNone, 36, 2, 12, 32, 16, 0, 0, 11, 1, 99, 0, 0},             // ムカデ（胴体）
-    {&AKEnemy::actionOfCentipedeTail, &AKEnemy::destroyOfCentipede, 37, 2, 12, 32, 16, 0, -24, 0, 15, 0, 0, 0},     // ムカデ（尾）
+    {&AKEnemy::actionOfCentipedeTail, &AKEnemy::destroyOfCentipede, 37, 2, 12, 48, 48, 0, -24, 0, 15, 0, 0, 0},     // ムカデ（尾）
     {&AKEnemy::actionOfMaggot, &AKEnemy::destroyOfMaggot, 38, 2, 30, 16, 16, 0, 0, 0, 150, 0, 500, 0},              // ウジ
     {&AKEnemy::actionOfFly, &AKEnemy::destroyOfBoss, 39, 2, 6, 32, 32, 0, 0, 0, 1500, 0, 8000, 1},                  // ハエ
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}    // 予備40
@@ -833,7 +833,7 @@ void AKEnemy::actionOfAnt(AKPlayDataInterface *data)
     // 弾のスピード
     const float kAKShotSpeed = 1.0f;
     // 移動スピード
-    const float kAKMoveSpeed = 0.8f;
+    const float kAKMoveSpeed = 1.0f;
     // 移動するフレーム数
     const int kAKMoveFrame = 120;
     // 弾発射間隔
@@ -1417,17 +1417,17 @@ void AKEnemy::actionOfHornet(AKPlayDataInterface *data)
 /*!
  @brief ゴキブリの動作処理
  
- 自機に向かって体当たりをしてくる。定周期で自機に向かって1-way弾を発射する。
+ 自機に向かって体当たりをしてくる。定周期で自機に向かって2-way弾を発射する。
  @param data ゲームデータ
  */
 void AKEnemy::actionOfCockroach(AKPlayDataInterface *data)
 {
     // 移動スピード
-    const float kAKMoveSpeed = 1.0f;
+    const float kAKMoveSpeed = 1.5f;
     // 弾のスピード
     const float kAKShotSpeed = 1.5f;
     // 弾発射間隔
-    const int kAKShotInterval = 20;
+    const int kAKShotInterval = 40;
 
     // 障害物との当たり判定を有効にする
     m_blockHitAction = kAKBlockHitMove;
@@ -1442,13 +1442,13 @@ void AKEnemy::actionOfCockroach(AKPlayDataInterface *data)
     // 画像を回転させる
     getImage()->setRotation(AKAngle::convertAngleRad2Scr(angle));
     
-    // 一定時間経過しているときは自機を狙う1-way弾を発射する
+    // 一定時間経過しているときは自機を狙う2-way弾を発射する
     if ((m_frame + 1) % kAKShotInterval == 0) {
         
         // 自機へ向けて弾を発射する
         AKEnemy::fireNWay(m_position,
-                          1,
-                          0.0f,
+                          2,
+                          M_PI / 16.0f,
                           kAKShotSpeed,
                           data);        
     }
@@ -1468,7 +1468,7 @@ void AKEnemy::actionOfSnail(AKPlayDataInterface *data)
     // 移動スピード
     const float kAKMoveSpeed = 0.2f;
     // 弾発射間隔
-    const int kAKShotInterval = 60;
+    const int kAKShotInterval = 90;
     
     // 状態
     enum STATE {
@@ -1538,7 +1538,7 @@ void AKEnemy::actionOfStagBeetle(AKPlayDataInterface *data)
     // 弾のスピード
     const float kAKShotSpeed = 1.5f;
     // 移動スピード
-    const float kAKMoveSpeed = 1.0f;
+    const float kAKMoveSpeed = 1.3f;
     // 弾発射間隔
     const int kAKShotInterval = 60;
     // 方向転換を行うまでの間隔
@@ -2290,6 +2290,7 @@ void AKEnemy::actionOfSpider(AKPlayDataInterface *data)
         kAKStateInit = 0,           // 初期状態
         kAKStateNWayShot,           // n-way弾発射
         kAKStateNetShot,            // 蜘蛛の巣弾発射
+        kAKStateMoveToCenter,       // 中央へ移動
         kAKStateSiege,              // 2-way弾による包囲弾発射
         kAKStateCount               // 状態の種類の数
     };
@@ -2300,7 +2301,7 @@ void AKEnemy::actionOfSpider(AKPlayDataInterface *data)
         kAKWorkSiegeAngle           // 包囲弾の現在の角度
     };
     // 状態遷移間隔
-    const int kAKStateInterval[kAKStateCount] = {999, 900, 900, 900};
+    const int kAKStateInterval[kAKStateCount] = {999, 900, 900, 90, 900};
     // 移動位置の数
     const int kAKMovePositionCount = 4;
     // 移動位置
@@ -2458,6 +2459,17 @@ void AKEnemy::actionOfSpider(AKPlayDataInterface *data)
                                   data);
             }
 
+            break;
+            
+        case kAKStateMoveToCenter:  // 中央へ移動
+            
+            // 包囲弾発射時は中央で固定とする
+            nextPosition.setPoint(kAKMovePositionOfSiege[0],
+                                  kAKMovePositionOfSiege[1]);
+            
+            // 移動時間はリセットする
+            m_work[kAKWorkMoveTime] = 0;
+            
             break;
             
         case kAKStateSiege:     // 2-way弾による包囲弾発射
@@ -2642,9 +2654,9 @@ void AKEnemy::actionOfCentipedeHead(AKPlayDataInterface *data)
     // 胴体の数
     const int kAKBodyCount = 18;
     // 5-way弾発射間隔
-    const int kAK5WayInterval = 40;
+    const int kAK5WayInterval = 60;
     // 5-way弾スピード
-    const float kAK5WayShotSpeed = 1.2f;
+    const float kAK5WayShotSpeed = 1.0f;
     // 1-way弾の待機時間
     const int kAK1WayWaitTime = 10;
     // 1-way弾の発射時間
@@ -2652,7 +2664,7 @@ void AKEnemy::actionOfCentipedeHead(AKPlayDataInterface *data)
     // 1-way弾発射間隔
     const int kAK1WayInterval = 20;
     // 1-way弾スピード
-    const float kAK1WayShotSpeed = 1.8f;
+    const float kAK1WayShotSpeed = 1.5f;
     // 2周目追加ショット発射間隔
     const int kAK2ndLoopShotInterval = 120;
     // 2周目追加ショットスピード
@@ -2884,9 +2896,9 @@ void AKEnemy::actionOfCentipedeBody(AKPlayDataInterface *data)
         kAKStateCount           // 状態の種類の数
     };
     // 弾発射間隔
-    const int kAKShotInterval = 100;
+    const int kAKShotInterval = 90;
     // 弾のスピード
-    const float kAKShotSpeed = 1.5f;
+    const float kAKShotSpeed = 1.0f;
 
     // 一つ前の体がメンバに設定されていない場合は処理しない
     if (m_parentEnemy == NULL) {
@@ -2951,13 +2963,13 @@ void AKEnemy::actionOfCentipedeBody(AKPlayDataInterface *data)
 void AKEnemy::actionOfCentipedeTail(AKPlayDataInterface *data)
 {
     // 3-way弾の発射間隔
-    const int kAK3WayShotInterval = 60;
+    const int kAK3WayShotInterval = 30;
     // 3-way弾の弾数
     const int kAK3WayShotCount = 3;
     // 3-way弾の角度の間隔
     const float kAK3WayShotAngle = M_PI / 8;
     // 3-way弾のスピード
-    const float kAK3WayShotSpeed = 2.0f;
+    const float kAK3WayShotSpeed = 1.5f;
     // 3-way弾発射までの間
     const int kAK3WayShotWait = 250;
     
@@ -3010,13 +3022,13 @@ void AKEnemy::actionOfCentipedeTail(AKPlayDataInterface *data)
 void AKEnemy::actionOfMaggot(AKPlayDataInterface *data)
 {
     // 3-way弾の発射間隔
-    const int kAK3WayShotInterval[8] = {120, 130, 140, 150, 160, 170, 180, 190};
+    const int kAK3WayShotInterval[8] = {150, 170, 190, 210, 230, 250, 270, 290};
     // 3-way弾の弾数
     const int kAK3WayShotCount = 3;
     // 3-way弾の角度の間隔
     const float kAK3WayShotAngle = M_PI / 8;
     // 3-way弾のスピード
-    const float kAK3WayShotSpeed[8] = {0.8f, 0.8f, 0.9f, 0.9f, 1.0f, 1.0f, 1.1f, 1.1f};
+    const float kAK3WayShotSpeed[8] = {0.5f, 0.5f, 0.6f, 0.6f, 0.7f, 0.7f, 0.8f, 0.8f};
     // 3-way弾発射までの間
     const int kAK3WayShotWait = 230;
 
@@ -3103,45 +3115,45 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
     // 移動位置到達判定範囲
     const float kAKMoveArrivalRange = 8;
     // n-way弾の発射間隔
-    const int kAKNWayShotInterval = 30;
+    const int kAKNWayShotInterval = 45;
     // n-way弾の弾数
     const int kAKNWayShotCount = 13;
     // n-way弾の角度の間隔
     const float kAKNWayShotAngle = M_PI / 16;
     // n-way弾のスピード
-    const float kAKNWayShotSpeed = 1.7f;
+    const float kAKNWayShotSpeed = 1.0f;
     // 矢印弾の待機時間
-    const int kAKArrowShotWait = 120;
+    const int kAKArrowShotWait = 150;
     // 矢印弾の発射時間
-    const int kAKArrowShotTime = 90;
+    const int kAKArrowShotTime = 60;
     // 矢印弾の発射間隔
-    const int kAKArrowShotInterval = 30;
+    const int kAKArrowShotInterval = 60;
     // 矢印弾の数
     const int kAKArrowShotCount = 5;
     // 矢印弾のスピード
-    const float kAKArrowShotSpeed[kAKArrowShotCount] = {2.2f, 2.4f, 2.6f, 2.8f, 3.0f};
+    const float kAKArrowShotSpeed[kAKArrowShotCount] = {1.0f, 1.2f, 1.4f, 1.6f, 1.8f};
     // 全方位弾の発射間隔
-    const int kAKAllDirectionInterval = 10;
+    const int kAKAllDirectionInterval = 20;
     // 全方位弾の弾数
     const float kAKAllDirectionCount = 8;
     // 全方位弾の角度の間隔
     const float kAKAllDirectionAngle = 2 * M_PI / kAKAllDirectionCount;
     // 全方位弾のスピード
-    const float kAKAllDirectionSpeed = 1.2f;
+    const float kAKAllDirectionSpeed = 1.0f;
     // 全方位弾の回転スピード
     const float kAKAllDirectionRotationSpeed = 0.1f;
     // 全画面弾の発射間隔
-    const int kAKAllRangeInterval = 40;
+    const int kAKAllRangeInterval = 60;
     // 全画面弾の弾の位置の間隔
     const int kAKAllRangePositionInterval = 50;
     // 全画面弾のスピード
-    const float kAKAllRangeSpeed = 1.2f;
+    const float kAKAllRangeSpeed = 0.8f;
     // 全画面弾の発射位置移動スピード
     const int kAKAllRangePositionSpeed = 3;
     // 3-way弾発射間隔
-    const int kAK3WayInterval = 40;
+    const int kAK3WayInterval = 90;
     // 3-way弾スピード
-    const float kAK3WayShotSpeed = 1.8f;
+    const float kAK3WayShotSpeed = 1.0f;
     // 2周目追加ショット発射間隔
     const int kAK2ndLoopShotInterval = 120;
     // 2周目追加ショットスピード
@@ -3258,7 +3270,9 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
             if (m_frame - m_work[kAKWorkShot] > kAKArrowShotWait) {
                 
                 // 矢印弾の発射間隔が経過している場合は弾を発射する
-                if ((m_frame + 1) % kAKArrowShotInterval == 0) {
+                if ((m_frame - m_work[kAKWorkShot] + 1) % kAKArrowShotInterval == 0) {
+                    
+                    AKLog(false, "m_frame=%d", m_frame);
                     
                     // 矢印弾を発射する
                     for (int i = 0; i < kAKArrowShotCount; i++) {
@@ -3272,7 +3286,7 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
                 
                 // 矢印弾の発射時間が経過している場合は作業領域に現在の経過フレーム数を入れて
                 // 矢印弾グループの発射間隔分待機する
-                if (m_frame - m_work[kAKWorkShot] > kAKArrowShotTime + kAKArrowShotWait) {
+                if (m_frame - m_work[kAKWorkShot] >= kAKArrowShotTime + kAKArrowShotWait) {
                     m_work[kAKWorkShot] = m_frame;
                 }
             }

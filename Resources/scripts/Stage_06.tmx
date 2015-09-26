@@ -354,7 +354,7 @@
  </layer>
  <layer name="Enemy" width="120" height="9">
   <data encoding="base64" compression="zlib">
-   eJztVkkOwyAM5P+foOTWNLc2T+i/KqRaGk3HhqRLUilzAezBNjZbSgcOtHGC/iXgoe4W8FB3XRNQYK/l+1vYwudaZGc80ri2U2NOxdzBQW4O9IpfMTxb3C+ZOFW3tg42z2ygTS/O/ORGnK1g8QwkP5PeMKVXROtuwerUsycwrggz9M1OceyjH86BslPb6C7y1rMFagyFxqrfknHuZpKVpHOVSK584JhtqhrhWS4g68278TguhvK/tKb3hfylwBh57xowZnV2jcO5j3x58yLgHuFYC7V8XyOUrBW/6dW5NS7r9nJ+1bi2o8PDt1jpuM/59O42L+8G9Z6quzLyp978TDzcO1hTzpX31rbu71/j1MG5OH2V895/zaf/oa0/1bv/rUi/p3oe+D88ACoMbgw=
+   eJztVkkOgzAMzP8/EcKtwK3lCf1XFQlLo6mXQGnLIXNJYk/swVlISh0dMQbozw4PfQ+Hh777EUFOvCj3t/CPnEeRjfFE49ouwZyKtYGD3Oz4NX7FuLW4XzJxqu/oOsg8iY8xLZ15m+dx/gXRM5L9Rn7Bkt7hfXcEqWPLnkBdHlboS5xixMc8XAOL33IXXWGdq4ZCY60f2bh2K9lK0mueyK7lwDHH1NZI4+OatNaddTG0/HvX9LmTvxeo0dq7qFk7u8Lh2nu5rHkecI+w1kIt39cIzRbp93SKnc/0Vc6vNq7tZPDwX6z5uM/1tO42q+4C7X+q3ZVRPuvMCQ/3Tkn2ubf+ta33968wNHBmo6/VvPVdc/Y7NHpTffreOjtuR4fgBZLraG0=
   </data>
  </layer>
 </map>
