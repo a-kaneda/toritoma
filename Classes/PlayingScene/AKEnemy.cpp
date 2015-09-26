@@ -123,7 +123,7 @@ const struct AKEnemyDef AKEnemy::kAKEnemyDef[kAKEnemyDefCount] = {
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備29
     {NULL, NULL, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},   // 予備30
     {&AKEnemy::actionOfRhinocerosBeetle, &AKEnemy::destroyOfBoss, 31, 2, 3, 64, 40, 0, 0, 0, 1000, 0, 3000, 1},     // カブトムシ
-    {&AKEnemy::actionOfMantis, &AKEnemy::destroyOfBoss, 32, 0, 0, 64, 64, 0, 0, 0, 1000, 3, 3000, 1},               // カマキリ
+    {&AKEnemy::actionOfMantis, &AKEnemy::destroyOfBoss, 32, 0, 0, 64, 64, 0, 0, 0, 1300, 3, 3000, 1},               // カマキリ
     {&AKEnemy::actionOfHoneycomb, &AKEnemy::destroyOfBoss, 33, 0, 0, 64, 64, 0, 0, 0, 1200, 3, 3000, 1},            // ハチの巣
     {&AKEnemy::actionOfSpider, &AKEnemy::destroyOfBoss, 34, 2, 12, 64, 64, 0, 0, 0, 1600, 0, 3000, 1},              // クモ
     {&AKEnemy::actionOfCentipedeHead, &AKEnemy::destroyOfBoss, 35, 0, 0, 32, 32, 0, 16, 11, 19, 99, 3000, 1},       // ムカデ（頭）
@@ -787,9 +787,9 @@ void AKEnemy::destroy(AKPlayDataInterface *data)
 void AKEnemy::actionOfDragonfly(AKPlayDataInterface *data)
 {
     // 弾のスピード
-    const float kAKShotSpeed = 2.0f;
+    const float kAKShotSpeed = 1.5f;
     // 移動スピード
-    const float kAKMoveSpeed = -1.5f;
+    const float kAKMoveSpeed = -1.0f;
     // 弾発射間隔
     const int kAKShotInterval = 120;
 
@@ -831,9 +831,9 @@ void AKEnemy::actionOfDragonfly(AKPlayDataInterface *data)
 void AKEnemy::actionOfAnt(AKPlayDataInterface *data)
 {
     // 弾のスピード
-    const float kAKShotSpeed = 1.5f;
+    const float kAKShotSpeed = 1.0f;
     // 移動スピード
-    const float kAKMoveSpeed = 1.0f;
+    const float kAKMoveSpeed = 0.8f;
     // 移動するフレーム数
     const int kAKMoveFrame = 120;
     // 弾発射間隔
@@ -979,9 +979,9 @@ void AKEnemy::actionOfButterfly(AKPlayDataInterface *data)
     // x方向の移動スピード
     const float kAKMoveSpeedX = -1.0f;
     // y方向の移動スピード
-    const float kAKMoveSpeedY = 2.0f;
+    const float kAKMoveSpeedY = 1.5f;
     // 弾のスピード
-    const float kAKShotSpeed = 2.0f;
+    const float kAKShotSpeed = 1.5f;
     
     // 初期状態の場合
     if (m_state == kAKStateInit) {
@@ -1068,7 +1068,7 @@ void AKEnemy::actionOfBagworm(AKPlayDataInterface *data)
     // 弾発射間隔
     const int kAKShotInterval = 60;
     // 弾のスピード
-    const float kAKShotSpeed = 1.5f;
+    const float kAKShotSpeed = 1.0f;
 
     // スクロールに合わせて移動する
     m_scrollSpeed = 1.0f;
@@ -1096,7 +1096,7 @@ void AKEnemy::actionOfBagworm(AKPlayDataInterface *data)
 void AKEnemy::actionOfCicada(AKPlayDataInterface *data)
 {
     // 移動スピード
-    const float kAKSpeed = 2.0f;
+    const float kAKSpeed = 1.5f;
     // 移動間隔
     const int kAKMoveInterval = 60;
     // 弾発射間隔
@@ -1104,7 +1104,7 @@ void AKEnemy::actionOfCicada(AKPlayDataInterface *data)
     // 待機間隔
     const int kAKWaitInterval = 70;
     // 弾のスピード
-    const float kAKShotSpeed = 1.5f;
+    const float kAKShotSpeed = 1.0f;
 
     // 状態
     enum STATE {
@@ -1318,7 +1318,7 @@ void AKEnemy::actionOfHornet(AKPlayDataInterface *data)
     // 弾の数
     const int kAKShotCount = 5;
     // 弾のスピード
-    const float kAKShotSpeed[kAKShotCount] = {2.2f, 2.4f, 2.6f, 2.8f, 3.0f};
+    const float kAKShotSpeed[kAKShotCount] = {1.5f, 1.7f, 1.9f, 2.1f, 2.3f};
     // 登場時のx方向の移動スピード
     const float kAKMoveInSpeedX = -2.0f;
     // 退場時のx方向の移動スピード
@@ -1423,9 +1423,9 @@ void AKEnemy::actionOfHornet(AKPlayDataInterface *data)
 void AKEnemy::actionOfCockroach(AKPlayDataInterface *data)
 {
     // 移動スピード
-    const float kAKMoveSpeed = 1.5f;
+    const float kAKMoveSpeed = 1.0f;
     // 弾のスピード
-    const float kAKShotSpeed = 2.0f;
+    const float kAKShotSpeed = 1.5f;
     // 弾発射間隔
     const int kAKShotInterval = 20;
 
@@ -1464,7 +1464,7 @@ void AKEnemy::actionOfCockroach(AKPlayDataInterface *data)
 void AKEnemy::actionOfSnail(AKPlayDataInterface *data)
 {
     // 弾のスピード
-    const float kAKShotSpeed = 1.5f;
+    const float kAKShotSpeed = 1.0f;
     // 移動スピード
     const float kAKMoveSpeed = 0.2f;
     // 弾発射間隔
@@ -1536,9 +1536,9 @@ void AKEnemy::actionOfSnail(AKPlayDataInterface *data)
 void AKEnemy::actionOfStagBeetle(AKPlayDataInterface *data)
 {
     // 弾のスピード
-    const float kAKShotSpeed = 2.0f;
+    const float kAKShotSpeed = 1.5f;
     // 移動スピード
-    const float kAKMoveSpeed = 1.5f;
+    const float kAKMoveSpeed = 1.0f;
     // 弾発射間隔
     const int kAKShotInterval = 60;
     // 方向転換を行うまでの間隔
@@ -1629,15 +1629,15 @@ void AKEnemy::actionOfRhinocerosBeetle(AKPlayDataInterface *data)
     // 状態遷移間隔
     const int kAKStateInterval[kAKStateCount] = {1000000, 900, 900, 900};
     // 左方向への弾の発射間隔
-    const int kAKLeftShotInterval = 30;
+    const int kAKLeftShotInterval = 60;
     // 左方向への弾の上下の発射位置
     const int kAKLeftShotPosition = 30;
     // 左方向への弾のスピード
-    const float kAKLeftShotSpeed = 2.0f;
+    const float kAKLeftShotSpeed = 1.5f;
     // 左方向への弾発射時の1-way弾の発射間隔
     const int kAKLeftShot1WayInterval = 60;
     // 左方向への弾発射時の1-way弾のスピード
-    const float kAKLeftShot1WaySpeed = 1.5f;
+    const float kAKLeftShot1WaySpeed = 1.0f;
     // n-way弾の塊の発射間隔
     const int kAKNWayGroupShotInterval = 60;
     // n-way弾の発射間隔
@@ -1657,7 +1657,7 @@ void AKEnemy::actionOfRhinocerosBeetle(AKPlayDataInterface *data)
     // 全方位弾の角度の間隔
     const float kAKAllDirectionAngle = 2 * M_PI / kAKAllDirectionCount;
     // 全方位弾のスピード
-    const float kAKAllDirectionSpeed = 2.0f;
+    const float kAKAllDirectionSpeed = 1.5f;
     // 2周目追加ショット発射間隔
     const int kAK2ndLoopShotInterval = 120;
     // 2周目追加ショットスピード
@@ -1871,7 +1871,7 @@ void AKEnemy::actionOfMantis(AKPlayDataInterface *data)
     // 弧形弾の発射間隔
     const int kAKArcShotInterval = 60;
     // 弧形弾のスピード
-    const float kAKArcShotSpeed = 2.0f;
+    const float kAKArcShotSpeed = 1.5f;
     // 破裂弾の発射待機時間
     const int kAKBurstShotWaitTime = 90;
     // 破裂弾の発射間隔
@@ -1891,11 +1891,11 @@ void AKEnemy::actionOfMantis(AKPlayDataInterface *data)
     // n-way弾の発射間隔
     const int kAKNWayShotInterval = 20;
     // n-way弾のスピード
-    const float kAKNWayShotSpeed = 2.0f;
+    const float kAKNWayShotSpeed = 1.5f;
     // n-way弾の弾数
     const int kAKNWayCount[2] = {9, 10};
     // n-way弾の角度の間隔
-    const float kAKNWayAngleInterval = M_PI / 20.0f;
+    const float kAKNWayAngleInterval = M_PI / 10.0f;
     // 2周目追加ショット発射間隔
     const int kAK2ndLoopShotInterval = 120;
     // 2周目追加ショットスピード
@@ -2096,7 +2096,7 @@ void AKEnemy::actionOfHoneycomb(AKPlayDataInterface *data)
     // 状態遷移間隔
     const int kAKStateInterval[kAKStateCount] = {340, 900, 900, 900};
     // ハチを呼び出す間隔
-    const int kAKCallHornetInterval = 60;
+    const int kAKCallHornetInterval = 120;
     // ハチの登場位置の数
     const int kAKCallHornetPositionCount = 3;
     // ハチの登場位置x座標
@@ -2104,11 +2104,11 @@ void AKEnemy::actionOfHoneycomb(AKPlayDataInterface *data)
     // ハチの登場位置y座標
     const float kAKHornetYPosition[kAKCallHornetPositionCount] = {200.0f, 144.0f, 88.0f};
     // 5-way弾発射間隔
-    const int kAK5WayInterval = 20;
+    const int kAK5WayInterval = 40;
     // 5-way弾スピード
-    const float kAK5WayShotSpeed = 1.5f;
+    const float kAK5WayShotSpeed = 1.0f;
     // 全方位弾の発射間隔
-    const int kAKAllDirectionInterval = 40;
+    const int kAKAllDirectionInterval = 60;
     // 全方位弾の弾数
     const float kAKAllDirectionCount = 24;
     // 全方位弾の角度の間隔
@@ -2116,17 +2116,17 @@ void AKEnemy::actionOfHoneycomb(AKPlayDataInterface *data)
     // 全方位弾のスピード
     const float kAKAllDirectionSpeed = 1.5f;
     // 画面全体弾発射間隔
-    const int kAKAllRangeInterval = 30;
+    const int kAKAllRangeInterval = 60;
     // 画面全体弾の弾数
     const int kAKAllRangeCount = 7;
     // 画面全体弾のスピード
-    const float kAKAllRangeSpeed = 1.0f;
+    const float kAKAllRangeSpeed = 0.5f;
     // 画面全体弾の発射位置y座標
     const float kAKAllRangeYPosition = 36.0f;
     // 1-way弾発射間隔
-    const int kAK1WayInterval = 20;
+    const int kAK1WayInterval = 40;
     // 1-way弾スピード
-    const float kAK1WayShotSpeed = 2.0f;
+    const float kAK1WayShotSpeed = 1.5f;
     // 2周目追加ショット発射間隔
     const int kAK2ndLoopShotInterval = 120;
     // 2周目追加ショットスピード
@@ -2316,11 +2316,11 @@ void AKEnemy::actionOfSpider(AKPlayDataInterface *data)
     // 3-way弾発射間隔
     const int kAK3WayInterval = 40;
     // 3-way弾スピード
-    const float kAK3WayShotSpeed = 1.8f;
+    const float kAK3WayShotSpeed = 1.5f;
     // 5-way弾発射間隔
     const int kAK5WayInterval = 40;
     // 5-way弾スピード
-    const float kAK5WayShotSpeed = 1.2f;
+    const float kAK5WayShotSpeed = 1.0f;
     // 蜘蛛の巣弾の弾数
     const int kAKNetShotCount = 34;
     // 蜘蛛の巣弾の各弾の配置位置
@@ -2336,9 +2336,9 @@ void AKEnemy::actionOfSpider(AKPlayDataInterface *data)
         {42, 0}, {-42, 0}
     };
     // 蜘蛛の巣弾発射間隔
-    const int kAKNetShotInterval = 60;
+    const int kAKNetShotInterval = 90;
     // 蜘蛛の巣弾のスピード
-    const float kAKNetShotSpeed = 1.5f;
+    const float kAKNetShotSpeed = 1.0f;
     // 全方位弾の発射間隔
     const int kAKAllDirectionInterval = 30;
     // 全方位弾の弾数
@@ -2364,7 +2364,7 @@ void AKEnemy::actionOfSpider(AKPlayDataInterface *data)
     // 包囲弾内のグループ弾発射間隔
     const int kAKGroupShotInterval = 40;
     // 包囲弾内のグループ弾スピード
-    const float kAKGroupShotSpeed = 2.5f;
+    const float kAKGroupShotSpeed = 2.0f;
     // 包囲弾内のグループ弾の弾数
     const int kAKGroupShotCount = 4;
     // 包囲弾内のグループ弾の位置
