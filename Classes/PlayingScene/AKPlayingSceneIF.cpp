@@ -509,7 +509,7 @@ void AKPlayingSceneIF::createStageClear()
     
     // ステージクリアラベルの位置を設定する
     float x = AKScreenSize::center().x;
-    float y = AKScreenSize::center().y;
+    float y = AKScreenSize::yOfStage(AKScreenSize::stageSize().height / 2);
     label->setPosition(Vec2(x, y));
 
     // ステージクリアラベルをレイヤーに配置する
