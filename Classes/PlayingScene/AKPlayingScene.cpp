@@ -1066,9 +1066,6 @@ void AKPlayingScene::stageClear()
     // シールドモードを無効にする
     m_data->setShield(false);
 
-    // BGMを停止する
-    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
-
     // ステージクリアのジングルを再生する
     SimpleAudioEngine::getInstance()->playBackgroundMusic(kAKClearJingleFileName, false);
 
@@ -1099,9 +1096,6 @@ void AKPlayingScene::gameClear()
 {
     // シールドモードを無効にする
     m_data->setShield(false);
-    
-    // BGMを停止する
-    SimpleAudioEngine::getInstance()->stopBackgroundMusic();
     
     // ステージクリアのジングルを再生する
     SimpleAudioEngine::getInstance()->playBackgroundMusic(kAKGameClearJingleFileName, false);

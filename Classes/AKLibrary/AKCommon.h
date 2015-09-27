@@ -39,6 +39,7 @@
 //#include <Foundation/Foundation.h>
 //#include <GameKit/GameKit.h>
 #include "cocos2d.h"
+#include <sys/time.h>
 
 /// 色番号
 enum kAKColorNumber {
@@ -181,5 +182,14 @@ cocos2d::LayerColor *AKCreateBackColorLayer(void);
 
 // 英語の序数詞を作成する
 std::string MakeOrdinal(int number);
+
+/*!
+ @brief 経過ミリ秒取得
+ 
+ 前回呼び出し時からの経過ミリ秒を取得する。
+ @param prev 前回実行時の時刻、呼び出しの都度上書きされる
+ @return 経過ミリ秒
+ */
+unsigned long getMilliSec(struct timeval *prev);
 
 #endif

@@ -261,3 +261,20 @@ std::string MakeOrdinal(int number)
             }
     }
 }
+
+// 経過ミリ秒取得
+unsigned long getMilliSec(struct timeval *prev)
+{
+    // システム時刻を取得する
+    struct timeval now;
+    gettimeofday(&now, NULL);
+    
+    // 経過ミリ秒を計算する
+    unsigned long msec = (now.tv_sec - prev->tv_sec) * 1000 + (now.tv_usec - prev->tv_usec) / 1000;
+    
+    // 取得したシステム時刻を前回結果に上書きする
+    *prev = now;
+    
+    // 経過ミリ秒を返す
+    return msec;
+}
