@@ -50,8 +50,6 @@ static const int kAKPlayerShotHeight = 6;
 static const int kAKPlayerShotOutThreshold = 3;
 /// 自機弾の攻撃力
 static const int kAKPlayerShotPower = 4;
-/// 2周目の自機弾の攻撃力
-static const int kAK2ndPlayerShotPower = 2;
 /// オプション弾の攻撃力
 static const int kAKOptionShotPower = 2;
 
@@ -62,18 +60,11 @@ static const int kAKOptionShotPower = 2;
  @param position 生成位置
  @param angle 進行角度
  @param parent 配置する親ノード
- @param is2ndLoop
  */
-void AKPlayerShot::createPlayerShot(const Vec2 &position, float angle, Node *parent, bool is2ndLoop)
+void AKPlayerShot::createPlayerShot(const Vec2 &position, float angle, Node *parent)
 {
     // 攻撃力を設定する
-    // 1周目と2周目以降で攻撃力を変更する。
-    if (is2ndLoop) {
-        m_power = kAK2ndPlayerShotPower;
-    }
-    else {
-        m_power = kAKPlayerShotPower;
-    }
+    m_power = kAKPlayerShotPower;
 
     // スピードをxとyに分割して設定する
     m_speedX = cos(angle) * kAKPlayerShotSpeed;

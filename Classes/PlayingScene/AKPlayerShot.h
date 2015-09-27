@@ -46,7 +46,7 @@
 class AKPlayerShot : public AKCharacter {
 public:
     // 自機弾生成
-    void createPlayerShot(const cocos2d::Vec2 &position, float angle, cocos2d::Node *parent, bool is2ndLoop);
+    void createPlayerShot(const cocos2d::Vec2 &position, float angle, cocos2d::Node *parent);
     // オプション弾生成
     void createOptionShot(const cocos2d::Vec2 &position, cocos2d::Node *parent);
 private:

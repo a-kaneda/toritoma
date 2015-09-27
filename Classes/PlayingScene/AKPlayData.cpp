@@ -857,7 +857,7 @@ void AKPlayData::createPlayerShot(Vec2 position)
     }
     
     // 自機弾を生成する
-    playerShot->createPlayerShot(position, 0.0f, m_batches.at(kAKCharaPosZPlayerShot), is2ndLoop());
+    playerShot->createPlayerShot(position, 0.0f, m_batches.at(kAKCharaPosZPlayerShot));
 }
 
 /*!
