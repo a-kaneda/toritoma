@@ -791,7 +791,7 @@ void AKEnemy::actionOfDragonfly(AKPlayDataInterface *data)
     // 移動スピード
     const float kAKMoveSpeed = -1.0f;
     // 弾発射間隔
-    const int kAKShotInterval = 120;
+    const int kAKShotInterval = data->is2ndLoop() ? 60 : 120;
 
     // 左へ直進する
     m_speedX = kAKMoveSpeed;
@@ -936,6 +936,19 @@ void AKEnemy::actionOfAnt(AKPlayDataInterface *data)
                                   0.0f,
                                   kAKShotSpeed,
                                   data);
+                
+                // 2周めの場合は画面中央に向けて3-Way弾を発射する
+                if (data->is2ndLoop()) {
+                    
+                    AKEnemy::fireNWay(m_isFlippedY ? 3 * M_PI / 2.0f : M_PI / 2.0f,
+                                      Vec2(m_position.x, m_position.y),
+                                      3,
+                                      M_PI / 8.0f,
+                                      kAKShotSpeed,
+                                      true,
+                                      data);
+
+                }
             }
             
             break;
@@ -1012,17 +1025,31 @@ void AKEnemy::actionOfButterfly(AKPlayDataInterface *data)
         m_speedY = -kAKMoveSpeedY;
     }
     
-    // 弾発射間隔経過しているときは左方向へ3-way弾を発射する
+    // 弾発射間隔経過しているときは左方向へ弾を発射する
     if ((m_frame + 1) % kAKShotInterval == 0) {
         
-        // 左へ弾を発射する
-        AKEnemy::fireNWay(M_PI,
-                          m_position,
-                          3,
-                          M_PI / 8.0f,
-                          kAKShotSpeed,
-                          false,
-                          data);
+        // 1周目は3-Way弾を発射する
+        // 2周目は5-Way弾を発射する
+        if (!data->is2ndLoop()) {
+            
+            AKEnemy::fireNWay(M_PI,
+                              m_position,
+                              3,
+                              M_PI / 8.0f,
+                              kAKShotSpeed,
+                              false,
+                              data);
+        }
+        else {
+
+            AKEnemy::fireNWay(M_PI,
+                              m_position,
+                              5,
+                              M_PI / 16.0f,
+                              kAKShotSpeed,
+                              false,
+                              data);
+        }
     }
 }
 
@@ -1045,15 +1072,25 @@ void AKEnemy::actionOfLadybug(AKPlayDataInterface *data)
     m_speedX = kAKMoveSpeed;
     m_speedY = 0.0f;
     
-    // 弾発射間隔経過しているときは自機を狙う1-way弾を発射する
+    // 弾発射間隔経過しているときは自機を狙う弾を発射する
     if ((m_frame + 1) % kAKShotInterval == 0) {
         
-        // 自機へ向けて弾を発射する
-        AKEnemy::fireNWay(m_position,
+        // 1周目は1-Way弾を発射する
+        // 2周目は3-Way弾を発射する
+        if (!data->is2ndLoop()) {
+            AKEnemy::fireNWay(m_position,
                           1,
                           0.0f,
                           kAKShotSpeed,
-                          data);        
+                          data);
+        }
+        else {
+            AKEnemy::fireNWay(m_position,
+                              3,
+                              M_PI / 16.0f,
+                              kAKShotSpeed,
+                              data);
+        }
     }
 }
 
@@ -1078,6 +1115,18 @@ void AKEnemy::actionOfBagworm(AKPlayDataInterface *data)
         
         // 全方位に 12-way弾を発射する
         AKEnemy::fireNWay(M_PI,
+                          m_position,
+                          12,
+                          M_PI / 6.0f,
+                          kAKShotSpeed,
+                          true,
+                          data);
+    }
+    
+    // 2周目は方向と間隔をずらして全方位に弾を発射する
+    if (data->is2ndLoop() && (m_frame + 1 + kAKShotInterval / 2) % kAKShotInterval == 0) {
+        
+        AKEnemy::fireNWay(M_PI + M_PI / 12.0f,
                           m_position,
                           12,
                           M_PI / 6.0f,
@@ -1165,7 +1214,18 @@ void AKEnemy::actionOfCicada(AKPlayDataInterface *data)
                                   3,
                                   M_PI / 8.0f,
                                   kAKShotSpeed,
-                                  data);                
+                                  data);
+                
+                // 2周目の場合は追加で2-way弾を発射する
+                if (data->is2ndLoop()) {
+                    
+                    AKEnemy::fireNWay(m_position,
+                                      2,
+                                      M_PI / 8.0f,
+                                      kAKShotSpeed * 1.5f,
+                                      data);
+
+                }
             }
             
             // 待機間隔経過で初期状態に戻る
@@ -1297,6 +1357,19 @@ void AKEnemy::actionOfGrasshopper(AKPlayDataInterface *data)
                           0.0f,
                           kAKShotSpeed,
                           data);
+        
+        // 2周めの場合は画面中央に向けて3-Way弾を発射する
+        if (data->is2ndLoop()) {
+            
+            AKEnemy::fireNWay(m_isFlippedY ? 3 * M_PI / 2.0f : M_PI / 2.0f,
+                              m_position,
+                              3,
+                              M_PI / 8.0f,
+                              kAKShotSpeed,
+                              true,
+                              data);
+            
+        }
     }
     
     AKLog(kAKLogEnemy_3, "speed=(%f, %f)", m_speedX, m_speedY);
@@ -1380,6 +1453,7 @@ void AKEnemy::actionOfHornet(AKPlayDataInterface *data)
                 
                 // 左へ5種類の弾を発射する
                 for (int i = 0; i < kAKShotCount; i++) {
+                    
                     AKEnemy::fireNWay(M_PI,
                                       m_position,
                                       3,
@@ -1387,6 +1461,18 @@ void AKEnemy::actionOfHornet(AKPlayDataInterface *data)
                                       kAKShotSpeed[i],
                                       false,
                                       data);
+                    
+                    // 2周目のときは追加で2-wayを発射する
+                    if (data->is2ndLoop()) {
+                        
+                        AKEnemy::fireNWay(M_PI,
+                                          m_position,
+                                          2,
+                                          M_PI / 32.0f,
+                                          kAKShotSpeed[i],
+                                          false,
+                                          data);
+                    }
                 }
 
                 // 退場の状態へ遷移する
@@ -1450,7 +1536,20 @@ void AKEnemy::actionOfCockroach(AKPlayDataInterface *data)
                           2,
                           M_PI / 16.0f,
                           kAKShotSpeed,
-                          data);        
+                          data);
+        
+        // 2周目の場合は追加で左方向に弾を発射する
+        if (data->is2ndLoop()) {
+            
+            AKEnemy::fireNWay(M_PI,
+                              m_position,
+                              1,
+                              0.0f,
+                              kAKShotSpeed,
+                              false,
+                              data);
+
+        }
     }
 }
 
@@ -1468,7 +1567,7 @@ void AKEnemy::actionOfSnail(AKPlayDataInterface *data)
     // 移動スピード
     const float kAKMoveSpeed = 0.2f;
     // 弾発射間隔
-    const int kAKShotInterval = 90;
+    const int kAKShotInterval = data->is2ndLoop() ? 60 : 90;
     
     // 状態
     enum STATE {
@@ -1579,6 +1678,19 @@ void AKEnemy::actionOfStagBeetle(AKPlayDataInterface *data)
                                   M_PI / 8.0f,
                                   kAKShotSpeed,
                                   data);
+                
+                // 2周目の場合は追加で左方向に弾を発射する
+                if (data->is2ndLoop()) {
+                    
+                    AKEnemy::fireNWay(M_PI,
+                                      m_position,
+                                      3,
+                                      M_PI / 8.0f,
+                                      kAKShotSpeed / 1.5f,
+                                      false,
+                                      data);
+                    
+                }
             }
             
             // 方向転換間隔経過したら初期状態に遷移して角度を設定し直す
@@ -1729,6 +1841,28 @@ void AKEnemy::actionOfRhinocerosBeetle(AKPlayDataInterface *data)
                                   kAKLeftShotSpeed,
                                   false,
                                   data);
+                
+                // 2周目の場合は追加で2発弾を発射する
+                if (data->is2ndLoop()) {
+                    
+                    position.y = m_position.y - kAKLeftShotPosition * 2;
+                    AKEnemy::fireNWay(M_PI,
+                                      position,
+                                      1,
+                                      0.0f,
+                                      kAKLeftShotSpeed,
+                                      false,
+                                      data);
+                    
+                    position.y = m_position.y + kAKLeftShotPosition * 2;
+                    AKEnemy::fireNWay(M_PI,
+                                      position,
+                                      1,
+                                      0.0f,
+                                      kAKLeftShotSpeed,
+                                      false,
+                                      data);
+                }
             }
             
             // 1-way弾の弾発射間隔が経過している場合は弾を発射する
@@ -1752,7 +1886,7 @@ void AKEnemy::actionOfRhinocerosBeetle(AKPlayDataInterface *data)
                 if ((m_frame + 1) % kAKNWayShotInterval == 0) {
                     
                     AKEnemy::fireNWay(m_position,
-                                      kAKNWayCount,
+                                      kAKNWayCount + (data->is2ndLoop() ? 2 : 0),
                                       kAKNwayAngle,
                                       kAKNWaySpeed,
                                       data);
@@ -1779,6 +1913,22 @@ void AKEnemy::actionOfRhinocerosBeetle(AKPlayDataInterface *data)
                                   true,
                                   data);
             }
+            
+            // 2周目の場合は間隔と方向をずらして全方位弾を発射する
+            if (data->is2ndLoop()) {
+                
+                if ((m_frame + 1 + kAKAllDirectionInterval / 2) % kAKAllDirectionInterval == 0) {
+                    
+                    AKEnemy::fireNWay(M_PI + kAKAllDirectionAngle / 2,
+                                      m_position,
+                                      kAKAllDirectionCount,
+                                      kAKAllDirectionAngle,
+                                      kAKAllDirectionSpeed,
+                                      true,
+                                      data);
+                }
+            }
+            
             break;
             
         default:
@@ -1867,13 +2017,13 @@ void AKEnemy::actionOfMantis(AKPlayDataInterface *data)
         {0, 0}, {6, 12}, {14, 24}, {24, 34}, {36, 42}, {-2, -14}, {0, -28}, {4, -42}, {12, -54}
     };
     // 弧形弾の発射待機時間
-    const int kAKArcShotWaitTime = 90;
+    const int kAKArcShotWaitTime = data->is2ndLoop() ? 30 : 90;
     // 弧形弾の発射間隔
     const int kAKArcShotInterval = 60;
     // 弧形弾のスピード
     const float kAKArcShotSpeed = 1.5f;
     // 破裂弾の発射待機時間
-    const int kAKBurstShotWaitTime = 90;
+    const int kAKBurstShotWaitTime = data->is2ndLoop() ? 30 : 90;
     // 破裂弾の発射間隔
     const int kAKBurstShotInterval = 60;
     // 破裂弾の破裂前のスピード
@@ -1887,7 +2037,7 @@ void AKEnemy::actionOfMantis(AKPlayDataInterface *data)
     // 破裂弾の各弾の間隔
     const float kAKBurstShotAngleInterval = M_PI / 6.0f;
     // n-way弾の待機間隔
-    const int kAKNWayShotWaitTime = 90;
+    const int kAKNWayShotWaitTime = data->is2ndLoop() ? 30 : 90;
     // n-way弾の発射間隔
     const int kAKNWayShotInterval = 20;
     // n-way弾のスピード
@@ -2096,7 +2246,7 @@ void AKEnemy::actionOfHoneycomb(AKPlayDataInterface *data)
     // 状態遷移間隔
     const int kAKStateInterval[kAKStateCount] = {340, 900, 900, 900};
     // ハチを呼び出す間隔
-    const int kAKCallHornetInterval = 120;
+    const int kAKCallHornetInterval = data->is2ndLoop() ? 90 : 120;
     // ハチの登場位置の数
     const int kAKCallHornetPositionCount = 3;
     // ハチの登場位置x座標
@@ -2363,7 +2513,7 @@ void AKEnemy::actionOfSpider(AKPlayDataInterface *data)
     // 包囲弾の1-way弾スピード
     const float kAK1WayShotSpeed = 0.8f;
     // 包囲弾内のグループ弾発射間隔
-    const int kAKGroupShotInterval = 40;
+    const int kAKGroupShotInterval = data->is2ndLoop() ? 30 : 40;
     // 包囲弾内のグループ弾スピード
     const float kAKGroupShotSpeed = 2.0f;
     // 包囲弾内のグループ弾の弾数
@@ -2415,6 +2565,15 @@ void AKEnemy::actionOfSpider(AKPlayDataInterface *data)
                                   M_PI / 8.0f,
                                   kAK5WayShotSpeed,
                                   data);
+                
+                // 2周目は追加で半分のスピードの弾を発射する
+                if (data->is2ndLoop()) {
+                    AKEnemy::fireNWay(m_position,
+                                      6,
+                                      M_PI / 8.0f,
+                                      kAK5WayShotSpeed / 2,
+                                      data);
+                }
             }
             
             // 弾発射間隔時間経過したら弾を発射する
@@ -2426,6 +2585,15 @@ void AKEnemy::actionOfSpider(AKPlayDataInterface *data)
                                   M_PI / 16.0f,
                                   kAK3WayShotSpeed,
                                   data);
+
+                // 2周目は追加で半分のスピードの弾を発射する
+                if (data->is2ndLoop()) {
+                    AKEnemy::fireNWay(m_position,
+                                      4,
+                                      M_PI / 16.0f,
+                                      kAK3WayShotSpeed / 2,
+                                      data);
+                }
             }
 
             break;
@@ -2457,6 +2625,17 @@ void AKEnemy::actionOfSpider(AKPlayDataInterface *data)
                                   kAKAllDirectionSpeed,
                                   true,
                                   data);
+                
+                // 2周目は追加で半分のスピードの弾を発射する
+                if (data->is2ndLoop()) {
+                    AKEnemy::fireNWay(M_PI,
+                                      m_position,
+                                      kAKAllDirectionCount + 1,
+                                      kAKAllDirectionAngle,
+                                      kAKAllDirectionSpeed / 2,
+                                      true,
+                                      data);
+                }
             }
 
             break;
@@ -2748,6 +2927,20 @@ void AKEnemy::actionOfCentipedeHead(AKPlayDataInterface *data)
                                   data);
             }
             
+            // 2周目の場合は追加で6-way弾を発射する
+            if (data->is2ndLoop()) {
+                
+                if ((m_frame + kAK5WayInterval / 2 + 1) % kAK5WayInterval == 0) {
+                    
+                    // 自機へ向けて弾を発射する
+                    AKEnemy::fireNWay(m_position,
+                                      6,
+                                      M_PI / 8.0f,
+                                      kAK5WayShotSpeed,
+                                      data);
+                }
+            }
+            
             break;
             
         case kAKStateHighSpeedShot:     // 1-way弾による高速弾発射
@@ -2760,8 +2953,8 @@ void AKEnemy::actionOfCentipedeHead(AKPlayDataInterface *data)
                     
                     // 自機へ向けて弾を発射する
                     AKEnemy::fireNWay(m_position,
-                                      1,
-                                      0.0f,
+                                      data->is2ndLoop() ? 4 : 1,
+                                      data->is2ndLoop() ? M_PI / 2 : 0.0f,
                                       kAK1WayShotSpeed,
                                       data);
                 }
@@ -2965,7 +3158,7 @@ void AKEnemy::actionOfCentipedeTail(AKPlayDataInterface *data)
     // 3-way弾の発射間隔
     const int kAK3WayShotInterval = 30;
     // 3-way弾の弾数
-    const int kAK3WayShotCount = 3;
+    const int kAK3WayShotCount = data->is2ndLoop() ? 12 : 3;
     // 3-way弾の角度の間隔
     const float kAK3WayShotAngle = M_PI / 8;
     // 3-way弾のスピード
@@ -3059,6 +3252,17 @@ void AKEnemy::actionOfMaggot(AKPlayDataInterface *data)
                           kAK3WayShotSpeed[(m_state + 3) % 8],
                           data);
     }
+
+    // 二周目の場合は追加で定周期に5-way弾を発射する
+    if (data->is2ndLoop() && m_frame > kAK3WayShotWait &&
+        ((m_frame + 90) % kAK3WayShotInterval[(m_state + 3) % 8]) == 0) {
+        
+        AKEnemy::fireNWay(m_position,
+                          kAK3WayShotCount + 2,
+                          kAK3WayShotAngle / 2,
+                          kAK3WayShotSpeed[(m_state + 3) % 8] - 0.1f,
+                          data);
+    }
 }
 
 /*!
@@ -3127,7 +3331,7 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
     // 矢印弾の発射時間
     const int kAKArrowShotTime = 60;
     // 矢印弾の発射間隔
-    const int kAKArrowShotInterval = 60;
+    const int kAKArrowShotInterval = data->is2ndLoop() ? 20 : 60;
     // 矢印弾の数
     const int kAKArrowShotCount = 5;
     // 矢印弾のスピード
@@ -3135,13 +3339,13 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
     // 全方位弾の発射間隔
     const int kAKAllDirectionInterval = 20;
     // 全方位弾の弾数
-    const float kAKAllDirectionCount = 8;
+    const float kAKAllDirectionCount = data->is2ndLoop() ? 16 : 8;
     // 全方位弾の角度の間隔
     const float kAKAllDirectionAngle = 2 * M_PI / kAKAllDirectionCount;
     // 全方位弾のスピード
     const float kAKAllDirectionSpeed = 1.0f;
     // 全方位弾の回転スピード
-    const float kAKAllDirectionRotationSpeed = 0.1f;
+    const float kAKAllDirectionRotationSpeed = data->is2ndLoop() ? 0.2f : 0.1f;
     // 全画面弾の発射間隔
     const int kAKAllRangeInterval = 60;
     // 全画面弾の弾の位置の間隔
@@ -3151,7 +3355,7 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
     // 全画面弾の発射位置移動スピード
     const int kAKAllRangePositionSpeed = 3;
     // 3-way弾発射間隔
-    const int kAK3WayInterval = 90;
+    const int kAK3WayInterval = data->is2ndLoop() ? 30 : 90;
     // 3-way弾スピード
     const float kAK3WayShotSpeed = 1.0f;
     // 2周目追加ショット発射間隔
@@ -3383,7 +3587,7 @@ void AKEnemy::actionOfFly(AKPlayDataInterface *data)
                 
                 // 自機へ向けて弾を発射する
                 AKEnemy::fireNWay(m_position,
-                                  3,
+                                  data->is2ndLoop() ? 5 : 3,
                                   M_PI / 16.0f,
                                   kAK3WayShotSpeed,
                                   data);
@@ -3541,8 +3745,6 @@ void AKEnemy::destroyNone(AKPlayDataInterface *data)
  */
 void AKEnemy::destroyNormal(AKPlayDataInterface *data)
 {
-    const float kAKShotSpeed = 1.0f;
-    
     AKLog(kAKLogEnemy_1, "start");
     
     // 画面効果を生成する
@@ -3550,15 +3752,6 @@ void AKEnemy::destroyNormal(AKPlayDataInterface *data)
     
     // 破壊の効果音を鳴らす
     SimpleAudioEngine::getInstance()->playEffect(kAKBombMinSEFileName);
-    
-    // 2周目時は3-way弾を発射する
-    if (data->is2ndLoop()) {
-        AKEnemy::fireNWay(m_position,
-                          3,
-                          M_PI / 8.0f,
-                          kAKShotSpeed,
-                          data);
-    }
 }
 
 /*!
