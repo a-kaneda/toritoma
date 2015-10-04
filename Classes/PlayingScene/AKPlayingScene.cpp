@@ -1583,10 +1583,8 @@ void AKPlayingScene::onAxisEventOnPlaying(int keyCode, float value)
 {
     float speed = 0.0f;
     
-    // 入力がしきい値を超えている場合は速度計算を行う
-    if (value > kAKControllerAxisThreshold || value < -kAKControllerAxisThreshold) {
-        speed = value * kAKPlayerMoveByController;
-    }
+    // 入力値から速度計算を行う
+    speed = value * kAKPlayerMoveByController;
     
     // キー種類によって設定する方向を変える
     switch (keyCode) {
