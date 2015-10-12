@@ -49,6 +49,7 @@ namespace aklib {
     static const string STRING_FILE_ENGLISH  = "Localized_en";
     static const string STRING_FILE_JAPANESE = "Localized_ja";
     static const string STRING_FILE_CHINESE  = "Localized_zh";
+    static const string STRING_FILE_KOREAN   = "Localized_ko";
     
     static LocalizedResource& singleton = LocalizedResource::getInstance();
     
@@ -98,6 +99,9 @@ namespace aklib {
                 
             case cocos2d::LanguageType::CHINESE:
                 return STRING_FILE_CHINESE;
+                
+            case cocos2d::LanguageType::KOREAN:
+                return STRING_FILE_KOREAN;
                 
             default:
                 return STRING_FILE_ENGLISH;
