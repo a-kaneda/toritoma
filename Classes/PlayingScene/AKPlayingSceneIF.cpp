@@ -137,7 +137,7 @@ static const float kAKGameOverCaptionPosBottomRatio = 0.6f;
 /// タイトルへ戻るボタンの位置、下からの比率
 static const float kAKGameOverQuitButtonPosBottomRatio = 0.4f;
 /// Twitterボタンの配置位置、中心からの横方向の位置
-static const float kAKTwitterButtonPosHorizontalCenterPoint = 120.0f;
+static const float kAKTwitterButtonPosHorizontalCenterPoint = 140.0f;
 /// Twitterボタンの配置位置、下からの位置
 static const float kAKTwitterButtonPosBottomRatio = 0.6f;
 
