@@ -160,6 +160,14 @@ Rect AKLabel::getRect(Vec2 position, int length, int line, bool hasFrame)
                 AKLabel::getHeight(line, hasFrame));
 }
 
+// 中央揃え
+void AKLabel::setAlignmentCenter()
+{
+    AKAssert(m_text != NULL, "m_text is null.");
+    
+    m_text->setAlignment(cocos2d::TextHAlignment::CENTER);
+}
+
 /*!
  @brief 初期文字列を指定したコンストラクタ
  

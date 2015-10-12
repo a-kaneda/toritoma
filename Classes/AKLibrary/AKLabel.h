@@ -81,6 +81,13 @@ public:
     int getHeight();
     // ラベルの矩形領域の取得
     cocos2d::Rect getRect();
+
+    /*!
+     @brief 中央揃え
+     
+     ラベルを中央揃えに設定する。
+     */
+    void setAlignmentCenter();
     
 private:
     /// 表示文字列

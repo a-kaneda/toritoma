@@ -460,20 +460,24 @@ void AKOptionScene::initStorePage(AKInterface *interface)
     // 購入済みの文字列を取得する
     string purchasedMessage = LocalizedResource::getInstance().getString(kAKStorePurchasedKey);
     
-    // 文字数を取得する。全角文字も1文字として扱う。
-    int purhcaseMessageLength = AKStringSplitter::getStringLength(purchasedMessage.c_str());
+    // 文字数を設定する
+    // 中央揃えにするのでここでは適当な値を設定する
+    int purhcaseMessageLength = 32;
     
     // 購入済みのラベルを作成する
     AKLabel *purchasedLabel = AKLabel::createLabel(purchasedMessage,
                                                    purhcaseMessageLength,
                                                    1,
                                                    kAKLabelFrameNone,
-                                                   AKLabel::ControlFont);
+                                                   AKLabel::MessageFont);
     
     // 購入済みのラベルの位置を設定する
     x = AKScreenSize::center().x;
     y = AKScreenSize::positionFromTopRatio(kAKPurchasedCaptionPosTopRatio);
     purchasedLabel->setPosition(Vec2(x, y));
+    
+    // 中央揃えにする
+    purchasedLabel->setAlignmentCenter();
     
     // レイヤーに配置する
     interface->addChild(purchasedLabel, 0, kAKMenuStoreAfterPurcase);

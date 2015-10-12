@@ -46,8 +46,9 @@ using cocos2d::Data;
 
 namespace aklib {
     
-    static const string STRING_FILE_ENGLISH = "Localized_en";
-    static const string STRING_FILE_JAPANESE= "Localized_ja";
+    static const string STRING_FILE_ENGLISH  = "Localized_en";
+    static const string STRING_FILE_JAPANESE = "Localized_ja";
+    static const string STRING_FILE_CHINESE  = "Localized_zh";
     
     static LocalizedResource& singleton = LocalizedResource::getInstance();
     
@@ -94,6 +95,9 @@ namespace aklib {
                 
             case cocos2d::LanguageType::JAPANESE:
                 return STRING_FILE_JAPANESE;
+                
+            case cocos2d::LanguageType::CHINESE:
+                return STRING_FILE_CHINESE;
                 
             default:
                 return STRING_FILE_ENGLISH;

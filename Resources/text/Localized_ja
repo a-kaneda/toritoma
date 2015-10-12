@@ -12,12 +12,12 @@
 "HowToPlay_Controller_6" = "Aボタンを押している間はチキンゲージが減っていきます。";
 "Tweet1stLoop" = "とりとま、ステージ%dまで進めてスコアを%d点獲得しました。 #toritoma";
 "Tweet2ndLoop" = "とりとま、%d周目ステージ%dまで進めてスコアを%d点獲得しました。 #toritoma";
-"CreditName_1" = "せいさく\n かねだ";
-"CreditName_2" = "BGM\n まおうだましい";
-"CreditName_3" = "ジングル\n ユーフルカ";
-"CreditName_4" = "こうかおん\n スキップモア";
-"CreditName_5" = "フォント\n みさきフォント";
-"CreditName_6" = "フォント\n NOTO FONTS";
+"CreditName_1" = "製作\n    金田";
+"CreditName_2" = "BGM\n    魔王魂";
+"CreditName_3" = "ジングル\n    ユーフルカ";
+"CreditName_4" = "効果音\n    スキップモア";
+"CreditName_5" = "フォント\n    美咲フォント";
+"CreditName_6" = "フォント\n    Noto Fonts";
 "CreditLink_1" = "http://blog.monochrome-soft.com/";
 "CreditLink_2" = "http://maoudamashii.jokersounds.com/";
 "CreditLink_3" = "http://wingless-seraph.net/";
@@ -25,4 +25,4 @@
 "CreditLink_5" = "http://www.geocities.jp/littlimi/misaki.htm";
 "CreditLink_6" = "https://www.google.com/get/noto/";
 "StoreMessage" = "・広告の削除\n・2周目モードの解除";
-"StorePurchased" = "こうにゅうずみ";
+"StorePurchased" = "購入済み";

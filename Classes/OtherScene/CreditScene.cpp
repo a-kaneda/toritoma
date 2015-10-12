@@ -114,7 +114,7 @@ bool CreditScene::initSub()
     // クレジットラベルをシーンに配置する
     for (int i = 0; i < LinkNumOfPage; i++) {
         
-        m_creditLabel[i] = AKLabel::createLabel("", CreditLineLength, CreditLineNum, kAKLabelFrameNone, AKLabel::ControlFont);
+        m_creditLabel[i] = AKLabel::createLabel("", CreditLineLength, CreditLineNum, kAKLabelFrameNone, AKLabel::MessageFont);
         
         float x = AKScreenSize::positionFromLeftRatio(CreditPosLeftRatio);
         float y = AKScreenSize::positionFromTopRatio(LinkPosTopRatio[i]);

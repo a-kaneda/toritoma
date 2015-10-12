@@ -703,16 +703,16 @@ std::string AKPlayData::makeTweet()
     }
     else {
         
-        // 2周目以降は周回数が日本語と英語で異なる
-        if (lang == cocos2d::LanguageType::JAPANESE) {
+        // 2周目以降は周回数が英語の場合は序数がつく
+        if (lang == cocos2d::LanguageType::ENGLISH) {
             
             snprintf(tweet, sizeof(tweet), LocalizedResource::getInstance().getString("Tweet2ndLoop").c_str(),
-                     m_loopCount, m_stage, m_score);
+                     m_stage, m_loopCount, MakeOrdinal(m_loopCount).c_str(), m_score);
         }
         else {
             
             snprintf(tweet, sizeof(tweet), LocalizedResource::getInstance().getString("Tweet2ndLoop").c_str(),
-                     m_stage, m_loopCount, MakeOrdinal(m_loopCount).c_str(), m_score);
+                     m_loopCount, m_stage, m_score);
         }
     }
     
