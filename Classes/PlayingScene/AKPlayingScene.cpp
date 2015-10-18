@@ -107,7 +107,7 @@ static const int kAKChickenGaugeImageWidth = 256;
 /// チキンゲージの画像の高さ
 static const int kAKChickenGaugeImageHeight = 16;
 /// チキンゲージ配置位置、下からの座標
-static const float kAKChickenGaugePosFromBottomPoint = 12.0f;
+static const float kAKChickenGaugePosFromBottomPoint = 32.0f;
 /// ボス体力ゲージ空ゲージの画像名
 static const char *kAKBossLifeGaugeEmptyImageName = "BossLifeGauge_01.png";
 /// ボス体力ゲージ満ゲージの画像名

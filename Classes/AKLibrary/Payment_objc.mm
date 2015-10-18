@@ -281,6 +281,15 @@ static Payment_objc *sharedInstance_ = nil;
     }
 }
 
+// リストア処理失敗
+- (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error
+{
+    // デリゲートが設定されていれば終了を通知する
+    if (self.delegate != NULL) {
+        self.delegate->completePayment();
+    }
+}
+
 /*!
  @brief トランザクション完了処理
  

@@ -70,6 +70,21 @@ void AKScreenSize::init(GLView *view)
     view->setDesignResolutionSize(m_screenSize.width,
                                   m_screenSize.height,
                                   ResolutionPolicy::SHOW_ALL);
+    
+    // 解像度に応じて画像リソースを切替える
+    std::vector<std::string> searchPath;
+    if (scale < 2.0f) {
+        AKLog(true, "scale=%f 2x", scale);
+        searchPath.push_back("2x");
+    }
+    else {
+        AKLog(true, "scale=%f 4x", scale);
+        searchPath.push_back("4x");
+        Director::getInstance()->setContentScaleFactor(2.0f);
+    }
+    
+    // 画像リソース検索パスを追加する
+    cocos2d::FileUtils::getInstance()->setSearchPaths(searchPath);
 }
 
 /*!
