@@ -70,6 +70,8 @@ static const float kAKShieldButtonPosFromBottomPoint = 50.0f;
 static const char *kAKShiledButtonNoSelectImage = "ShieldButton_01.png";
 /// シールドボタン選択時の画像名
 static const char *kAKShiledButtonSelectedImage = "ShieldButton_02.png";
+/// シールドボタンの当たり判定
+static const float kAKShiledButtonSize = 128.0f;
 /// ホールドボタン配置位置、右からの座標
 //static const float kAKHoldButtonPosFromRightPoint = 50.0f;
 /// ホールドボタン配置位置、下からの座標
@@ -289,9 +291,11 @@ void AKPlayingSceneIF::createPlayingMenu()
     // シールドボタンを作成する
     float x = AKScreenSize::positionFromRightPoint(kAKShieldButtonPosFromRightPoint);
     float y = AKScreenSize::positionFromBottomPoint(kAKShieldButtonPosFromBottomPoint);
+    Rect shiledButtonRect(x - kAKShiledButtonSize / 2, y - kAKShiledButtonSize / 2, kAKShiledButtonSize, kAKShiledButtonSize);
     m_shieldButton = addSpriteMenu(kAKShiledButtonNoSelectImage,
                                    Vec2(x, y),
                                    0,
+                                   shiledButtonRect,
                                    kAKEventTouchShieldButton,
                                    kAKMenuTagPlaying | kAKMenuTagStageClear,
                                    kAKMenuTypeMomentary);

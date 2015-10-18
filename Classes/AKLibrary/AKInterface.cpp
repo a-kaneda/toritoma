@@ -382,6 +382,36 @@ Sprite* AKInterface::addSpriteMenu(const std::string &spriteName,
     return itemSprite;
 }
 
+// スプライトフレームから当たり判定サイズを指定してメニュー項目を作成
+Sprite* AKInterface::addSpriteMenu(const std::string &spriteName,
+                                   Vec2 position,
+                                   int z,
+                                   Rect rect,
+                                   int event,
+                                   unsigned int tag,
+                                   enum AKMenuType type)
+{
+    // ボタンの画像を読み込む
+    Sprite *itemSprite = Sprite::createWithSpriteFrameName(spriteName.c_str());
+    AKAssert(itemSprite != NULL, "ボタンの画像読み込みに失敗");
+    
+    // ボタンの位置を設定する
+    itemSprite->setPosition(position);
+    
+    // ボタンをレイヤーに配置する
+    addChild(itemSprite, z, tag);
+    
+    // メニュー項目を追加する
+    AKMenuItem *menuItem = new AKMenuItem(rect, type, event, tag);
+    addMenuItem(menuItem);
+    
+    AKLog(kAKLogInterface_1, "addSpriteMenu() end");
+    
+    // 作成したメニュー項目のスプライトを返す
+    return itemSprite;
+    
+}
+
 /*!
  @brief メニュー項目の追加
  

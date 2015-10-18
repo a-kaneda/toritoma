@@ -83,6 +83,22 @@ public:
     void addMenuItem(AKMenuItem *menu);
     // スプライトフレームからメニュー項目作成
     cocos2d::Sprite* addSpriteMenu(const std::string &spriteName, cocos2d::Vec2 position, int z, int event, unsigned int tag, enum AKMenuType type);
+    
+    /*!
+     @brief スプライトフレームから当たり判定サイズを指定してメニュー項目を作成
+     
+     スプライトフレームを読み込んでスプライトを作成し、同じ位置にメニュー項目を作成する。
+     @param spriteName 画像名
+     @param position メニュー項目の位置
+     @param z メニュー項目のz座標
+     @param rect 当たり判定
+     @param event ボタンタップ時の処理
+     @param tag メニュー項目のタグ
+     @param type メニュータイプ
+     @return 作成したメニュー項目のスプライト
+     */
+    cocos2d::Sprite* addSpriteMenu(const std::string &spriteName, cocos2d::Vec2 position, int z, cocos2d::Rect rect, int event, unsigned int tag, enum AKMenuType type);
+    
     // 文字列からメニュー項目作成
     AKLabel* addLabelMenu(const std::string menuString, cocos2d::Vec2 position, int z, int event, unsigned int tag, bool withFrame);
     // スライド入力作成
