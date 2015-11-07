@@ -45,9 +45,12 @@ using CocosDenshion::SimpleAudioEngine;
 using std::vector;
 using cocos2d::Value;
 using cocos2d::ValueMap;
+using cocos2d::Director;
 
 /// タイルマップのファイル名
 static const char *kAKTileMapFileName = "Stage_%02d.tmx";
+// タイルサイズ
+const int AKTileMap::TileSize = 32;
 
 /*!
  @brief ステージと親ノードを指定したコンストラクタ
@@ -137,8 +140,8 @@ void AKTileMap::update(AKPlayDataInterface *data)
     // 画面に表示されているタイルマップの右端の座標を計算する
     int right = AKScreenSize::stageSize().width - AKScreenSize::xOfDevice(m_tileMap->getPosition().x);
 
-    // 右端のタイルの2個右の
-    int maxCol = right / m_tileMap->getTileSize().width + 2;
+    // 右端のタイルの2個右の列番号
+    int maxCol = right / TileSize + 2;
     
     AKLog(kAKLogTileMap_2, "m_currentCol=%d maxCol=%d", m_currentCol, maxCol);
     
@@ -188,11 +191,11 @@ void AKTileMap::update(AKPlayDataInterface *data)
 Vec2 AKTileMap::getMapPositionFromDevicePosition(const Vec2 &devicePosition)
 {
     // タイルマップの左端からの距離をタイル幅で割った値を列番号とする
-    int col = (devicePosition.x - m_tileMap->getPosition().x) / m_tileMap->getTileSize().width;
+    int col = (devicePosition.x - m_tileMap->getPosition().x) / TileSize;
     
     // タイルマップの下端からの距離をタイル高さで割り、上下を反転させた値を行番号とする
     int row = m_tileMap->getMapSize().height -
-        (devicePosition.y - m_tileMap->getPosition().y) / m_tileMap->getTileSize().height;
+        (devicePosition.y - m_tileMap->getPosition().y) / TileSize;
     
     return Vec2(col, row);
 }
@@ -209,12 +212,12 @@ Vec2 AKTileMap::getTilePositionFromMapPosition(const Vec2 &mapPosition)
 {
     // x座標はマップの左端 + タイルサイズ * 列番号 (列番号は左から0,1,2,…)
     // タイルの真ん中を指定するために列番号には+0.5する
-    int x = round(m_tileMap->getPosition().x) + m_tileMap->getTileSize().width * (mapPosition.x + 0.5);
+    int x = round(m_tileMap->getPosition().x) + TileSize * (mapPosition.x + 0.5);
 
     // y座標はマップの下端 + (マップの行数 - 行番号) * タイルサイズ (行番号は上から0,1,2…)
     // タイルの真ん中を指定するために行番号には+0.5する
     int y = round(m_tileMap->getPosition().y) +
-        m_tileMap->getTileSize().height * (m_tileMap->getMapSize().height - (mapPosition.y + 0.5));
+        TileSize * (m_tileMap->getMapSize().height - (mapPosition.y + 0.5));
     
     return Vec2(x, y);
 }
@@ -264,13 +267,12 @@ void AKTileMap::execEventByCol(int col, AKPlayDataInterface *data)
     // x座標はマップの左端 + タイルサイズ * 列番号 (列番号は左から0,1,2,…)
     // タイルの真ん中を指定するために列番号には+0.5する
     float x = AKScreenSize::xOfDevice(m_tileMap->getPosition().x) +
-                m_tileMap->getTileSize().width * (col + 0.5);
+        TileSize * (col + 0.5);
     
-    AKLog(kAKLogTileMap_1, "position.x=%f, xOfDevice=%f, width=%f",
+    AKLog(kAKLogTileMap_1, "position.x=%f, xOfDevice=%f",
           m_tileMap->getPosition().x,
-          AKScreenSize::xOfDevice(m_tileMap->getPosition().x),
-          m_tileMap->getTileSize().width);
-    AKLog(kAKLogTileMap_1, "col=%d, x=%f", col, x);
+          AKScreenSize::xOfDevice(m_tileMap->getPosition().x));
+    AKLog(false, "col=%d, x=%f", col, x);
     
     // イベントレイヤーの処理を行う
     execEventLayer(m_event, col, x, data, &AKTileMap::execEvent);
@@ -324,7 +326,7 @@ void AKTileMap::execEventLayer(TMXLayer *layer,
             // y座標はマップの下端 + (マップの行数 - 行番号) * タイルサイズ (行番号は上から0,1,2…)
             // タイルの真ん中を指定するために行番号には+0.5する
             float y = AKScreenSize::yOfDevice(m_tileMap->getPosition().y) +
-                (m_tileMap->getMapSize().height - (i + 0.5)) * m_tileMap->getTileSize().height;
+                (m_tileMap->getMapSize().height - (i + 0.5)) * TileSize;
                 
             // パラメータを作成する
             AKTileMapEventParameter param(Vec2(x, y), properties);
@@ -349,6 +351,8 @@ void AKTileMap::createBlock(const AKTileMapEventParameter &param, AKPlayDataInte
     // 種別を取得する
     const std::string typeString = param.getProperties()->at("Type").asString();
     int type = std::stoi(typeString);
+    
+    AKLog(false, "createBlock: pos=(%f, %f)", param.getPosition()->x, param.getPosition()->y);
     
     // 障害物を作成する
     data->createBlock(type, *param.getPosition());

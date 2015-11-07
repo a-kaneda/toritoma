@@ -809,5 +809,7 @@ void AKCharacter::updateImagePosition()
     float x = AKScreenSize::xOfStage(m_position.x + dx);
     float y = AKScreenSize::yOfStage(m_position.y + dy);
     
+    AKLog(false, "x=%f, y=%f", x, y);
+    
     m_image->setPosition(Vec2(x, y));
 }

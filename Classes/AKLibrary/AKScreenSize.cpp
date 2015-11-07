@@ -74,11 +74,11 @@ void AKScreenSize::init(GLView *view)
     // 解像度に応じて画像リソースを切替える
     std::vector<std::string> searchPath;
     if (scale < 2.0f) {
-        AKLog(true, "scale=%f 2x", scale);
+        AKLog(false, "scale=%f 2x", scale);
         searchPath.push_back("2x");
     }
     else {
-        AKLog(true, "scale=%f 4x", scale);
+        AKLog(false, "scale=%f 4x", scale);
         searchPath.push_back("4x");
         Director::getInstance()->setContentScaleFactor(2.0f);
     }

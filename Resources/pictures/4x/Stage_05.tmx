@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="120" height="9" tilewidth="64" tileheight="64">
+ <tileset firstgid="1" name="Back" tilewidth="64" tileheight="64" spacing="1" margin="1">
+  <image source="Back.png" width="512" height="512"/>
+ </tileset>
+ <tileset firstgid="50" name="Block" tilewidth="64" tileheight="64" spacing="1" margin="1">
+  <properties>
+   <property name="Type" value="Block"/>
+  </properties>
+  <image source="Block.png" width="256" height="256"/>
+  <tile id="0">
+   <properties>
+    <property name="Type" value="1"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="Type" value="2"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="Type" value="3"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="Type" value="4"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="Type" value="5"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="Type" value="6"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="59" name="Event" tilewidth="64" tileheight="64">
+  <image source="Event.png" width="640" height="640"/>
+  <tile id="0">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="hspeed"/>
+    <property name="Value" value="5"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="hspeed"/>
+    <property name="Value" value="0"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="bgm"/>
+    <property name="Value" value="5"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="bgm"/>
+    <property name="Value" value="7"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="Progress" value="1"/>
+    <property name="Type" value="clear"/>
+    <property name="Value" value="0"/>
+   </properties>
+  </tile>
+ </tileset>
+ <tileset firstgid="159" name="Enemy" tilewidth="64" tileheight="64" spacing="1" margin="1">
+  <image source="EnemyTile.png" width="512" height="512"/>
+  <tile id="0">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="1"/>
+   </properties>
+  </tile>
+  <tile id="1">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="2"/>
+   </properties>
+  </tile>
+  <tile id="2">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="3"/>
+   </properties>
+  </tile>
+  <tile id="3">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="4"/>
+   </properties>
+  </tile>
+  <tile id="4">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="5"/>
+   </properties>
+  </tile>
+  <tile id="5">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="6"/>
+   </properties>
+  </tile>
+  <tile id="6">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="7"/>
+   </properties>
+  </tile>
+  <tile id="7">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="8"/>
+   </properties>
+  </tile>
+  <tile id="8">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="9"/>
+   </properties>
+  </tile>
+  <tile id="9">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="10"/>
+   </properties>
+  </tile>
+  <tile id="10">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="11"/>
+   </properties>
+  </tile>
+  <tile id="11">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="12"/>
+   </properties>
+  </tile>
+  <tile id="12">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="13"/>
+   </properties>
+  </tile>
+  <tile id="13">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="14"/>
+   </properties>
+  </tile>
+  <tile id="14">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="15"/>
+   </properties>
+  </tile>
+  <tile id="15">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="16"/>
+   </properties>
+  </tile>
+  <tile id="16">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="17"/>
+   </properties>
+  </tile>
+  <tile id="17">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="18"/>
+   </properties>
+  </tile>
+  <tile id="18">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="19"/>
+   </properties>
+  </tile>
+  <tile id="19">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="20"/>
+   </properties>
+  </tile>
+  <tile id="20">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="21"/>
+   </properties>
+  </tile>
+  <tile id="21">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="22"/>
+   </properties>
+  </tile>
+  <tile id="22">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="23"/>
+   </properties>
+  </tile>
+  <tile id="23">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="24"/>
+   </properties>
+  </tile>
+  <tile id="24">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="25"/>
+   </properties>
+  </tile>
+  <tile id="25">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="26"/>
+   </properties>
+  </tile>
+  <tile id="26">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="27"/>
+   </properties>
+  </tile>
+  <tile id="27">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="28"/>
+   </properties>
+  </tile>
+  <tile id="28">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="29"/>
+   </properties>
+  </tile>
+  <tile id="29">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="30"/>
+   </properties>
+  </tile>
+  <tile id="30">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="31"/>
+   </properties>
+  </tile>
+  <tile id="31">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="32"/>
+   </properties>
+  </tile>
+  <tile id="32">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="33"/>
+   </properties>
+  </tile>
+  <tile id="33">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="34"/>
+   </properties>
+  </tile>
+  <tile id="34">
+   <properties>
+    <property name="Progress" value="1"/>
+    <property name="Type" value="35"/>
+   </properties>
+  </tile>
+  <tile id="35">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="36"/>
+   </properties>
+  </tile>
+  <tile id="36">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="37"/>
+   </properties>
+  </tile>
+  <tile id="37">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="38"/>
+   </properties>
+  </tile>
+  <tile id="38">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="39"/>
+   </properties>
+  </tile>
+  <tile id="39">
+   <properties>
+    <property name="Progress" value="0"/>
+    <property name="Type" value="40"/>
+   </properties>
+  </tile>
+ </tileset>
+ <layer name="Base" width="120" height="9">
+  <data encoding="base64" compression="zlib">
+   eJztwwEJAAAMBKH7/qWXY6Dgqqmqqqo+frPdBDk=
+  </data>
+ </layer>
+ <layer name="Background" width="120" height="9">
+  <data encoding="base64" compression="zlib">
+   eJztwwEJAAAMA6C1eP+mh8UYCiYsO1VVVZttD5GjS3k=
+  </data>
+ </layer>
+ <layer name="Foreground" width="120" height="9">
+  <data encoding="base64" compression="zlib">
+   eJztzksKACAIBcCg+9+5bQh+aBkzG0Xk6VoAAABEO+nvWZzvUKvM6Y0uu8uYynKqv7qfX3Ym+6/Z/O0AAUMAVQ==
+  </data>
+ </layer>
+ <layer name="Block" width="120" height="9">
+  <data encoding="base64" compression="zlib">
+   eJztVVsKwzAM85mWx+5/s+5jAWOiRE2ckLIJRGkby7ZUaBKRtJivPyGRR17e70AGO/T2zqp25DtJoHfq6DK9E6HD7GY92pmLN7TXyI+yO6pHeWmvrXdi3qG5er3ZMyjL2lxPxhs8z+rayqSn0fJ6F2rznTLbLwB9H17nZ3Xjh+HLuKj3CFb5cAczMxRf73rqkYfWsP+nkzLWQHtHmfchCpeHnaF2vjzXnjJ51epsbWvGVqYnZ9zbW9+zcyPNmhbjWyA0W3kxdagn29fSC2GSI3t7aY70fwpncym8AEY0aKw=
+  </data>
+ </layer>
+ <layer name="Event" width="120" height="9" opacity="0.37">
+  <data encoding="base64" compression="zlib">
+   eJztzqERACAMADH2Alss+2+D7wAt3CXu3c/Bz3bqkzqqRiixugcAAAAedQHgjQFS
+  </data>
+ </layer>
+ <layer name="Enemy" width="120" height="9">
+  <data encoding="base64" compression="zlib">
+   eJztlk0OhCAMhbn/JQzuZD0X8GYTkr5M89IyghIl8m1AaUv7ij8hTCbH+dydwGCMptciY5JxbYxzRd2lGHfqmvdO6nqTcVH3WnXrCfKLBZvefWOQ06rmeUyGDewC2bK/5deSG/ZKMo8SM9J6DXuDTw1cs84xGjZeDZYNdPB0LvXCy4l9Nd451T3Qe26Oj3cOSs/B0yidW64D5xTofrD2Vi/Y38uHY+q+sC1IxvrRPRHbejfE8HtG3wS+PVkTrV+tDj2+p2dijvbfdBX/6q7R5a0aTibgCygtQeA=
+  </data>
+ </layer>
+</map>
