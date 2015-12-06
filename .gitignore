@@ -49,3 +49,8 @@ Nend
 Classes/Common/ID.cpp
 # フォントファイル
 *.ttf
+# android関連のファイル
+bin
+proj.android-studio/app/assets/
+proj.android-studio/app/libs/
+proj.android-studio/app/obj/
