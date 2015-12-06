@@ -28,12 +28,11 @@
 		0C3FD9731BB370AA0058035B /* Default-Portrait@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C3FD96F1BB370AA0058035B /* Default-Portrait@2x.png */; };
 		0C3FD9751BB37D370058035B /* GoogleMobileAds.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C3FD9741BB37D370058035B /* GoogleMobileAds.framework */; };
 		0C5C2C731BCB9774003D3548 /* Localized_ko in Resources */ = {isa = PBXBuildFile; fileRef = 0C5C2C721BCB9774003D3548 /* Localized_ko */; };
-		0C5C2C7A1BD3ACAC003D3548 /* 2x in Resources */ = {isa = PBXBuildFile; fileRef = 0C5C2C791BD3ACAC003D3548 /* 2x */; };
-		0C5C2C7C1BD3ACB7003D3548 /* 4x in Resources */ = {isa = PBXBuildFile; fileRef = 0C5C2C7B1BD3ACB7003D3548 /* 4x */; };
 		0C6197ED1BC94AAD00DDA4CA /* Localized_zh in Resources */ = {isa = PBXBuildFile; fileRef = 0C6197EC1BC94AAD00DDA4CA /* Localized_zh */; };
 		0C71038D1BAF975F0087F0EF /* ActivityIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C71038B1BAF975F0087F0EF /* ActivityIndicator.cpp */; };
 		0C7103901BB28BDB0087F0EF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C71038F1BB28BDA0087F0EF /* Images.xcassets */; };
 		0CAD071C1C14DE3900ECF6CC /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 0CAD071B1C14DE3900ECF6CC /* fonts */; };
+		0CAD071E1C14E08B00ECF6CC /* pictures in Resources */ = {isa = PBXBuildFile; fileRef = 0CAD071D1C14E08B00ECF6CC /* pictures */; };
 		0CB491171BB512F30069177E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0CB491191BB512F30069177E /* InfoPlist.strings */; };
 		0CCFF91C1BACFE5500D2A868 /* Advertisement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF8FE1BACFE5500D2A868 /* Advertisement.mm */; };
 		0CCFF91D1BACFE5500D2A868 /* AKCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF8FF1BACFE5500D2A868 /* AKCommon.cpp */; };
@@ -205,8 +204,6 @@
 		0C5C2C761BCBB629003D3548 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		0C5C2C771BCBB69D003D3548 /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/InfoPlist.strings"; sourceTree = "<group>"; };
 		0C5C2C781BCBB6C6003D3548 /* ja */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		0C5C2C791BD3ACAC003D3548 /* 2x */ = {isa = PBXFileReference; lastKnownFileType = folder; path = 2x; sourceTree = "<group>"; };
-		0C5C2C7B1BD3ACB7003D3548 /* 4x */ = {isa = PBXFileReference; lastKnownFileType = folder; path = 4x; sourceTree = "<group>"; };
 		0C6197EC1BC94AAD00DDA4CA /* Localized_zh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Localized_zh; sourceTree = "<group>"; };
 		0C71038B1BAF975F0087F0EF /* ActivityIndicator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ActivityIndicator.cpp; sourceTree = "<group>"; };
 		0C71038C1BAF975F0087F0EF /* ActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicator.h; sourceTree = "<group>"; };
@@ -218,6 +215,7 @@
 		0CAD07181C0BAD7800ECF6CC /* Payment.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Payment.cpp; sourceTree = "<group>"; };
 		0CAD07191C0FA15500ECF6CC /* Twitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Twitter.cpp; sourceTree = "<group>"; };
 		0CAD071B1C14DE3900ECF6CC /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
+		0CAD071D1C14E08B00ECF6CC /* pictures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pictures; sourceTree = "<group>"; };
 		0CB491181BB512F30069177E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0CCFF8FD1BACFE5500D2A868 /* Advertisement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Advertisement.h; sourceTree = "<group>"; };
 		0CCFF8FE1BACFE5500D2A868 /* Advertisement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Advertisement.mm; sourceTree = "<group>"; };
@@ -609,15 +607,6 @@
 			path = PlayingScene;
 			sourceTree = "<group>";
 		};
-		0CCFF9921BACFF9A00D2A868 /* pictures */ = {
-			isa = PBXGroup;
-			children = (
-				0C5C2C7B1BD3ACB7003D3548 /* 4x */,
-				0C5C2C791BD3ACAC003D3548 /* 2x */,
-			);
-			path = pictures;
-			sourceTree = "<group>";
-		};
 		0CCFF9B91BACFF9A00D2A868 /* sound */ = {
 			isa = PBXGroup;
 			children = (
@@ -738,9 +727,9 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0CAD071D1C14E08B00ECF6CC /* pictures */,
 				0CAD071B1C14DE3900ECF6CC /* fonts */,
 				0C71038F1BB28BDA0087F0EF /* Images.xcassets */,
-				0CCFF9921BACFF9A00D2A868 /* pictures */,
 				0CCFF9B91BACFF9A00D2A868 /* sound */,
 				0CCFF9CC1BACFF9A00D2A868 /* text */,
 			);
@@ -886,7 +875,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C5C2C7C1BD3ACB7003D3548 /* 4x in Resources */,
 				0CCFFA041BACFF9A00D2A868 /* 1up.mp3 in Resources */,
 				0C3FD9611BB3517A0058035B /* Default@2x.png in Resources */,
 				0CCFFA061BACFF9A00D2A868 /* bomb_min.mp3 in Resources */,
@@ -898,6 +886,7 @@
 				0CCFFA121BACFF9A00D2A868 /* stage5.mp3 in Resources */,
 				0C3FD9641BB3517A0058035B /* Icon-29@3x.png in Resources */,
 				0C7103901BB28BDB0087F0EF /* Images.xcassets in Resources */,
+				0CAD071E1C14E08B00ECF6CC /* pictures in Resources */,
 				0C3FD96A1BB3517A0058035B /* Icon-76.png in Resources */,
 				0CCFFA081BACFF9A00D2A868 /* cursor.mp3 in Resources */,
 				0C5C2C731BCB9774003D3548 /* Localized_ko in Resources */,
@@ -915,7 +904,6 @@
 				0C3FD9571BB3517A0058035B /* Default-568h@2x.png in Resources */,
 				0C3FD9681BB3517A0058035B /* Icon-60@2x.png in Resources */,
 				0CCFFA0A1BACFF9A00D2A868 /* hit.mp3 in Resources */,
-				0C5C2C7A1BD3ACAC003D3548 /* 2x in Resources */,
 				0C3FD9631BB3517A0058035B /* Icon-29@2x.png in Resources */,
 				0C3FD9591BB3517A0058035B /* Default-736h@3x.png in Resources */,
 				0C6197ED1BC94AAD00DDA4CA /* Localized_zh in Resources */,

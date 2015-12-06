@@ -75,11 +75,11 @@ void AKScreenSize::init(GLView *view)
     std::vector<std::string> searchPath;
     if (scale < 2.0f) {
         AKLog(false, "scale=%f 2x", scale);
-        searchPath.push_back("2x");
+        searchPath.push_back("pictures/2x");
     }
     else {
         AKLog(false, "scale=%f 4x", scale);
-        searchPath.push_back("4x");
+        searchPath.push_back("pictures/4x");
         Director::getInstance()->setContentScaleFactor(2.0f);
     }
     
