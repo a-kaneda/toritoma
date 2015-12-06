@@ -117,9 +117,9 @@ int AKStringSplitter::getStringLength(const char *str)
  @param org 元の文字列
  */
 AKStringSplitter::AKStringSplitter(const std::string org) :
-m_org(org), m_char(""), m_position(0)
+m_org(org), m_position(0)
 {
-    
+    memset(m_char, 0x00, sizeof(m_char));
 }
 
 /*!

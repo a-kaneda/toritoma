@@ -38,31 +38,19 @@
 
 namespace aklib {
     
-    /*!
-     @brief ログイン
-     
-     ネイティブコードのログイン処理を実行する。
-     */
+    // ログイン
     void OnlineScore::login()
     {
         [GameCenterHelper login];
     }
 
-    /*!
-     @brief ランキング画面表示
-     
-     ネイティブコードのランキング画面表示処理を実行する。
-     */
+    // ランキング画面表示
     void OnlineScore::openRanking()
     {
         [GameCenterHelper openRanking];
     }
     
-    /*!
-     @brief ハイスコア送信
-     
-     ネイティブコードのハイスコア送信処理を実行する。
-     */
+    // ハイスコア送信
     void OnlineScore::postHighScore(int score)
     {
         [GameCenterHelper postHighScore:score];

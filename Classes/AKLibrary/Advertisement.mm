@@ -41,11 +41,7 @@ namespace aklib {
     // 広告が無効化されているかどうか
     bool Advertisement::_isDisabled = false;
     
-    /*!
-     @brief バナー広告表示
-     
-     ネイティブコードのバナー広告表示処理を呼び出す。
-     */
+    // バナー広告表示
     void Advertisement::viewBanner()
     {
         // 広告無効化フラグが立っている場合は無処理とする
@@ -70,11 +66,7 @@ namespace aklib {
         }
     }
     
-    /*!
-     @brief バナー広告消去
-     
-     ネイティブコードのバナー広告消去処理を呼び出す。
-     */
+    // バナー広告消去
     void Advertisement::hideBanner()
     {
         // RootViewControllerを取得する
@@ -94,11 +86,7 @@ namespace aklib {
         }
     }
     
-    /*!
-     @brief インタースティシャル広告表示
-     
-     ネイティブコードのインタースティシャル広告表示処理を呼び出す。
-     */
+    // インタースティシャル広告表示
     void Advertisement::viewInterstatial()
     {
         // 広告無効化フラグが立っている場合は無処理とする

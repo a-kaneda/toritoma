@@ -49,21 +49,80 @@ namespace aklib {
      */
     class Payment {
     public:
-        // 接続処理
+
+        /*!
+         @brief 接続処理
+         
+         課金処理の接続処理を行う。
+         オブザーバーの登録を行う。
+         @param 課金情報書き込みクラス
+         */
         static void Open(PurchaseInfoWriter *writer);
-        // 切断処理
+        
+        /*!
+         @brief 切断処理
+         
+         課金処理の切断処理を行う。
+         オブザーバーの解除を行う。
+         */
         static void Close();
-        // プロダクトID追加
+        
+        /*!
+         @brief プロダクト追加
+         
+         処理対象のプロダクトを追加する。
+         プロダクト情報の要求を行う。
+         */
         static void AddProduct(const char *productID);
-        // 課金処理が可能か確認する
+        
+        /*!
+         @brief 課金処理が可能か確認する
+         
+         課金処理が可能か確認する。
+         @return 課金処理が可能ならtrue、不可能ならfalse
+         */
         static bool CanMakePayments();
-        // 金額の文字列を取得する
+        
+        /*!
+         @brief 価格文字列を取得する
+         
+         プロダクト情報から価格文字列を取得する。
+         価格に表示すべき内容はロケール設定と一致するとは限らない。
+         例えば、アメリカに住んでいる日本人は日本語設定でiphoneを使用しているかもしれないが、
+         価格は現地の$で表示するべきである。
+         そのため、価格部分についてはiTunesから取得したプロダクト情報を元に表示を行う必要がある。
+         @param productID プロダクトID
+         @return 価格文字列
+         */
         static std::string GetPriceString(const char *productID);
-        // 支払いを行う
+        
+        /*!
+         @brief 支払処理
+         
+         指定したプロダクトIDの支払いを行う。
+         支払処理終了を通知するためのデリゲートを設定する。
+         @param productID プロダクトID
+         @param delegate 支払処理終了受信デリゲート
+         @return 正常終了時true、異常終了時false
+         */
         static bool Pay(const char *productID, PaymentDelegate *delegate);
-        // リストアを行う
+        
+        /*!
+         @brief リストア処理
+         
+         リストア処理を行う。
+         支払処理終了を通知するためのデリゲートを設定する。
+         @param delegate 支払処理終了受信デリゲート
+         @return 正常終了時true、異常終了時false
+         */
         static bool Restore(PaymentDelegate *delegate);
-        // 支払い終了処理
+        
+        /*!
+         @brief 終了処理
+         
+         支払い終了時に実行する。
+         ネイティブコードに設定したデリゲートを初期化する。
+         */
         static void Finish();
     };
 };

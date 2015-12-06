@@ -33,6 +33,7 @@
 		0C6197ED1BC94AAD00DDA4CA /* Localized_zh in Resources */ = {isa = PBXBuildFile; fileRef = 0C6197EC1BC94AAD00DDA4CA /* Localized_zh */; };
 		0C71038D1BAF975F0087F0EF /* ActivityIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C71038B1BAF975F0087F0EF /* ActivityIndicator.cpp */; };
 		0C7103901BB28BDB0087F0EF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C71038F1BB28BDA0087F0EF /* Images.xcassets */; };
+		0CAD071A1C0FA15500ECF6CC /* Twitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD07191C0FA15500ECF6CC /* Twitter.cpp */; };
 		0CB491171BB512F30069177E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0CB491191BB512F30069177E /* InfoPlist.strings */; };
 		0CCFF91C1BACFE5500D2A868 /* Advertisement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF8FE1BACFE5500D2A868 /* Advertisement.mm */; };
 		0CCFF91D1BACFE5500D2A868 /* AKCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF8FF1BACFE5500D2A868 /* AKCommon.cpp */; };
@@ -213,6 +214,11 @@
 		0C71038C1BAF975F0087F0EF /* ActivityIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityIndicator.h; sourceTree = "<group>"; };
 		0C71038E1BB0CB5E0087F0EF /* PurchaseInfoWriter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PurchaseInfoWriter.h; sourceTree = "<group>"; };
 		0C71038F1BB28BDA0087F0EF /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "toritoma-mobile/Images.xcassets"; sourceTree = SOURCE_ROOT; };
+		0CAD07151C0BA53900ECF6CC /* Advertisement.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Advertisement.cpp; sourceTree = "<group>"; };
+		0CAD07161C0BAC8500ECF6CC /* OnlineScore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OnlineScore.cpp; sourceTree = "<group>"; };
+		0CAD07171C0BAD1600ECF6CC /* OpenUrl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OpenUrl.cpp; sourceTree = "<group>"; };
+		0CAD07181C0BAD7800ECF6CC /* Payment.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Payment.cpp; sourceTree = "<group>"; };
+		0CAD07191C0FA15500ECF6CC /* Twitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Twitter.cpp; sourceTree = "<group>"; };
 		0CB491181BB512F30069177E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0CCFF8FD1BACFE5500D2A868 /* Advertisement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Advertisement.h; sourceTree = "<group>"; };
 		0CCFF8FE1BACFE5500D2A868 /* Advertisement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Advertisement.mm; sourceTree = "<group>"; };
@@ -519,6 +525,11 @@
 				0CCFF91A1BACFE5500D2A868 /* Twitter.h */,
 				0CCFF91B1BACFE5500D2A868 /* Twitter.mm */,
 				0C71038E1BB0CB5E0087F0EF /* PurchaseInfoWriter.h */,
+				0CAD07151C0BA53900ECF6CC /* Advertisement.cpp */,
+				0CAD07161C0BAC8500ECF6CC /* OnlineScore.cpp */,
+				0CAD07171C0BAD1600ECF6CC /* OpenUrl.cpp */,
+				0CAD07181C0BAD7800ECF6CC /* Payment.cpp */,
+				0CAD07191C0FA15500ECF6CC /* Twitter.cpp */,
 			);
 			path = AKLibrary;
 			sourceTree = "<group>";
@@ -975,6 +986,7 @@
 				0CCFF97D1BACFE7E00D2A868 /* AKPlayingSceneIF.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				0CCFF9451BACFE7400D2A868 /* AKHowToPlayScene.cpp in Sources */,
+				0CAD071A1C0FA15500ECF6CC /* Twitter.cpp in Sources */,
 				0CCFF9731BACFE7E00D2A868 /* AKEnemy.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				0CCFF9211BACFE5500D2A868 /* AKScreenSize.cpp in Sources */,
@@ -1047,7 +1059,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_MODULES_AUTOLINK = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1097,7 +1109,7 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_MODULES_AUTOLINK = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (

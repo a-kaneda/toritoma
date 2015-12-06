@@ -45,11 +45,26 @@ namespace aklib {
      */
     class OnlineScore {
     public:
-        // ログイン
+        
+        /*!
+         @brief ログイン
+         
+         ネイティブコードのログイン処理を実行する。
+         */
         static void login();
-        // ランキング画面表示
+        
+        /*!
+         @brief ランキング画面表示
+         
+         ネイティブコードのランキング画面表示処理を実行する。
+         */
         static void openRanking();
-        // スコア送信
+        
+        /*!
+         @brief ハイスコア送信
+         
+         ネイティブコードのハイスコア送信処理を実行する。
+         */
         static void postHighScore(int score);
     };
 }

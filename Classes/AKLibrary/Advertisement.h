@@ -45,11 +45,26 @@ namespace aklib {
      */
     class Advertisement {
     public:
-        // バナー広告表示
+        
+        /*!
+         @brief バナー広告表示
+         
+         ネイティブコードのバナー広告表示処理を呼び出す。
+         */
         static void viewBanner();
-        // バナー広告消去
+        
+        /*!
+         @brief バナー広告消去
+         
+         ネイティブコードのバナー広告消去処理を呼び出す。
+         */
         static void hideBanner();
-        // インタースティシャル広告表示
+        
+        /*!
+         @brief インタースティシャル広告表示
+         
+         ネイティブコードのインタースティシャル広告表示処理を呼び出す。
+         */
         static void viewInterstatial();
         
         /*!

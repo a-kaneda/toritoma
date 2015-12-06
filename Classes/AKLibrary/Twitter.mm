@@ -38,14 +38,7 @@
 
 namespace aklib {
     
-    /*!
-     @brief 投稿ビュー表示
-     
-     ネイティブコードのTwitter投稿処理を呼び出す。
-     @param message 初期投稿メッセージ
-     @param url URL
-     @param imagepath 投稿画像のファイルパス
-     */
+    // 投稿ビュー表示
     void Twitter::post(const char *message, const char *url, const char *imagepath)
     {
         // RootViewControllerを取得する

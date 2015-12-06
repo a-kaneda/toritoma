@@ -37,12 +37,7 @@
 
 namespace aklib {
     
-    /*!
-     @brief URLを開く
-     
-     ブラウザを起動し、URLを開く機能を提供する。
-     @param url URL
-     */
+    // URLを開く
     void OpenUrl::open(const char *url)
     {
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:[NSString stringWithCString:url encoding:NSUTF8StringEncoding]]];

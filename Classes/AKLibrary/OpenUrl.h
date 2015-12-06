@@ -46,7 +46,13 @@ namespace aklib {
      */
     class OpenUrl {
     public:
-        // URLを開く
+        
+        /*!
+         @brief URLを開く
+         
+         ブラウザを起動し、URLを開く機能を提供する。
+         @param url URL
+         */
         static void open(const char *url);
     };
 }

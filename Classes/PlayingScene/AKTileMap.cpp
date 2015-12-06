@@ -157,7 +157,7 @@ void AKTileMap::update(AKPlayDataInterface *data)
         
         // 実行する進行状況の値を取得する
         const std::string progressString = it->at("Progress").asString();
-        int progress = std::stoi(progressString);
+        int progress = atoi(progressString.c_str());
         
         // 進行度に到達している場合はイベントを実行する
         if (progress <= m_progress) {
@@ -350,7 +350,7 @@ void AKTileMap::createBlock(const AKTileMapEventParameter &param, AKPlayDataInte
 {
     // 種別を取得する
     const std::string typeString = param.getProperties()->at("Type").asString();
-    int type = std::stoi(typeString);
+    int type = atoi(typeString.c_str());
     
     AKLog(false, "createBlock: pos=(%f, %f)", param.getPosition()->x, param.getPosition()->y);
     
@@ -372,11 +372,11 @@ void AKTileMap::createEnemy(const AKTileMapEventParameter &param, AKPlayDataInte
 {
     // 種別を取得する
     const std::string typeString = param.getProperties()->at("Type").asString();
-    int type = std::stoi(typeString);
+    int type = atoi(typeString.c_str());
     
     // 倒した時に進む進行度を取得する
     const std::string progressString = param.getProperties()->at("Progress").asString();
-    int progress = std::stoi(progressString);
+    int progress = atoi(progressString.c_str());
     
     AKLog(kAKLogTileMap_1, "type=%d position=(%f, %f) progress=%d", type, param.getPosition()->x, param.getPosition()->y, progress);
 
@@ -404,7 +404,7 @@ void AKTileMap::execEvent(const AKTileMapEventParameter &param, AKPlayDataInterf
 {
     // 実行する進行状況の値を取得する
     const std::string progressString = param.getProperties()->at("Progress").asString();
-    int progress = std::stoi(progressString);
+    int progress = atoi(progressString.c_str());
     
     AKLog(kAKLogTileMap_1 && progress > 0, "progress=%d m_progress=%d", progress, m_progress);
     
@@ -427,7 +427,7 @@ void AKTileMap::execEvent(const AKTileMapEventParameter &param, AKPlayDataInterf
     
     // 値を取得する
     const std::string valueString = param.getProperties()->at("Value").asString();
-    int value = std::stoi(valueString);
+    int value = atoi(valueString.c_str());
     
     // 水平方向のスクロールスピード変更の場合
     if (type.compare("hspeed") == 0) {
