@@ -33,7 +33,7 @@
 		0C6197ED1BC94AAD00DDA4CA /* Localized_zh in Resources */ = {isa = PBXBuildFile; fileRef = 0C6197EC1BC94AAD00DDA4CA /* Localized_zh */; };
 		0C71038D1BAF975F0087F0EF /* ActivityIndicator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0C71038B1BAF975F0087F0EF /* ActivityIndicator.cpp */; };
 		0C7103901BB28BDB0087F0EF /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0C71038F1BB28BDA0087F0EF /* Images.xcassets */; };
-		0CAD071A1C0FA15500ECF6CC /* Twitter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CAD07191C0FA15500ECF6CC /* Twitter.cpp */; };
+		0CAD071C1C14DE3900ECF6CC /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 0CAD071B1C14DE3900ECF6CC /* fonts */; };
 		0CB491171BB512F30069177E /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 0CB491191BB512F30069177E /* InfoPlist.strings */; };
 		0CCFF91C1BACFE5500D2A868 /* Advertisement.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF8FE1BACFE5500D2A868 /* Advertisement.mm */; };
 		0CCFF91D1BACFE5500D2A868 /* AKCommon.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF8FF1BACFE5500D2A868 /* AKCommon.cpp */; };
@@ -76,8 +76,6 @@
 		0CCFF97D1BACFE7E00D2A868 /* AKPlayingSceneIF.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF9691BACFE7E00D2A868 /* AKPlayingSceneIF.cpp */; };
 		0CCFF97E1BACFE7E00D2A868 /* AKTileMap.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF96B1BACFE7E00D2A868 /* AKTileMap.cpp */; };
 		0CCFF97F1BACFE7E00D2A868 /* AKTileMapEventParameter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF96D1BACFE7E00D2A868 /* AKTileMapEventParameter.cpp */; };
-		0CCFF9CF1BACFF9A00D2A868 /* misaki_gothic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CCFF9811BACFF9A00D2A868 /* misaki_gothic.ttf */; };
-		0CCFF9D01BACFF9A00D2A868 /* NotoSansCJKjp-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CCFF9821BACFF9A00D2A868 /* NotoSansCJKjp-Regular.ttf */; };
 		0CCFFA041BACFF9A00D2A868 /* 1up.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CCFF9BA1BACFF9A00D2A868 /* 1up.mp3 */; };
 		0CCFFA051BACFF9A00D2A868 /* bomb_big.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CCFF9BB1BACFF9A00D2A868 /* bomb_big.mp3 */; };
 		0CCFFA061BACFF9A00D2A868 /* bomb_min.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0CCFF9BC1BACFF9A00D2A868 /* bomb_min.mp3 */; };
@@ -219,6 +217,7 @@
 		0CAD07171C0BAD1600ECF6CC /* OpenUrl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OpenUrl.cpp; sourceTree = "<group>"; };
 		0CAD07181C0BAD7800ECF6CC /* Payment.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Payment.cpp; sourceTree = "<group>"; };
 		0CAD07191C0FA15500ECF6CC /* Twitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Twitter.cpp; sourceTree = "<group>"; };
+		0CAD071B1C14DE3900ECF6CC /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		0CB491181BB512F30069177E /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		0CCFF8FD1BACFE5500D2A868 /* Advertisement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Advertisement.h; sourceTree = "<group>"; };
 		0CCFF8FE1BACFE5500D2A868 /* Advertisement.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Advertisement.mm; sourceTree = "<group>"; };
@@ -306,8 +305,6 @@
 		0CCFF96C1BACFE7E00D2A868 /* AKTileMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTileMap.h; sourceTree = "<group>"; };
 		0CCFF96D1BACFE7E00D2A868 /* AKTileMapEventParameter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKTileMapEventParameter.cpp; sourceTree = "<group>"; };
 		0CCFF96E1BACFE7E00D2A868 /* AKTileMapEventParameter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTileMapEventParameter.h; sourceTree = "<group>"; };
-		0CCFF9811BACFF9A00D2A868 /* misaki_gothic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = misaki_gothic.ttf; sourceTree = "<group>"; };
-		0CCFF9821BACFF9A00D2A868 /* NotoSansCJKjp-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "NotoSansCJKjp-Regular.ttf"; sourceTree = "<group>"; };
 		0CCFF9BA1BACFF9A00D2A868 /* 1up.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = 1up.mp3; sourceTree = "<group>"; };
 		0CCFF9BB1BACFF9A00D2A868 /* bomb_big.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bomb_big.mp3; sourceTree = "<group>"; };
 		0CCFF9BC1BACFF9A00D2A868 /* bomb_min.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bomb_min.mp3; sourceTree = "<group>"; };
@@ -612,15 +609,6 @@
 			path = PlayingScene;
 			sourceTree = "<group>";
 		};
-		0CCFF9801BACFF9A00D2A868 /* fonts */ = {
-			isa = PBXGroup;
-			children = (
-				0CCFF9811BACFF9A00D2A868 /* misaki_gothic.ttf */,
-				0CCFF9821BACFF9A00D2A868 /* NotoSansCJKjp-Regular.ttf */,
-			);
-			path = fonts;
-			sourceTree = "<group>";
-		};
 		0CCFF9921BACFF9A00D2A868 /* pictures */ = {
 			isa = PBXGroup;
 			children = (
@@ -750,8 +738,8 @@
 		46880B7519C43A67006E1F66 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				0CAD071B1C14DE3900ECF6CC /* fonts */,
 				0C71038F1BB28BDA0087F0EF /* Images.xcassets */,
-				0CCFF9801BACFF9A00D2A868 /* fonts */,
 				0CCFF9921BACFF9A00D2A868 /* pictures */,
 				0CCFF9B91BACFF9A00D2A868 /* sound */,
 				0CCFF9CC1BACFF9A00D2A868 /* text */,
@@ -919,7 +907,6 @@
 				0CCFFA0E1BACFF9A00D2A868 /* stage1.mp3 in Resources */,
 				0C3FD9731BB370AA0058035B /* Default-Portrait@2x.png in Resources */,
 				0C3FD9581BB3517A0058035B /* Default-667h@2x.png in Resources */,
-				0CCFF9D01BACFF9A00D2A868 /* NotoSansCJKjp-Regular.ttf in Resources */,
 				0CCFFA0C1BACFF9A00D2A868 /* pause.mp3 in Resources */,
 				0C3FD9711BB370AA0058035B /* Default-Landscape@2x.png in Resources */,
 				0CCFFA0F1BACFF9A00D2A868 /* stage2.mp3 in Resources */,
@@ -932,7 +919,7 @@
 				0C3FD9631BB3517A0058035B /* Icon-29@2x.png in Resources */,
 				0C3FD9591BB3517A0058035B /* Default-736h@3x.png in Resources */,
 				0C6197ED1BC94AAD00DDA4CA /* Localized_zh in Resources */,
-				0CCFF9CF1BACFF9A00D2A868 /* misaki_gothic.ttf in Resources */,
+				0CAD071C1C14DE3900ECF6CC /* fonts in Resources */,
 				0C3FD9621BB3517A0058035B /* Icon-29.png in Resources */,
 				0C3FD95A1BB3517A0058035B /* Default-Landscape-736h@3x.png in Resources */,
 				0C3FD9671BB3517A0058035B /* Icon-40@3x.png in Resources */,
@@ -986,7 +973,6 @@
 				0CCFF97D1BACFE7E00D2A868 /* AKPlayingSceneIF.cpp in Sources */,
 				503AE10017EB989F00D1A890 /* AppController.mm in Sources */,
 				0CCFF9451BACFE7400D2A868 /* AKHowToPlayScene.cpp in Sources */,
-				0CAD071A1C0FA15500ECF6CC /* Twitter.cpp in Sources */,
 				0CCFF9731BACFE7E00D2A868 /* AKEnemy.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				0CCFF9211BACFE5500D2A868 /* AKScreenSize.cpp in Sources */,
@@ -1059,7 +1045,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_MODULES_AUTOLINK = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1096,6 +1083,7 @@
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.monochrome-soft.toritoma2";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(_COCOS_HEADER_IOS_BEGIN) $(_COCOS_HEADER_IOS_END)";
@@ -1109,7 +1097,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_MODULES_AUTOLINK = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1144,6 +1133,7 @@
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.monochrome-soft.toritoma2";
+				PROVISIONING_PROFILE = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = "$(_COCOS_HEADER_IOS_BEGIN) $(_COCOS_HEADER_IOS_END)";

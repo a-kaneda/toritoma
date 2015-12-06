@@ -148,18 +148,10 @@ extern bool kAKLogTwitterHelper_1;
 #endif
 
 // 日本語フォント
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #define JAPANESE_FONT "fonts/NotoSansCJKjp-Regular.ttf"
-#else
-#define JAPANESE_FONT "NotoSansCJKjp-Regular.ttf"
-#endif
 
 // コントロール用フォント
-#if (CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID)
 #define CONTROL_FONT "fonts/misaki_gothic.ttf"
-#else
-#define CONTROL_FONT "misaki_gothic.ttf"
-#endif
 
 // 範囲チェック
 float AKRangeCheckLF(float val, float min, float max);
