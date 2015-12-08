@@ -46,10 +46,10 @@ using cocos2d::Data;
 
 namespace aklib {
     
-    static const string STRING_FILE_ENGLISH  = "Localized_en";
-    static const string STRING_FILE_JAPANESE = "Localized_ja";
-    static const string STRING_FILE_CHINESE  = "Localized_zh";
-    static const string STRING_FILE_KOREAN   = "Localized_ko";
+    static const string STRING_FILE_ENGLISH  = "text/Localized_en";
+    static const string STRING_FILE_JAPANESE = "text/Localized_ja";
+    static const string STRING_FILE_CHINESE  = "text/Localized_zh";
+    static const string STRING_FILE_KOREAN   = "text/Localized_ko";
     
     static LocalizedResource& singleton = LocalizedResource::getInstance();
     
