@@ -66,27 +66,27 @@ const float kAKControllerAxisThreshold = 0.2f;
 /// ステージBGMの種類数
 const int kAKStageBGMCount = 8;
 /// ステージBGMのファイル名
-const char *kAKStageBGMFileName = "stage%d.mp3";
+const char *kAKStageBGMFileName = "sound/stage%d.mp3";
 /// ステージクリアジングルのファイル名
-const char *kAKClearJingleFileName = "clear.mp3";
+const char *kAKClearJingleFileName = "sound/clear.mp3";
 /// ゲームクリアジングルのファイル名
-const char *kAKGameClearJingleFileName = "gameclear.mp3";
+const char *kAKGameClearJingleFileName = "sound/gameclear.mp3";
 /// ボタン選択効果音のファイル名
-const char *kAKSelectSEFileName = "select.mp3";
+const char *kAKSelectSEFileName = "sound/select.mp3";
 /// ポーズ効果音のファイル名
-const char *kAKPauseSEFileName = "pause.mp3";
+const char *kAKPauseSEFileName = "sound/pause.mp3";
 /// 爆発(小)効果音のファイル名
-const char *kAKBombMinSEFileName = "bomb_min.mp3";
+const char *kAKBombMinSEFileName = "sound/bomb_min.mp3";
 /// 爆発(大)効果音のファイル名
-const char *kAKBombBigSEFileName = "bomb_big.mp3";
+const char *kAKBombBigSEFileName = "sound/bomb_big.mp3";
 /// 弾衝突効果音のファイル名
-const char *kAKHitSEFileName = "hit.mp3";
+const char *kAKHitSEFileName = "sound/hit.mp3";
 /// 自機死亡時の効果音
-const char *kAKMissSEFileName = "miss.mp3";
+const char *kAKMissSEFileName = "sound/miss.mp3";
 /// 1UP時の効果音
-const char *kAK1UpSEFileName = "1up.mp3";
+const char *kAK1UpSEFileName = "sound/1up.mp3";
 /// カーソル移動時の効果音
-const char *kAKCursorSEFileName = "cursor.mp3";
+const char *kAKCursorSEFileName = "sound/cursor.mp3";
 
 /// ユーザーデフォルトキー、ハイスコア
 const char *kAKUDKeyHighScore = "HighScore";
