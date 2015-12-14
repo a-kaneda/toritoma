@@ -34,12 +34,39 @@
  */
 
 #include "Twitter.h"
+#include <assert.h>
+#include <jni.h>
+#include "platform/android/jni/JniHelper.h"
+#define JNICLASSNAME "org/cocos2dx/cpp/AppActivity"
+
+using cocos2d::JniMethodInfo;
+using cocos2d::JniHelper;
 
 namespace aklib {
     
     // 投稿ビュー表示
     void Twitter::post(const char *message, const char *url, const char *imagepath)
     {
-        // TODO: ネイティブコードを呼び出す処理を作成する。
+        // ネイティブコードのツイート関数を取得する
+        JniMethodInfo methodInfo;
+        if (!JniHelper::getStaticMethodInfo(methodInfo, JNICLASSNAME, "postTweet", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V"))
+        {
+            assert(false);
+            return;
+        }
+        
+        // 文字列をJava Stringに変換する
+        jstring message_jstr = methodInfo.env->NewStringUTF(message);
+        jstring url_jstr = methodInfo.env->NewStringUTF(url);
+        jstring imagepath_jstr = methodInfo.env->NewStringUTF(imagepath);
+        
+        // 関数を呼び出す
+        methodInfo.env->CallStaticVoidMethod(methodInfo.classID , methodInfo.methodID , message_jstr, url_jstr, imagepath_jstr);
+        
+        // リソースを解放する
+        methodInfo.env->DeleteLocalRef(message_jstr);
+        methodInfo.env->DeleteLocalRef(url_jstr);
+        methodInfo.env->DeleteLocalRef(imagepath_jstr);
+        methodInfo.env->DeleteLocalRef(methodInfo.classID);
     }
 };
