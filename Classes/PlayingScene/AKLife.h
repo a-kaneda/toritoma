@@ -36,7 +36,7 @@
 #ifndef AKLIFE_H
 #define AKLIFE_H
 
-#import "AKToritoma.h"
+#include "AKToritoma.h"
 
 /*!
  @brief 残機表示クラス
