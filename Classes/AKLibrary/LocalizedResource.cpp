@@ -114,7 +114,7 @@ namespace aklib {
         string line;
         while (std::getline(is, line)) {
             
-//            AKLog(1, "line=%s", line.c_str());
+            AKLog(1, "line=%s", line.c_str());
             
             if (line.compare(0, 2, "//") == 0) {
                 continue;
@@ -134,7 +134,7 @@ namespace aklib {
             val.erase(0, val.find_first_not_of(" \""));
             val.erase(val.find_last_not_of(" \";") + 1);
             
-//            AKLog(1, "key=%s value=%s", key.c_str(), val.c_str());
+            AKLog(1, "key=%s value=%s", key.c_str(), val.c_str());
             
             localizedStrings.insert(pair<string, string>(key, val));
         }

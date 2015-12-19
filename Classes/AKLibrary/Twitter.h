@@ -51,10 +51,9 @@ namespace aklib {
          
          ネイティブコードのTwitter投稿処理を呼び出す。
          @param message 初期投稿メッセージ
-         @param url URL
          @param imagepath 投稿画像のファイルパス
          */
-        static void post(const char *message, const char *url, const char *imagepath);
+        static void post(const char *message, const char *imagepath);
     };
 }
 #endif

@@ -689,11 +689,16 @@ void AKPlayData::setPlayerSpeedY(float speedY)
  */
 std::string AKPlayData::makeTweet()
 {
+    // iTunes StoreのURL
+    const char ITUNES_STORE_URL[] = "[iOS] https://itunes.apple.com/jp/app/toritoma/id982812762?mt=8";
+    // Google PlayのURL
+    const char GOOGLE_PLAY_URL[] = "[Android] https://play.google.com/store/apps/details?id=com.monochromesoft.toritoma2";
+    
     // 使用言語を取得する
     LanguageType lang = Application::getInstance()->getCurrentLanguage();
 
     // ツイートメッセージ
-    char tweet[141] = "";
+    char tweet[1024] = "";
 
     // 1周目と2周目以降でメッセージを変える
     if (!is2ndLoop()) {
@@ -716,7 +721,14 @@ std::string AKPlayData::makeTweet()
         }
     }
     
-    return std::string(tweet);
+    // ツイートメッセージにURLを追加する
+    std::string tweetStr(tweet);
+    tweetStr.append("\n");
+    tweetStr.append(ITUNES_STORE_URL);
+    tweetStr.append("\n");
+    tweetStr.append(GOOGLE_PLAY_URL);
+    
+    return tweetStr;
 }
 
 /*!

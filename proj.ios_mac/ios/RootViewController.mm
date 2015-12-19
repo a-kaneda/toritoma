@@ -229,10 +229,9 @@
  
  Twitter投稿ビューを表示する。
  @param message 初期投稿メッセージ
- @param url URL
  @param image 投稿画像
  */
-- (void)postTwitterMessage:(NSString *)message URL:(NSURL *)url Image:(UIImage *)image
+- (void)postTwitterMessage:(NSString *)message Image:(UIImage *)image
 {
     // Twitterが使用可能な場合のみ処理を行う
     if ([SLComposeViewController isAvailableForServiceType:SLServiceTypeTwitter]) {
@@ -250,11 +249,6 @@
         
         // 投稿するテキストの初期設定を行う
         [composeVC setInitialText:message];
-        
-        // 投稿するURLの設定を行う
-        if (url != nil) {
-            [composeVC addURL:url];
-        }
         
         // 投稿する画像の設定を行う
         if (image != nil) {

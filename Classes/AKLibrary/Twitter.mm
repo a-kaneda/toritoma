@@ -39,7 +39,7 @@
 namespace aklib {
     
     // 投稿ビュー表示
-    void Twitter::post(const char *message, const char *url, const char *imagepath)
+    void Twitter::post(const char *message, const char *imagepath)
     {
         // RootViewControllerを取得する
         UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -58,8 +58,7 @@ namespace aklib {
             
             // ネイティブコードのTwitter投稿ビュー表示処理を呼び出す
             [rootViewController postTwitterMessage:[NSString stringWithCString:message encoding:NSUTF8StringEncoding]
-                                               URL:[NSURL URLWithString:[NSString stringWithCString:url encoding:NSUTF8StringEncoding]]
-                                             Image:image];            
+                                             Image:image];
         }
     }
 };

@@ -731,8 +731,6 @@ void AKPlayingScene::touchContinueButton()
  */
 void AKPlayingScene::touchTweetButton()
 {
-    const char URL[] = "https://itunes.apple.com/us/app/toritoma2/id982812762?l=ja&ls=1&mt=8";
-    
     // ボタン選択効果音を鳴らす
     SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
     
@@ -743,7 +741,7 @@ void AKPlayingScene::touchTweetButton()
     std::string fullpath = FileUtils::getInstance()->getWritablePath() + kAKScreenShot;
     
     // ツイートビューを表示する
-    Twitter::post(message.c_str(), URL, fullpath.c_str());
+    Twitter::post(message.c_str(), fullpath.c_str());
 }
 
 /*!

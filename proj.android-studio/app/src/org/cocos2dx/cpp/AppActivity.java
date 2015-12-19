@@ -58,15 +58,14 @@ public class AppActivity extends Cocos2dxActivity {
     /**
      * Twitter投稿用のインテントを作成し、アクティビティを呼び出す。
      * @param message ツイート内容
-     * @param url ツイートURL
      * @param imagePath 画像パス
      */
-    public static void postTweet(String message, String url, String imagePath) {
+    public static void postTweet(String message, String imagePath) {
 
         // Twitter投稿用インテントに設定するURLを作成する。
-        // TwitterのURLのパラメータにメッセージとURLを設定する。
+        // TwitterのURLのパラメータにメッセージを設定する。
         // ハッシュタグの#の文字はそのままでは処理できないため、URLエンコードの%23に置換する。
-        String twitterUrl = String.format("http://twitter.com/share?text=%s&url=%s", message, url).replaceAll("#", "%23");
+        String twitterUrl = String.format("http://twitter.com/share?text=%s", message).replaceAll("#", "%23");
 
         // インテントを作成する。
         Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse(twitterUrl));
