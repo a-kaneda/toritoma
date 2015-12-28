@@ -34,24 +34,55 @@
  */
 
 #include "OnlineScore.h"
+#include <assert.h>
+#include <jni.h>
+#include "platform/android/jni/JniHelper.h"
+#define JNICLASSNAME "org/cocos2dx/cpp/AppActivity"
+
+using cocos2d::JniMethodInfo;
+using cocos2d::JniHelper;
 
 namespace aklib {
     
     // ログイン
     void OnlineScore::login()
     {
-        // TODO: ネイティブコードを呼び出す処理を作成する。
+        // ActivityのonStartでログイン処理を実施するため、ここでは何もしない
     }
     
     // ランキング画面表示
     void OnlineScore::openRanking()
     {
-        // TODO: ネイティブコードを呼び出す処理を作成する。
+        // ネイティブコードのランキング画面表示関数を取得する
+        JniMethodInfo methodInfo;
+        if (!JniHelper::getStaticMethodInfo(methodInfo, JNICLASSNAME, "openRanking", "()V"))
+        {
+            assert(false);
+            return;
+        }
+        
+        // 関数を呼び出す
+        methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
+        
+        // リソースを解放する
+        methodInfo.env->DeleteLocalRef(methodInfo.classID);
     }
     
     // ハイスコア送信
     void OnlineScore::postHighScore(int score)
     {
-        // TODO: ネイティブコードを呼び出す処理を作成する。
+        // ネイティブコードのハイスコア送信関数を取得する
+        JniMethodInfo methodInfo;
+        if (!JniHelper::getStaticMethodInfo(methodInfo, JNICLASSNAME, "postHighScore", "(I)V"))
+        {
+            assert(false);
+            return;
+        }
+        
+        // 関数を呼び出す
+        methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, score);
+        
+        // リソースを解放する
+        methodInfo.env->DeleteLocalRef(methodInfo.classID);
     }
 }

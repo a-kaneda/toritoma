@@ -47,6 +47,7 @@ libAdapterIAd*
 Nend
 # ID定義
 Classes/Common/ID.cpp
+proj.android-studio/app/res/values/ids.xml
 # フォントファイル
 *.ttf
 # android関連のファイル
