@@ -356,6 +356,7 @@ void AKPlayingScene::setState(enum AKGameState state)
     
     // 広告バナーの表示・非表示を切り替える
     switch (state) {
+        case kAKGameStateStart:         // ゲーム開始時
         case kAKGameStatePreLoad:       // ゲームシーン読み込み前
         case kAKGameStatePlaying:       // プレイ中
         case kAKGameStateStageClear:    // ステージクリア後

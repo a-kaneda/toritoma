@@ -33,6 +33,10 @@ import android.content.IntentSender.SendIntentException;
 import android.content.DialogInterface;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
+import android.view.Gravity;
+import android.view.View;
 
 import org.cocos2dx.lib.Cocos2dxActivity;
 
@@ -42,10 +46,17 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.games.Games;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
+import com.google.android.gms.ads.AdListener;
+
+import com.monochromesoft.toritoma2.R;
 
 public class AppActivity extends Cocos2dxActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
@@ -62,9 +73,6 @@ public class AppActivity extends Cocos2dxActivity implements
     /** Leaderboard表示のリクエストコード */
     private static final int REQUEST_LEADERBOARD = 1002;
 
-    /** LeardboardのID */
-    private static final String LEADERBOARD_ID = "CgkIjuz8p5UVEAIQAQ";
-
     /** static関数からメンバ関数呼び出すためのthisインスタンス */
     private static AppActivity me = null;
 
@@ -73,6 +81,12 @@ public class AppActivity extends Cocos2dxActivity implements
 
     /** Google API接続エラーを解決中かどうか */
     private boolean mResolvingError = false;
+
+    /** バナー広告 */
+    private AdView mAdView;
+
+    /** インタースティシャル広告 */
+    private InterstitialAd mInterstitialAd;
 
     /**
      * Activityの生成処理。
@@ -83,10 +97,13 @@ public class AppActivity extends Cocos2dxActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        //Log.d("toritoma", "onCreate: begin.");
+        Log.d("toritoma", "onCreate: begin.");
 
         // 基底クラスの処理を呼び出す
         super.onCreate(savedInstanceState);
+
+        // スリープを無効化する
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
         // staticメンバにthisインスタンスを設定する
         me = this;
@@ -98,7 +115,27 @@ public class AppActivity extends Cocos2dxActivity implements
                 .addApi(Games.API).addScope(Games.SCOPE_GAMES)
                 .build();
 
-        //Log.d("toritoma", "onCreate: end.");
+        // 広告バナーを作成する
+        createAdBanner();
+
+        // アプリ課金後は表示されないようにするため、デフォルトは非表示としておく。
+        hideAdBanner();
+
+        // インタースティシャル広告を作成する
+        mInterstitialAd = new InterstitialAd(this);
+        mInterstitialAd.setAdUnitId(getString(R.string.banner_ad_unit_id));
+        requestNewInterstitial();
+
+        // インタースティシャル広告を閉じた時に次の広告を読み込むためにリスナーを登録する
+        mInterstitialAd.setAdListener(new AdListener() {
+
+            @Override
+            public void onAdClosed() {
+                requestNewInterstitial();
+            }
+        });
+
+        Log.d("toritoma", "onCreate: end.");
     }
 
     /**
@@ -328,7 +365,9 @@ public class AppActivity extends Cocos2dxActivity implements
 
             // Leaderboardのアクティビティを開始する
             me.startActivityForResult(
-                    Games.Leaderboards.getLeaderboardIntent(me.mGoogleApiClient, LEADERBOARD_ID),
+                    Games.Leaderboards.getLeaderboardIntent(
+                            me.mGoogleApiClient,
+                            me.getString(R.string.leaderboard_id)),
                     REQUEST_LEADERBOARD);
         }
 
@@ -346,10 +385,92 @@ public class AppActivity extends Cocos2dxActivity implements
         if (me.mGoogleApiClient != null && me.mGoogleApiClient.isConnected()) {
 
             // Leaderboardにハイスコアを送信する
-            Games.Leaderboards.submitScore(me.mGoogleApiClient, LEADERBOARD_ID, score);
+            Games.Leaderboards.submitScore(
+                    me.mGoogleApiClient,
+                    me.getString(R.string.leaderboard_id),
+                    score);
         }
 
         //Log.d("toritoma", "postHighScore: end.");
+    }
+
+    /**
+     * バナー広告を表示する。
+     */
+    public static void viewAdBanner() {
+
+        Log.d("toritoma", "viewAdBanner: begin.");
+
+        // 広告表示切替のスレッドを開始する
+        me.runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+
+                // 広告が無効な場合は有効にする
+                if (!me.mAdView.isEnabled()) {
+                    me.mAdView.setEnabled(true);
+                }
+
+                // 広告が表示でない場合は表示にする
+                if (me.mAdView.getVisibility() != View.VISIBLE) {
+                    me.mAdView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        Log.d("toritoma", "viewAdBanner: end.");
+    }
+
+    /**
+     * バナー広告を非表示にする。
+     */
+    public static void hideAdBanner() {
+
+        Log.d("toritoma", "hideAdBanner: begin.");
+
+        // 広告表示切替のスレッドを開始する
+        me.runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+
+                // 広告が有効な場合は無効にする
+                if (me.mAdView.isEnabled()) {
+                    me.mAdView.setEnabled(false);
+                }
+
+                // 広告が非表示でない場合は非表示にする
+                if (me.mAdView.getVisibility() != View.INVISIBLE) {
+                    me.mAdView.setVisibility(View.INVISIBLE);
+                }
+            }
+        });
+
+        Log.d("toritoma", "hideAdBanner: end.");
+    }
+
+    /**
+     * インタースティシャル広告を表示する。
+     */
+    public static void viewAdInterstitial() {
+
+        Log.d("toritoma", "viewAdInterstitial: begin.");
+
+        // 広告表示のスレッドを開始する
+        me.runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+
+                // 広告が読み込まれている場合は広告を表示する
+                if (me.mInterstitialAd.isLoaded()) {
+                    me.mInterstitialAd.show();
+                }
+            }
+        });
+
+        Log.d("toritoma", "viewAdInterstitial: end.");
     }
 
     /**
@@ -357,7 +478,7 @@ public class AppActivity extends Cocos2dxActivity implements
      * @param imagePath 画像ファイルのパス
      * @return 画像ファイルの拡張子
      */
-    static private String getExtension(Uri imagePath) {
+    private static String getExtension(Uri imagePath) {
 
         //Log.d("toritoma", "getExtension: begin.");
 
@@ -375,7 +496,7 @@ public class AppActivity extends Cocos2dxActivity implements
      * @param imagePath 画像ファイルのパス
      * @return 画像ファイルのファイル名
      */
-    static private String getFilename(Uri imagePath) {
+    private static String getFilename(Uri imagePath) {
 
         //Log.d("toritoma", "getFilename: begin.");
 
@@ -390,7 +511,7 @@ public class AppActivity extends Cocos2dxActivity implements
      * @param imageUri 元画像のURI
      * @return 外部ストレージのURI
      */
-    static private Uri saveImageToExternalDirectory(Uri imageUri) {
+    private static Uri saveImageToExternalDirectory(Uri imageUri) {
 
         //Log.d("toritoma", "saveImageToExternalDirectory: begin.");
 
@@ -423,7 +544,7 @@ public class AppActivity extends Cocos2dxActivity implements
      * @param dst コピー先ファイル
      * @throws Exception ファイルアクセス異常
      */
-    static public void copyFile(File src, File dst) throws Exception {
+    private static void copyFile(File src, File dst) throws Exception {
 
         //Log.d("toritoma", "copyFile: begin.");
 
@@ -477,6 +598,52 @@ public class AppActivity extends Cocos2dxActivity implements
         mResolvingError = false;
 
         //Log.d("toritoma", "onDialogDismissed: end.");
+    }
+
+    /**
+     * 広告バナーを作成する。
+     */
+    private void createAdBanner() {
+
+        // 広告ビューのレイアウトパラメータを作成する
+        LinearLayout.LayoutParams adParams = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+
+        // 表示位置を左上に設定する
+        adParams.gravity = (Gravity.TOP | Gravity.LEFT);
+
+        // 広告ビューを作成する
+        mAdView = new AdView(this);
+        mAdView.setAdSize(AdSize.BANNER);
+        mAdView.setAdUnitId(getString(R.string.banner_ad_unit_id));
+
+        // テストデバイスのIDを指定してAdRequestを作成する
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice(me.getString(R.string.test_device_id))
+                .build();
+
+        // 広告を読み込む
+        mAdView.loadAd(adRequest);
+
+        // 広告ビューをアクティビティに追加する
+        addContentView(mAdView, adParams);
+    }
+
+    /**
+     * インタースティシャル広告を要求する。
+     */
+    private void requestNewInterstitial() {
+
+        // テストデバイスのIDを指定してAdRequestを作成する
+        AdRequest adRequest = new AdRequest.Builder()
+                .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+                .addTestDevice(me.getString(R.string.test_device_id))
+                .build();
+
+        // 広告を読み込む
+        mInterstitialAd.loadAd(adRequest);
     }
 
     /**

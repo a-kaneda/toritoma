@@ -34,6 +34,13 @@
  */
 
 #include "Advertisement.h"
+#include <assert.h>
+#include <jni.h>
+#include "platform/android/jni/JniHelper.h"
+#define JNICLASSNAME "org/cocos2dx/cpp/AppActivity"
+
+using cocos2d::JniMethodInfo;
+using cocos2d::JniHelper;
 
 namespace aklib {
     
@@ -48,13 +55,37 @@ namespace aklib {
             return;
         }
         
-        // TODO: ネイティブコードを呼び出す処理を作成する。
+        // ネイティブコードのバナー広告表示関数を取得する
+        JniMethodInfo methodInfo;
+        if (!JniHelper::getStaticMethodInfo(methodInfo, JNICLASSNAME, "viewAdBanner", "()V"))
+        {
+            assert(false);
+            return;
+        }
+        
+        // 関数を呼び出す
+        methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
+        
+        // リソースを解放する
+        methodInfo.env->DeleteLocalRef(methodInfo.classID);
     }
     
     // バナー広告消去
     void Advertisement::hideBanner()
     {
-        // TODO: ネイティブコードを呼び出す処理を作成する。
+        // ネイティブコードのバナー広告表示関数を取得する
+        JniMethodInfo methodInfo;
+        if (!JniHelper::getStaticMethodInfo(methodInfo, JNICLASSNAME, "hideAdBanner", "()V"))
+        {
+            assert(false);
+            return;
+        }
+        
+        // 関数を呼び出す
+        methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
+        
+        // リソースを解放する
+        methodInfo.env->DeleteLocalRef(methodInfo.classID);
     }
     
     // インタースティシャル広告表示
@@ -65,7 +96,19 @@ namespace aklib {
             return;
         }
         
-        // TODO: ネイティブコードを呼び出す処理を作成する。
+        // ネイティブコードのバナー広告表示関数を取得する
+        JniMethodInfo methodInfo;
+        if (!JniHelper::getStaticMethodInfo(methodInfo, JNICLASSNAME, "viewAdInterstitial", "()V"))
+        {
+            assert(false);
+            return;
+        }
+        
+        // 関数を呼び出す
+        methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
+        
+        // リソースを解放する
+        methodInfo.env->DeleteLocalRef(methodInfo.classID);
     }
     
     // 広告無効化
