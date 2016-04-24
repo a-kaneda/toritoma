@@ -22,7 +22,7 @@ android {
 
     signingConfigs {
 
-       release {
+        release {
             if (project.hasProperty("RELEASE_STORE_FILE")) {
                 storeFile file(RELEASE_STORE_FILE)
                 storePassword RELEASE_STORE_PASSWORD

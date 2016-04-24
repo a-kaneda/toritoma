@@ -1580,10 +1580,19 @@ void AKPlayingScene::start2ndLoop()
  */
 void AKPlayingScene::onAxisEventOnPlaying(int keyCode, float value)
 {
+    const float THRESHOLD = 0.01f;
     float speed = 0.0f;
     
+    AKLog(false, "value=%f", value);
+    
     // 入力値から速度計算を行う
-    speed = value * kAKPlayerMoveByController;
+    // 閾値未満は0とする(コントローラの種類によっては入力をやめても完全に0にならないことがあるため)
+    if (value < THRESHOLD && value > -THRESHOLD) {
+        speed = 0.0f;
+    }
+    else {
+        speed = value * kAKPlayerMoveByController;
+    }
     
     // キー種類によって設定する方向を変える
     switch (keyCode) {
@@ -1671,6 +1680,7 @@ void AKPlayingScene::onKeyDownOnPlaying(int keyCode)
             m_data->setShield(true);
             break;
             
+        case Controller::BUTTON_START:
         case Controller::BUTTON_PAUSE:
             
             // ポーズボタン押下時の処理を行う

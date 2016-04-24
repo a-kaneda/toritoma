@@ -38,7 +38,7 @@ import android.widget.LinearLayout;
 import android.view.Gravity;
 import android.view.View;
 
-import org.cocos2dx.lib.Cocos2dxActivity;
+import org.cocos2dx.lib.GameControllerActivity;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -58,7 +58,7 @@ import com.google.android.gms.ads.AdListener;
 
 import com.monochromesoft.toritoma2.R;
 
-public class AppActivity extends Cocos2dxActivity implements
+public class AppActivity extends GameControllerActivity implements
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
     /** Twitterのパッケージ名 */
@@ -97,7 +97,7 @@ public class AppActivity extends Cocos2dxActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        Log.d("toritoma", "onCreate: begin.");
+        //Log.d("toritoma", "onCreate: begin.");
 
         // 基底クラスの処理を呼び出す
         super.onCreate(savedInstanceState);
@@ -135,7 +135,11 @@ public class AppActivity extends Cocos2dxActivity implements
             }
         });
 
-        Log.d("toritoma", "onCreate: end.");
+        //The standard controller,without doing anything special. e.g: Amazon Fire TV
+        // Manually specify an adapter.
+        this.connectController(DRIVERTYPE_STANDARD);
+
+        //Log.d("toritoma", "onCreate: end.");
     }
 
     /**
@@ -293,16 +297,14 @@ public class AppActivity extends Cocos2dxActivity implements
 
         //Log.d("toritoma", "postTweet: begin.");
 
-        // Twitter投稿用インテントに設定するURLを作成する。
-        // TwitterのURLのパラメータにメッセージを設定する。
-        // ハッシュタグの#の文字はそのままでは処理できないため、URLエンコードの%23に置換する。
-        String twitterUrl = String.format("http://twitter.com/share?text=%s", message).replaceAll("#", "%23");
-
         // インテントを作成する。
-        Intent intent = new Intent(Intent.ACTION_SEND, Uri.parse(twitterUrl));
+        Intent intent = new Intent(Intent.ACTION_SEND);
 
         // インテントにメッセージを追加する
         intent.putExtra(Intent.EXTRA_TEXT, message);
+
+        // パッケージタイプをTwitterにする
+        intent.setPackage(TWITTER_PACKAGE_NAME);
 
         // 画像パスが指定されている場合は画像の処理を行う
         if (!imagePath.equals("")) {
@@ -324,9 +326,6 @@ public class AppActivity extends Cocos2dxActivity implements
                     intent.putExtra(Intent.EXTRA_STREAM, readableFileUri);
                 }
 
-                // パッケージタイプをTwitterにする
-                intent.setPackage(TWITTER_PACKAGE_NAME);
-
             } catch (Exception e) {
 
                 // 画像のコピーに失敗した場合は画像なしでツイートを行う
@@ -343,6 +342,11 @@ public class AppActivity extends Cocos2dxActivity implements
 
             // Twitterクライアントがない場合は代わりにブラウザでTwitterのサイトを開くようにする。
             // 画像を付けることはできないため、テキストメッセージだけを付ける。
+
+            // Twitter投稿用インテントに設定するURLを作成する。
+            // TwitterのURLのパラメータにメッセージを設定する。
+            // ハッシュタグの#の文字はそのままでは処理できないため、URLエンコードの%23に置換する。
+            String twitterUrl = String.format("http://twitter.com/share?text=%s", message).replaceAll("#", "%23");
 
             // ブラウザ表示用のインテントを作成する
             Intent intentForBrowser = new Intent(Intent.ACTION_VIEW, Uri.parse(twitterUrl));
@@ -399,7 +403,7 @@ public class AppActivity extends Cocos2dxActivity implements
      */
     public static void viewAdBanner() {
 
-        Log.d("toritoma", "viewAdBanner: begin.");
+        //Log.d("toritoma", "viewAdBanner: begin.");
 
         // 広告表示切替のスレッドを開始する
         me.runOnUiThread(new Runnable() {
@@ -419,7 +423,7 @@ public class AppActivity extends Cocos2dxActivity implements
             }
         });
 
-        Log.d("toritoma", "viewAdBanner: end.");
+        //Log.d("toritoma", "viewAdBanner: end.");
     }
 
     /**
@@ -427,7 +431,7 @@ public class AppActivity extends Cocos2dxActivity implements
      */
     public static void hideAdBanner() {
 
-        Log.d("toritoma", "hideAdBanner: begin.");
+        //Log.d("toritoma", "hideAdBanner: begin.");
 
         // 広告表示切替のスレッドを開始する
         me.runOnUiThread(new Runnable() {
@@ -447,7 +451,7 @@ public class AppActivity extends Cocos2dxActivity implements
             }
         });
 
-        Log.d("toritoma", "hideAdBanner: end.");
+        //Log.d("toritoma", "hideAdBanner: end.");
     }
 
     /**
@@ -455,7 +459,7 @@ public class AppActivity extends Cocos2dxActivity implements
      */
     public static void viewAdInterstitial() {
 
-        Log.d("toritoma", "viewAdInterstitial: begin.");
+        //Log.d("toritoma", "viewAdInterstitial: begin.");
 
         // 広告表示のスレッドを開始する
         me.runOnUiThread(new Runnable() {
@@ -470,7 +474,7 @@ public class AppActivity extends Cocos2dxActivity implements
             }
         });
 
-        Log.d("toritoma", "viewAdInterstitial: end.");
+        //Log.d("toritoma", "viewAdInterstitial: end.");
     }
 
     /**
@@ -621,7 +625,7 @@ public class AppActivity extends Cocos2dxActivity implements
         // テストデバイスのIDを指定してAdRequestを作成する
         AdRequest adRequest = new AdRequest.Builder()
                 .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-                .addTestDevice(me.getString(R.string.test_device_id))
+                .addTestDevice(getString(R.string.test_device_id))
                 .build();
 
         // 広告を読み込む
