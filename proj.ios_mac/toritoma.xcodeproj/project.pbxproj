@@ -54,7 +54,6 @@
 		0CCFF9381BACFE6B00D2A868 /* ID.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF9311BACFE6B00D2A868 /* ID.cpp */; };
 		0CCFF9391BACFE6B00D2A868 /* SettingFileIO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF9331BACFE6B00D2A868 /* SettingFileIO.cpp */; };
 		0CCFF9451BACFE7400D2A868 /* AKHowToPlayScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF93B1BACFE7400D2A868 /* AKHowToPlayScene.cpp */; };
-		0CCFF9461BACFE7400D2A868 /* AKOptionScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF93D1BACFE7400D2A868 /* AKOptionScene.cpp */; };
 		0CCFF9471BACFE7400D2A868 /* AKTitleScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF93F1BACFE7400D2A868 /* AKTitleScene.cpp */; };
 		0CCFF9481BACFE7400D2A868 /* CreditScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF9411BACFE7400D2A868 /* CreditScene.cpp */; };
 		0CCFF9491BACFE7400D2A868 /* PageScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF9431BACFE7400D2A868 /* PageScene.cpp */; };
@@ -240,8 +239,6 @@
 		0CCFF9341BACFE6B00D2A868 /* SettingFileIO.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingFileIO.h; sourceTree = "<group>"; };
 		0CCFF93B1BACFE7400D2A868 /* AKHowToPlayScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKHowToPlayScene.cpp; sourceTree = "<group>"; };
 		0CCFF93C1BACFE7400D2A868 /* AKHowToPlayScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKHowToPlayScene.h; sourceTree = "<group>"; };
-		0CCFF93D1BACFE7400D2A868 /* AKOptionScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKOptionScene.cpp; sourceTree = "<group>"; };
-		0CCFF93E1BACFE7400D2A868 /* AKOptionScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKOptionScene.h; sourceTree = "<group>"; };
 		0CCFF93F1BACFE7400D2A868 /* AKTitleScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKTitleScene.cpp; sourceTree = "<group>"; };
 		0CCFF9401BACFE7400D2A868 /* AKTitleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AKTitleScene.h; sourceTree = "<group>"; };
 		0CCFF9411BACFE7400D2A868 /* CreditScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CreditScene.cpp; sourceTree = "<group>"; };
@@ -513,8 +510,6 @@
 				0C71038C1BAF975F0087F0EF /* ActivityIndicator.h */,
 				0CCFF93B1BACFE7400D2A868 /* AKHowToPlayScene.cpp */,
 				0CCFF93C1BACFE7400D2A868 /* AKHowToPlayScene.h */,
-				0CCFF93D1BACFE7400D2A868 /* AKOptionScene.cpp */,
-				0CCFF93E1BACFE7400D2A868 /* AKOptionScene.h */,
 				0CCFF93F1BACFE7400D2A868 /* AKTitleScene.cpp */,
 				0CCFF9401BACFE7400D2A868 /* AKTitleScene.h */,
 				0CCFF9411BACFE7400D2A868 /* CreditScene.cpp */,
@@ -850,7 +845,6 @@
 				0CCFF91F1BACFE5500D2A868 /* AKLabel.cpp in Sources */,
 				0CCFF96F1BACFE7E00D2A868 /* AKBlock.cpp in Sources */,
 				0CCFF97F1BACFE7E00D2A868 /* AKTileMapEventParameter.cpp in Sources */,
-				0CCFF9461BACFE7400D2A868 /* AKOptionScene.cpp in Sources */,
 				0CCFF9761BACFE7E00D2A868 /* AKLife.cpp in Sources */,
 				0CCFF9221BACFE5500D2A868 /* AKStringSplitter.cpp in Sources */,
 				0CCFF9351BACFE6B00D2A868 /* AKAngle.cpp in Sources */,

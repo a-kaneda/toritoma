@@ -46,33 +46,11 @@
  タイトルシーンを管理する。
  */
 class AKTitleScene : public cocos2d::Scene, AKMenuEventHandler {
-private:
-    
-    /// メニュー項目
-    enum MenuItem {
-        MenuNone = 0,       ///< メニュー未選択（コントローラー未接続）
-        MenuStartGame,      ///< ゲーム開始
-        MenuHowToPlay,      ///< 遊び方
-        MenuOption,         ///< オプション
-        MenuCredit,         ///< クレジット
-        MenuSentinel        ///< メニュー項目終端
-    };
     
 public:
     // コンビニエンスコンストラクタ
     static AKTitleScene* create();
 
-private:
-    /// インターフェースレイヤー
-    AKInterface *m_interface;
-    /// インタースティシャル広告を表示するかどうか
-    bool m_isViewInterstitial;
-    /// カーソル位置
-    MenuItem m_selectMenu;
-    /// カーソル画像
-    cocos2d::Sprite *m_cursor;
-
-public:
     // イベント実行
     virtual void execEvent(const AKMenuItem *item);
     // 初期化処理
@@ -93,22 +71,58 @@ public:
     void onKeyUp(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
     // コントローラーの方向キー入力処理
     void onAxisEvent(cocos2d::Controller* controller, int keyCode, cocos2d::Event* event);
-    
+
 private:
+
+    /// メニュー項目
+    enum MenuItem {
+        MenuNone = 0,       ///< メニュー未選択（コントローラー未接続）
+        MenuStartGame,      ///< ゲーム開始
+        MenuHowToPlay,      ///< 遊び方
+        MenuLeaderboard,    ///< Leaderboard
+        MenuCredit,         ///< クレジット
+        MenuSentinel        ///< メニュー項目終端
+    };
+    
+    /// インターフェースレイヤー
+    AKInterface *m_interface;
+    /// インタースティシャル広告を表示するかどうか
+    bool m_isViewInterstitial;
+    /// カーソル位置
+    MenuItem m_selectMenu;
+    /// カーソル画像
+    cocos2d::Sprite *m_cursor;
+    /// Leaderboardボタン
+    AKLabel *m_leaderboardButton;
+
     // コンストラクタ
     AKTitleScene();
     // ゲーム開始ボタンタッチ
     void touchGameStartButton();
     // 遊び方ボタンタッチ
     void touchHowToButton();
-    // オプションボタンタッチ
-    void touchOptionButton();
     // クレジットボタンタッチ
     void touchCreditButton();
     // ボタン選択エフェクト
     void selectButton(int tag);
     // メニュー項目選択
     void selectMenuItem(MenuItem item);
+    
+    /*!
+     @brief Leaderboardボタン選択時の処理
+     
+     Leaderboardボタン選択時の処理。
+     Leaderboardを表示する。
+     */
+    void selectLeaderboard();
+    
+    /*!
+     @brief Leaderboard表示
+     
+     Leaderboardを表示する。
+     ボタンのブリンクアクション終了時に呼ばれるので、Leaderboard表示前にボタンのvisibleを表示に変更する。
+     */
+    void showLeaderboard();
 };
 
 #endif

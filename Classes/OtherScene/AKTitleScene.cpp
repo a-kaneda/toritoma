@@ -36,30 +36,33 @@
 #include "AKTitleScene.h"
 #include "AKPlayingScene.h"
 #include "AKHowToPlayScene.h"
-#include "AKOptionScene.h"
 #include "CreditScene.h"
 #include "Advertisement.h"
 #include "base/CCEventListenerController.h"
 #include "SettingFileIO.h"
+#include "OnlineScore.h"
 
 using cocos2d::Vec2;
 using cocos2d::TransitionFade;
 using cocos2d::Director;
 using cocos2d::Blink;
+using cocos2d::CallFunc;
 using cocos2d::Node;
 using cocos2d::Sprite;
 using cocos2d::SpriteFrameCache;
+using cocos2d::Sequence;
 using cocos2d::EventListenerController;
 using cocos2d::Controller;
 using cocos2d::Event;
 using CocosDenshion::SimpleAudioEngine;
+using aklib::OnlineScore;
 
 // メニュー項目のタグ
 enum {
-    kAKTitleMenuGame = 1,   ///< ゲーム開始ボタン
-    kAKTitleMenuHowTo,      ///< 遊び方ボタン
-    kAKTitleMenuOption,     ///< オプションボタン
-    kAKTitleMenuCredit      ///< クレジットボタン
+    kAKTitleMenuGame = 1,       ///< ゲーム開始ボタン
+    kAKTitleMenuHowTo,          ///< 遊び方ボタン
+    kAKTitleMenuLeaderboard,    ///< Leaderboardボタン
+    kAKTitleMenuCredit          ///< クレジットボタン
 };
 
 // シーンに配置するレイヤーのタグ
@@ -72,7 +75,7 @@ enum {
 enum {
     kAKEventTouchGameStartButton = 0,   ///< ゲーム開始ボタン
     kAKEventTouchHowToButton,           ///< 遊び方ボタン
-    kAKEventTouchOptionButton,          ///< オプションボタン
+    kAKEventTouchLeaderboardButton,     ///< Leaderboardボタン
     kAKEventTouchCreditBUtton           ///< クレジットボタン
 };
 
@@ -80,13 +83,13 @@ enum {
 static const char *kAKTitleImage = "Title.png";
 
 /// ゲーム開始メニューのキャプション
-static const char *kAKGameStartCaption  = "GAME START ";
+static const char *kAKGameStartCaption      = "GAME START ";
 /// 遊び方画面メニューのキャプション
-static const char *kAKHowToPlayCaption  = "HOW TO PLAY";
-/// オプション画面メニューのキャプション
-static const char *kAKOptionCaption     = "OPTION     ";
+static const char *kAKHowToPlayCaption      = "HOW TO PLAY";
+/// Leaderboard画面メニューのキャプション
+static const char *kAKLeaderboardCaption    = "LEAERBOARD ";
 /// クレジット画面メニューのキャプション
-static const char *kAKCreditCaption     = "CREDIT     ";
+static const char *kAKCreditCaption         = "CREDIT     ";
 
 /// タイトルの位置、横方向の中心からの位置
 static const float kAKTitlePosFromHorizontalCenterPoint = -100.0f;
@@ -100,8 +103,8 @@ static const float kAKMenuPosRightPoint = 120.0f;
 static const float kAKGameStartMenuPosTopRatio = 0.25f;
 /// 遊び方画面メニューのキャプションの表示位置、上からの比率
 static const float kAKHowToPlayMenuPosTopRatio = 0.45f;
-/// オプション画面メニューのキャプションの表示位置、上からの位置
-static const float kAKOptionMenuPosTopRatio = 0.65f;
+/// Leaderboardメニューのキャプションの表示位置、上からの位置
+static const float kAKLeaderboardMenuPosTopRatio = 0.65f;
 /// クレジット画面メニューのキャプションの表示位置、上からの比率
 static const float kAKCreditMenuPosTopRatio = 0.85f;
 /// カーソル画像の位置、右からの位置
@@ -144,19 +147,19 @@ void AKTitleScene::execEvent(const AKMenuItem *item)
 {
     // 選択された項目に応じて処理を行う
     switch (item->getEventNo()) {
-        case kAKEventTouchGameStartButton:  // ゲーム開始ボタン
+        case kAKEventTouchGameStartButton:      // ゲーム開始ボタン
             touchGameStartButton();
             break;
 
-        case kAKEventTouchHowToButton:      // 遊び方ボタン
+        case kAKEventTouchHowToButton:          // 遊び方ボタン
             touchHowToButton();
             break;
 
-        case kAKEventTouchOptionButton:     // オプションボタン
-            touchOptionButton();
+        case kAKEventTouchLeaderboardButton:    // Leaderboardボタン
+            selectLeaderboard();
             break;
 
-        case kAKEventTouchCreditBUtton:     // クレジットボタン
+        case kAKEventTouchCreditBUtton:         // クレジットボタン
             touchCreditButton();
             break;
 
@@ -231,8 +234,8 @@ void AKTitleScene::onKeyDown(Controller* controller, int keyCode, Event* event)
                 touchHowToButton();
                 break;
                 
-            case MenuOption:
-                touchOptionButton();
+            case MenuLeaderboard:
+                selectLeaderboard();
                 break;
                 
             case MenuCredit:
@@ -390,18 +393,18 @@ AKTitleScene::AKTitleScene()
                               kAKTitleMenuHowTo,
                               true);
     
-    // オプションのメニューの位置を決める
+    // Leaderboardのメニューの位置を決める
     x = AKScreenSize::positionFromRightPoint(kAKMenuPosRightPoint);
-    y = AKScreenSize::positionFromTopRatio(kAKOptionMenuPosTopRatio);
-    AKLog(kAKLogTitleScene_1, "オプションのメニュー位置:x=%f, y=%f", x, y);
+    y = AKScreenSize::positionFromTopRatio(kAKLeaderboardMenuPosTopRatio);
+    AKLog(kAKLogTitleScene_1, "Leaderboardのメニュー位置:x=%f, y=%f", x, y);
 
-    // オプションのメニューを作成する
-    m_interface->addLabelMenu(kAKOptionCaption,
-                              Vec2(x, y),
-                              0,
-                              kAKEventTouchOptionButton,
-                              kAKTitleMenuOption,
-                              true);
+    // Leaderboardのメニューを作成する
+    m_leaderboardButton = m_interface->addLabelMenu(kAKLeaderboardCaption,
+                                                    Vec2(x, y),
+                                                    0,
+                                                    kAKEventTouchLeaderboardButton,
+                                                    kAKTitleMenuLeaderboard,
+                                                    true);
     
     // クレジットのメニューの位置を決める
     x = AKScreenSize::positionFromRightPoint(kAKMenuPosRightPoint);
@@ -541,25 +544,6 @@ void AKTitleScene::touchHowToButton()
 }
 
 /*!
- @brief オプションボタンタッチ
- 
- オプション画面へ遷移する。
- */
-void AKTitleScene::touchOptionButton()
-{
-    AKLog(kAKLogTitleScene_1, "start");
-
-    // ボタン選択エフェクトを発生させる
-    selectButton(kAKTitleMenuOption);
-    
-    // オプションシーンへの遷移を作成する
-    TransitionFade *transition = TransitionFade::create(0.5f, AKOptionScene::create());
-    
-    // オプションシーンへ遷移する
-    Director::getInstance()->replaceScene(transition);
-}
-
-/*!
  @brief クレジット画面の開始
  
  クレジット画面を開始する。クレジットシーンへと遷移する。
@@ -620,8 +604,8 @@ void AKTitleScene::selectMenuItem(MenuItem item)
             y = AKScreenSize::positionFromTopRatio(kAKHowToPlayMenuPosTopRatio);
             break;
             
-        case MenuOption:
-            y = AKScreenSize::positionFromTopRatio(kAKOptionMenuPosTopRatio);
+        case MenuLeaderboard:
+            y = AKScreenSize::positionFromTopRatio(kAKLeaderboardMenuPosTopRatio);
             break;
             
         case MenuCredit:
@@ -642,4 +626,31 @@ void AKTitleScene::selectMenuItem(MenuItem item)
     
     // 選択中の項目を変更する
     m_selectMenu = item;
+}
+
+// Leaderboardボタン選択時の処理
+void AKTitleScene::selectLeaderboard()
+{
+    // メニュー選択時の効果音を鳴らす
+    SimpleAudioEngine::getInstance()->playEffect(kAKSelectSEFileName);
+    
+    // ボタンのブリンクアクションを作成する。
+    // ブリンクアクション終了後にLeaderboardを表示する。
+    // ブリンクアクションの途中でViewを表示させると、消えた状態でアニメーションが止まることがあるため。
+    Blink *blink = Blink::create(0.2f, 2);
+    CallFunc *callFunc = CallFunc::create(std::bind(std::mem_fun(&AKTitleScene::showLeaderboard), this));
+    Sequence *action = Sequence::create(blink, callFunc, NULL);
+    
+    // ブリンクアクションを開始する
+    m_leaderboardButton->runAction(action);
+}
+
+// Leaderboard表示
+void AKTitleScene::showLeaderboard()
+{
+    // ブリンク終了直後はボタン非表示になっているため、表示を元に戻す
+    m_leaderboardButton->setVisible(true);
+    
+    // ランキング画面を表示する
+    aklib::OnlineScore::openRanking();
 }
