@@ -45,8 +45,6 @@
 		0CCFF9241BACFE5500D2A868 /* LocalizedResource.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF90F1BACFE5500D2A868 /* LocalizedResource.cpp */; };
 		0CCFF9251BACFE5500D2A868 /* OnlineScore.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF9121BACFE5500D2A868 /* OnlineScore.mm */; };
 		0CCFF9261BACFE5500D2A868 /* OpenUrl.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF9141BACFE5500D2A868 /* OpenUrl.mm */; };
-		0CCFF9271BACFE5500D2A868 /* Payment.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF9161BACFE5500D2A868 /* Payment.mm */; };
-		0CCFF9281BACFE5500D2A868 /* Payment_objc.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF9181BACFE5500D2A868 /* Payment_objc.mm */; };
 		0CCFF9291BACFE5500D2A868 /* Twitter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF91B1BACFE5500D2A868 /* Twitter.mm */; };
 		0CCFF9351BACFE6B00D2A868 /* AKAngle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF92B1BACFE6B00D2A868 /* AKAngle.cpp */; };
 		0CCFF9361BACFE6B00D2A868 /* AKLogNoDef.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 0CCFF92D1BACFE6B00D2A868 /* AKLogNoDef.cpp */; };
@@ -189,7 +187,6 @@
 		0CAD07151C0BA53900ECF6CC /* Advertisement.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Advertisement.cpp; sourceTree = "<group>"; };
 		0CAD07161C0BAC8500ECF6CC /* OnlineScore.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OnlineScore.cpp; sourceTree = "<group>"; };
 		0CAD07171C0BAD1600ECF6CC /* OpenUrl.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = OpenUrl.cpp; sourceTree = "<group>"; };
-		0CAD07181C0BAD7800ECF6CC /* Payment.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Payment.cpp; sourceTree = "<group>"; };
 		0CAD07191C0FA15500ECF6CC /* Twitter.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Twitter.cpp; sourceTree = "<group>"; };
 		0CAD071B1C14DE3900ECF6CC /* fonts */ = {isa = PBXFileReference; lastKnownFileType = folder; path = fonts; sourceTree = "<group>"; };
 		0CAD071D1C14E08B00ECF6CC /* pictures */ = {isa = PBXFileReference; lastKnownFileType = folder; path = pictures; sourceTree = "<group>"; };
@@ -220,11 +217,6 @@
 		0CCFF9121BACFE5500D2A868 /* OnlineScore.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OnlineScore.mm; sourceTree = "<group>"; };
 		0CCFF9131BACFE5500D2A868 /* OpenUrl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUrl.h; sourceTree = "<group>"; };
 		0CCFF9141BACFE5500D2A868 /* OpenUrl.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OpenUrl.mm; sourceTree = "<group>"; };
-		0CCFF9151BACFE5500D2A868 /* Payment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Payment.h; sourceTree = "<group>"; };
-		0CCFF9161BACFE5500D2A868 /* Payment.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Payment.mm; sourceTree = "<group>"; };
-		0CCFF9171BACFE5500D2A868 /* Payment_objc.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Payment_objc.h; sourceTree = "<group>"; };
-		0CCFF9181BACFE5500D2A868 /* Payment_objc.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Payment_objc.mm; sourceTree = "<group>"; };
-		0CCFF9191BACFE5500D2A868 /* PaymentDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaymentDelegate.h; sourceTree = "<group>"; };
 		0CCFF91A1BACFE5500D2A868 /* Twitter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Twitter.h; sourceTree = "<group>"; };
 		0CCFF91B1BACFE5500D2A868 /* Twitter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Twitter.mm; sourceTree = "<group>"; };
 		0CCFF92B1BACFE6B00D2A868 /* AKAngle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = AKAngle.cpp; sourceTree = "<group>"; };
@@ -469,18 +461,12 @@
 				0CCFF9121BACFE5500D2A868 /* OnlineScore.mm */,
 				0CCFF9131BACFE5500D2A868 /* OpenUrl.h */,
 				0CCFF9141BACFE5500D2A868 /* OpenUrl.mm */,
-				0CCFF9151BACFE5500D2A868 /* Payment.h */,
-				0CCFF9161BACFE5500D2A868 /* Payment.mm */,
-				0CCFF9171BACFE5500D2A868 /* Payment_objc.h */,
-				0CCFF9181BACFE5500D2A868 /* Payment_objc.mm */,
-				0CCFF9191BACFE5500D2A868 /* PaymentDelegate.h */,
 				0CCFF91A1BACFE5500D2A868 /* Twitter.h */,
 				0CCFF91B1BACFE5500D2A868 /* Twitter.mm */,
 				0C71038E1BB0CB5E0087F0EF /* PurchaseInfoWriter.h */,
 				0CAD07151C0BA53900ECF6CC /* Advertisement.cpp */,
 				0CAD07161C0BAC8500ECF6CC /* OnlineScore.cpp */,
 				0CAD07171C0BAD1600ECF6CC /* OpenUrl.cpp */,
-				0CAD07181C0BAD7800ECF6CC /* Payment.cpp */,
 				0CAD07191C0FA15500ECF6CC /* Twitter.cpp */,
 			);
 			path = AKLibrary;
@@ -838,7 +824,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0CCFF9381BACFE6B00D2A868 /* ID.cpp in Sources */,
-				0CCFF9271BACFE5500D2A868 /* Payment.mm in Sources */,
 				0CCFF9231BACFE5500D2A868 /* GameCenterHelper.m in Sources */,
 				0CCFF9241BACFE5500D2A868 /* LocalizedResource.cpp in Sources */,
 				0CCFF9771BACFE7E00D2A868 /* AKNWayAngle.cpp in Sources */,
@@ -862,7 +847,6 @@
 				0CCFF9731BACFE7E00D2A868 /* AKEnemy.cpp in Sources */,
 				503AE10217EB989F00D1A890 /* RootViewController.mm in Sources */,
 				0CCFF9211BACFE5500D2A868 /* AKScreenSize.cpp in Sources */,
-				0CCFF9281BACFE5500D2A868 /* Payment_objc.mm in Sources */,
 				0CCFF97C1BACFE7E00D2A868 /* AKPlayingScene.cpp in Sources */,
 				0CCFF9781BACFE7E00D2A868 /* AKOption.cpp in Sources */,
 				0CCFF9751BACFE7E00D2A868 /* AKGauge.cpp in Sources */,

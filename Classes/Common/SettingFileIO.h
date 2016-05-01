@@ -36,21 +36,15 @@
 #ifndef __toritoma__SettingFileIO__
 #define __toritoma__SettingFileIO__
 
-#include "PurchaseInfoWriter.h"
-
 /*!
  @brief 設定データファイル入出力
  
  設定データをファイル入出力する。
  */
-class SettingFileIO : public PurchaseInfoWriter {
+class SettingFileIO {
 private:
-    // UserDefaultの課金済みかどうかのキー
-    static const char *UDKeyIsPurchased;
     // UserDefaultのハイスコアのキー
     static const char *UDKeyHighScore;
-    // 課金済みかどうか
-    bool _isPurchased;
     // ハイスコア
     int _highScore;
 
@@ -58,20 +52,8 @@ public:
     // インスタンス取得
     static SettingFileIO& GetInstance();
     
-    /*!
-     @brief 課金情報書き込み
-     
-     課金完了した事をファイルに書き込む。同時にメモリ上の情報も更新する。
-     @param productID プロダクトID
-     */
-    virtual void writePurchase(const char *productID);
-
     // ファイルを読み込む
     void ReadFile();
-    // 課金済みかどうかをファイルに書き込む
-    void WriteIsPurchased(bool isPurchased);
-    // 課金済みかどうかを取得する
-    bool IsPurchased();
     // ハイスコアをファイルに書き込む
     void WriteHighScore(int hiScore);
     // ハイスコアを取得する

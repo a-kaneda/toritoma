@@ -39,7 +39,6 @@
 #include "CreditScene.h"
 #include "Advertisement.h"
 #include "base/CCEventListenerController.h"
-#include "SettingFileIO.h"
 #include "OnlineScore.h"
 
 using cocos2d::Vec2;

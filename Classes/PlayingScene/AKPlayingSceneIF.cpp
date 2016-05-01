@@ -156,8 +156,6 @@ static const char *kAKStageClearString = " STAGE CLEAR ";
 static const char *kAKAllStageClearString = " ALL STAGE CLEAR ";
 /// 2周目続行ボタンのキャプション
 static const char *kAKContinuePlayingButtonString = "CONTINUE";
-/// ゲーム終了ボタンのキャプション
-static const char *kAKGameOverOfAllStageClearString = " GAME OVER ";
 /// ステージクリアキャプションの表示位置、下からの比率
 static const float kAKAllStageClearCaptionPosBottomRatio = 0.6f;
 /// 2周目続行ボタンの位置、下からの比率
@@ -546,24 +544,14 @@ void AKPlayingSceneIF::createAllStageClear()
     x = AKScreenSize::center().x;
     y = AKScreenSize::positionFromBottomRatio(kAKContinuePlayingButtonPosBottomRatio);
     
-    // 課金済みの場合は2周目続行ボタン、課金前の場合はタイトルへ戻るボタンを作成する
-    if (SettingFileIO::GetInstance().IsPurchased()) {
-        m_continuePlayingButton = addLabelMenu(kAKContinuePlayingButtonString,
-                                               Vec2(x, y),
-                                               0,
-                                               kAKEventTouchContinuePlayingButton,
-                                               kAKMenuTagAllStageClear,
-                                               true);
-    }
-    else {
-        m_continuePlayingButton = addLabelMenu(kAKGameOverOfAllStageClearString,
-                                               Vec2(x, y),
-                                               0,
-                                               kAKEventTouchQuitYesButton,
-                                               kAKMenuTagAllStageClear,
-                                               true);
-    }
-
+    // 2周目続行ボタンを作成する
+    m_continuePlayingButton = addLabelMenu(kAKContinuePlayingButtonString,
+                                            Vec2(x, y),
+                                            0,
+                                            kAKEventTouchContinuePlayingButton,
+                                            kAKMenuTagAllStageClear,
+                                            true);
+    
     // ゲームクリアメニューのカーソルを作成する
     m_clearCursor = Sprite::createWithSpriteFrameName(CursorImageFileName);
     

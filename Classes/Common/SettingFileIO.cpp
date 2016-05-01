@@ -39,8 +39,6 @@
 
 using cocos2d::UserDefault;
 
-/// UserDefaultの課金済みかどうかのキー
-const char *SettingFileIO::UDKeyIsPurchased = "IsPurchased";
 /// UserDefaultのハイスコアのキー
 const char *SettingFileIO::UDKeyHighScore = "HighScore";
 
@@ -61,20 +59,6 @@ SettingFileIO& SettingFileIO::GetInstance()
     return instance;
 }
 
-// 課金情報書き込み
-void SettingFileIO::writePurchase(const char *productID)
-{
-    assert(productID != NULL);
-    
-    // 広告解除の場合
-    if (strcmp(productID, ProductIDRemoveAd) == 0) {
-        WriteIsPurchased(true);
-    }
-    else {
-        assert(0);
-    }
-}
-
 /*!
  @brief ファイルを読み込む
  
@@ -85,40 +69,8 @@ void SettingFileIO::ReadFile()
     // UserDefaultインスタンスを取得する
     UserDefault *ud = UserDefault::getInstance();
 
-    // 課金済みかどうかを読み込む
-    _isPurchased = ud->getBoolForKey(UDKeyIsPurchased, false);
-    
     // ハイスコアを読み込む
     _highScore = ud->getIntegerForKey(UDKeyHighScore, 0);
-}
-
-/*!
- @brief 課金済みかどうかをファイルに書き込む
- 
- 課金済みかどうかをファイルに書き込む。
- @param isPurhcased 課金済みかどうか
- */
-void SettingFileIO::WriteIsPurchased(bool isPurchased)
-{
-    // UserDefaultインスタンスを取得する
-    UserDefault *ud = UserDefault::getInstance();
-    
-    // 課金済みかどうかを書き込む
-    ud->setBoolForKey(UDKeyIsPurchased, isPurchased);
-    
-    // メンバ変数の内容を変更する
-    _isPurchased = isPurchased;
-}
-
-/*!
- @brief 課金済みかどうかを取得する
- 
- 課金済みかどうかを取得する。
- @return 課金済みかどうか
- */
-bool SettingFileIO::IsPurchased()
-{
-    return _isPurchased;
 }
 
 /*!
@@ -158,6 +110,5 @@ int SettingFileIO::GetHighScore()
 SettingFileIO::SettingFileIO()
 {
     // メンバ変数を初期化する
-    _isPurchased = false;
     _highScore = 0;
 }

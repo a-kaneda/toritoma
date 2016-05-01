@@ -1740,14 +1740,8 @@ void AKPlayingScene::onKeyDownOnMenu(int keyCode)
                 
             case kAKGameStateGameClear:
                 
-                // 課金済みの場合は2周目続行ボタンの処理を行う
-                // 課金していない場合はタイトルに戻る
-                if (SettingFileIO::GetInstance().IsPurchased()) {
-                    touchContinueButton();
-                }
-                else {
-                    touchQuitYesButton();
-                }
+                // 2周目続行ボタンの処理を行う
+                touchContinueButton();
                 
                 break;
                 
