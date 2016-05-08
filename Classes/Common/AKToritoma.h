@@ -95,7 +95,7 @@ extern const char *kAKUDKeyHighScore;
 /// 2周目開始ステージ番号
 #define DEBUG_MODE_2ND_START_STAGE 1
 /// 初期残機
-#define DEBUG_MODE_INITIAL_LIFE 0
+#define DEBUG_MODE_INITIAL_LIFE 10
 
 #else
 

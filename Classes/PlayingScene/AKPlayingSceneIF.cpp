@@ -577,10 +577,10 @@ void AKPlayingSceneIF::setShieldButtonSelected(bool selected)
 
     // 選択中かどうかで画像を切り替える
     if (selected) {
-        m_shieldButton->setDisplayFrame(spriteFrameCache->getSpriteFrameByName(kAKShiledButtonSelectedImage));
+        m_shieldButton->setSpriteFrame(spriteFrameCache->getSpriteFrameByName(kAKShiledButtonSelectedImage));
     }
     else {
-        m_shieldButton->setDisplayFrame(spriteFrameCache->getSpriteFrameByName(kAKShiledButtonNoSelectImage));
+        m_shieldButton->setSpriteFrame(spriteFrameCache->getSpriteFrameByName(kAKShiledButtonNoSelectImage));
     }
 }
 
@@ -597,10 +597,10 @@ void AKPlayingSceneIF::setHoldButtonSelected(bool selected)
 
     // 選択中かどうかで画像を切り替える
     if (selected) {
-        m_holdButton->setDisplayFrame(spriteFrameCache->getSpriteFrameByName(kAKHoldButtonSelectedImage));
+        m_holdButton->setSpriteFrame(spriteFrameCache->getSpriteFrameByName(kAKHoldButtonSelectedImage));
     }
     else {
-        m_holdButton->setDisplayFrame(spriteFrameCache->getSpriteFrameByName(kAKHoldButtonNoSelectImage));
+        m_holdButton->setSpriteFrame(spriteFrameCache->getSpriteFrameByName(kAKHoldButtonNoSelectImage));
     }
 }
 

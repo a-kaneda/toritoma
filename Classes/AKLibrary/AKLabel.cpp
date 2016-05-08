@@ -559,7 +559,7 @@ void AKLabel::createFrame()
             else {
             
                 // スプライトを差し替える
-                charSprite->setDisplayFrame(charSpriteFrame);
+                charSprite->setSpriteFrame(charSpriteFrame);
             }
         }
     }

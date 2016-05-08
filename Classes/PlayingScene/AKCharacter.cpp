@@ -362,7 +362,7 @@ void AKCharacter::setImageName(const std::string &imageName)
             SpriteFrame *spriteFrame = spriteFrameCache->getSpriteFrameByName(imageFileName);
             AKAssert(spriteFrame, "スプライト作成に失敗:%s", imageFileName);
 
-            m_image->setDisplayFrame(spriteFrame);
+            m_image->setSpriteFrame(spriteFrame);
         }
     }
 }
@@ -400,7 +400,7 @@ void AKCharacter::setAnimationInitPattern(int animationInitPattern)
         
         // 表示スプライトを変更する
         SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();
-        m_image->setDisplayFrame(spriteFrameCache->getSpriteFrameByName(imageFileName));
+        m_image->setSpriteFrame(spriteFrameCache->getSpriteFrameByName(imageFileName));
     }
 }
 
@@ -523,7 +523,7 @@ void AKCharacter::move(AKPlayDataInterface *data)
         
         // 表示スプライトを変更する
         SpriteFrameCache *spriteFrameCache = SpriteFrameCache::getInstance();
-        m_image->setDisplayFrame(spriteFrameCache->getSpriteFrameByName(imageFileName));
+        m_image->setSpriteFrame(spriteFrameCache->getSpriteFrameByName(imageFileName));
     }
     
     // キャラクター固有の動作を行う
