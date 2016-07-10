@@ -33,6 +33,7 @@
  プレイ画面シーンのゲームデータを管理するクラスを定義する。
  */
 
+#include <chrono>
 #include "AKPlayData.h"
 #include "AKPlayingScene.h"
 #include "AKPlayerShot.h"
@@ -44,6 +45,10 @@
 #include "SettingFileIO.h"
 #include "string.h"
 
+using std::chrono::system_clock;
+using std::chrono::duration_cast;
+using std::chrono::milliseconds;
+using std::vector;
 using cocos2d::Node;
 using cocos2d::Vec2;
 using cocos2d::SpriteFrameCache;
@@ -416,6 +421,14 @@ void AKPlayData::writeHiScore()
  */
 void AKPlayData::update()
 {
+#ifdef DEBUG
+    // 処理時間計測のため、処理開始時のシステム時刻を取得する
+    auto begin = system_clock::now();
+    
+    // 処理途中の時間計測用の配列を用意する
+    vector<system_clock::time_point> checkPoints;
+#endif
+    
     AKLog(kAKLogPlayData_4, "m_loopCount=%d", m_loopCount);
     
     // クリア後の待機中の場合はステージクリア処理を行う
@@ -491,8 +504,18 @@ void AKPlayData::update()
         }
     }
     
+#ifdef DEBUG
+    // 処理途中のシステム時刻を計測する
+    checkPoints.push_back(system_clock::now());
+#endif
+    
     // マップを更新する
     m_tileMap->update(this);
+    
+#ifdef DEBUG
+    // 処理途中のシステム時刻を計測する
+    checkPoints.push_back(system_clock::now());
+#endif
     
     // 障害物を更新する
     for (AKBlock *block : *m_blockPool.getPool()) {
@@ -500,6 +523,11 @@ void AKPlayData::update()
             block->move(this);
         }
     }
+    
+#ifdef DEBUG
+    // 処理途中のシステム時刻を計測する
+    checkPoints.push_back(system_clock::now());
+#endif
     
     // コントローラー操作による自機の移動を行う
     if (!AKIsEqualFloat(m_playerSpeedX, 0.0f) || !AKIsEqualFloat(m_playerSpeedY, 0.0f)) {
@@ -509,6 +537,11 @@ void AKPlayData::update()
     // 自機を更新する
     m_player->move(this);
     
+#ifdef DEBUG
+    // 処理途中のシステム時刻を計測する
+    checkPoints.push_back(system_clock::now());
+#endif
+    
     // 自機弾を更新する
     for (AKPlayerShot *playerShot : *m_playerShotPool.getPool()) {
         if (playerShot->isStaged()) {
@@ -516,12 +549,22 @@ void AKPlayData::update()
         }
     }
     
+#ifdef DEBUG
+    // 処理途中のシステム時刻を計測する
+    checkPoints.push_back(system_clock::now());
+#endif
+    
     // 反射弾を更新する
     for (AKEnemyShot *refrectedShot : *m_reflectShotPool.getPool()) {
         if (refrectedShot->isStaged()) {
             refrectedShot->move(this);
         }
     }
+    
+#ifdef DEBUG
+    // 処理途中のシステム時刻を計測する
+    checkPoints.push_back(system_clock::now());
+#endif
     
     // 敵を更新する
     for (AKEnemy *enemy : *m_enemyPool.getPool()) {
@@ -531,6 +574,11 @@ void AKPlayData::update()
         }
     }
     
+#ifdef DEBUG
+    // 処理途中のシステム時刻を計測する
+    checkPoints.push_back(system_clock::now());
+#endif
+    
     // 敵弾を更新する
     for (AKEnemyShot *enemyShot : *m_enemyShotPool.getPool()) {
         if (enemyShot->isStaged()) {
@@ -538,12 +586,22 @@ void AKPlayData::update()
         }
     }
     
+#ifdef DEBUG
+    // 処理途中のシステム時刻を計測する
+    checkPoints.push_back(system_clock::now());
+#endif
+    
     // 画面効果を更新する
     for (AKEffect *effect : *m_effectPool.getPool()) {
         if (effect->isStaged()) {
             effect->move(this);
         }
     }
+    
+#ifdef DEBUG
+    // 処理途中のシステム時刻を計測する
+    checkPoints.push_back(system_clock::now());
+#endif
     
     // 障害物の当たり判定を行う
     for (AKBlock *block : *m_blockPool.getPool()) {
@@ -565,6 +623,11 @@ void AKPlayData::update()
         }
     }
     
+#ifdef DEBUG
+    // 処理途中のシステム時刻を計測する
+    checkPoints.push_back(system_clock::now());
+#endif
+    
     // 敵と自機弾、反射弾の当たり判定を行う
     bool isHit = false;
     for (AKEnemy *enemy : *m_enemyPool.getPool()) {
@@ -576,10 +639,20 @@ void AKPlayData::update()
         isHit = enemy->checkHit(*m_reflectShotPool.getPool(), this) || isHit;
     }
     
+#ifdef DEBUG
+    // 処理途中のシステム時刻を計測する
+    checkPoints.push_back(system_clock::now());
+#endif
+    
     // 敵が自機弾と当たっている場合は効果音を鳴らす
     if (isHit) {
         SimpleAudioEngine::getInstance()->playEffect(kAKHitSEFileName);
     }
+    
+#ifdef DEBUG
+    // 処理途中のシステム時刻を計測する
+    checkPoints.push_back(system_clock::now());
+#endif
     
     // シールド有効時、反射の判定を行う
     if (m_shield) {
@@ -629,6 +702,11 @@ void AKPlayData::update()
         }
     }
     
+#ifdef DEBUG
+    // 処理途中のシステム時刻を計測する
+    checkPoints.push_back(system_clock::now());
+#endif
+    
     // チキンゲージの溜まっている比率を更新する
     m_scene->getChickenGauge()->setPercent(m_player->getChickenGaugePercent());
     
@@ -637,6 +715,23 @@ void AKPlayData::update()
     
     // ボス体力ゲージの表示を更新する
     updateBossLifeGage();
+
+#ifdef DEBUG
+    // 処理時間計測のため、処理終了時のシステム時刻を取得する
+    auto end = system_clock::now();
+    
+    // 処理時間を計算する
+    double duration = duration_cast<milliseconds>(end - begin).count();
+    
+    // 60FPSに間に合っていない場合はログを出力する
+    if (duration > (1000.0 / 60.0)) {
+        
+        AKLog(true, "update() is too heaby: %d", (int)duration);
+        for (auto cp : checkPoints) {
+            AKLog(true, "%d", (int)duration_cast<milliseconds>(cp - begin).count());
+        }
+    }
+#endif
 }
 
 /*!

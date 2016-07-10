@@ -56,7 +56,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     director->getInstance()->setDepthTest(false);
 
     // turn off display FPS
-    director->setDisplayStats(false);
+    director->setDisplayStats(true);
     
     // 解像度を調整する
     AKScreenSize::init(glview);
